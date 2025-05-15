@@ -7,7 +7,13 @@ const lista_alunos = [
         nome: 'Júlio César',
         matricula: '20231144010043',
         turma: 'infov3'
+    },
+    {
+        nome: 'Breno Gusmão',
+        matricula: '20231144010022',
+        turma: 'infov3'
     }
+    
 ];
 
 
