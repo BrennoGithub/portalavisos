@@ -2,6 +2,35 @@ import {tela_login, tela_inicial} from "./telas.mjs";
 
 document.getElementById("conteudo").innerHTML = tela_login;
 
+//Funções de validação dos campos de login
+document.getElementById('nome').addEventListener('blur', () => {
+    const nome = document.getElementById("nome").value;
+    if(nome === ''){
+        document.getElementById("nome").style.borderColor = 'red';
+    }else{
+        document.getElementById("nome").style.borderColor = 'green';
+    }
+});
+
+document.getElementById('matricula').addEventListener('blur', () => {
+    const matricula = document.getElementById("matricula").value;
+    if(matricula.length < 14 || matricula.length > 14){
+        document.getElementById("matricula").style.borderColor = 'red';
+    }else{
+        document.getElementById("matricula").style.borderColor = 'green';
+    }
+});
+
+document.getElementById('turma').addEventListener('change', () => {
+    let turma = document.getElementById('turma').value;
+    if(turma === ''){
+        document.getElementById('turma').style.borderColor = 'red';
+    }else{
+        document.getElementById('turma').style.borderColor = 'green';
+    }
+
+});
+
 const lista_alunos = [
     {
         nome: 'Júlio César',
@@ -18,14 +47,33 @@ const lista_alunos = [
 
 function BD(event){
     event.preventDefault()
-    let nome = document.getElementById("nome").value;
-    let matricula = document.getElementById("matricula").value;
-    let turma = document.getElementById('turma').value;
+    const nome = document.getElementById("nome").value;
+    if(nome === ''){
+        document.getElementById("nome").style.borderColor = 'red';
+    }else{
+        document.getElementById("nome").style.borderColor = 'green';
+    }
 
-    let matriculado = ''
+    const matricula = document.getElementById("matricula").value;
+    if(matricula.length < 14 || matricula.length > 14){
+        document.getElementById("matricula").style.borderColor = 'red';
+    }else{
+        document.getElementById("matricula").style.borderColor = 'green';
+    }
+
+    const turma = document.getElementById('turma').value;
+    if(turma === ''){
+        document.getElementById('turma').style.borderColor = 'red';
+    }else{
+        document.getElementById('turma').style.borderColor = 'green';
+    }
+
+
+    let matriculado = '';
     for(let x = 0; x<lista_alunos.length; x++){
         if(lista_alunos[x].nome === nome && lista_alunos[x].matricula === matricula && lista_alunos[x].turma === turma){
             matriculado = true;
+            x = lista_alunos.length;
             
         }else{
             matriculado = false;

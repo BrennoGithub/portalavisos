@@ -6,22 +6,22 @@ export const tela_login = `<nav>
 </header>
 
 <form>
-    <label for="nome">Aluno: </label>
+    <label for="nome">Aluno </label>
     <input type="text" id="nome" placeholder="Digite seu Nome" style="margin-bottom: 20px;">
         <br>
-    <label for="matricula">Matrícula: </label>
+    <label for="matricula">Matrícula </label>
     <input type="text" id="matricula" placeholder="Digite sua Matrícula" style="margin-bottom: 20px;">
         <br>
-    <label>Escolha sua Turma</label>
+    <label>Turma</label>
     <select style="margin-bottom: 20px;" id="turma">
-        <option value="turmas">Turmas</option>
+        <option value="">Turmas</option>
         <option value="infov1">Info 1V</option>
         <option value="infov2">Info 2V</option>
         <option value="infov3">Info 3V</option>
         <option value="infov4">Info 4V</option>
     </select>
         <br>
-    <button onclick="BD(event)" type="submit">ACESSAR</button>
+    <button type="submit">ACESSAR</button>
 
 </form> 
 </div>
@@ -33,17 +33,20 @@ export const tela_inicial = `
 <br>
 <h2>Mural</h2>
 <div class="area">
+    <div class="areaConteudo" style="display: flex;">
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Provas e Trabalho</h2>
+                <span>Area conteudo</span>
+            </div>
 
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Material de Estudo</h2>
+                <span>Area conteudo</span>
+            </div>
+    </div>
 
-</div>
-
-<h2>Provas e Trabalho</h2>
-<div class="area">
-
-</div>
-
-<h2>Material de Estudo</h2>
-<div class="area">
-
+    <div class="areaAdicao">
+        <button id="Adi_Mural">+</button>
+    </div>
 </div>
 `;
