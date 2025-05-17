@@ -1,4 +1,4 @@
-import {tela_login, tela_inicial} from "./telas.mjs";
+import {tela_login, tela_inicial_lideres, tela_inicial_comun} from "./telas.mjs";
 
 document.getElementById("conteudo").innerHTML = tela_login;
 
@@ -45,6 +45,9 @@ const lista_alunos = [
     
 ];
 
+//Lista dos lideres de turma
+const lista_lideres_turma = ['Júlio César'];
+
 function BD(event){
     event.preventDefault()
     const nome = document.getElementById("nome").value;
@@ -82,8 +85,17 @@ function BD(event){
     }
 
     if(matriculado){
-        alert('Bem-vindo');
-        document.getElementById("conteudo").innerHTML = tela_inicial;
+        //Se o usuário for um lider e estiver na lista de lideres, será apresentado a tela dos lideres
+        if(lista_lideres_turma.includes(nome)){ 
+            alert('Bem-vindo');
+            document.getElementById("conteudo").innerHTML = tela_inicial_lideres;
+        }
+        //Caso não seja um lider de turma, será apresentado a tela comun
+        else{
+            alert('Bem-vindo');
+            document.getElementById("conteudo").innerHTML = tela_inicial_comun;
+        }
+
     }else{
         alert('Login incorreto');
     }

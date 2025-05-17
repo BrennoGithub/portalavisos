@@ -27,26 +27,50 @@ export const tela_login = `<nav>
 </div>
 `;
 
-export const tela_inicial = `
+//Tela de avisos onde só os lideres de turma podem ver
+export const tela_inicial_lideres = `
 <h1>Sistema de Avisos de INFO V</h1>
 <hr>
 <br>
-<h2>Mural</h2>
 <div class="area">
     <div class="areaConteudo" style="display: flex;">
             <div class="areaMaterial" style="width: 300px;">
                 <h2>Provas e Trabalho</h2>
+                    <hr>
                 <span>Area conteudo</span>
             </div>
 
             <div class="areaMaterial" style="width: 300px;">
                 <h2>Material de Estudo</h2>
+                    <hr>
                 <span>Area conteudo</span>
             </div>
     </div>
 
     <div class="areaAdicao">
-        <button id="Adi_Mural">+</button>
+        <button id="Adi_Mural">+</button> Tela dos lideres
+    </div>
+</div>
+`;
+
+//Tela de avisos onde todo mundo que não é lider de turma pode ver
+export const tela_inicial_comun = `
+<h1>Sistema de Avisos de INFO V</h1>
+<hr>
+<br>
+<div class="area">
+    <div class="areaConteudo" style="display: flex;">
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Provas e Trabalho</h2>
+                    <hr>
+                <span>Area conteudo</span>
+            </div>
+
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Material de Estudo</h2>
+                    <hr>
+                <span>Area conteudo</span>
+            </div>
     </div>
 </div>
 `;
