@@ -1,3 +1,4 @@
+//Tela de Login do sistema de avisos
 export const tela_login = `<nav>
 </nav>
 <div id="forms">
@@ -28,7 +29,7 @@ export const tela_login = `<nav>
 `;
 
 //Tela de avisos onde só os lideres de turma podem ver
-export const tela_inicial_lideres = `
+export const tela_lideres = `
 <h1>Sistema de Avisos de INFO V</h1>
 <hr>
 <br>
@@ -54,7 +55,7 @@ export const tela_inicial_lideres = `
 `;
 
 //Tela de avisos onde todo mundo que não é lider de turma pode ver
-export const tela_inicial_comun = `
+export const tela_comun = `
 <h1>Sistema de Avisos de INFO V</h1>
 <hr>
 <br>

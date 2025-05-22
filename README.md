@@ -1,5 +1,5 @@
 # Portal de Avisos INFO V
-Sistema de avisos escolares para a turma de informatica vespetino, onde os lideres das turmas podem colocar avisos de provas, trabalhos e entre outros avisos. 
+Sistema de avisos escolares para a turma de informatica vespetino, onde os lideres das turmas podem colocar avisos de provas, trabalhos, avisos e material de estudo. 
 Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) e [Júlio César](https://github.com/JCOAlves) para a matéria de Autoria Web do curso de Informatica.
 
 ## Arquivos do projeto:
