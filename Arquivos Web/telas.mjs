@@ -36,7 +36,7 @@ export const tela_lideres = `
 <div class="area">
     <div class="areaConteudo" style="display: flex;">
             <div class="areaMaterial" style="width: 300px;">
-                <h2>Provas e Trabalho</h2>
+                <h2>Avaliações</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
@@ -46,10 +46,17 @@ export const tela_lideres = `
                     <hr>
                 <span>Area conteudo</span>
             </div>
+
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Avisos</h2>
+                    <hr>
+                <span>Area conteudo</span>
+            </div>
     </div>
 
     <div class="areaAdicao">
-        <button id="Adi_Mural">+</button> Tela dos lideres
+        <button id="Adi_Mural">+</button>
+            <br>
     </div>
 </div>
 `;
@@ -62,13 +69,19 @@ export const tela_comun = `
 <div class="area">
     <div class="areaConteudo" style="display: flex;">
             <div class="areaMaterial" style="width: 300px;">
-                <h2>Provas e Trabalho</h2>
+                <h2>Avaliações</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
 
             <div class="areaMaterial" style="width: 300px;">
                 <h2>Material de Estudo</h2>
+                    <hr>
+                <span>Area conteudo</span>
+            </div>
+
+            <div class="areaMaterial" style="width: 300px;">
+                <h2>Avisos</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>

@@ -57,28 +57,35 @@ button{
     font-size: 14px;
 }
 
+/*Área de conteudo do sistema de aviso*/
 .area{
     border: solid gray 1px;
     border-radius: 20px;
-    margin: 0px 40px 60px 40px;
+    margin: 0px 20px 60px 20px;
     background-color: white;
-    min-height: 200px;
+    min-height: 400px;
+    min-width: 60%;
+    display: block;
 }
 
 .areaAdicao{
-    width: 200px;
+    width: 400px;
     min-height: 40px;
     margin: 20px;
+    border: solid 1px black;
+    padding: 20px;
 
 }
 
 .areaConteudo{
-    min-height: 200px;
+    min-height: 400px;
+    min-width: auto;
     margin: 20px;
+    display: block;
 }
 
 .areaMaterial{
-    min-width: 300px;
+    min-width: 245px;
     max-width: 300px;
     border: solid 1px gray;
     border-radius: 20px;
