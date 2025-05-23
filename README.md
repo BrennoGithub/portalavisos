@@ -12,5 +12,6 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 - **static:** Pasta que armazena arquivos css e mjs.
 - **templates:** Pasta que contém os templates para HTML do Flask.
 - **app:** Arquivo Python com as rotas do projeto.
+- **Z_Anotações:** Subpasta que serve para guardar scripts do projeto.
 
 > Os arquivos JavaScript possuem extensão '''.mjs''' para os recursos de exportação e importação de dados e funções do projeto.
