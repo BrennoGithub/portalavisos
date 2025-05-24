@@ -61,10 +61,10 @@ button{
 .area{
     border: solid gray 1px;
     border-radius: 20px;
-    margin: 0px 20px 60px 20px;
+    margin: 0px 20px 40px 20px;
     background-color: white;
     min-height: 400px;
-    min-width: 60%;
+    min-width: auto;
     display: block;
 }
 
@@ -72,23 +72,43 @@ button{
     width: 400px;
     min-height: 40px;
     margin: 20px;
-    border: solid 1px black;
-    padding: 20px;
-
 }
 
 .areaConteudo{
     min-height: 400px;
-    min-width: auto;
+    min-width: 30%;
     margin: 20px;
     display: block;
 }
 
 .areaMaterial{
     min-width: 245px;
-    max-width: 300px;
+    max-width: 30px;
     border: solid 1px gray;
     border-radius: 20px;
     margin: 20px 20px 20px 0px;
     text-align: center;
+}
+
+/*Estilo do formulario de avisos*/
+.formAviso{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+fieldset{
+    border-radius: 10px;
+    padding: 0px 20px 0px 20px;
+    width: 200px;
+}
+
+legend{
+    text-align: center
+}
+
+textarea{
+    border-radius: 10px;
+    width: 300px;
+    height: 90px;
+    padding: 10px;
 }

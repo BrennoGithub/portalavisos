@@ -6,7 +6,10 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 - **Arquivos Web:** Subpasta com os arquivos relacionados a parte HTML, CSS e JavaScript do projeto.
   - **Inicial:** Arquivo HTML do projeto.
   - **telas:** Arquivo JavaScript com os menus e formularios do projeto para rotação.
-  - **script:** Arquivo JavaScript com o script principal do projeto.
+  - **login:** Arquivo JavaScript com o script e funções de validação de login.
+  - **dados:** Arquivo JavaScript com os dados da aplicação, como lista de alunos e lideres de turma. Além disso, há o objeto Aviso e
+  a lista e avisos e lista de IDs dos avisos.
+  - **form_avisos:** Arquivo JavaScript com a função e o formulario de criação de avisos.
   - **style:** Folha de estilo do projeto.
 - **_pycache_:** Diretório que armazena arquivos compilados do Python.
 - **static:** Pasta que armazena arquivos css e mjs.
