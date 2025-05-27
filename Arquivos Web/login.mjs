@@ -95,6 +95,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
         else{
             alert('Bem-vindo');
             document.getElementById("conteudo").innerHTML = tela_comun;
+            
         }
 
     }else{

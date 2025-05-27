@@ -30,57 +30,87 @@ export const tela_login = `<nav>
 
 //Tela de avisos onde só os lideres de turma podem ver
 export const tela_lideres = `
-<h1>Sistema de Avisos de INFO V</h1>
-<hr>
-<br>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+  <a href="#">Avisos</a>
+    <hr>
+  <a href="#">Avaliações</a>
+  <a href="#">Material de Estudo</a>
+  <a href="#">Descrição</a>
+</div>
+
+<div style="display: flex;">
+    <div id="main">
+        <button class="openbtn" onclick="openNav()">☰</button>  
+    </div>
+    <h1>Sistema de Avisos de INFO V</h1>
+</div>
+    <hr>
+    <br>
+
 <div class="area">
-    <div class="areaConteudo" style="display: flex;">
-            <div class="areaMaterial" style="width: 300px;">
+    <div class="areaConteudo">
+            <div class="areaMaterial">
                 <h2>Avaliações</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
 
-            <div class="areaMaterial" style="width: 300px;">
+            <div class="areaMaterial">
                 <h2>Material de Estudo</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
 
-            <div class="areaMaterial" style="width: 300px;">
+            <div class="areaMaterial">
                 <h2>Avisos</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
     </div>
-
-    <div class="areaAdicao">
-        <button id="Adi_Mural">+</button>
-            <br>
-    </div>
 </div>
 `;
 
+/*Botão de Criação de Aviso
+<div class="areaAdicao">
+        <button id="Adi_Mural">+</button>
+            <br>
+    </div>*/
+
 //Tela de avisos onde todo mundo que não é lider de turma pode ver
 export const tela_comun = `
-<h1>Sistema de Avisos de INFO V</h1>
-<hr>
-<br>
+<div id="mySidebar" class="sidebar">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+  <a href="#">Avisos</a>
+  <a href="#">Avaliações</a>
+  <a href="#">Material de Estudo</a>
+  <a href="#">Descrição</a>
+</div>
+
+<div style="display: flex;">
+    <div id="main">
+        <button class="openbtn" onclick="openNav()">☰</button>  
+    </div>
+    <h1>Sistema de Avisos de INFO V</h1>
+</div>
+    <hr>
+    <br>
+
 <div class="area">
-    <div class="areaConteudo" style="display: flex;">
-            <div class="areaMaterial" style="width: 300px;">
+    <div class="areaConteudo">
+            <div class="areaMaterial">
                 <h2>Avaliações</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
 
-            <div class="areaMaterial" style="width: 300px;">
+            <div class="areaMaterial">
                 <h2>Material de Estudo</h2>
                     <hr>
                 <span>Area conteudo</span>
             </div>
 
-            <div class="areaMaterial" style="width: 300px;">
+            <div class="areaMaterial">
                 <h2>Avisos</h2>
                     <hr>
                 <span>Area conteudo</span>
