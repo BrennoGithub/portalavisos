@@ -23,16 +23,6 @@ document.getElementById('matricula').addEventListener('blur', () => {
     }
 });
 
-document.getElementById('turma').addEventListener('change', () => {
-    let turma = document.getElementById('turma').value;
-    if(turma === ''){
-        document.getElementById('turma').style.borderColor = 'red';
-    }else{
-        document.getElementById('turma').style.borderColor = 'green';
-    }
-
-});
-
 
 //Função para validar o login do usuário
 document.querySelector('form').addEventListener('submit', (event) => {
@@ -51,17 +41,11 @@ document.querySelector('form').addEventListener('submit', (event) => {
         document.getElementById("matricula").style.borderColor = 'green';
     }
 
-    const turma = document.getElementById('turma').value;
-    if(turma === ''){
-        document.getElementById('turma').style.borderColor = 'red';
-    }else{
-        document.getElementById('turma').style.borderColor = 'green';
-    }
 
 
     let matriculado = '';
     for(let x = 0; x<lista_alunos.length; x++){
-        if(lista_alunos[x].nome === nome && lista_alunos[x].matricula === matricula && lista_alunos[x].turma === turma){
+        if(lista_alunos[x].nome === nome && lista_alunos[x].matricula === matricula){
             matriculado = true;
             x = lista_alunos.length;
             
@@ -74,7 +58,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
     if(matriculado){
         let lider_turma = '';
         for(let x = 0; x<lista_lideres_turma.length; x++){
-            if(lista_lideres_turma[x].nome === nome && lista_lideres_turma[x].matricula === matricula && lista_lideres_turma[x].turma === turma){
+            if(lista_lideres_turma[x].nome === nome && lista_lideres_turma[x].matricula === matricula){
                 lider_turma = true;
                 x = lista_lideres_turma.length;
                 
@@ -86,16 +70,13 @@ document.querySelector('form').addEventListener('submit', (event) => {
 
         //Verifica os lideres de turma
         if(lider_turma){ 
-            alert('Bem-vindo');
             document.getElementById("conteudo").innerHTML = tela_lideres;
             formAviso();
            
         }
         //Caso não seja um lider de turma, será apresentado a tela comun
         else{
-            alert('Bem-vindo');
             document.getElementById("conteudo").innerHTML = tela_comun;
-            
         }
 
     }else{

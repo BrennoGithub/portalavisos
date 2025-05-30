@@ -119,10 +119,6 @@ button{
 
 /*Área de conteudo do sistema de aviso*/
 .area{
-    border: solid gray 1px;
-    border-radius: 20px;
-    margin: 0px 20px 40px 20px;
-    background-color: white;
     min-height: 400px;
     min-width: auto;
     display: block;
@@ -135,14 +131,14 @@ button{
 }
 
 .areaConteudo{
-    margin: 20px;
     display: block;
 }
 
 .areaMaterial{
+    background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    margin: 20px 10px 20px 10px;
+    margin: 20px 30px 20px 30px;
     text-align: center;
     width: auto;
     min-height: 140px;
