@@ -3,7 +3,7 @@ Sistema de avisos escolares para a turma de informatica vespetino, onde os lider
 Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) e [Júlio César](https://github.com/JCOAlves) para a matéria de Autoria Web do curso de Informatica.
 
 ## Arquivos do projeto:
-- **Arquivos Web:** Subpasta com os rascunhos do projeto.
+- **Rascunhos Web:** Subpasta com os rascunhos do projeto.
   - **Inicial:** Arquivo HTML do projeto.
   - **telas:** Arquivo JavaScript com os menus e formularios do projeto para rotação.
   - **login:** Arquivo JavaScript com o script e funções de validação de login.
