@@ -5,7 +5,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return {'nome': 'ana'}, 'olamundo'
+    lista = [
+        {'nome': 'ana'},
+        {'nome': 'bianca'},
+        {'nome': 'carol'},
+        {'nome': 'daniela'},
+        {'nome': 'erica'}
+            ]
+   
+    texto = ''
+    for x in lista:
+        texto = texto+f"<h1>Meu nome é {x['nome']}</h1>"
+
+    return texto
 
 @app.route('/inicial')
 def inicial():
