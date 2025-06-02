@@ -1,6 +1,6 @@
-import {tela_login, tela_lideres, tela_comun} from "./telas.mjs";
+import {tela_login, tela_lideres, tela_comun} from "../../Rascunho Web/telas.mjs";
 import {formAviso} from "./form_avisos.mjs"
-import {lista_alunos, lista_lideres_turma} from "./dados.mjs";
+import {lista_alunos, lista_lideres_turma} from "../../Rascunho Web/dados.mjs";
 
 document.getElementById("conteudo").innerHTML = tela_login;
 

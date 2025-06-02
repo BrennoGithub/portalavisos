@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos Info V IFRN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="inicial">
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+        <a href="#">Avisos</a>
+          <hr>
+        <a href="#">Avaliações</a>
+        <a href="#">Material de Estudo</a>
+        <a href="#">Descrição</a>
+      </div>
+    
+      <header style="display: flex;">
+          <div id="main">
+              <button class="openbtn" onclick="openNav()">☰</button>  
+          </div>
+          <h1>Portal Avisos de INFO V</h1>
+      </header>
+          <hr>
+          <br>
+      
+      <article class="area">
+          <div class="areaConteudo">
+                  <div class="areaMaterial">
+                      <h2>Avaliações</h2>
+                          <hr>
+                      <span>Area conteudo</span>
+                  </div>
+      
+                  <div class="areaMaterial">
+                      <h2>Material de Estudo</h2>
+                          <hr>
+                      <span>Area conteudo</span>
+                  </div>
+      
+                  <div class="areaMaterial">
+                      <h2>Avisos</h2>
+                          <hr>
+                      <span>Area conteudo</span>
+                  </div>
+          </div>
+      </article>
+
+      <script type="module" src="{{ url_for('static', filename='js/login.mjs') }}"></script>
+</body>
+</html>

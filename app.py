@@ -4,24 +4,16 @@ from flask import render_template
 app = Flask(__name__)
 
 @app.route('/')
-def index():
-    lista = [
-        {'nome': 'ana'},
-        {'nome': 'bianca'},
-        {'nome': 'carol'},
-        {'nome': 'daniela'},
-        {'nome': 'erica'}
-            ]
-   
-    texto = ''
-    for x in lista:
-        texto = texto+f"<h1>Meu nome é {x['nome']}</h1>"
+def login():
+    return render_template('login.html')
 
-    return texto
+@app.route('/comun')
+def inicial_comun():
+    return render_template('tela_comun.html')
 
-@app.route('/inicial')
-def inicial():
-    return render_template('index.html') 
+@app.route('/lideres')
+def inicial_lideres():
+    return render_template('tela_lideres.html') 
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -31,4 +31,19 @@ function openNav() {
   <button class="openbtn" onclick="openNav()">☰</button>  
 </div>
 
+
+----------------------- Anotações app.py ----------------------
+  lista = [
+        {'nome': 'ana'},
+        {'nome': 'bianca'},
+        {'nome': 'carol'},
+        {'nome': 'daniela'},
+        {'nome': 'erica'}
+            ]
+   
+    texto = ''
+    for x in lista:
+        texto = texto+f"<h1>Meu nome é {x['nome']}</h1>"
+
+
 */

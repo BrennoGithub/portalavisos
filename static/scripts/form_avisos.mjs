@@ -1,4 +1,4 @@
-import {Aviso, lista_id_avisos, lista_avisos} from "./dados.mjs"
+import {Aviso, lista_id_avisos, lista_avisos} from "../../Rascunho Web/dados.mjs"
 
 //Script de criação de avisos do sistema
 export const formAviso = () => {
