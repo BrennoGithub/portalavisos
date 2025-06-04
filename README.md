@@ -18,6 +18,8 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
   - **tela_comun:** Página do inicial comun
   - **tela_lideres:** Página dos lidres de turma
 - **app:** Arquivo Python com as rotas do projeto.
-- **Z_Anotações:** Subpasta que serve para guardar scripts do projeto.
+- **Z_Anotações:** Subpasta que serve para guardar anotaçõs de scripts do projeto.
+- **package.json:** Arquivo de configuração do projeto, permite a importação dos dados e funções do JavaScript.
 
-> Os arquivos JavaScript possuem extensão '''.mjs''' para os recursos de exportação e importação de dados e funções do projeto.
+> Comandos '''package.json''':
+> - '''npm start run''' -> Exercuta o arquivo '''app.py'''
