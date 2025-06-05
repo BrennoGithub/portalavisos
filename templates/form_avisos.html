@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos Info V IFRN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <form>
+        <fieldset>
+            <legend><h2>Aviso</h2></legend>
+
+            <label for="tipo">Assunto:</label>
+            <select id="tipo" class="formAviso">
+                <option value="aviso">Aviso</option>
+                <option value="material">Material Didatico</option>
+                <option value="avaliacao">Avaliação</option>
+            </select>
+                <br>
+            <textarea placeholder="Aviso"  class="formAviso" id="assunto"></textarea>
+                <br>
+            
+            <label for="dia">Dia:</label> <input type="date" id="dia" class="formAviso">
+            <label for="hora" style="margin-left: 20px;">Hora:</label> <input type="time" id="hora"  class="formAviso" min="06:00" max="22:00">
+                <br>
+
+            <button type="submit" class="formAviso" id="criaAviso">Criar</button>
+        </fieldset>
+    </form>
+    
+    <script type="module" src="{{ url_for('static', filename='scripts/login.js') }}"></script>
+</body>
+</body>
+</html>
