@@ -5,11 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avisos Info V IFRN</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="inicial">
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+        <a href="javascript:void(0)" class="closebtn">X</a>
         <a href="#">Avisos</a>
           <hr>
         <a href="#">Avaliações</a>
@@ -19,7 +19,7 @@
      
       <header style="display: flex;">
           <div id="main">
-              <button class="openbtn" onclick="openNav()">☰</button>  
+              <button class="openbtn">☰</button>  
           </div>
           <h1>Portal Avisos de INFO V  - Tela comun</h1>
       </header>
@@ -48,6 +48,6 @@
           </div>
       </article>
 
-    <script type="module" src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='barra_lateral.js') }}"></script>
 </body>
 </html>
