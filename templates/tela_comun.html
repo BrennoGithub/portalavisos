@@ -10,11 +10,10 @@
 <body class="inicial">
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">X</a>
+        <a href="http://127.0.0.1:5000/comun">Mural</a>
         <a href="#">Avisos</a>
-          <hr>
         <a href="#">Avaliações</a>
-        <a href="#">Material de Estudo</a>
-        <a href="#">Descrição</a>
+        <a href="#">Material Didatico</a>
       </div>
      
       <header style="display: flex;">
@@ -31,23 +30,23 @@
                   <div class="areaMaterial">
                       <h2>Avaliações</h2>
                           <hr>
-                      <span>Area conteudo</span>
+                      <span>{{avaliacao}}</span>
                   </div>
       
                   <div class="areaMaterial">
                       <h2>Material de Estudo</h2>
                           <hr>
-                      <span>Area conteudo</span>
+                      <span>{{material}}</span>
                   </div>
       
                   <div class="areaMaterial">
                       <h2>Avisos</h2>
                           <hr>
-                      <span>Area conteudo</span>
+                      <span>{{aviso}}</span>
                   </div>
           </div>
       </article>
 
-    <script type="module" src="{{ url_for('static', filename='barra_lateral.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
 </body>
 </html>

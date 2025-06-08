@@ -9,25 +9,33 @@
 </head>
 <body class="cadastro">
         <form id="loginForm" class="formLogin">
-            <header>
-                <h1>Login</h1>
-            </header>
+            
+            <h1>Login</h1>
+           
+            <fieldset class="area_campo_login">
+                <legend><label for="nome">Aluno</label></legend>
+                <input type="text" id="nome" placeholder="Digite seu Nome">
+            </fieldset>
+               
 
-            <label for="nome">Aluno: </label>
-            <input type="text" id="nome" placeholder="Digite seu Nome" style="margin-bottom: 20px;">
-            <br>
-            <label for="matricula">Matrícula: </label>
-            <input type="text" id="matricula" placeholder="Digite sua Matrícula" style="margin-bottom: 20px;">
-            <br>
-            <label>Escolha sua Turma</label>
-            <select style="margin-bottom: 20px;" id="turma">
-                <option value="turmas">Turmas</option>
-                <option value="infov1">Info 1V</option>
-                <option value="infov2">Info 2V</option>
-                <option value="infov3">Info 3V</option>
-                <option value="infov4">Info 4V</option>
-            </select>
-            <br>
+            <fieldset class="area_campo_login">
+                <legend><label for="matricula">Matrícula</label></legend>
+                 <input type="text" id="matricula" placeholder="Digite sua Matrícula">
+            </fieldset>
+                
+
+            <fieldset class="area_campo_login">
+                <legend><label for="turma">Turma</label></legend>
+                <select id="turma">
+                    <option value="">------</option>
+                    <option value="infov1">Info 1V</option>
+                    <option value="infov2">Info 2V</option>
+                    <option value="infov3">Info 3V</option>
+                    <option value="infov4">Info 4V</option>
+                </select>
+            </fieldset>    
+                
+
             <button type="submit">ACESSAR</button>
         </form>
     

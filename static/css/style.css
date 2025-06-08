@@ -13,20 +13,33 @@ p{
 }
 
 label{
-    font-size: 20px;
+    font-size: 15px;
+}
+
+fieldset{
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 0px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+legend{
+    text-align: left;
+    margin-left: 20px;
 }
 
 input{
     border-radius: 5px;
-    border: solid black 1px;
+    border: none white;
     text-align: center;
     padding: 5px;
+    margin: auto;
 }
-
 
 select{
     border-radius: 5px;
-    border: solid black 1px;
+    border: none;
     text-align: center;
     padding: 5px;
 }
@@ -41,12 +54,13 @@ button{
     font-size: 14px;
 }
 
+
 /*Estilo da página de login*/
 .formLogin{
     background-color: white;
     text-align: center;
     width: 50%;
-    height: 280px;
+    height: 300px;
     border: 1px solid gray;
     padding: 15px;
     margin-top: 15%;
@@ -54,6 +68,12 @@ button{
     margin-right: 25%;
     border-radius: 10px;
 }
+
+.area_campo_login{
+    width: auto;
+    height: 50px;
+}
+
 
 /*Barra lateral*/
 .sidebar {
@@ -115,7 +135,8 @@ button{
     .sidebar a {font-size: 18px;}
 }
 
-/*Área de conteudo do sistema de aviso*/
+
+/*Estilo da área de conteudo do sistema de aviso*/
 .area{
     min-height: 400px;
     min-width: auto;
@@ -156,13 +177,16 @@ button{
 
 }
 
-.campo_form{
-    margin-bottom: 20px;
+.area_campo_form{
+    width: auto;
+    height: 50px;
 }
 
 textarea{
     border-radius: 10px;
-    width: 90%;
+    border: none;
+    width: 80%;
     height: 90px;
-    padding: 20px;
+    padding: 10px;
+    resize: none;
 }

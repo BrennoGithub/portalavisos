@@ -9,11 +9,12 @@
 <body class="inicial">
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">X</a>
-        <a href="#">Avisos</a>
+        <a href="#"><button>+</button></a>
           <hr>
+        <a href="http://127.0.0.1:5000/lideres">Mural</a>
+        <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
-        <a href="#">Material de Estudo</a>
-        <a href="#">Descrição</a>
+        <a href="#">Material Didatico</a>
       </div>
      
       <header style="display: flex;">
@@ -26,30 +27,33 @@
           <br>
       
       <article class="area">
-            <form class="formAviso">
+            <form class="formAviso" method="POST" action="/submit">
                 <h1>Aviso</h1>
               
-        
-                    <label for="tipo_aviso">Aviso: </label>
-                    <select id="tipo_aviso" class="campo_form">
-                        <option value="aviso">Aviso</option>
-                        <option value="material">Material Didatico</option>
-                        <option value="avaliacao">Avaliação</option>
-                    </select>
-                        <br>
+                <fieldset class="area_campo_form">
+                    <legend><label for="tipo_aviso">Aviso</label></legend>
+                        <select id="tipo_aviso" name="tipo_aviso" class="campo_form">
+                            <option value="aviso">Aviso</option>
+                            <option value="material">Material Didatico</option>
+                            <option value="avaliacao">Avaliação</option>
+                        </select>
+                </fieldset>
 
-                    <label for="assunto_aviso">Assunto: </label><input type="text" placeholder="Assunto do aviso" id="assunto_aviso" class="campo_form">
-                        <br>
+                <fieldset class="area_campo_form">
+                    <legend><label for="assunto_aviso">Assunto</label></legend>
+                    <input type="text" placeholder="Assunto do aviso" id="assunto_aviso" name="assunto_aviso" class="campo_form">
+                </fieldset>
 
-                    <textarea placeholder="Aviso" id="assunto" class="campo_form"></textarea>
-                        <br>
-                
-                    <button type="submit" id="criaAviso">Criar</button>
-               
+                <fieldset>
+                    <legend>Texto</legend>
+                    <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
+                </fieldset>
+
+                <button type="submit" id="criaAviso">Criar</button>
             </form>
       </article>
     
-    <script src="{{url_for('static', filename='barra_lateral.js')}}"></script>
+    <script src="{{url_for('static', filename='js/barra_lateral.js')}}"></script>
 </body>
 </body>
 </html>

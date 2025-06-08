@@ -9,14 +9,17 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
   - **dados:** Arquivo JavaScript com os dados da aplicação, como lista de alunos e lideres de turma. Além disso, há o objeto Aviso e a lista e avisos e lista de IDs dos avisos.
   - **form_avisos:** Arquivo JavaScript com a função e o formulario de criação de avisos.
   - **style:** Folha de estilo do projeto.
+
 - **static:** Pasta que armazena arquivos CSS e JavaScript.
   - **scripts:** Subpasta com os scripts JavaScript da aplicação
     - **form_avisos:**
     - **login:**
+
 - **templates:** Pasta que contém os templates para HTML do Flask.
   - **login:** Página do login
   - **tela_comun:** Página do inicial comun
   - **tela_lideres:** Página dos lidres de turma
+  
 - **app:** Arquivo Python com as rotas do projeto.
 - **Z_Anotações:** Subpasta que serve para guardar anotaçõs de scripts do projeto.
 - **package.json:** Arquivo de configuração do projeto, permite a importação dos dados e funções do JavaScript.
