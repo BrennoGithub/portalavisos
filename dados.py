@@ -15,6 +15,7 @@ lista_alunos = [
     }
 ]
 
+
 #Função de validação de login
 def validadeLogin(lista_alunos, nome, matricula, turma):
     for usuario in range(0, len(lista_alunos)):
@@ -31,7 +32,27 @@ def validadeLogin(lista_alunos, nome, matricula, turma):
 
 #lista de ids de avisos
 lista_id_avisos = []
-lista_avisos = []
+lista_avisos = [
+    {
+    'ID': 'id',
+        'tipo': 'tipo_aviso',
+        'assunto': 'assunto',
+        'texto': 'texto'}
+]
+
+#Função de criação de aviso
+def criaAviso(lista_avisos, lista_id_avisos, tipo_aviso, assunto, texto):
+    id = 1
+    if id in lista_id_avisos:
+        id += 1
+
+    lista_id_avisos.append(id)
+    lista_avisos.append({
+        'ID': id,
+        'tipo_aviso': tipo_aviso,
+        'assunto_aviso': assunto,
+        'texto': texto
+    })
 
 
  

@@ -205,3 +205,35 @@ textarea{
     padding: 10px;
     resize: none;
 }
+
+.botao_campo_form{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/*Estilo de avisos*/
+.estilo_aviso{
+    margin: 20px 30px 0px 30px;
+    display: flex;
+}
+
+.estilo_data{
+    width: 20%;
+    background-color: #999999;
+    border-radius: 5px 0px 0px 5px;
+    padding: 5px;
+}
+
+.estilo_assunto{
+    width: 20%;
+    background-color: #b3b3b3;
+    padding: 5px;
+  
+}
+
+.estilo_texto{
+    width: 80%;
+    background-color: #cccccc;
+    border-radius: 0px 5px 5px 0px;
+    padding: 5px;
+}

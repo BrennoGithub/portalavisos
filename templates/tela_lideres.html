@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avisos Info V IFRN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="/IF logo.png" type="image/x-icon">
 </head>
 <body class="inicial">
     <div id="mySidebar" class="sidebar">
@@ -42,9 +43,15 @@
                   </div>
       
                   <div class="areaMaterial">
-                      <h2>Avisos</h2>
-                          <hr>
-                      <span>{{aviso}}</span>
+                    <h2>Avisos</h2>
+                        <hr>
+                      
+                    <div class="estilo_aviso">
+                        <div class="estilo_data">data</div>
+                        <div class="estilo_assunto">{{assunto}}</div>
+                        <div class="estilo_texto">{{texto}}</div>
+                    </div>
+                     
                   </div>
           </div>
       </article>
