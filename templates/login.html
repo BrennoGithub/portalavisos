@@ -8,25 +8,26 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body class="cadastro">
-        <form id="loginForm" class="formLogin">
+        <form id="loginForm" class="formLogin" method="POST" action="/submit_login">
             
             <h1>Login</h1>
+            <hr>
            
             <fieldset class="area_campo_login">
                 <legend><label for="nome">Aluno</label></legend>
-                <input type="text" id="nome" placeholder="Digite seu Nome">
+                <input type="text" id="nome" name="nome" placeholder="Digite seu Nome">
             </fieldset>
                
 
             <fieldset class="area_campo_login">
                 <legend><label for="matricula">Matrícula</label></legend>
-                 <input type="text" id="matricula" placeholder="Digite sua Matrícula">
+                 <input type="text" id="matricula" name="matricula" placeholder="Digite sua Matrícula">
             </fieldset>
                 
 
             <fieldset class="area_campo_login">
                 <legend><label for="turma">Turma</label></legend>
-                <select id="turma">
+                <select id="turma" name="turma">
                     <option value="">------</option>
                     <option value="infov1">Info 1V</option>
                     <option value="infov2">Info 2V</option>
@@ -36,7 +37,7 @@
             </fieldset>    
                 
 
-            <button type="submit">ACESSAR</button>
+            <button type="submit" class="botao_campo_login">ACESSAR</button>
         </form>
     
 

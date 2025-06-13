@@ -20,7 +20,7 @@ def inicial_lideres():
 def form_avisos():
     return render_template('form_avisos.html')
 
-@app.route('/submit', methods=['POST'])
+@app.route('/submit_aviso', methods=['POST'])
 def cria_aviso():
     if request.method == 'POST':
         id = 1
@@ -42,6 +42,21 @@ def cria_aviso():
         return render_template('tela_lideres.html', aviso = lista_avisos)
     return redirect(url_for('/lideres/form_avisos'))
 
+@app.route('/submit_login', methods=['POST'])
+def valida_login():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        matricula = request.form['matricula']
+        turma = request.form['turma']
+
+        login = validadeLogin(lista_alunos, nome, matricula, turma)
+        if login == 'lider':
+            return render_template('tela_lideres.html', aviso = lista_avisos)
+        elif login == 'comun':
+            return render_template('tela_comun.html', aviso = lista_avisos)
+        elif login == 'invalido':
+            return '<h1>Login Invalido</h1>'    
+    return redirect(url_for('/'))
 
 if __name__ == '__main__':
     app.run(debug=True)

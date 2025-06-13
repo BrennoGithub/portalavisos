@@ -35,6 +35,8 @@ input{
     text-align: center;
     padding: 5px;
     margin: auto;
+    width: 60%;
+   
 }
 
 select{
@@ -42,6 +44,7 @@ select{
     border: none;
     text-align: center;
     padding: 5px;
+   
 }
 
 button{
@@ -59,19 +62,23 @@ button{
 .formLogin{
     background-color: white;
     text-align: center;
-    width: 50%;
-    height: 300px;
+    width: auto;
+    height: auto;
     border: 1px solid gray;
-    padding: 15px;
-    margin-top: 15%;
+    margin-top: 150px;
     margin-left: 25%;
     margin-right: 25%;
     border-radius: 10px;
 }
 
 .area_campo_login{
-    width: auto;
+    max-width: auto;
     height: 50px;
+    margin: 0px 15px 15px 15px;
+}
+
+.botao_campo_login{
+    margin-bottom: 15px;
 }
 
 
@@ -166,13 +173,12 @@ button{
 /*Estilo do formulario de avisos*/
 .formAviso{
     background-color: white;
-   text-align: center;
-    width: 50%;
+    text-align: center;
+    width: auto;
     border: 1px solid gray;
     margin-left: 25%;
     margin-right: 25%;
     border-radius: 10px;
-    padding: 20px;
     display: block;
 
 }
@@ -180,12 +186,21 @@ button{
 .area_campo_form{
     width: auto;
     height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.texto_campo_form{
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+    margin-right: 15px;
 }
 
 textarea{
     border-radius: 10px;
     border: none;
-    width: 80%;
+    width: 90%;
     height: 90px;
     padding: 10px;
     resize: none;
