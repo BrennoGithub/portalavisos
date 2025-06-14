@@ -49,10 +49,18 @@ def criaAviso(lista_avisos, lista_id_avisos, tipo_aviso, assunto, texto):
     lista_id_avisos.append(id)
     lista_avisos.append({
         'ID': id,
-        'tipo_aviso': tipo_aviso,
-        'assunto_aviso': assunto,
+        'tipo': tipo_aviso,
+        'assunto': assunto,
         'texto': texto
     })
 
-
+def exibiAviso(lista_avisos):
+    avisos = ''
+    for iten in lista_avisos:
+        avisos = avisos+f"""<div class="estilo_aviso">
+                        <div class="estilo_data">data</div>
+                        <div class="estilo_assunto">{iten['assunto']}</div>
+                        <div class="estilo_texto">{iten['texto']}</div>
+                        </div>"""
+    return avisos
  

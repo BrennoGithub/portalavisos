@@ -10,11 +10,13 @@ def login():
 
 @app.route('/comun')
 def inicial_comun():
-    return render_template('tela_comun.html', aviso = lista_avisos)
+    exibicao = exibiAviso(lista_avisos)
+    return render_template('tela_comun.html', aviso = exibicao)
 
 @app.route('/lideres')
 def inicial_lideres():
-    return render_template('tela_lideres.html', assunto = 'mundo', texto='ola') 
+    exibicao = exibiAviso(lista_avisos)
+    return render_template('tela_lideres.html', aviso = exibicao) 
 
 @app.route('/lideres/form_avisos')
 def form_avisos():
@@ -29,7 +31,8 @@ def cria_aviso():
 
         criaAviso(lista_avisos, lista_id_avisos, tipo_aviso, assunto, texto)
     
-        return render_template('tela_lideres.html', aviso = lista_avisos)
+        exibicao = exibiAviso(lista_avisos)
+        return render_template('tela_lideres.html', aviso = exibicao)
     return redirect(url_for('/lideres/form_avisos'))
 
 @app.route('/submit_login', methods=['POST'])
@@ -41,9 +44,11 @@ def valida_login():
 
         login = validadeLogin(lista_alunos, nome, matricula, turma)
         if login == 'lider':
-            return render_template('tela_lideres.html', aviso = lista_avisos)
+            exibicao = exibiAviso(lista_avisos)
+            return render_template('tela_lideres.html', aviso = exibicao)
         elif login == 'comun':
-            return render_template('tela_comun.html', aviso = lista_avisos)
+            exibicao = exibiAviso(lista_avisos)
+            return render_template('tela_comun.html', aviso = exibicao)
         elif login == 'invalido':
             return '<h1>Login Invalido</h1>'    
     return redirect(url_for('/'))

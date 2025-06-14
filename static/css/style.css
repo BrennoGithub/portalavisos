@@ -1,6 +1,6 @@
 /*Estilo geral da página*/
 body{
-    background-color: beige;
+    background-color: #FFF6BD;
 }
 
 h1, h2{
@@ -50,7 +50,7 @@ select{
 button{
     border-radius: 5px;
     border: none;
-    background-color: blue;
+    background-color: #789DBC;
     color: white;
     padding: 10px;
     font-family: 'Times New Roman', Times, serif;
@@ -145,8 +145,8 @@ button{
 
 /*Estilo da área de conteudo do sistema de aviso*/
 .area{
-    min-height: 400px;
-    min-width: auto;
+    height: 400px;
+    width: auto;
     display: block;
 }
 
@@ -213,27 +213,31 @@ textarea{
 
 /*Estilo de avisos*/
 .estilo_aviso{
-    margin: 20px 30px 0px 30px;
+    margin: 20px 20px 20px 20px;
     display: flex;
+}
+
+.exibicaoAvisos{
+    display: block;
 }
 
 .estilo_data{
     width: 20%;
-    background-color: #999999;
-    border-radius: 5px 0px 0px 5px;
-    padding: 5px;
+    background-color: #9FB3DF;
+    border-radius: 10px 0px 0px 10px;
+    padding: 8px;
 }
 
 .estilo_assunto{
     width: 20%;
-    background-color: #b3b3b3;
-    padding: 5px;
+    background-color: #9EC6F3;
+    padding: 8px;
   
 }
 
 .estilo_texto{
-    width: 80%;
-    background-color: #cccccc;
-    border-radius: 0px 5px 5px 0px;
-    padding: 5px;
+    width: 60%;
+    background-color: #BDDDE4;
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
 }

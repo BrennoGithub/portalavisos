@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avisos Info V IFRN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="shortcut icon" href="/IF logo.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/IF_logo.png" type="image/x-icon">
 </head>
-<body class="inicial">
+<body>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">X</a>
         <a href="http://127.0.0.1:5000/lideres/form_avisos"><button>+</button></a>
@@ -30,32 +30,28 @@
       
       <article class="area">
           <div class="areaConteudo">
-                  <div class="areaMaterial">
-                      <h2>Avaliações</h2>
-                          <hr>
-                      <span>{{avaliacao}}</span>
-                  </div>
-      
-                  <div class="areaMaterial">
-                      <h2>Material de Estudo</h2>
-                          <hr>
-                      <span>{{material}}</span>
-                  </div>
-      
-                  <div class="areaMaterial">
+                <div class="areaMaterial">
                     <h2>Avisos</h2>
                         <hr>
-                      
-                    <div class="estilo_aviso">
-                        <div class="estilo_data">data</div>
-                        <div class="estilo_assunto">{{assunto}}</div>
-                        <div class="estilo_texto">{{texto}}</div>
-                    </div>
-                     
-                  </div>
+                    <span class="exibicaoAvisos">{{aviso}}</span>
+                </div>
+
+                <div class="areaMaterial">
+                    <h2>Avaliações</h2>
+                        <hr>
+                    <span>{{avaliacao}}</span>
+                </div>
+
+      
+                <div class="areaMaterial">
+                    <h2>Material de Estudo</h2>
+                        <hr>
+                    <span>{{material}}</span>
+                </div>   
           </div>
       </article>
 
       <script src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
+      <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
 </body>
 </html>
