@@ -1,6 +1,6 @@
 /*Estilo geral da página*/
 body{
-    background-color: #FFF6BD;
+    background-color: #FEFF9F;
 }
 
 h1, h2{
@@ -13,7 +13,7 @@ p{
 }
 
 label{
-    font-size: 15px;
+    font-size: 18px;
 }
 
 fieldset{
@@ -27,6 +27,8 @@ fieldset{
 legend{
     text-align: left;
     margin-left: 20px;
+    padding: 0px 6px 0px 6px;
+    
 }
 
 input{
@@ -44,6 +46,7 @@ select{
     border: none;
     text-align: center;
     padding: 5px;
+    width: 120px;
    
 }
 
@@ -150,12 +153,6 @@ button{
     display: block;
 }
 
-.areaAdicao{
-    width: 400px;
-    min-height: 40px;
-    margin: 20px;
-}
-
 .areaConteudo{
     display: block;
 }
@@ -164,7 +161,7 @@ button{
     background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    margin: 20px 30px 20px 30px;
+    margin: 0px 20px 30px 20px;
     text-align: center;
     width: auto;
     min-height: 140px;
@@ -226,6 +223,8 @@ textarea{
     background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
     padding: 8px;
+    font-style: italic;
+    font-size: 12px;
 }
 
 .estilo_assunto{

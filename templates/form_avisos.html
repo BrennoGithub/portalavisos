@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Avisos Info V IFRN</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="shortcut icon" href="/IF_logo.png" type="image/x-icon">
+   
 </head>
-<body class="inicial">
+<body>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">X</a>
         <a href="#"><button>+</button></a>
           <hr>
-        <a href="http://127.0.0.1:5000/lideres">Mural</a>
+        <a href="http://127.0.0.1:5000/usuario/form_avisos">Mural</a>
         <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
         <a href="#">Material Didatico</a>
@@ -47,7 +47,7 @@
                 </fieldset>
 
                 <fieldset class="texto_campo_form">
-                    <legend>Texto</legend>
+                    <legend><label for="texto">Texto</label></legend>
                     <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
                 </fieldset>
 
@@ -57,6 +57,5 @@
     
     <script src="{{url_for('static', filename='js/barra_lateral.js')}}"></script>
     <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
-</body>
 </body>
 </html>

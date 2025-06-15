@@ -35,9 +35,9 @@ lista_id_avisos = []
 lista_avisos = [
     {
     'ID': 'id',
-        'tipo': 'tipo_aviso',
-        'assunto': 'assunto',
-        'texto': 'texto'}
+    'tipo': 'tipo_aviso',
+    'assunto': 'assunto',
+    'texto': 'texto'}
 ]
 
 #Função de criação de aviso
@@ -58,7 +58,7 @@ def exibiAviso(lista_avisos):
     avisos = ''
     for iten in lista_avisos:
         avisos = avisos+f"""<div class="estilo_aviso">
-                        <div class="estilo_data">data</div>
+                        <div class="estilo_data">DD/MM/AAAA<br>HH:MM:SS</div>
                         <div class="estilo_assunto">{iten['assunto']}</div>
                         <div class="estilo_texto">{iten['texto']}</div>
                         </div>"""
