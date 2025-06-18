@@ -1,0 +1,22 @@
+/*Estilo da página de login*/
+.formLogin{
+    background-color: white;
+    text-align: center;
+    width: auto;
+    height: auto;
+    border: 1px solid gray;
+    margin-top: 150px;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-radius: 10px;
+}
+
+.area_campo_login{
+    max-width: auto;
+    height: 65px;
+    margin: 0px 15px 15px 15px;
+}
+
+.botao_campo_login{
+    margin-bottom: 15px;
+}

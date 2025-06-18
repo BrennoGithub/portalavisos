@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
-from dados import *
+from avisos import *
+from alunos import *
 
 app = Flask(__name__)
 
@@ -12,21 +13,20 @@ def login():
 @app.route('/submit_login', methods=['POST'])
 def valida_login():
     if request.method == 'POST':
-        nome = request.form['nome']
         matricula = request.form['matricula']
-        turma = request.form['turma']
+        senha = request.form['senha']
 
-        login = validadeLogin(lista_alunos, nome, matricula, turma)
-        if login == 'lider':
+        login = validadeLogin(lista_alunos, matricula, senha)
+        if login == 'aluno-lider':
             exibicao = exibiAviso(lista_avisos)
             return render_template('tela_lideres.html', aviso = exibicao)
         
-        elif login == 'comun':
+        elif login == 'aluno':
             exibicao = exibiAviso(lista_avisos)
             return render_template('tela_comun.html', aviso = exibicao)
         
         elif login == 'invalido':
-            return '<h1>Login Invalido</h1>'    
+            return render_template('login.html', validade='invalido')  
     return redirect(url_for('/'))
 
 

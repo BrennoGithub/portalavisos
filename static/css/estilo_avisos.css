@@ -1,0 +1,94 @@
+/*Estilo da área de conteudo do sistema de aviso*/
+.area{
+    height: 400px;
+    width: auto;
+    display: block;
+}
+
+.areaConteudo{
+    display: block;
+}
+
+.areaMaterial{
+    background-color: white;
+    border: solid 1px gray;
+    border-radius: 20px;
+    margin: 0px 20px 30px 20px;
+    text-align: center;
+    width: auto;
+    min-height: 140px;
+}
+
+/*Estilo do formulario de avisos*/
+.formAviso{
+    background-color: white;
+    text-align: center;
+    width: auto;
+    border: 1px solid gray;
+    margin-left: 25%;
+    margin-right: 25%;
+    border-radius: 10px;
+    display: block;
+
+}
+
+.area_campo_form{
+    width: auto;
+    height: 50px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.texto_campo_form{
+    width: auto;
+    height: auto;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+textarea{
+    border-radius: 10px;
+    border: none;
+    width: 90%;
+    height: 90px;
+    padding: 10px;
+    resize: none;
+}
+
+.botao_campo_form{
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/*Estilo de avisos*/
+.estilo_aviso{
+    margin: 20px 20px 20px 20px;
+    display: flex;
+}
+
+.exibicaoAvisos{
+    display: block;
+}
+
+.estilo_data{
+    width: 20%;
+    background-color: #9FB3DF;
+    border-radius: 10px 0px 0px 10px;
+    padding: 8px;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.estilo_assunto{
+    width: 20%;
+    background-color: #9EC6F3;
+    padding: 8px;
+  
+}
+
+.estilo_texto{
+    width: 60%;
+    background-color: #BDDDE4;
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
+}

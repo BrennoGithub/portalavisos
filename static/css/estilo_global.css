@@ -1,0 +1,62 @@
+/*Estilo geral da página*/
+body{
+    background-color: #FEFF9F;
+}
+
+h1, h2{
+    text-align: center;
+}
+
+p{
+    font-size: large;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+label{
+    font-size: 18px;
+}
+
+fieldset{
+    border: solid 1px black;
+    border-radius: 10px;
+    padding: 0px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+legend{
+    text-align: left;
+    margin-left: 20px;
+    padding: 0px 6px 0px 6px;
+    
+}
+
+input{
+    border-radius: 5px;
+    border: none white;
+    text-align: center;
+    padding: 5px;
+    margin: 5px;
+    width: 60%;
+    height: 25px;
+   
+}
+
+select{
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    padding: 5px;
+    width: 120px;
+   
+}
+
+button{
+    border-radius: 5px;
+    border: none;
+    background-color: #789DBC;
+    color: white;
+    padding: 10px;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 14px;
+}
