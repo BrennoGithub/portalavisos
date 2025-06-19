@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
-from avisos import *
-from alunos import *
+from dados.avisos import *
+from dados.alunos import *
 
 app = Flask(__name__)
 
@@ -26,7 +26,7 @@ def valida_login():
             return render_template('tela_comun.html', aviso = exibicao)
         
         elif login == 'invalido':
-            return render_template('login.html', validade='invalido')  
+            return render_template('login.html')  
     return redirect(url_for('/'))
 
 

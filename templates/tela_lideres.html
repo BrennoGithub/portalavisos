@@ -11,23 +11,28 @@
 </head>
 <body>
     <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn">X</a>
-        <a href="http://127.0.0.1:5000/usuario/form_avisos"><button>+</button></a>
+        <a href="javascript:void(0)" class="closebtn">
+            <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Fechar aba" class="icon_fecha">
+        </a>
+        <a href="http://127.0.0.1:5000/usuario/form_avisos">
+            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Criar aviso" class="icon_cria">
+        </a>
           <hr>
-        <a href="http://127.0.0.1:5000/lideres">Mural</a>
+        <a href="http://127.0.0.1:5000/submit_login">Mural</a>
         <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
         <a href="#">Material Didatico</a>
       </div>
     
-      <header style="display: flex;">
+      <header class="cabeca_pagina">
           <div id="main">
-              <button class="openbtn">☰</button>  
+              <button class="openbtn">
+                <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Menu" class="icon_menu">
+              </button> 
           </div>
           <h1>Portal Avisos de INFO V - Tela dos lideres</h1>
       </header>
-          <hr>
-          <br>
+          
       
       <article class="area">
           <div class="areaConteudo">
