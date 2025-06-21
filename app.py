@@ -42,7 +42,10 @@ def cria_aviso():
         assunto = request.form['assunto_aviso']
         texto = request.form['texto']
 
-        criaAviso(lista_avisos, lista_id_avisos, tipo_aviso, assunto, texto)
+        data_atual = data_hora.strftime("%d/%m/%y")
+        hora_atual = data_hora.strftime("%H:%M")
+
+        criaAviso(lista_avisos, lista_id_avisos, data_atual, hora_atual, tipo_aviso, assunto, texto)
     
         exibicao = exibiAviso(lista_avisos)
         return render_template('tela_lideres.html', aviso = exibicao)

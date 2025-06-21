@@ -37,6 +37,11 @@
 
 .icon_fecha{
     width: 30px;
+    border-radius: 20px;
+}
+
+.icon_fecha:hover{
+    background-color: lightgray;
 }
 
 .icon_cria{
@@ -52,6 +57,7 @@
 .icon_menu{
     width: 20px;
     height: 25px;
+    border-radius: 5px;
 }
   
 .openbtn {
@@ -59,7 +65,7 @@
     cursor: pointer;
     background-color: lightblue;
     color: white;
-    padding: 10px 15px;
+    padding: 8px 10px;
     border: none;
 }
 
