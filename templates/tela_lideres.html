@@ -14,11 +14,18 @@
         <a href="javascript:void(0)" class="closebtn">
             <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Fechar aba" class="icon_fecha">
         </a>
-        <a href="http://127.0.0.1:5000/usuario/form_avisos">
-            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Criar aviso" class="icon_cria">
+
+        <a>
+            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Criar aviso" class="icon_cria" id="botaoOpcoes">
         </a>
+            <div id="conteudoOpcoes" class="conteudoOpcoes">
+                <a href="http://127.0.0.1:5000/usuario/form_avisos">Avisos</a>
+                <a href="#">Avaliações</a>
+                <a href="#">Material Didatico</a>
+            </div>
           <hr>
-        <a href="http://127.0.0.1:5000/submit_login">Mural</a>
+
+        <a href="#">Mural</a>
         <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
         <a href="#">Material Didatico</a>

@@ -44,6 +44,8 @@ def cria_aviso():
 
         data_atual = data_hora.strftime("%d/%m/%y")
         hora_atual = data_hora.strftime("%H:%M")
+        print(data_atual)
+        print(hora_atual)
 
         criaAviso(lista_avisos, lista_id_avisos, data_atual, hora_atual, tipo_aviso, assunto, texto)
     
