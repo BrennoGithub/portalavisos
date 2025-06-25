@@ -18,11 +18,11 @@ def valida_login():
 
         login = validadeLogin(lista_alunos, matricula, senha)
         if login == 'aluno-lider':
-            exibicao = exibiAviso(lista_avisos)
+            exibicao = exibiAviso(lista_informativos)
             return render_template('tela_lideres.html', aviso = exibicao)
         
         elif login == 'aluno':
-            exibicao = exibiAviso(lista_avisos)
+            exibicao = exibiAviso(lista_informativos)
             return render_template('tela_comun.html', aviso = exibicao)
         
         elif login == 'invalido':
@@ -42,14 +42,12 @@ def cria_aviso():
         assunto = request.form['assunto_aviso']
         texto = request.form['texto']
 
-        data_atual = data_hora.strftime("%d/%m/%y")
-        hora_atual = data_hora.strftime("%H:%M")
-        print(data_atual)
-        print(hora_atual)
+        data_atual = returnData()
+        hora_atual = returnHora()
 
-        criaAviso(lista_avisos, lista_id_avisos, data_atual, hora_atual, tipo_aviso, assunto, texto)
+        criaAviso(lista_informativos, lista_id_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto)
     
-        exibicao = exibiAviso(lista_avisos)
+        exibicao = exibiAviso(lista_informativos)
         return render_template('tela_lideres.html', aviso = exibicao)
     return redirect(url_for('/usuario/form_avisos'))
 

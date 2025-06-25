@@ -234,8 +234,8 @@ lista_alunos = [
 
 #Função de validação de login
 def validadeLogin(lista_alunos, matricula, senha):
-    print('-> '+matricula)
-    print('-> '+senha)
+    print('Matricula --> '+matricula)
+    print('Senha --> '+senha)
     for usuario in range(0, len(lista_alunos)):
         if matricula == lista_alunos[usuario]['matricula'] and senha == lista_alunos[usuario]['senha']:
             if lista_alunos[usuario]['status'] == 'aluno-lider':
