@@ -20,12 +20,18 @@ def valida_login():
         login = validadeLogin(lista_turmas, matricula, senha)
         print(login)
         if login[1] == 'aluno-lider':
-            exibicao = exibiAviso(lista_turmas)
-            return render_template('tela_lideres.html', aviso = exibicao)
+            exibi_avisos = exibiAviso('aviso', lista_turmas)
+            exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
+            exibi_material = exibiAviso('material', lista_turmas)
+            exibi_evento = exibiAviso('evento', lista_turmas)
+            return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
         
         elif login[1] == 'aluno':
-            exibicao = exibiAviso(lista_turmas)
-            return render_template('tela_comun.html', aviso = exibicao)
+            exibi_avisos = exibiAviso('aviso', lista_turmas)
+            exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
+            exibi_material = exibiAviso('material', lista_turmas)
+            exibi_evento = exibiAviso('evento', lista_turmas)
+            return render_template('tela_comun.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
         
         elif login == 'invalido':
             return render_template('login.html')  
@@ -47,8 +53,12 @@ def cria_aviso():
 
         criaAviso(lista_id_informativos, lista_turmas, data_atual, hora_atual, tipo_aviso, assunto, texto)
     
-        exibicao = exibiAviso(lista_turmas)
-        return render_template('tela_lideres.html', aviso = exibicao)
+        exibi_avisos = exibiAviso('aviso', lista_turmas)
+        exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
+        exibi_material = exibiAviso('material', lista_turmas)
+        exibi_evento = exibiAviso('evento', lista_turmas)
+
+        return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
     return redirect(url_for('/usuario/form_avisos'))
 
 if __name__ == '__main__':

@@ -6,12 +6,10 @@ lista_informativos = [
     'tipo': 'aviso',
     'data': 'DD/MM/AA',
     'hora': 'HH:MM',
-    'tipo': 'tipo_aviso',
     'assunto': 'assunto',
-    'texto': 'texto'}
-]
-
-avaliacao = {
+    'texto': 'texto'
+    },
+    {
     'ID': 'id',
     'tipo': 'avaliacao',
     'materia': 'matematica',
@@ -19,22 +17,21 @@ avaliacao = {
     'data_avaliacao': '23/09/25',
     'hora_avaliacao': '12:00',
     'descricao': ''
-}
-
-material = {
+    },
+    {
     'ID': 'id',
     'tipo': 'material',
     'tipo_material': '',
     'materia': 'matematica',
     'assunto': 'matematica',
-    'descrição': ''
-}
-
-evento = {
+    'descricao': ''
+    },
+    {
     'ID': 'id',
     'tipo': 'evento',
-    'nome': '',
+    'nome': 'festa da uva',
     'data_evento': '',
     'hora_evento': '',
-    'descrição': ''
-}
+    'descricao': ''
+    }
+]

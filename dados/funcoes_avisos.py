@@ -15,31 +15,32 @@ def returnHora():
     return hora
 
 #Função de criação de aviso
-def criaAviso(lista_id_informativos, lista_turmas, data_atual, hora_atual, tipo_aviso, assunto, texto):
+def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto):
     id = 1
     if id in lista_id_informativos:
         while id in lista_id_informativos:
             id += 1
 
     lista_id_informativos.append(id)
-    lista_turmas[0]['informativos'].append({
+    lista_informativos.append({
         'ID': id,
+        'tipo': tipo_aviso,
         'data': data_atual,
         'hora': hora_atual,
-        'tipo': tipo_aviso,
         'assunto': assunto,
         'texto': texto
     })
 
 #Função de exibição de aviso
-def exibiAviso(lista_turmas):
-    avisos = ''
+def exibiAviso(tipo_informativos, lista_turmas):
+    informativos = ''
     for turma in lista_turmas:
         for iten in turma['informativos']:
-            avisos = f"""<div class="estilo_aviso">
+            if iten['tipo'] == tipo_informativos:
+                informativos = f"""<div class="estilo_aviso">
                     <div class="estilo_data">{iten['data']} {iten['hora']}</div>
                     <div class="estilo_assunto">{iten['assunto']}</div>
                     <div class="estilo_texto">{iten['texto']}</div>
-                    </div>"""+avisos
-    return avisos
+                    </div>"""+informativos
+    return informativos
  
