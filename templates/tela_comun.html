@@ -12,7 +12,7 @@
 <body>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">
-            <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Fechar aba" class="icon_fecha">
+            <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
         <a href="#">Mural</a>
         <a href="#">Avisos</a>
@@ -22,7 +22,7 @@
      
       <header class="cabeca_pagina">
           <div id="main">
-             <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Menu" class="icon_menu openbtn">
+             <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
           </div>
           <h1>Portal Avisos de INFO V  - Tela comun</h1>
       </header>
@@ -41,6 +41,12 @@
                         <hr>
                     <span>{{avaliacao}}</span>
                 </div>
+
+                <div class="areaMaterial">
+                    <h2>Eventos</h2>
+                        <hr>
+                    <span>{{evento}}</span>
+                </div> 
       
                 <div class="areaMaterial">
                     <h2>Material de Estudo</h2>
