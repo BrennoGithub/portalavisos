@@ -23,12 +23,12 @@ def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual,
 
     lista_id_informativos.append(id)
     lista_informativos.append({
-        'ID': id,
-        'tipo': tipo_aviso,
-        'data': data_atual,
-        'hora': hora_atual,
-        'assunto': assunto,
-        'texto': texto
+        "ID": id,
+        "tipo": tipo_aviso,
+        "data": data_atual,
+        "hora": hora_atual,
+        "assunto": assunto,
+        "texto": texto
     })
 
 #Função de exibição de aviso

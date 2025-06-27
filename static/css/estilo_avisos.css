@@ -78,7 +78,7 @@ textarea{
     display: block;
 }
 
-.estilo_data{
+.estilo_dataAviso{
     width: 10%;
     background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
@@ -87,7 +87,7 @@ textarea{
     font-size: 12px;
 }
 
-.estilo_assunto{
+.estilo_assuntoAviso{
     width: 20%;
     background-color: #9EC6F3;
     padding: 8px;
@@ -95,9 +95,78 @@ textarea{
   
 }
 
-.estilo_texto{
+.estilo_textoAviso{
     width: 70%;
     background-color: #BDDDE4;
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
+}
+
+.estilo_dataAvaliacao{
+     width: 10%;
+    background-color: gray;
+    border-radius: 10px 0px 0px 10px;
+    padding: 8px;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.estilo_assuntoAvaliacao{
+    width: 20%;
+    background-color: gray;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.estilo_textoAvaliacao{
+    width: 70%;
+    background-color: gray;
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
+}
+
+.estilo_dataMaterial{
+    width: 10%;
+    background-color: gray;
+    border-radius: 10px 0px 0px 10px;
+    padding: 8px;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.estilo_assuntoMaterial{
+    width: 20%;
+    background-color: gray;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.estilo_textoMaterial{
+    width: 70%;
+    background-color: gray;
+    border-radius: 0px 10px 10px 0px;
+    padding: 8px;
+}
+
+.estilo_dataEvento{
+    width: 10%;
+    background-color: gray;
+    border-radius: 10px 0px 0px 10px;
+    padding: 8px;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.estilo_assuntoEvento{
+    width: 20%;
+    background-color: gray;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.estilo_textoEvento{
+    width: 70%;
+    background-color: gray;
     border-radius: 0px 10px 10px 0px;
     padding: 8px;
 }
