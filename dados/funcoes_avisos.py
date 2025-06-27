@@ -33,14 +33,10 @@ def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual,
 
 #Função de exibição de aviso
 def exibiAviso(tipo_informativos, lista_turmas):
-    informativos = ''
+    informativos = []
     for turma in lista_turmas:
         for iten in turma['informativos']:
             if iten['tipo'] == tipo_informativos:
-                informativos = f"""<div class="estilo_aviso">
-                    <div class="estilo_data">{iten['data']} {iten['hora']}</div>
-                    <div class="estilo_assunto">{iten['assunto']}</div>
-                    <div class="estilo_texto">{iten['texto']}</div>
-                    </div>"""+informativos
+                informativos.append(iten)
     return informativos
  
