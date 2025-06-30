@@ -23,7 +23,6 @@
   
 .sidebar a:hover {
     color: black;
-    font-weight: bold;
 }
   
 .sidebar .closebtn {
@@ -33,37 +32,6 @@
     font-size: 36px;
     margin-left: 80px;
     font-size: 20px;
-}
-
-/*Estilo dos icones usados na aplicação*/
-.icon_fecha{
-    width: 30px;
-    border-radius: 20px;
-}
-
-.icon_fecha:hover{
-    background-color: lightgray;
-}
-
-.icon_cria{
-    width: 35px;
-    border-radius: 5px;
-    background-color: #789DBC;
-}
-
-.icon_cria:hover{
-    background-color: blue;
-}
-
-.icon_menu{
-    width: 20px;
-    height: 25px;
-    border-radius: 5px;
-}
-
-.deslogar{
-    margin: 240px 10px 10px -10px;
-    background-color: rgb(230, 230, 230);
 }
   
 .openbtn {
@@ -98,4 +66,39 @@
     padding: 10px;
     margin-left: 20px;
     margin-right: 20px;
+}
+
+/*Estilo dos icones usados na aplicação*/
+.icon_fecha{
+    width: 30px;
+    border-radius: 20px;
+}
+
+.icon_fecha:hover{
+    background-color: lightgray;
+}
+
+.icon_cria{
+    width: 35px;
+    border-radius: 5px;
+    background-color: #789DBC;
+}
+
+.icon_cria:hover{
+    background-color: blue;
+}
+
+.icon_menu{
+    width: 20px;
+    height: 25px;
+    border-radius: 5px;
+}
+
+.icone_deslogar{
+    width: 25px;
+}
+
+.deslogar{
+    margin: 200px 0px 10px 0px;
+    background-color: rgb(230, 230, 230);
 }
