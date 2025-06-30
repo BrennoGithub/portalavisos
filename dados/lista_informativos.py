@@ -22,6 +22,7 @@ lista_informativos = [
     "ID": "id",
     "tipo": "material",
     "tipo_material": "texto",
+    "material": "olá mundo",
     "materia": "matematica",
     "assunto": "matematica",
     "descricao": "eriuthrguilthgrtuiythguirtog"
@@ -31,7 +32,7 @@ lista_informativos = [
     "tipo": "evento",
     "nome": "festa da uva",
     "data_evento": "12/3",
-    "hora_evento": "",
+    "hora_evento": "12:40",
     "descricao": "rtriojprioyjhrtuio"
     }
 ]

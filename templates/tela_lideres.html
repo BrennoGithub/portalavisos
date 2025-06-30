@@ -23,6 +23,9 @@
                 <a href="#">Avaliações</a>
                 <a href="#">Eventos</a>
                 <a href="#">Material Didatico</a>
+                <a href="/logout" class="deslogar"> 
+                    <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar"> Sair
+                </a>
             </div>
           <hr>
 
@@ -31,6 +34,9 @@
         <a href="#">Avaliações</a>
         <a href="#">Eventos</a>
         <a href="#">Material Didatico</a>
+        <a href="/logout" class="deslogar"> 
+            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar"> Sair
+        </a>
       </div>
     
       <header class="cabeca_pagina">
@@ -42,7 +48,6 @@
           
       
       <article class="area">
-          <div class="areaConteudo">
                 <div class="areaMaterial">
                     <h2>Avisos</h2>
                         <hr>
@@ -67,7 +72,6 @@
                         <hr>
                     <span class="exibicaoMateriais">{{material}}</span>
                 </div>   
-          </div>
       </article>
 
       <script src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>

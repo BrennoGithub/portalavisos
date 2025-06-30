@@ -1,15 +1,22 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
+from flask import session
 from dados.funcoes_avisos import *
 from dados.lista_informativos import *
 from dados.validadeLogin import *
 from dados.lista_turmas import lista_turmas
 
 app = Flask(__name__)
+app.secret_key = 'b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a' 
 
 @app.route('/')
 def login():
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect('/')  
 
 @app.route('/submit_login', methods=['POST'])
 def valida_login():

@@ -22,6 +22,9 @@
         <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
         <a href="#">Material Didatico</a>
+        <a href="/logout" class="deslogar"> 
+            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar"> Sair
+        </a>
       </div>
      
       <header class="cabeca_pagina">
@@ -32,7 +35,7 @@
       </header>
          
       
-      <article>
+      <article class="area">
             <form class="formAviso" method="POST" action="/submit_aviso">
                 <h1>Aviso</h1>
                 <hr>
