@@ -37,16 +37,25 @@
       
       <article class="area">
             <form class="formAviso" method="POST" action="/submit_aviso">
-                <h1>Aviso</h1>
+                <h1>Informativos</h1>
                 <hr>
               
                 <fieldset class="area_campo_form">
-                    <legend><label for="tipo_aviso">Aviso</label></legend>
-                        <select id="tipo_aviso" name="tipo_aviso" class="campo_form">
+                    <legend><label for="tipo_aviso">Tipo</label></legend>
+                    
+                    <button id="botaoOpcoes" name="tipo_aviso">Avisos</button>
+                    
+                    <div id="conteudoOpcoes" class="conteudoOpcoes">
+                        <a href="#">Avisos</a>
+                        <a href="#">Avaliações</a>
+                        <a href="#">Eventos</a>
+                        <a href="#">Material Didatico</a>
+                    </div>
+                <!--<select id="tipo_aviso" name="tipo_aviso" class="campo_form">
                             <option value="aviso">Aviso</option>
                             <option value="material">Material Didatico</option>
                             <option value="avaliacao">Avaliação</option>
-                        </select>
+                    </select>-->
                 </fieldset>
 
                 <fieldset class="area_campo_form">

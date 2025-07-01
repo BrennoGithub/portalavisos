@@ -123,7 +123,7 @@ textarea{
 
 .estilo_dataMaterial{
     width: 10%;
-    background-color: #FFD09B;
+    background-color: #F0A04B;
     border-radius: 10px 0px 0px 10px;
     padding: 8px;
     font-style: italic;
@@ -132,14 +132,14 @@ textarea{
 
 .estilo_assuntoMaterial{
     width: 20%;
-    background-color: #FFECC8;
+    background-color: #FFB38E;
     padding: 8px;
     font-weight: bold;
 }
 
 .estilo_textoMaterial{
     width: 70%;
-    background-color: #FFF7D1;
+    background-color: #FFCF9D;
     border-radius: 0px 10px 10px 0px;
     padding: 8px;
 }

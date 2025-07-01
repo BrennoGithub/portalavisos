@@ -32,9 +32,9 @@ def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual,
     })
 
 #Função de exibição de aviso
-def exibiAviso(tipo_informativos, lista_turmas):
+def exibiAviso(tipo_informativos, lista_informativos):
     informativos = []
-    for turma in lista_turmas:
+    for turma in lista_informativos:
         for iten in turma['informativos']:
             if iten['tipo'] == tipo_informativos:
                 informativos.append(iten)
