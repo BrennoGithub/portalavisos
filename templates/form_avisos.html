@@ -33,46 +33,27 @@
           </div>
           <h1>Portal Avisos de INFO V  - Tela lideres</h1>
       </header>
-         
       
-      <article class="area">
-            <form class="formAviso" method="POST" action="/submit_aviso">
-                <h1>Informativos</h1>
+      <article class="area formAviso">
+            <h1>Informativos</h1>
                 <hr>
-              
+            <form class="" method="POST" action="/submit_aviso">
                 <fieldset class="area_campo_form">
                     <legend><label for="tipo_aviso">Tipo</label></legend>
-                    
-                    <button id="botaoOpcoes" name="tipo_aviso">Avisos</button>
-                    
-                    <div id="conteudoOpcoes" class="conteudoOpcoes">
-                        <a href="#">Avisos</a>
-                        <a href="#">Avaliações</a>
-                        <a href="#">Eventos</a>
-                        <a href="#">Material Didatico</a>
-                    </div>
-                <!--<select id="tipo_aviso" name="tipo_aviso" class="campo_form">
-                            <option value="aviso">Aviso</option>
-                            <option value="material">Material Didatico</option>
-                            <option value="avaliacao">Avaliação</option>
-                    </select>-->
+                    <select id="tipo_aviso" name="tipo_aviso" class="campo_form conteudoOpcoes">
+                        <option value="aviso">Aviso</option>
+                        <option value="avaliacao">Avaliação</option>
+                        <option value="evento">Evento</option>
+                        <option value="material">Material Didatico</option>
+                    </select>
                 </fieldset>
 
-                <fieldset class="area_campo_form">
-                    <legend><label for="assunto_aviso">Assunto</label></legend>
-                    <input type="text" placeholder="Assunto do aviso" id="assunto_aviso" name="assunto_aviso" class="campo_form">
-                </fieldset>
-
-                <fieldset class="texto_campo_form">
-                    <legend><label for="texto">Texto</label></legend>
-                    <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
-                </fieldset>
-
-                <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
+                <div id="form_informativo"></div></div>
             </form>
       </article>
     
     <script src="{{url_for('static', filename='js/barra_lateral.js')}}"></script>
     <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/form_informativos.js') }}"></script>
 </body>
 </html>

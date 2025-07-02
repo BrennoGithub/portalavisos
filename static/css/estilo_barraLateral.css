@@ -59,13 +59,8 @@
 
 /*Estilo do botão de opções*/
 .conteudoOpcoes{
-    display: none;
-    background-color: lightgray;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    margin-left: 20px;
-    margin-right: 20px;
+   font-size: 15px;
+   border: none;
 }
 
 /*Estilo dos icones usados na aplicação*/

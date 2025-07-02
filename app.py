@@ -34,10 +34,10 @@ def valida_login():
             return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
         
         elif login[1] == 'aluno':
-            exibi_avisos = exibiAviso('aviso', lista_turmas)
-            exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
-            exibi_material = exibiAviso('material', lista_turmas)
-            exibi_evento = exibiAviso('evento', lista_turmas)
+            exibi_avisos = exibiAviso('aviso', lista_informativos)
+            exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos)
+            exibi_material = exibiAviso('material', lista_informativos)
+            exibi_evento = exibiAviso('evento', lista_informativos)
             return render_template('tela_comun.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
         
         elif login == 'invalido':
@@ -58,12 +58,12 @@ def cria_aviso():
         data_atual = returnData()
         hora_atual = returnHora()
 
-        criaAviso(lista_id_informativos, lista_turmas, data_atual, hora_atual, tipo_aviso, assunto, texto)
+        criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto)
     
-        exibi_avisos = exibiAviso('aviso', lista_turmas)
-        exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
-        exibi_material = exibiAviso('material', lista_turmas)
-        exibi_evento = exibiAviso('evento', lista_turmas)
+        exibi_avisos = exibiAviso('aviso', lista_informativos)
+        exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos)
+        exibi_material = exibiAviso('material', lista_informativos)
+        exibi_evento = exibiAviso('evento', lista_informativos)
 
         return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
     return redirect(url_for('/usuario/form_avisos'))
