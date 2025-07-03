@@ -3,7 +3,7 @@ from dados.lista_informativos import lista_informativos
 
 lista_turmas = [
     {
-    'ID': 1,
+    'ID_turma': 1,
     'nome': 'info3v',
     'materias': [],
     'alunos': lista_alunos,

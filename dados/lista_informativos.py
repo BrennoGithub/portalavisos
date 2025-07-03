@@ -2,7 +2,8 @@
 lista_id_informativos = []
 lista_informativos = [
     {
-    "ID": "id",
+    "ID_turma": 1,
+    "ID_aviso": "id",
     "tipo": "aviso",
     "data": "DD/MM/AA",
     "hora": "HH:MM",
@@ -10,7 +11,8 @@ lista_informativos = [
     "texto": "texto"
     },
     {
-    "ID": "id",
+    "ID_turma": 1,
+    "ID_avaliacao": "id",
     "tipo": "avaliacao",
     "materia": "matematica",
     "assunto": "adição",
@@ -19,7 +21,8 @@ lista_informativos = [
     "descricao": "Prova escrita"
     },
     {
-    "ID": "id",
+    "ID_turma": 1,
+    "ID_material": "id",
     "tipo": "material",
     "tipo_material": "texto",
     "material": "olá mundo",
@@ -28,7 +31,8 @@ lista_informativos = [
     "descricao": "eriuthrguilthgrtuiythguirtog"
     },
     {
-    "ID": "id",
+    "ID_turma": 1,
+    "ID_evento": "id",
     "tipo": "evento",
     "nome": "festa da uva",
     "data_evento": "12/3",

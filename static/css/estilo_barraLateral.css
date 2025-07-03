@@ -48,7 +48,7 @@
 }
   
 #main {
-    transition: margin-left .5s;
+    transition: margin-left 0.5s;
     padding: 16px;
 }
   
