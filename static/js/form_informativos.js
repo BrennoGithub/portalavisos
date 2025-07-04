@@ -41,9 +41,64 @@ const form_avaliacao = `
 
 <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
 
-const form_evento = `Formulario Evento`;
+const form_evento = `
+<fieldset class="area_campo_form">
+    <legend><label for="nome">Evento</label></legend>
+    <input type="text" name="nome" id="nome" placeholder="nome do evento">
+</fieldset>
 
-const form_material = `Formulario Material didatico`;
+<div style="display: flex;">
+    <fieldset class="area_campo_form">
+        <legend><label for="data">Data</label></legend>
+        <input type="date" name="data" id="data">
+    </fieldset>
+
+    <fieldset class="area_campo_form">
+        <legend><label for="hora">Hora</label></legend>
+        <input type="time" name="hora" id="hora">
+    </fieldset>
+</div>
+
+<fieldset class="texto_campo_form">
+    <legend><label for="descricao">Descrição</label></legend>
+    <textarea placeholder="Descrição da avaliação" id="descricao" name="descricao" class="campo_form"></textarea>
+</fieldset>
+
+<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
+`;
+
+const form_material = `
+<fieldset class="area_campo_form">
+    <legend><label for="materia">Materia</label></legend>
+    <input type="text" name="materia" id="materia" placeholder="Materia">
+</fieldset>
+
+<fieldset class="area_campo_form">
+    <legend><label for="assunto">Assunto</label></legend>
+    <input type="text" name="assunto" id="assunto" placeholder="Assunto">
+</fieldset>
+
+<fieldset class="area_campo_form">
+    <legend><label for="tipo_material">Tipo do Material</label></legend>
+    <select name="tipo_material" id="tipo_material">
+        <option value="url">Link</option>
+        <option value="img">Imagem</option>
+        <option value="file">Arquivo</option>
+    </select>
+</fieldset>
+
+<fieldset class="area_campo_form">
+    <legend><label for="material">Material</label></legend>
+    <input type="text" name="material" id="material" placeholder="Material">
+</fieldset>
+
+<fieldset class="texto_campo_form">
+    <legend><label for="descricao">Descrição</label></legend>
+    <textarea placeholder="Descrição do material" id="descricao" name="descricao" class="campo_form"></textarea>
+</fieldset>
+
+<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
+`;
 
 document.getElementById("form_informativo").innerHTML = form_aviso;
 

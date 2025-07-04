@@ -1,7 +1,9 @@
 #lista de ids de avisos
 lista_id_informativos = []
-lista_informativos = [
-    {
+lista_informativos = []
+
+'''
+ {
     "ID_turma": 1,
     "ID_aviso": "id",
     "tipo": "aviso",
@@ -39,4 +41,4 @@ lista_informativos = [
     "hora_evento": "12:40",
     "descricao": "rtriojprioyjhrtuio"
     }
-]
+'''

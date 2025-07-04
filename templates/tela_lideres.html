@@ -15,15 +15,9 @@
             <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
 
-        <a>
-            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria" id="botaoOpcoes">
+        <a href="form_avisos">
+            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
         </a>
-            <div id="conteudoOpcoes" class="conteudoOpcoes">
-                <a href="form_avisos">Avisos</a>
-                <a href="#">Avaliações</a>
-                <a href="#">Eventos</a>
-                <a href="#">Material Didatico</a>
-            </div>
           <hr>
 
         <a href="#">Mural</a>
@@ -40,33 +34,28 @@
           <div id="main">
                 <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
           </div>
-          <h1>Portal Avisos de INFO V - Tela dos lideres</h1>
+          <h1>Portal Avisos de INFO V - {{tela}}</h1>
       </header>
           
-      
+
       <article class="area">
                 <div class="areaMaterial">
-                    <h2>Avisos</h2>
-                        <hr>
+                    <h2 class="titulo">Avisos</h2><hr>
                     <span class="exibicaoAvisos">{{aviso}}</span>
                 </div>
 
                 <div class="areaMaterial">
-                    <h2>Avaliações</h2>
-                        <hr>
+                    <h2>Avaliações</h2><hr>
                     <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
                 </div>
 
                 <div class="areaMaterial">
-                    <h2>Eventos</h2>
-                        <hr>
+                    <h2>Eventos</h2><hr>
                     <span class="exibicaoEventos">{{evento}}</span>
                 </div> 
 
-      
                 <div class="areaMaterial">
-                    <h2>Material de Estudo</h2>
-                        <hr>
+                    <h2>Material de Estudo</h2><hr>
                     <span class="exibicaoMateriais">{{material}}</span>
                 </div>   
       </article>

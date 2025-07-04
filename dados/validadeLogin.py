@@ -2,8 +2,6 @@ from dados.lista_turmas import *
 
 #Função de validação de login
 def validadeLogin(lista_turmas, matricula, senha):
-    print('Matricula --> '+matricula)
-    print('Senha --> '+senha)
     for turma in lista_turmas:
         for usuario in turma['alunos']:
             if matricula == usuario['matricula'] and senha == usuario['senha']:

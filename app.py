@@ -1,7 +1,8 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session
-from dados.funcoes_avisos import *
+from dados.CRUD.create import *
+from dados.CRUD.read import *
 from dados.lista_informativos import *
 from dados.validadeLogin import *
 from dados.lista_turmas import lista_turmas
@@ -16,7 +17,23 @@ def login():
 @app.route('/logout')
 def logout():
     session.clear()
-    return redirect('/')  
+    return redirect('/')
+
+@app.route('/usuario-comun')
+def tela_comun():
+    exibi_avisos = exibiAviso('aviso', lista_turmas)
+    exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
+    exibi_material = exibiAviso('material', lista_turmas)
+    exibi_evento = exibiAviso('evento', lista_turmas)
+    return render_template('tela_comun.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
+
+@app.route('/usuario-lider')
+def tela_lider():
+    exibi_avisos = exibiAviso('aviso', lista_turmas)
+    exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
+    exibi_material = exibiAviso('material', lista_turmas)
+    exibi_evento = exibiAviso('evento', lista_turmas)
+    return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
 
 @app.route('/submit_login', methods=['POST'])
 def valida_login():
@@ -27,24 +44,16 @@ def valida_login():
         login = validadeLogin(lista_turmas, matricula, senha)
         print(login)
         if login[1] == 'aluno-lider':
-            exibi_avisos = exibiAviso('aviso', lista_turmas)
-            exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
-            exibi_material = exibiAviso('material', lista_turmas)
-            exibi_evento = exibiAviso('evento', lista_turmas)
-            return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
+            return redirect('/usuario-lider')
         
         elif login[1] == 'aluno':
-            exibi_avisos = exibiAviso('aviso', lista_informativos)
-            exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos)
-            exibi_material = exibiAviso('material', lista_informativos)
-            exibi_evento = exibiAviso('evento', lista_informativos)
-            return render_template('tela_comun.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
+            return redirect('/usuario-comun')
         
         elif login == 'invalido':
             return render_template('login.html')  
     return redirect(url_for('/'))
 
-@app.route('/usuario/form_avisos')
+@app.route('/form_avisos')
 def form_avisos():
     return render_template('form_avisos.html')
 
@@ -68,8 +77,24 @@ def cria_aviso():
             hora_avaliacao = request.form['hora']
             descricao = request.form['descricao']
 
-
             criaAvaliacao(lista_id_informativos, lista_informativos, tipo_aviso, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
+
+        elif tipo_aviso == 'evento':
+            nome_evento = request.form['nome']
+            data_evento = request.form['data'] #Ajusta data para modelo brasileiro.
+            hora_evento = request.form['hora']
+            descricao = request.form['descricao']
+
+            criaEvento(lista_id_informativos, lista_informativos, tipo_aviso, nome_evento, data_evento, hora_evento, descricao)
+
+        elif tipo_aviso == 'material':
+            tipo_material = request.form['tipo_material']
+            material = request.form['material']
+            materia = request.form['materia']
+            assunto = request.form['assunto']
+            descricao = request.form['descricao']
+
+            criaMaterial(lista_id_informativos, lista_informativos, tipo_aviso, tipo_material, material, materia, assunto, descricao)
     
         exibi_avisos = exibiAviso('aviso', lista_informativos)
         exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos) #Criar uma função de exibição destinada a avaliações

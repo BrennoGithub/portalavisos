@@ -48,12 +48,35 @@ def criaAvaliacao(lista_id_informativos, lista_informativos, tipo_aviso, materia
         "descricao": descricao
     })
 
-#Função de exibição de aviso
-def exibiAviso(tipo_informativos, lista_informativos):
-    informativos = []
-    for turma in lista_turmas:
-        for iten in turma['informativos']:
-            if iten['tipo'] == tipo_informativos:
-                informativos.append(iten)
-    return informativos
- 
+def criaEvento(lista_id_informativos, lista_informativos, tipo_aviso, nome_evento, data_evento, hora_evento, descricao):
+    id = 1
+    if id in lista_id_informativos:
+        while id in lista_id_informativos:
+            id += 1
+    
+    lista_id_informativos.append(id)
+    lista_informativos.append({
+        "ID_evento": id,
+        "tipo": tipo_aviso,
+        "nome": nome_evento,
+        "data_evento": data_evento,
+        "hora_evento": hora_evento,
+        "descricao": descricao
+    })
+
+def criaMaterial(lista_id_informativos, lista_informativos, tipo_aviso, tipo_material, material, materia, assunto, descricao):
+    id = 1
+    if id in lista_id_informativos:
+        while id in lista_id_informativos:
+            id += 1
+    
+    lista_id_informativos.append(id)
+    lista_informativos.append({
+        "ID_material": id,
+        "tipo": tipo_aviso,
+        "tipo_material": tipo_material,
+        "material": material,
+        "materia": materia,
+        "assunto": assunto,
+        "descricao": descricao
+    })

@@ -6,6 +6,9 @@ const exibicaoEventos = document.querySelector('.exibicaoEventos');
 
 if (exibicaoAvisos) {
     let texto = exibicaoAvisos.textContent;
+    if(texto === "Não há informativos."){
+        exibicaoAvisos.innerHTML = texto;
+    }
     texto = texto.replaceAll("''", '""');
     texto = texto.replaceAll("'", '"');
     const lista_avisos = JSON.parse(texto);
@@ -22,6 +25,9 @@ if (exibicaoAvisos) {
 
 if(exibicaoAvalicoes){
     let texto = exibicaoAvalicoes.textContent;
+    if(texto === "Não há informativos."){
+        exibicaoAvalicoes.innerHTML = texto;
+    }
     texto = texto.replaceAll("''", '""');
     texto = texto.replaceAll("'", '"');
     const lista_avaliacoes = JSON.parse(texto);
@@ -38,6 +44,9 @@ if(exibicaoAvalicoes){
 
 if(exibicaoMateriais){
     let texto = exibicaoMateriais.textContent;
+    if(texto === "Não há informativos."){
+        exibicaoMateriais.innerHTML = texto;
+    }
     texto = texto.replaceAll("''", '""');
     texto = texto.replaceAll("'", '"');
     const lista_materiais = JSON.parse(texto);
@@ -54,6 +63,9 @@ if(exibicaoMateriais){
 
 if(exibicaoEventos){
     let texto = exibicaoEventos.textContent;
+    if(texto === "Não há informativos."){
+        exibicaoEventos.innerHTML = texto;
+    }
     texto = texto.replaceAll("''", '""');
     texto = texto.replaceAll("'", '"');
     const lista_eventos = JSON.parse(texto);
