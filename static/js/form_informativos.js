@@ -41,9 +41,9 @@ const form_avaliacao = `
 
 <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
 
-const form_evento = ``;
+const form_evento = `Formulario Evento`;
 
-const form_material = ``;
+const form_material = `Formulario Material didatico`;
 
 document.getElementById("form_informativo").innerHTML = form_aviso;
 
@@ -58,5 +58,14 @@ document.getElementById("tipo_aviso").addEventListener('change', function(){
         case 'avaliacao':
             document.getElementById("form_informativo").innerHTML = form_avaliacao;
             break;
+
+        case 'evento':
+            document.getElementById("form_informativo").innerHTML = form_evento;
+            break;
+
+        case 'material':
+            document.getElementById("form_informativo").innerHTML = form_material;
+            break;
+
     }
 });

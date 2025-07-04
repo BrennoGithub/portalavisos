@@ -23,20 +23,29 @@ def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual,
 
     lista_id_informativos.append(id)
     lista_informativos.append({
-        "ID": id,
+        "ID_aviso": id,
         "tipo": tipo_aviso,
         "data": data_atual,
         "hora": hora_atual,
         "assunto": assunto,
         "texto": texto
     })
-    print({
-        "ID": id,
+   
+def criaAvaliacao(lista_id_informativos, lista_informativos, tipo_aviso, materia, assunto, data_avaliacao, hora_avaliacao, descricao):
+    id = 1
+    if id in lista_id_informativos:
+        while id in lista_id_informativos:
+            id += 1
+    
+    lista_id_informativos.append(id)
+    lista_informativos.append({
+        "ID_avaliacao": id,
         "tipo": tipo_aviso,
-        "data": data_atual,
-        "hora": hora_atual,
+        "materia": materia,
         "assunto": assunto,
-        "texto": texto
+        "data_avaliacao": data_avaliacao,
+        "hora_avaliacao": hora_avaliacao,
+        "descricao": descricao
     })
 
 #Função de exibição de aviso

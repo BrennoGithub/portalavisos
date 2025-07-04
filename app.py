@@ -52,16 +52,27 @@ def form_avisos():
 def cria_aviso():
     if request.method == 'POST':
         tipo_aviso = request.form['tipo_aviso']
-        assunto = request.form['assunto_aviso']
-        texto = request.form['texto']
+        if tipo_aviso == 'aviso':
+            assunto = request.form['assunto_aviso']
+            texto = request.form['texto']
 
-        data_atual = returnData()
-        hora_atual = returnHora()
+            data_atual = returnData()
+            hora_atual = returnHora()
 
-        criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto)
+            criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto)
+       
+        elif tipo_aviso == 'avaliacao':
+            materia = request.form['materia']
+            assunto = request.form['assunto']
+            data_avaliacao = request.form['data'] #Ajusta data para modelo brasileiro.
+            hora_avaliacao = request.form['hora']
+            descricao = request.form['descricao']
+
+
+            criaAvaliacao(lista_id_informativos, lista_informativos, tipo_aviso, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
     
         exibi_avisos = exibiAviso('aviso', lista_informativos)
-        exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos)
+        exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos) #Criar uma função de exibição destinada a avaliações
         exibi_material = exibiAviso('material', lista_informativos)
         exibi_evento = exibiAviso('evento', lista_informativos)
 
