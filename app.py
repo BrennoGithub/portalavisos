@@ -1,10 +1,10 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session
-from dados.CRUD.create import *
-from dados.CRUD.read import *
-from dados.lista_informativos import *
-from dados.validadeLogin import *
+from CRUD.Create import *
+from CRUD.Read import *
+from dados.lista_informativos import lista_informativos, lista_id_informativos
+from CRUD.validadeLogin import validadeLogin
 from dados.lista_turmas import lista_turmas
 
 app = Flask(__name__)
@@ -96,12 +96,11 @@ def cria_aviso():
 
             criaMaterial(lista_id_informativos, lista_informativos, tipo_aviso, tipo_material, material, materia, assunto, descricao)
     
-        exibi_avisos = exibiAviso('aviso', lista_informativos)
-        exibi_avaliacoes = exibiAviso('avaliacao', lista_informativos) #Criar uma função de exibição destinada a avaliações
-        exibi_material = exibiAviso('material', lista_informativos)
-        exibi_evento = exibiAviso('evento', lista_informativos)
+       
+        #Criar uma função de exibição destinada a avaliações
+        
 
-        return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
+        return redirect('/usuario-lider')
     return redirect(url_for('/usuario/form_avisos'))
 
 if __name__ == '__main__':

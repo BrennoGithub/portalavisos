@@ -23,12 +23,12 @@ const form_avaliacao = `
 </fieldset>
 
 <div style="display: flex;">
-    <fieldset class="area_campo_form">
+    <fieldset class="area_campo_form data_hora">
         <legend><label for="data">Data</label></legend>
         <input type="date" name="data" id="data">
     </fieldset>
 
-    <fieldset class="area_campo_form">
+    <fieldset class="area_campo_form data_hora">
         <legend><label for="hora">Hora</label></legend>
         <input type="time" name="hora" id="hora">
     </fieldset>
@@ -48,12 +48,12 @@ const form_evento = `
 </fieldset>
 
 <div style="display: flex;">
-    <fieldset class="area_campo_form">
+    <fieldset class="area_campo_form data_hora">
         <legend><label for="data">Data</label></legend>
         <input type="date" name="data" id="data">
     </fieldset>
 
-    <fieldset class="area_campo_form">
+    <fieldset class="area_campo_form data_hora">
         <legend><label for="hora">Hora</label></legend>
         <input type="time" name="hora" id="hora">
     </fieldset>
@@ -68,29 +68,30 @@ const form_evento = `
 `;
 
 const form_material = `
-<fieldset class="area_campo_form">
+<div style="display: flex;">
+<fieldset class="area_campo_form" style="width: 50%;">
     <legend><label for="materia">Materia</label></legend>
     <input type="text" name="materia" id="materia" placeholder="Materia">
 </fieldset>
 
-<fieldset class="area_campo_form">
+<fieldset class="area_campo_form"  style="width: 50%;">
     <legend><label for="assunto">Assunto</label></legend>
     <input type="text" name="assunto" id="assunto" placeholder="Assunto">
 </fieldset>
+</div>
 
-<fieldset class="area_campo_form">
-    <legend><label for="tipo_material">Tipo do Material</label></legend>
-    <select name="tipo_material" id="tipo_material">
+<div style="display: flex;">
+<fieldset class="area_campo_form" style="width: 100%; display: flex;">
+    <legend><label for="tipo_material">Material</label></legend>
+    <select name="tipo_material" id="tipo_material" style="margin: 0 10px 0 10px; width: 25%; height: 30px">
+        <option value="">Tipo</option>
         <option value="url">Link</option>
         <option value="img">Imagem</option>
         <option value="file">Arquivo</option>
     </select>
+    <input type="text" name="material" id="material" placeholder="Material" style="margin: 0 10px 0 0px; width: 75%;">
 </fieldset>
-
-<fieldset class="area_campo_form">
-    <legend><label for="material">Material</label></legend>
-    <input type="text" name="material" id="material" placeholder="Material">
-</fieldset>
+</div>
 
 <fieldset class="texto_campo_form">
     <legend><label for="descricao">Descrição</label></legend>

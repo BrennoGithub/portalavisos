@@ -44,7 +44,7 @@
 }
 
 .openbtn:hover {
-    background-color: blue;
+    background-color: lightgray;
 }
   
 #main {
@@ -80,7 +80,7 @@
 }
 
 .icon_cria:hover{
-    background-color: blue;
+    background-color: lightgray;
 }
 
 .icon_menu{

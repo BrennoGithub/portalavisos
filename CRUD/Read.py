@@ -1,7 +1,7 @@
 from dados.lista_turmas import lista_turmas
 from dados.lista_informativos import *
 
-#Função de exibição de aviso
+#Funções READ
 def exibiAviso(tipo_informativos, lista_informativos):
     informativos = []
     for turma in lista_turmas:
@@ -10,6 +10,6 @@ def exibiAviso(tipo_informativos, lista_informativos):
                 informativos.append(iten)
     
     if len(informativos) == 0:
-        informativos = "Não há informativos."
+        informativos = f"Não há informativos desse tipo registrado."
     return informativos
  

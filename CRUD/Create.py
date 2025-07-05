@@ -14,7 +14,7 @@ def returnHora():
     hora = data_hora.strftime("%H:%M")
     return hora
 
-#Função de criação de aviso
+#Funções CREATE
 def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto):
     id = 1
     if id in lista_id_informativos:
