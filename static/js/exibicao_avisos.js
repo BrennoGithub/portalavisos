@@ -57,9 +57,13 @@ if(exibicaoMateriais){
         let materiais = ``;
         for(const x of lista_materiais){
             materiais = `<div class="estilo_aviso">
-                         <div class="estilo_dataMaterial">${x['materia']} ${x['assunto']}</div>
-                         <div class="estilo_assuntoMaterial">${x['tipo_material']}  ${String(x['material'])}</div>
-                         <div class="estilo_textoMaterial">${String(x['descricao'])}</div>
+                         <div class="estilo_dataMaterial">${x['materia']}</div>
+                         <div class="estilo_assuntoMaterial">${x['tipo_material']}</div>
+                         <div class="estilo_textoMaterial">
+                            <p><strong>Assunto:</strong> ${x['assunto']}</p>
+                            <p>${String(x['material'])}</p>
+                            <p>${String(x['descricao'])}</p>
+                         </div>
                       </div>`+materiais;
         };
         exibicaoMateriais.innerHTML = materiais;
