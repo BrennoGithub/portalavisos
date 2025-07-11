@@ -68,7 +68,7 @@ def cria_aviso():
             data_atual = returnData()
             hora_atual = returnHora()
 
-            criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, tipo_aviso, assunto, texto)
+            criaAviso(lista_id_informativos, data_atual, hora_atual, assunto, texto)
        
         elif tipo_aviso == 'avaliacao':
             materia = request.form['materia']
@@ -77,7 +77,7 @@ def cria_aviso():
             hora_avaliacao = request.form['hora']
             descricao = request.form['descricao']
 
-            criaAvaliacao(lista_id_informativos, lista_informativos, tipo_aviso, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
+            criaAvaliacao(lista_id_informativos, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
 
         elif tipo_aviso == 'evento':
             nome_evento = request.form['nome']
@@ -85,7 +85,7 @@ def cria_aviso():
             hora_evento = request.form['hora']
             descricao = request.form['descricao']
 
-            criaEvento(lista_id_informativos, lista_informativos, tipo_aviso, nome_evento, data_evento, hora_evento, descricao)
+            criaEvento(lista_id_informativos, nome_evento, data_evento, hora_evento, descricao)
 
         elif tipo_aviso == 'material':
             tipo_material = request.form['tipo_material']
@@ -94,7 +94,7 @@ def cria_aviso():
             assunto = request.form['assunto']
             descricao = request.form['descricao']
 
-            criaMaterial(lista_id_informativos, lista_informativos, tipo_aviso, tipo_material, material, materia, assunto, descricao)
+            criaMaterial(lista_id_informativos, tipo_material, material, materia, assunto, descricao)
     
        
         #Criar uma função de exibição destinada a avaliações

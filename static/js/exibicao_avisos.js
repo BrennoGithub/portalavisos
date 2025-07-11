@@ -20,7 +20,12 @@ if (exibicaoAvisos) {
                     <div class="terceira_area  azul_3">${String(x['texto'])}</div>
                  </div>`+avisos;
         };
-        exibicaoAvisos.innerHTML = avisos;
+        exibicaoAvisos.innerHTML = `
+        <div class="areaMaterial">
+            <h2>Avisos</h2><hr>
+            ${avisos}
+        </div>
+        `;
     }
     
 };
@@ -36,12 +41,24 @@ if(exibicaoAvalicoes){
         let avaliacoes = ``;
         for(const x of lista_avaliacoes){
             avaliacoes = `<div class="estilo_aviso">
-                         <div class="primeira_area verde_1">${x['data_avaliacao']} ${x['hora_avaliacao']}</div>
-                         <div class="segunda_area  verde_2">${x['materia']} ${String(x['assunto'])}</div>
-                         <div class="terceira_area  verde_3">${String(x['descricao'])}</div>
+                         <div class="primeira_area verde_1">
+                            <p>${x['data_avaliacao']} ${x['hora_avaliacao']}</p>
+                         </div>
+                         <div class="segunda_area  verde_2">
+                            <p>${x['materia']}</p>
+                         </div>
+                         <div class="terceira_area  verde_3">
+                            ASSUNTO: ${String(x['assunto'])}
+                            <p>${String(x['descricao'])}</p>
+                         </div>
                       </div>`+avaliacoes;
     };
-        exibicaoAvalicoes.innerHTML = avaliacoes;
+        exibicaoAvalicoes.innerHTML = `
+        <div class="areaMaterial">
+            <h2>Avaliações</h2><hr>
+            ${avaliacoes}
+        </div>
+        `;
     }
     
 };
@@ -57,8 +74,12 @@ if(exibicaoMateriais){
         let materiais = ``;
         for(const x of lista_materiais){
             materiais = `<div class="estilo_aviso">
-                         <div class="primeira_area laranja_1">${x['materia']}</div>
-                         <div class="segunda_area laranja_2">${x['tipo_material']}</div>
+                         <div class="primeira_area laranja_1">
+                            <p>${x['materia']}</p>
+                         </div>
+                         <div class="segunda_area laranja_2">
+                            <p>${x['tipo_material']}</p>
+                         </div>
                          <div class="terceira_area laranja_3">
                             <p><strong>Assunto:</strong> ${x['assunto']}</p>
                             <p>${String(x['material'])}</p>
@@ -66,7 +87,12 @@ if(exibicaoMateriais){
                          </div>
                       </div>`+materiais;
         };
-        exibicaoMateriais.innerHTML = materiais;
+        exibicaoMateriais.innerHTML = `
+        <div class="areaMaterial">
+            <h2>Material de Estudo</h2><hr>
+            ${materiais}
+        </div> 
+        `;
     }
    
 };
@@ -87,7 +113,12 @@ if(exibicaoEventos){
                          <div class="terceira_area  roxo_3">${String(x['descricao'])}</div>
                       </div>`+eventos;
         };
-        exibicaoEventos.innerHTML = eventos;
+        exibicaoEventos.innerHTML = `
+        <div class="areaMaterial">
+            <h2>Eventos</h2><hr>
+            ${eventos}
+        </div> 
+        `;
     }
     
 }
