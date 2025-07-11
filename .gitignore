@@ -1,2 +1,2 @@
 .venv/
-/*A pasta com o ambiente vitual .venv não será commitado para o repositorio*/
+#A pasta com o ambiente vitual .venv não será commitado para o repositorio
