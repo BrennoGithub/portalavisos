@@ -35,30 +35,15 @@
           <div id="main">
                 <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
           </div>
-          <h1>Portal Avisos de INFO V</h1>
+          <h1>Portal Informativo - INFO V</h1>
       </header>
           
 
       <article class="area">
-                <div class="areaMaterial">
-                    <h2 class="titulo">Avisos</h2><hr>
-                    <span class="exibicaoAvisos">{{aviso}}</span>
-                </div>
-
-                <div class="areaMaterial">
-                    <h2>Avaliações</h2><hr>
-                    <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
-                </div>
-
-                <div class="areaMaterial">
-                    <h2>Eventos</h2><hr>
-                    <span class="exibicaoEventos">{{evento}}</span>
-                </div> 
-
-                <div class="areaMaterial">
-                    <h2>Material de Estudo</h2><hr>
-                    <span class="exibicaoMateriais">{{material}}</span>
-                </div>   
+            <span class="exibicaoAvisos">{{aviso}}</span>
+            <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
+            <span class="exibicaoEventos">{{evento}}</span>
+            <span class="exibicaoMateriais">{{material}}</span>
       </article>
 
       <script src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>

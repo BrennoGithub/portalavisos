@@ -63,8 +63,9 @@ textarea{
     border: none;
     width: 90%;
     height: 90px;
-    padding: 10px;
+    padding: 14px;
     resize: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 .botao_campo_form{
@@ -86,16 +87,18 @@ textarea{
     width: 10%;
     background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
-    padding: 8px;
+    padding: 14px;
     font-style: italic;
     font-size: 12px;
+    text-align: left;
 }
 
 .segunda_area{
     width: 20%;
     background-color: #9EC6F3;
-    padding: 8px;
+    padding: 14px;
     font-weight: bold;
+    text-align: left;
   
 }
 
@@ -103,7 +106,8 @@ textarea{
     width: 70%;
     background-color: #BDDDE4;
     border-radius: 0px 10px 10px 0px;
-    padding: 8px;
+    padding: 14px;
+    text-align: left;
 }
 
 .azul_1{ background-color: #9FB3DF; }
