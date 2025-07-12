@@ -4,7 +4,14 @@
     border: solid 1px gray;
     border-radius: 20px;
     background-color: white;
-    margin: 20px 20px 30px 20px;
+    margin: 30px auto 30px auto;
+    min-width: 600px;
+    max-width: 900px;
+    box-shadow: 0px 1px 6px 1px rgba(148, 147, 147, 0.3);
+}
+
+.cabeca_pagina:hover{
+    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
 }
 
 .area{
@@ -17,10 +24,17 @@
     background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    margin: 0px 20px 30px 20px;
+    margin: 0px auto 30px auto;
     text-align: center;
     width: auto;
     min-height: 140px;
+    min-width: 600px;
+    max-width: 900px;
+    box-shadow: 0px 1px 6px 1px rgba(148, 147, 147, 0.3);
+}
+
+.areaMaterial:hover{
+    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
 }
 
 /*Estilo do formulario de avisos*/
@@ -85,7 +99,6 @@ textarea{
 
 .primeira_area{
     width: 10%;
-    background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
     padding: 14px;
     font-style: italic;
@@ -95,7 +108,6 @@ textarea{
 
 .segunda_area{
     width: 20%;
-    background-color: #9EC6F3;
     padding: 14px;
     font-weight: bold;
     text-align: left;
@@ -104,7 +116,6 @@ textarea{
 
 .terceira_area{
     width: 70%;
-    background-color: #BDDDE4;
     border-radius: 0px 10px 10px 0px;
     padding: 14px;
     text-align: left;
