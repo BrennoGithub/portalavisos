@@ -82,10 +82,10 @@ if(exibicaoMateriais){
         for(const x of lista_materiais){
             materiais = `<div class="estilo_aviso">
                          <div class="primeira_area laranja_1">
-                            ${x['materia']}
+                            ${x['tipo_material']}
                          </div>
                          <div class="segunda_area laranja_2">
-                            ${x['tipo_material']}
+                            ${x['materia']}
                          </div>
                          <div class="terceira_area laranja_3">
                             <strong>Assunto:</strong> ${x['assunto']}
