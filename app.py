@@ -33,7 +33,9 @@ def tela_lider():
     exibi_avaliacoes = exibiAviso('avaliacao', lista_turmas)
     exibi_material = exibiAviso('material', lista_turmas)
     exibi_evento = exibiAviso('evento', lista_turmas)
+    #return [exibi_avisos, exibi_avaliacoes, exibi_evento, exibi_material]
     return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
+   
 
 @app.route('/submit_login', methods=['POST'])
 def valida_login():
