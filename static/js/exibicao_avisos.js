@@ -22,8 +22,11 @@ document.addEventListener("DOMContentLoaded", function(){
                     <div class="segunda_area  azul_2">
                         ${String(x['assunto'])}
                     </div>
-                    <div class="terceira_area  azul_3">
+                    <div class="segunda_area  azul_3">
                         ${String(x['texto'])}
+                    </div>
+                    <div class="terceira_area  azul_2">
+                        <button method="DELETE">Delete</button>
                     </div>
                 </div>`+avisos;
             };
@@ -33,7 +36,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 ${avisos}
             </div>`;
         };
-    };
+};
+
 
     if(exibicaoAvalicoes){
         let texto = exibicaoAvalicoes.textContent;
@@ -93,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function(){
                          </div>
                       </div>`+materiais;
         };
+
         exibicaoMateriais.innerHTML = `<div class="areaMaterial">
             <h2>Material de Estudo</h2><hr>
                 ${materiais}
@@ -124,10 +129,12 @@ document.addEventListener("DOMContentLoaded", function(){
                       </div>`+eventos;
         };
 
-        exibicaoEventos.innerHTML = `<div class="areaMaterial">
+        exibicaoEventos.innerHTML = `
+        <div class="areaMaterial">
             <h2>Eventos</h2><hr>
-                ${eventos}
-            </div> `;
+            ${eventos}
+        </div> 
+        `;
     }
     
     };
