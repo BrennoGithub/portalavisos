@@ -22,8 +22,11 @@ document.addEventListener("DOMContentLoaded", function(){
                     <div class="segunda_area  azul_2">
                         ${String(x['assunto'])}
                     </div>
-                    <div class="terceira_area  azul_3">
+                    <div class="segunda_area  azul_3">
                         ${String(x['texto'])}
+                    </div>
+                    <div class="terceira_area  azul_2">
+                        <button method="DELETE">Delete</button>
                     </div>
                 </div>`+avisos;
             };
