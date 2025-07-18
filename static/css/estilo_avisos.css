@@ -4,7 +4,14 @@
     border: solid 1px gray;
     border-radius: 20px;
     background-color: white;
-    margin: 20px 20px 30px 20px;
+    margin: 30px auto 30px auto;
+    min-width: 600px;
+    max-width: 900px;
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
+}
+
+.cabeca_pagina:hover{
+    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
 .area{
@@ -17,10 +24,17 @@
     background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    margin: 0px 20px 30px 20px;
+    margin: 0px auto 30px auto;
     text-align: center;
     width: auto;
     min-height: 140px;
+    min-width: 600px;
+    max-width: 900px;
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
+}
+
+.areaMaterial:hover{
+    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
 /*Estilo do formulario de avisos*/
@@ -33,7 +47,11 @@
     margin-right: auto;
     border-radius: 20px;
     display: block;
+    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
+}
 
+.formAviso:hover{
+    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
 .area_campo_form{
@@ -47,8 +65,16 @@
     width: 150px;
 }
 
-.data_hora{
+.linhaitem1{
     width: 50%;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.linhaitem2{
+    width: 50%;
+    margin-right: 15px;
+    margin-left: 0px;
 }
 
 .texto_campo_form{
@@ -56,15 +82,6 @@
     height: auto;
     margin-left: 15px;
     margin-right: 15px;
-}
-
-textarea{
-    border-radius: 10px;
-    border: none;
-    width: 90%;
-    height: 90px;
-    padding: 10px;
-    resize: none;
 }
 
 .botao_campo_form{
@@ -82,28 +99,29 @@ textarea{
     display: block;
 }
 
+
 .primeira_area{
     width: 10%;
-    background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
-    padding: 8px;
+    padding: 14px;
     font-style: italic;
     font-size: 12px;
+    text-align: left;
 }
 
 .segunda_area{
     width: 20%;
-    background-color: #9EC6F3;
-    padding: 8px;
+    padding: 14px;
     font-weight: bold;
+    text-align: left;
   
 }
 
 .terceira_area{
     width: 70%;
-    background-color: #BDDDE4;
     border-radius: 0px 10px 10px 0px;
-    padding: 8px;
+    padding: 14px;
+    text-align: left;
 }
 
 .azul_1{ background-color: #9FB3DF; }
