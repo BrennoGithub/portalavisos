@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask import session
 from CRUD.Create import *
 from CRUD.Read import *
-from dados.lista_informativos import lista_informativos, lista_id_informativos
+from dados.lista_informativos import lista_id_informativos
 from CRUD.validadeLogin import validadeLogin
 from dados.lista_turmas import lista_turmas
 
@@ -36,7 +36,6 @@ def tela_lider():
     #return [exibi_avisos, exibi_avaliacoes, exibi_evento, exibi_material]
     return render_template('tela_lideres.html', aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento)
    
-
 @app.route('/submit_login', methods=['POST'])
 def valida_login():
     if request.method == 'POST':
@@ -44,14 +43,14 @@ def valida_login():
         senha = request.form['senha']
 
         login = validadeLogin(lista_turmas, matricula, senha)
-        print(login)
-        if login['status'] == 'aluno-lider':
-            #return redirect('/usuario-lider')
-            return login
+       
+        if login[0]['status'] == 'aluno-lider':
+            return redirect('/usuario-lider')
+            #return login
         
-        elif login['status'] == 'aluno':
-            #return redirect('/usuario-comun')
-            return login
+        elif login[0]['status'] == 'aluno':
+            return redirect('/usuario-comun')
+            #return login
         
         elif login == 'invalido':
             return render_template('login.html')  
