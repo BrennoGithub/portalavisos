@@ -47,7 +47,8 @@
             <span class="exibicaoMateriais">{{material}}</span>
       </article>
 
-      <script src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
+      <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
+      <script type="module" src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
+      <script type="module" src="{{ url_for('static', filename='js/dados_json.js') }}"></script>
 </body>
 </html>
