@@ -7,7 +7,7 @@
     margin: 30px auto 30px auto;
     min-width: 600px;
     max-width: 900px;
-    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
 }
 
 .cabeca_pagina:hover{
@@ -30,7 +30,7 @@
     min-height: 140px;
     min-width: 600px;
     max-width: 900px;
-    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
 }
 
 .areaMaterial:hover{
