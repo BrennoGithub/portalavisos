@@ -45,11 +45,13 @@ def valida_login():
 
         login = validadeLogin(lista_turmas, matricula, senha)
         print(login)
-        if login[1] == 'aluno-lider':
-            return redirect('/usuario-lider')
+        if login['status'] == 'aluno-lider':
+            #return redirect('/usuario-lider')
+            return login
         
-        elif login[1] == 'aluno':
-            return redirect('/usuario-comun')
+        elif login['status'] == 'aluno':
+            #return redirect('/usuario-comun')
+            return login
         
         elif login == 'invalido':
             return render_template('login.html')  

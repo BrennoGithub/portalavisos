@@ -1,17 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Informativo</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_avisos.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
-</head>
-<body>
-    <div id="mySidebar" class="sidebar">
+const tela_lideres = `
+      <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">
             <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
@@ -46,8 +34,35 @@
             <span class="exibicaoEventos">{{evento}}</span>
             <span class="exibicaoMateriais">{{material}}</span>
       </article>
+`;
 
-      <script src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-      <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
-</body>
-</html>
+const tela_comun = `
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn">
+            <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
+        </a>
+        <a href="#">Mural</a>
+        <a href="#">Avisos</a>
+        <a href="#">Avaliações</a>
+        <a href="#">Eventos</a>
+        <a href="#">Material Didatico</a>
+        <a href="/logout" class="deslogar"> 
+            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
+        </a>
+    </div>
+     
+    <header class="cabeca_pagina">
+        <div id="main">
+             <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
+        </div>
+        <h1>Portal Informativo - INFO V</h1>
+    </header>
+        
+      
+      <article class="area">
+        <span class="exibicaoAvisos">{{aviso}}</span>
+        <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
+        <span class="exibicaoEventos">{{evento}}</span>
+        <span class="exibicaoMateriais">{{material}}</span>
+      </article>
+`;
