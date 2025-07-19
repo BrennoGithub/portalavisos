@@ -22,7 +22,7 @@ def criaAviso(lista_id_informativos, data_atual, hora_atual, assunto, texto):
             id += 1
 
     lista_id_informativos.append(id)
-    lista_turmas[0]['informativos']['avisos'].append({
+    lista_turmas[0]["informativos"]["avisos"].append({
         "ID_aviso": id,
         "data": data_atual,
         "hora": hora_atual,
@@ -37,7 +37,7 @@ def criaAvaliacao(lista_id_informativos, materia, assunto, data_avaliacao, hora_
             id += 1
     
     lista_id_informativos.append(id)
-    lista_turmas[0]['informativos']['avaliacoes'].append({
+    lista_turmas[0]["informativos"]["avaliacoes"].append({
         "ID_avaliacao": id,
         "materia": materia,
         "assunto": assunto,
@@ -53,7 +53,7 @@ def criaEvento(lista_id_informativos, nome_evento, data_evento, hora_evento, des
             id += 1
     
     lista_id_informativos.append(id)
-    lista_turmas[0]['informativos']['eventos'].append({
+    lista_turmas[0]["informativos"]["eventos"].append({
         "ID_evento": id,
         "nome": nome_evento,
         "data_evento": data_evento,
@@ -68,7 +68,7 @@ def criaMaterial(lista_id_informativos, tipo_material, material, materia, assunt
             id += 1
     
     lista_id_informativos.append(id)
-    lista_turmas[0]['informativos']['materiais'].append({
+    lista_turmas[0]["informativos"]["materiais"].append({
         "ID_material": id,
         "tipo_material": tipo_material,
         "material": material,

@@ -22,11 +22,11 @@ document.addEventListener("DOMContentLoaded", function(){
                     <div class="segunda_area  azul_2">
                         ${String(x['assunto'])}
                     </div>
-                    <div class="segunda_area  azul_3">
+                    <div class="terceira_area  azul_3">
                         ${String(x['texto'])}
                     </div>
-                    <div class="terceira_area  azul_2">
-                        <button method="DELETE">Delete</button>
+                    <div class="quarta_area  azul_1">
+                        <button method="DELETE" action="/submit_aviso">Delete</button>
                     </div>
                 </div>`+avisos;
             };
@@ -36,8 +36,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 ${avisos}
             </div>`;
         };
-};
-
+    };
 
     if(exibicaoAvalicoes){
         let texto = exibicaoAvalicoes.textContent;
@@ -60,6 +59,9 @@ document.addEventListener("DOMContentLoaded", function(){
                             <strong>Assunto:</strong> ${String(x['assunto'])}
                                 <br>
                             ${String(x['descricao'])}
+                         </div>
+                         <div class="quarta_area  verde_1">
+                            <button method="DELETE" action="/submit_aviso">Delete</button>
                          </div>
                       </div>`+avaliacoes;
             };
@@ -95,6 +97,9 @@ document.addEventListener("DOMContentLoaded", function(){
                             ${String(x['material'])}
                             ${String(x['descricao'])}
                          </div>
+                         <div class="quarta_area  laranja_1">
+                            <button method="DELETE" action="/submit_aviso">Delete</button>
+                         </div>
                       </div>`+materiais;
         };
 
@@ -125,6 +130,9 @@ document.addEventListener("DOMContentLoaded", function(){
                          </div>
                          <div class="terceira_area  roxo_3">
                             ${String(x['descricao'])}
+                         </div>
+                         <div class="quarta_area  roxo_1">
+                            <button method="DELETE" action="/submit_aviso">Delete</button>
                          </div>
                       </div>`+eventos;
         };

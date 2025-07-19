@@ -37,58 +37,6 @@
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
-/*Estilo do formulario de avisos*/
-.formAviso{
-    background-color: white;
-    text-align: center;
-    width: 450px;
-    border: 1px solid gray;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 20px;
-    display: block;
-    box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);
-}
-
-.formAviso:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
-}
-
-.area_campo_form{
-    width: auto;
-    height: 60px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.conteudoOpcoes{
-    width: 150px;
-}
-
-.linhaitem1{
-    width: 50%;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.linhaitem2{
-    width: 50%;
-    margin-right: 15px;
-    margin-left: 0px;
-}
-
-.texto_campo_form{
-    width: auto;
-    height: auto;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.botao_campo_form{
-    margin-top: 10px;
-    margin-bottom: 15px;
-}
-
 /*Estilo de avisos*/
 .estilo_aviso{
     margin: 20px 20px 20px 20px;
@@ -110,7 +58,7 @@
 }
 
 .segunda_area{
-    width: 20%;
+    width: 25%;
     padding: 14px;
     font-weight: bold;
     text-align: left;
@@ -118,7 +66,13 @@
 }
 
 .terceira_area{
-    width: 70%;
+    width: 55%;
+    padding: 14px;
+    text-align: left;
+}
+
+.quarta_area{
+    width: 10%;
     border-radius: 0px 10px 10px 0px;
     padding: 14px;
     text-align: left;
