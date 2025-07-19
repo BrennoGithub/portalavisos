@@ -26,7 +26,8 @@ document.addEventListener("DOMContentLoaded", function(){
                         ${String(x['texto'])}
                     </div>
                     <div class="quarta_area  azul_1">
-                        <button method="DELETE" action="/submit_aviso">Delete</button>
+                        <button><img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete"></button>
+                        <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                     </div>
                 </div>`+avisos;
             };
@@ -61,7 +62,8 @@ document.addEventListener("DOMContentLoaded", function(){
                             ${String(x['descricao'])}
                          </div>
                          <div class="quarta_area  verde_1">
-                            <button method="DELETE" action="/submit_aviso">Delete</button>
+                            <button><img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete"></button>
+                            <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                          </div>
                       </div>`+avaliacoes;
             };
@@ -98,7 +100,8 @@ document.addEventListener("DOMContentLoaded", function(){
                             ${String(x['descricao'])}
                          </div>
                          <div class="quarta_area  laranja_1">
-                            <button method="DELETE" action="/submit_aviso">Delete</button>
+                            <button><img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete"></button>
+                            <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                          </div>
                       </div>`+materiais;
         };
@@ -132,7 +135,8 @@ document.addEventListener("DOMContentLoaded", function(){
                             ${String(x['descricao'])}
                          </div>
                          <div class="quarta_area  roxo_1">
-                            <button method="DELETE" action="/submit_aviso">Delete</button>
+                            <button><img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete"></button>
+                            <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                          </div>
                       </div>`+eventos;
         };
