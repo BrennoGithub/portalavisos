@@ -43,12 +43,13 @@ def valida_login():
         senha = request.form["senha"]
 
         login = validadeLogin(lista_turmas, matricula, senha)
+        print(login)
       
-        if login[0]["status"] == "aluno-lider":
+        if login["status"] == "aluno-lider":
             return redirect("/usuario-lider")
             #return login
         
-        elif login[0]["status"] == "aluno":
+        elif login["status"] == "aluno":
             return redirect("/usuario-comun")
             #return login
         
@@ -61,7 +62,7 @@ def form_avisos():
     return render_template("form_avisos.html")
 
 @app.route("/submit_aviso", methods=["POST, DELETE, PUT"])
-def cria_aviso():
+def CRUD_informativo():
     if request.method == "POST":
         tipo_aviso = request.form["tipo_aviso"]
         if tipo_aviso == "aviso":
