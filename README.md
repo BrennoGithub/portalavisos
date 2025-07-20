@@ -4,6 +4,7 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 
 ## Arquivos do projeto:
 - **dados:** Pasta com os dados e funções do servidor.
+- **CRUD:** Pasta com as funções CRUD dos informativos.
 - **static:** Pasta que armazena arquivos CSS e JavaScript.
   - **js:** Subpasta com os scripts JavaScript da aplicação.
   - **icones:** subpasta com icones SVG usados na aplicação
@@ -12,6 +13,7 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 - **app:** Arquivo Python com as rotas do projeto.
 - **Z_Anotações:** Subpasta que serve para guardar anotaçõs de scripts do projeto.
 - **package.json:** Arquivo de configuração do projeto, permite a importação dos dados e funções do JavaScript.
+- **package-lock.json:** arquivo gerado automaticamente pelo npm (Node Package Manager) ao instalar dependências em um projeto Node.js. Serve para registrar a árvore exata de dependências instaladas. 
 
 > Comandos '''package.json''':
 > - '''npm start run''' -> Exercuta o arquivo '''app.py'''
