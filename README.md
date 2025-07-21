@@ -1,5 +1,5 @@
-# Portal de Avisos INFO V
-Sistema de avisos escolares para a turma de informatica vespetino, onde os lideres das turmas podem colocar avisos de provas, trabalhos, avisos e material de estudo. 
+# Portal Informativo INFO V
+Sistema de avisos escolares para a turma de informatica vespetino, onde os lideres de turmas podem colocar avisos sobre provas, trabalhos, eventos e materiais de estudo. 
 Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) e [Júlio César](https://github.com/JCOAlves) para a matéria de Autoria Web do curso de Informatica.
 
 ## Arquivos do projeto:
@@ -15,5 +15,5 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 - **package.json:** Arquivo de configuração do projeto, permite a importação dos dados e funções do JavaScript.
 - **package-lock.json:** arquivo gerado automaticamente pelo npm (Node Package Manager) ao instalar dependências em um projeto Node.js. Serve para registrar a árvore exata de dependências instaladas. 
 
-> Comandos '''package.json''':
-> - '''npm start run''' -> Exercuta o arquivo '''app.py'''
+### Comandos ```package.json```:
+- ```npm start run``` -> Exercuta o arquivo ```app.py```
