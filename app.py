@@ -4,7 +4,7 @@ from flask import session
 from CRUD.Create import *
 from CRUD.Read import *
 from dados.lista_informativos import lista_id_informativos
-from CRUD.validadeLogin import validadeLogin
+from dados.validadeLogin import validadeLogin
 from dados.lista_turmas import lista_turmas
 from dados.lista_alunos import lista_alunos
 
@@ -20,34 +20,24 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/usuario-comun/<Usuario>")
-def tela_comun(Usuario):
+@app.route("/usuario/<matricula>")
+def tela_principal(matricula):
     exibi_avisos = exibiAviso("aviso", lista_turmas)
     exibi_avaliacoes = exibiAviso("avaliacao", lista_turmas)
     exibi_material = exibiAviso("material", lista_turmas)
     exibi_evento = exibiAviso("evento", lista_turmas)
+
+    usuario = ""
+    for item in lista_alunos:
+        if item["matricula"] == matricula:
+            usuario = item
+
+    if usuario["status"] == "aluno":
+        return render_template("tela_comun.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario["nome"])
     
-    usuario = ""
-    for item in lista_alunos:
-        if item["matricula"] == Usuario:
-            usuario = item["nome"]
+    if usuario["status"] == "aluno-lider":
+        return render_template("tela_lideres.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario["nome"])
 
-
-    return render_template("tela_comun.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario)
-
-@app.route("/usuario-lider/<Usuario>")
-def tela_lider(Usuario):
-    exibi_avisos = exibiAviso("aviso", lista_turmas)
-    exibi_avaliacoes = exibiAviso("avaliacao", lista_turmas)
-    exibi_material = exibiAviso("material", lista_turmas)
-    exibi_evento = exibiAviso("evento", lista_turmas)
-    #return [exibi_avisos, exibi_avaliacoes, exibi_evento, exibi_material]
-    usuario = ""
-    for item in lista_alunos:
-        if item["matricula"] == Usuario:
-            usuario = item["nome"]
-
-    return render_template("tela_lideres.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario)
    
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
@@ -55,21 +45,15 @@ def valida_login():
         matricula = request.form["matricula"]
         senha = request.form["senha"]
 
-        login = validadeLogin(lista_turmas, matricula, senha)
-        print(login)
-      
-        if login["status"] == "aluno-lider":
-            matricula = login["matricula"]
-            return redirect(f"/usuario-lider/{matricula}")
-            #return login
-        
-        elif login["status"] == "aluno":
-            matricula = login["matricula"]
-            return redirect(f"/usuario-comun/{matricula}")
-            #return login
-        
-        elif login == "invalido":
+        login = validadeLogin(lista_alunos, matricula, senha)
+
+        if login == "invalido":
             return render_template("login.html")  
+      
+        else:
+            matricula = login["matricula"]
+            return redirect(f"/usuario/{matricula}")
+          
     return redirect(url_for("/"))
 
 @app.route("/form_avisos")
