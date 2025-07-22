@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
     const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
     const exibicaoEventos = document.querySelector('.exibicaoEventos');
-
+    
     if (exibicaoAvisos) {
         let texto = exibicaoAvisos.textContent;
         if(texto === "Não há informativos desse tipo registrado."){

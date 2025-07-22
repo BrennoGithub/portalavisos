@@ -3,9 +3,8 @@ from flask import render_template, request, redirect, url_for
 from flask import session
 from CRUD.Create import *
 from CRUD.Read import *
-from dados.lista_informativos import lista_id_informativos
+from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
-from dados.lista_turmas import lista_turmas
 from dados.lista_alunos import lista_alunos
 
 app = Flask(__name__)
@@ -20,23 +19,23 @@ def logout():
     session.clear()
     return redirect("/")
 
-@app.route("/usuario/<matricula>")
+@app.route("/usuarios/<matricula>")
 def tela_principal(matricula):
-    exibi_avisos = exibiAviso("aviso", lista_turmas)
-    exibi_avaliacoes = exibiAviso("avaliacao", lista_turmas)
-    exibi_material = exibiAviso("material", lista_turmas)
-    exibi_evento = exibiAviso("evento", lista_turmas)
-
     usuario = ""
     for item in lista_alunos:
         if item["matricula"] == matricula:
             usuario = item
 
+    listaAvisos = exibiInformativo("avisos", lista_informativos, usuario["ID_turma"])
+    listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, usuario["ID_turma"])
+    listaMateriais = exibiInformativo("materiais", lista_informativos, usuario["ID_turma"])
+    listaEventos = exibiInformativo("eventos", lista_informativos, usuario["ID_turma"])
+
     if usuario["status"] == "aluno":
-        return render_template("tela_comun.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario["nome"])
+        return render_template("tela_comun.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
     
     if usuario["status"] == "aluno-lider":
-        return render_template("tela_lideres.html", aviso = exibi_avisos, avaliacao = exibi_avaliacoes, material = exibi_material, evento = exibi_evento, nome=usuario["nome"])
+        return render_template("tela_lideres.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
 
    
 @app.route("/submit_login", methods=["POST"])
@@ -52,7 +51,7 @@ def valida_login():
       
         else:
             matricula = login["matricula"]
-            return redirect(f"/usuario/{matricula}")
+            return redirect(f"/usuarios/{matricula}")
           
     return redirect(url_for("/"))
 
@@ -71,7 +70,7 @@ def CRUD_informativo():
             data_atual = returnData()
             hora_atual = returnHora()
 
-            criaAviso(lista_id_informativos, data_atual, hora_atual, assunto, texto)
+            criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, assunto, texto)
        
         elif tipo_aviso == "avaliacao":
             materia = request.form["materia"]
@@ -80,7 +79,7 @@ def CRUD_informativo():
             hora_avaliacao = request.form["hora"]
             descricao = request.form["descricao"]
 
-            criaAvaliacao(lista_id_informativos, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
+            criaAvaliacao(lista_id_informativos, lista_informativos, materia, assunto, data_avaliacao, hora_avaliacao, descricao)
 
         elif tipo_aviso == "evento":
             nome_evento = request.form["nome"]
@@ -88,7 +87,7 @@ def CRUD_informativo():
             hora_evento = request.form["hora"]
             descricao = request.form["descricao"]
 
-            criaEvento(lista_id_informativos, nome_evento, data_evento, hora_evento, descricao)
+            criaEvento(lista_id_informativos, lista_informativos, nome_evento, data_evento, hora_evento, descricao)
 
         elif tipo_aviso == "material":
             tipo_material = request.form["tipo_material"]
@@ -97,7 +96,7 @@ def CRUD_informativo():
             assunto = request.form["assunto"]
             descricao = request.form["descricao"]
 
-            criaMaterial(lista_id_informativos, tipo_material, material, materia, assunto, descricao)
+            criaMaterial(lista_id_informativos, lista_informativos, tipo_material, material, materia, assunto, descricao)
         #Criar uma função de exibição destinada a avaliações
 
         if request.method == "DELETE":
