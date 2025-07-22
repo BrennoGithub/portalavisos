@@ -16,4 +16,4 @@ Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) 
 - **package-lock.json:** arquivo gerado automaticamente pelo npm (Node Package Manager) ao instalar dependências em um projeto Node.js. Serve para registrar a árvore exata de dependências instaladas. 
 
 ### Comandos ```package.json```:
-- ```npm start run``` -> Exercuta o arquivo ```app.py```
+- ```npm start run``` --> Exercuta o arquivo ```app.py```

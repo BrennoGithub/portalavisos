@@ -5,7 +5,7 @@
   "main": "app.py",
   "type": "module",
   "scripts": {
-    "start": "Python app.py", 
+    "start": "Python app.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

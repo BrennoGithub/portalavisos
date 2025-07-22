@@ -1,4 +1,6 @@
 .venv/
 #A pasta com o ambiente vitual .venv não será commitado para o repositorio
+
 __pycache__/
 *.pyc
+#Arquivos e pasta __pycache__ não será commitado.
