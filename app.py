@@ -21,10 +21,14 @@ def logout():
 
 @app.route("/usuarios/<matricula>")
 def tela_principal(matricula):
-    usuario = {}
+    usuario = None
     for item in lista_alunos:
         if item["matricula"] == matricula:
             usuario = item
+            break
+
+    if usuario is None:
+        return "não encontrado"
 
     listaAvisos = exibiInformativo("avisos", lista_informativos, usuario["ID_turma"])
     listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, usuario["ID_turma"])
@@ -34,7 +38,7 @@ def tela_principal(matricula):
     if usuario["status"] == "aluno":
         return render_template("tela_comun.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
     
-    if usuario["status"] == "aluno-lider":
+    elif usuario["status"] == "aluno-lider":
         return render_template("tela_lideres.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
 
    
@@ -99,14 +103,14 @@ def CRUD_informativo():
             criaMaterial(lista_id_informativos, lista_informativos, tipo_material, material, materia, assunto, descricao)
         #Criar uma função de exibição destinada a avaliações
 
-        if request.method == "DELETE":
+        elif request.method == "DELETE":
             return "olá mundo"
         
-        if request.method == "PUT":
+        elif request.method == "PUT":
             return "olá mundo"
         
         return redirect("/usuario")
-    return redirect(url_for("/usuario/form_avisos"))
+    return redirect(url_for("/form_avisos"))
 
 
 if __name__ == "__main__":
