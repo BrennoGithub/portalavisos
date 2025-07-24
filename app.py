@@ -21,7 +21,7 @@ def logout():
 
 @app.route("/usuarios/<matricula>")
 def tela_principal(matricula):
-    usuario = ""
+    usuario = {}
     for item in lista_alunos:
         if item["matricula"] == matricula:
             usuario = item
@@ -105,7 +105,7 @@ def CRUD_informativo():
         if request.method == "PUT":
             return "olá mundo"
         
-        return redirect("/usuario-lider")
+        return redirect("/usuario")
     return redirect(url_for("/usuario/form_avisos"))
 
 
