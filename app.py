@@ -28,7 +28,7 @@ def tela_principal(matricula):
             break
 
     if usuario is None:
-        return "não encontrado"
+        return "Usuario não encontrado."
 
     listaAvisos = exibiInformativo("avisos", lista_informativos, usuario["ID_turma"])
     listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, usuario["ID_turma"])
@@ -55,6 +55,7 @@ def valida_login():
       
         else:
             matricula = login["matricula"]
+            session['matricula'] = matricula # <-- Armazenar na sessão
             return redirect(f"/usuarios/{matricula}")
           
     return redirect(url_for("/"))
@@ -102,14 +103,13 @@ def CRUD_informativo():
 
             criaMaterial(lista_id_informativos, lista_informativos, tipo_material, material, materia, assunto, descricao)
         #Criar uma função de exibição destinada a avaliações
+        return redirect(url_for("/usuarios/20231144010043"))
 
-        elif request.method == "DELETE":
-            return "olá mundo"
+    elif request.method == "DELETE":
+        return "olá mundo"
         
-        elif request.method == "PUT":
-            return "olá mundo"
-        
-        return redirect("/usuario")
+    elif request.method == "PUT":
+        return "olá mundo"
     return redirect(url_for("/form_avisos"))
 
 

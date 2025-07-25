@@ -1,33 +1,17 @@
 #Funções READ
 def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
     informativos = []
-    if len(lista_informativos[tipo_informativos]) == 0:
-        informativos = ["Não há informativos desse tipo cadastrados."]
-
-    for iten in lista_informativos[tipo_informativos]:
-        if iten["ID_turma"] == ID_turma:
-            informativos.append(iten)
-           
-    return informativos
-
-"""
-def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
-    informativos_filtrados = []
-
-    # Garante que acessamos a lista correta ou uma lista vazia para evitar KeyError aqui também
     lista_do_tipo = lista_informativos.get(tipo_informativos, []) 
+    for iten in lista_do_tipo:
+        if int(iten["ID_turma"]) == int(ID_turma) and "ID_turma" in iten:
+            informativos.append(iten)
 
-    for item in lista_do_tipo:
-        # Converte para int para garantir comparação correta, se ID_turma for string em 'item'
-        if "ID_turma" in item and int(item["ID_turma"]) == int(ID_turma):
-            informativos_filtrados.append(item)
-
-    if not informativos_filtrados:
+    if len(informativos) == 0:
         return "Não há informativos desse tipo cadastrados."
     else:
-        return informativos_filtrados
+        return informativos
 
-=====================================================================================
+"""
 @app.route("/submit_aviso", methods=["POST", "DELETE", "PUT"]) # Corrigida a lista de métodos
 def CRUD_informativo():
     if request.method == "POST":

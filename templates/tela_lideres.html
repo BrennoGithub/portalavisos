@@ -21,7 +21,7 @@
 
         <a>{{nome}}</a>
 
-        <a href="form_avisos">
+        <a href="{{ url_for('form_avisos') }}" style="display: block;">
             <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
         </a>
           <hr>
