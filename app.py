@@ -21,25 +21,23 @@ def logout():
 
 @app.route("/usuarios/<matricula>")
 def tela_principal(matricula):
-    usuario = None
-    for item in lista_alunos:
-        if item["matricula"] == matricula:
-            usuario = item
-            break
-
-    if usuario is None:
-        return "não encontrado"
-
-    listaAvisos = exibiInformativo("avisos", lista_informativos, usuario["ID_turma"])
-    listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, usuario["ID_turma"])
-    listaMateriais = exibiInformativo("materiais", lista_informativos, usuario["ID_turma"])
-    listaEventos = exibiInformativo("eventos", lista_informativos, usuario["ID_turma"])
-
-    if usuario["status"] == "aluno":
-        return render_template("tela_comun.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
+    if 'matricula' not in session or session['matricula'] != matricula:
+        return redirect(url_for("/"))
     
-    elif usuario["status"] == "aluno-lider":
-        return render_template("tela_lideres.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=usuario["nome"])
+    ID_turma = session["ID_turma"]
+    nomeUsuario = session["nomeUsuario"]
+    statusUsuario = session["status"]
+
+    listaAvisos = exibiInformativo("avisos", lista_informativos, ID_turma)
+    listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, ID_turma)
+    listaMateriais = exibiInformativo("materiais", lista_informativos, ID_turma)
+    listaEventos = exibiInformativo("eventos", lista_informativos, ID_turma)
+
+    if statusUsuario == "aluno":
+        return render_template("tela_comun.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=nomeUsuario)
+    
+    elif statusUsuario == "aluno-lider":
+        return render_template("tela_lideres.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=nomeUsuario)
 
    
 @app.route("/submit_login", methods=["POST"])
@@ -54,8 +52,11 @@ def valida_login():
             return render_template("login.html")  
       
         else:
-            matricula = login["matricula"]
-            return redirect(f"/usuarios/{matricula}")
+            session["matricula"] = login["matricula"] # <-- Armazenados na sessão
+            session["nomeUsuario"] = login["nome"]
+            session["status"] = login["status"]
+            session["ID_turma"]  = login["ID_turma"]
+            return redirect(f"/usuarios/{login["matricula"]}")
           
     return redirect(url_for("/"))
 
@@ -102,14 +103,13 @@ def CRUD_informativo():
 
             criaMaterial(lista_id_informativos, lista_informativos, tipo_material, material, materia, assunto, descricao)
         #Criar uma função de exibição destinada a avaliações
+        return redirect(url_for("/usuarios/20231144010043"))
 
-        elif request.method == "DELETE":
-            return "olá mundo"
+    elif request.method == "DELETE":
+        return "olá mundo"
         
-        elif request.method == "PUT":
-            return "olá mundo"
-        
-        return redirect("/usuario")
+    elif request.method == "PUT":
+        return "olá mundo"
     return redirect(url_for("/form_avisos"))
 
 
