@@ -11,33 +11,31 @@ app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
 @app.route("/")
+def loginRedi():
+    return redirect(url_for("/login"))
+
+@app.route("/login")
 def login():
     return render_template("login.html")
 
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect("/")
+    return redirect(url_for("/login"))
 
 @app.route("/usuarios/<matricula>")
 def tela_principal(matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
-        return redirect(url_for("/"))
-    
-    ID_turma = session["ID_turma"]
-    nomeUsuario = session["nomeUsuario"]
-    statusUsuario = session["status"]
+        return redirect(url_for("/login"))
 
-    listaAvisos = exibiInformativo("avisos", lista_informativos, ID_turma)
-    listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, ID_turma)
-    listaMateriais = exibiInformativo("materiais", lista_informativos, ID_turma)
-    listaEventos = exibiInformativo("eventos", lista_informativos, ID_turma)
+    statusUsuario = session["status"]
+    nomeUsuario = session["nomeUsuario"]
 
     if statusUsuario == "aluno":
-        return render_template("tela_comun.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=nomeUsuario)
+        return render_template("tela_comun.html", nome=nomeUsuario)
     
     elif statusUsuario == "aluno-lider":
-        return render_template("tela_lideres.html", aviso = listaAvisos, avaliacao = listaAvaliacoes, material = listaMateriais, evento = listaEventos, nome=nomeUsuario)
+        return render_template("tela_lideres.html", nome=nomeUsuario)
 
    
 @app.route("/submit_login", methods=["POST"])
@@ -56,9 +54,32 @@ def valida_login():
             session["nomeUsuario"] = login["nome"]
             session["status"] = login["status"]
             session["ID_turma"]  = login["ID_turma"]
-            return redirect(f"/usuarios/{login["matricula"]}")
+            return redirect(f'/usuarios/{login["matricula"]}')
           
     return redirect(url_for("/"))
+
+@app.route("/informativos/<tipo>")
+def GETInformativos(tipo):
+    if not 'ID_turma' in session:
+        return redirect(url_for("/login"))
+    
+    ID_turma = session["ID_turma"]
+
+    if tipo == "avisos":
+        listaAvisos = exibiInformativo("avisos", lista_informativos, ID_turma)
+        return listaAvisos
+    
+    elif tipo == "avaliacoes":
+        listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, ID_turma)
+        return listaAvaliacoes
+    
+    elif tipo == "materiais":
+        listaMateriais = exibiInformativo("materiais", lista_informativos, ID_turma)
+        return listaMateriais
+    
+    elif tipo == "eventos":
+        listaEventos = exibiInformativo("eventos", lista_informativos, ID_turma)
+        return listaEventos
 
 @app.route("/form_avisos")
 def form_avisos():
