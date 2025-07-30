@@ -67,7 +67,7 @@ def valida_login():
 @app.route("/informativos/<string:tipo>")
 def returnInformativos(tipo):
     if not 'ID_turma' in session:
-        return jsonify({"mensagem": "Sessão expirada ou não autorizado. Faça login novamente."})
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     ID_turma = session["ID_turma"]
 
@@ -79,7 +79,7 @@ def returnInformativos(tipo):
 def form_avisos():
     return render_template("form_avisos.html")
 
-@app.route("/submit_aviso", methods=["POST, DELETE, PUT"])
+@app.route("/submit_aviso", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
     if request.method == "POST":
         tipo_aviso = request.form["tipo_aviso"]

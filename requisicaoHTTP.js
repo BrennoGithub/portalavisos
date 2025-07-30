@@ -8,8 +8,8 @@ export async function requisiçãoHTTP(URL){
         //Bloco de código que será exercutado e tratado a requisição.
         const resposta = await fetch(URL);
         const dados = await resposta.json();
-        if(dados.includes("mensagem")){
-            return dados["mensagem"]
+        if("mensagemServidor" in dados){
+            return dados["mensagemServidor"];
         }else{
             return dados;
         }
@@ -17,7 +17,7 @@ export async function requisiçãoHTTP(URL){
     } catch (erro) {
         //Bloco de código que trata os erros da requisição
         console.error("Erro na busca de dados", erro)
-        return "Erro na busca de dados";
+        return `Erro na busca de dados: ${erro.message || erro}`;
     }
 }
 
