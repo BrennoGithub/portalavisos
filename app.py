@@ -12,7 +12,7 @@ app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c
 
 @app.route("/")
 def loginRedi():
-    return redirect(url_for("/login"))
+    return redirect(url_for("login"))
 
 @app.route("/login")
 def login():
@@ -21,12 +21,16 @@ def login():
 @app.route("/logout")
 def logout():
     session.clear()
-    return redirect(url_for("/login"))
+    return redirect(url_for("login"))
+
+@app.route("/usuarios")
+def returnUSUARIOS():
+    return jsonify(lista_alunos)
 
 @app.route("/usuarios/<matricula>")
-def tela_principal(matricula):
+def returnUSUARIO(matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
-        return redirect(url_for("/login"))
+        return redirect(url_for("login"))
 
     statusUsuario = session["status"]
     nomeUsuario = session["nomeUsuario"]
@@ -59,9 +63,9 @@ def valida_login():
     return redirect(url_for("/"))
 
 @app.route("/informativos/<tipo>")
-def GETInformativos(tipo):
+def returnInformativos(tipo):
     if not 'ID_turma' in session:
-        return redirect(url_for("/login"))
+        return jsonify({"mensagem": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     ID_turma = session["ID_turma"]
 

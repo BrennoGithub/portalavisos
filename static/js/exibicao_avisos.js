@@ -1,19 +1,22 @@
-//Função responsavel pela exibição de informativos.
-document.addEventListener("DOMContentLoaded", function(){
-    const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
+import { requisiçãoHTTP } from "../../requisicaoHTTP";
+const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
     const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
     const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
     const exibicaoEventos = document.querySelector('.exibicaoEventos');
-    
+    const informativo = requisiçãoHTTP("/informativos/avisos");
+    alert(informativo)
+
+
+//Função responsavel pela exibição de informativos.
+document.addEventListener("DOMContentLoaded", function(){
     if (exibicaoAvisos) {
-        let texto = exibicaoAvisos.textContent;
-        if(texto === "Não há informativos desse tipo registrado."){
-            exibicaoAvisos.innerHTML = `<em>${texto}</em>`;
+        if(informativo === "Não há informativos desse tipo registrado."){
+            exibicaoAvisos.innerHTML = `<em>${informativo}</em>`;
         }else{
-            texto = texto.replaceAll("''", '""');
-            texto = texto.replaceAll("'", '"');
-            const lista_avisos = JSON.parse(texto);
-            let avisos = ``;
+            const lista_avisos = informativo;
+            console.log(informativo)
+            exibicaoAvisos.innerHTML = "lista_avisos"
+            /*let avisos = ``;
             for(const x of lista_avisos){
                 avisos = `<div class="estilo_aviso">
                     <div class="primeira_area  azul_1">
@@ -35,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function(){
         exibicaoAvisos.innerHTML = `<div class="areaMaterial">
             <h2>Avisos</h2><hr>
                 ${avisos}
-            </div>`;
+            </div>`;*/
         };
     };
 
