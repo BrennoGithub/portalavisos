@@ -33,18 +33,20 @@ legend{
 
 input{
     border-radius: 5px;
-    border: none white;
+    border: none;
+    outline: none; /*Essa propriedade remove o contorno padrão que aparece quando o input recebe foco. */
     text-align: center;
     padding: 5px;
     margin: 5px;
     width: 60%;
     height: 20px;
-   
+    /*ADICIONAR ESTILO PARA INDICAR FOCO NO CAMPO*/
 }
 
 textarea{
     border-radius: 10px;
     border: none;
+    outline: none;
     width: 90%;
     height: 90px;
     padding: 14px;
@@ -55,6 +57,7 @@ textarea{
 select{
     border-radius: 5px;
     border: none;
+    outline: none;
     text-align: center;
     padding: 5px;
     width: 120px;
