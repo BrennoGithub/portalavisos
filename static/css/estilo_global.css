@@ -1,6 +1,7 @@
 /*Estilo geral da página*/
 body{
-    background-color: #FEFF9F;
+    /*background-color: #FEFF9F;*/
+    background-color: white;
 }
 
 h1, h2{
@@ -41,6 +42,16 @@ input{
    
 }
 
+textarea{
+    border-radius: 10px;
+    border: none;
+    width: 90%;
+    height: 90px;
+    padding: 14px;
+    resize: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
 select{
     border-radius: 5px;
     border: none;
@@ -53,7 +64,7 @@ select{
 button{
     border-radius: 5px;
     border: none;
-    background-color: #789DBC;
+    background-color: #06923E;
     color: white;
     padding: 10px;
     font-family: 'Times New Roman', Times, serif;

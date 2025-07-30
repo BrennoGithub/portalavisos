@@ -4,7 +4,14 @@
     border: solid 1px gray;
     border-radius: 20px;
     background-color: white;
-    margin: 20px 20px 30px 20px;
+    margin: 30px auto 30px auto;
+    min-width: 600px;
+    max-width: 900px;
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
+}
+
+.cabeca_pagina:hover{
+    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
 .area{
@@ -17,59 +24,17 @@
     background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    margin: 0px 20px 30px 20px;
+    margin: 0px auto 30px auto;
     text-align: center;
     width: auto;
     min-height: 140px;
+    min-width: 600px;
+    max-width: 900px;
+    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
 }
 
-/*Estilo do formulario de avisos*/
-.formAviso{
-    background-color: white;
-    text-align: center;
-    width: 450px;
-    border: 1px solid gray;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 20px;
-    display: block;
-
-}
-
-.area_campo_form{
-    width: auto;
-    height: 60px;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-.conteudoOpcoes{
-    width: 150px;
-}
-
-.data_hora{
-    width: 50%;
-}
-
-.texto_campo_form{
-    width: auto;
-    height: auto;
-    margin-left: 15px;
-    margin-right: 15px;
-}
-
-textarea{
-    border-radius: 10px;
-    border: none;
-    width: 90%;
-    height: 90px;
-    padding: 10px;
-    resize: none;
-}
-
-.botao_campo_form{
-    margin-top: 10px;
-    margin-bottom: 15px;
+.areaMaterial:hover{
+    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
 /*Estilo de avisos*/
@@ -82,28 +47,35 @@ textarea{
     display: block;
 }
 
+
 .primeira_area{
     width: 10%;
-    background-color: #9FB3DF;
     border-radius: 10px 0px 0px 10px;
-    padding: 8px;
+    padding: 14px;
     font-style: italic;
     font-size: 12px;
+    text-align: left;
 }
 
 .segunda_area{
-    width: 20%;
-    background-color: #9EC6F3;
-    padding: 8px;
+    width: 25%;
+    padding: 14px;
     font-weight: bold;
+    text-align: left;
   
 }
 
 .terceira_area{
-    width: 70%;
-    background-color: #BDDDE4;
+    width: 55%;
+    padding: 14px;
+    text-align: left;
+}
+
+.quarta_area{
+    width: 10%;
     border-radius: 0px 10px 10px 0px;
-    padding: 8px;
+    padding: 14px;
+    text-align: left;
 }
 
 .azul_1{ background-color: #9FB3DF; }

@@ -57,15 +57,10 @@
     .sidebar a {font-size: 18px;}
 }
 
-/*Estilo do botão de opções*/
-.conteudoOpcoes{
-   font-size: 15px;
-   border: none;
-}
 
 /*Estilo dos icones usados na aplicação*/
 .icon_fecha{
-    width: 30px;
+    width: 26px;
     border-radius: 20px;
 }
 
@@ -94,6 +89,7 @@
 }
 
 .deslogar{
-    margin: 200px 0px 10px 0px;
-    background-color: rgb(230, 230, 230);
+    margin: 95% 0px 10px 0px;
+    background-color: lightgray;
+    color: black;
 }

@@ -4,17 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Avisos Info V IFRN</title>
+    <title>Portal Informativo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_avisos.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
+    <script>
+        const STATIC_URL = "{{ url_for('static', filename='') }}";
+    </script>
 </head>
 <body>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">
             <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
+
+        <a>{{nome}}</a>
+        <hr>
+
         <a href="#">Mural</a>
         <a href="#">Avisos</a>
         <a href="#">Avaliações</a>
@@ -29,33 +36,18 @@
         <div id="main">
              <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
         </div>
-        <h1>Portal Avisos de INFO V</h1>
+        <h1>Portal Informativo - INFO V</h1>
     </header>
         
       
       <article class="area">
-                <div class="areaMaterial">
-                    <h2>Avisos</h2><hr>
-                    <span class="exibicaoAvisos">{{aviso}}</span>
-                </div>
-
-                <div class="areaMaterial">
-                    <h2>Avaliações</h2><hr>
-                    <span  class="exibicaoAvaliacoes">{{avaliacao}}</span>
-                </div>
-
-                <div class="areaMaterial">
-                    <h2>Eventos</h2><hr>
-                    <span class="exibicaoEventos">{{evento}}</span>
-                </div> 
-      
-                <div class="areaMaterial">
-                    <h2>Material de Estudo</h2><hr>
-                    <span class="exibicaoMateriais">{{material}}</span>
-                </div>   
+        <span class="exibicaoAvisos">{{aviso}}</span>
+        <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
+        <span class="exibicaoEventos">{{evento}}</span>
+        <span class="exibicaoMateriais">{{material}}</span>
       </article>
 
     <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/exibicao_avisos.js') }}"></script>
 </body>
 </html>
