@@ -7,7 +7,10 @@ const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
 const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
 const exibicaoEventos = document.querySelector('.exibicaoEventos');
 //const STATIC_URL = window.STATIC_URL; // Usar a variável global definida no HTML
+//Melhorar a função de exibição.
 
+const tipoInformativos = ["Avisos", "Avaliacoes", "Materiais", "Eventos"];
+    
 //Função responsavel pela exibição de informativos.
 document.addEventListener("DOMContentLoaded", async function(){
     if(exibicaoAvisos){
@@ -33,8 +36,7 @@ document.addEventListener("DOMContentLoaded", async function(){
                     </div>
                 </div>`+avisos;
             };
-            avisos = `<div class="areaMaterial">
-                          <h2>Avisos</h2><hr> ${avisos} </div>`;
+            avisos = `<div class="areaMaterial"><h2>Avisos</h2><hr> ${avisos} </div>`;
             exibicaoAvisos.innerHTML = avisos;
         };
     };
@@ -64,8 +66,7 @@ document.addEventListener("DOMContentLoaded", async function(){
                         </div>
                     </div>`+avaliacoes;
             };
-            avaliacoes = `<div class="areaMaterial">
-                          <h2>Avaliações</h2><hr> ${avaliacoes} </div>`
+            avaliacoes = `<div class="areaMaterial"><h2>Avaliações</h2><hr> ${avaliacoes} </div>`
             exibicaoAvalicoes.innerHTML = avaliacoes;
         };
     };
@@ -95,12 +96,10 @@ document.addEventListener("DOMContentLoaded", async function(){
                             <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                         </div>
                     </div>`+materiais;
+            };
+            materiais = `<div class="areaMaterial"><h2>Materiais</h2><hr> ${materiais} </div>`
+            exibicaoMateriais.innerHTML = materiais;
         };
-        materiais = `<div class="areaMaterial">
-                        <h2>Materiais</h2><hr> ${materiais} </div>`
-        exibicaoMateriais.innerHTML = materiais;
-    }
-   
     };
 
     if(exibicaoEventos){
@@ -125,10 +124,9 @@ document.addEventListener("DOMContentLoaded", async function(){
                             <button><img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete"></button>
                          </div>
                       </div>`+eventos;
-        };
-        eventos = `<div class="areaMaterial">
-                        <h2>Eventos</h2><hr>${eventos}</div> `;
-        exibicaoEventos.innerHTML = eventos;
+            };
+            eventos = `<div class="areaMaterial"><h2>Eventos</h2><hr>${eventos}</div> `;
+            exibicaoEventos.innerHTML = eventos;
         };
     };
 });
