@@ -1,4 +1,6 @@
 import { requisiçãoHTTP } from "../../requisicaoHTTP";
+
+//VER E CORRIGIR ERROS NO SCRIPT.
 const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
     const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
     const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
