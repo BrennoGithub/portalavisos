@@ -7,6 +7,8 @@ from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.lista_alunos import lista_alunos
 
+#VER E ALTERAR URL_FOR PARA CORRIGIR ERROS.
+
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
@@ -62,28 +64,16 @@ def valida_login():
           
     return redirect(url_for("/"))
 
-@app.route("/informativos/<tipo>")
+@app.route("/informativos/<string:tipo>")
 def returnInformativos(tipo):
     if not 'ID_turma' in session:
         return jsonify({"mensagem": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     ID_turma = session["ID_turma"]
 
-    if tipo == "avisos":
-        listaAvisos = exibiInformativo("avisos", lista_informativos, ID_turma)
-        return listaAvisos
-    
-    elif tipo == "avaliacoes":
-        listaAvaliacoes = exibiInformativo("avaliacoes", lista_informativos, ID_turma)
-        return listaAvaliacoes
-    
-    elif tipo == "materiais":
-        listaMateriais = exibiInformativo("materiais", lista_informativos, ID_turma)
-        return listaMateriais
-    
-    elif tipo == "eventos":
-        listaEventos = exibiInformativo("eventos", lista_informativos, ID_turma)
-        return listaEventos
+    if tipo in ["avisos", "avaliacoes", "materiais", "eventos"]:
+        listaInformativo = exibiInformativo(tipo, lista_informativos, ID_turma)
+        return listaInformativo
 
 @app.route("/form_avisos")
 def form_avisos():
@@ -128,14 +118,14 @@ def CRUD_informativo():
 
             criaMaterial(lista_id_informativos, lista_informativos, tipo_material, material, materia, assunto, descricao)
         #Criar uma função de exibição destinada a avaliações
-        return redirect(url_for("/usuarios/20231144010043"))
+        return redirect(url_for("usuarios/20231144010043"))
 
     elif request.method == "DELETE":
         return "olá mundo"
         
     elif request.method == "PUT":
         return "olá mundo"
-    return redirect(url_for("/form_avisos"))
+    return redirect(url_for("form_avisos"))
 
 
 if __name__ == "__main__":
