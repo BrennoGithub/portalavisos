@@ -1,3 +1,5 @@
+from flask import jsonify
+
 #Funções READ
 def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
     informativos = []
@@ -7,9 +9,9 @@ def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
             informativos.append(iten)
 
     if len(informativos) == 0:
-        return "Não há informativos desse tipo cadastrados."
+        return jsonify({"mensagem": f"Informativo há informativo desse tipo cadastrado."})
     else:
-        return informativos
+        return jsonify(informativos)
 
 """
 @app.route("/submit_aviso", methods=["POST", "DELETE", "PUT"]) # Corrigida a lista de métodos
