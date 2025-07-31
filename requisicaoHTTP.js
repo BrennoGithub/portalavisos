@@ -7,6 +7,10 @@ export async function requisiçãoHTTP(URL){
     try { 
         //Bloco de código que será exercutado e tratado a requisição.
         const resposta = await fetch(URL);
+        /* //ADICIONAR E MELHORAR TRATAMENTO DE ERROS.
+        if(!resposta.ok){
+            return "404 - Informativos não encontrados.";
+        }*/
         const dados = await resposta.json();
         if("mensagemServidor" in dados){
             return dados["mensagemServidor"];
