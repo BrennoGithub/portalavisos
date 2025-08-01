@@ -13,60 +13,48 @@ def returnHora():
     return hora
 
 #Funções CREATE
-def criaAviso(lista_id_informativos, lista_informativos, data_atual, hora_atual, assunto, texto):
+
+def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, objetoInformativo):
     id = 1
     while id in lista_id_informativos:
         id += 1
 
     lista_id_informativos.append(id)
-    lista_informativos["avisos"].append({
-        "ID_aviso": id,
-        "data": data_atual,
-        "hora": hora_atual,
-        "assunto": assunto,
-        "texto": texto
-    })
-   
-def criaAvaliacao(lista_id_informativos, lista_informativos, materia, assunto, data_avaliacao, hora_avaliacao, descricao):
-    id = 1
-    while id in lista_id_informativos:
-        id += 1
-    
-    lista_id_informativos.append(id)
-    lista_informativos["avaliacoes"].append({
-        "ID_avaliacao": id,
-        "materia": materia,
-        "assunto": assunto,
-        "data_avaliacao": data_avaliacao,
-        "hora_avaliacao": hora_avaliacao,
-        "descricao": descricao
-    })
 
-def criaEvento(lista_id_informativos, lista_informativos,  nome_evento, data_evento, hora_evento, descricao):
-    id = 1
-    while id in lista_id_informativos:
-        id += 1
+    if tipoInformativo == "avisos":
+        lista_informativos.append(
+            { "ID_aviso": id, 
+              "data": objetoInformativo["data_atual"],
+              "hora": objetoInformativo["hora_atual"],
+              "assunto": objetoInformativo["assunto"],
+              "texto": objetoInformativo["texto"]
+            })
     
-    lista_id_informativos.append(id)
-    lista_informativos["eventos"].append({
-        "ID_evento": id,
-        "nome": nome_evento,
-        "data_evento": data_evento,
-        "hora_evento": hora_evento,
-        "descricao": descricao
-    })
-
-def criaMaterial(lista_id_informativos, lista_informativos,  tipo_material, material, materia, assunto, descricao):
-    id = 1
-    while id in lista_id_informativos:
-        id += 1
-    
-    lista_id_informativos.append(id)
-    lista_informativos["materiais"].append({
-        "ID_material": id,
-        "tipo_material": tipo_material,
-        "material": material,
-        "materia": materia,
-        "assunto": assunto,
-        "descricao": descricao
-    })
+    elif tipoInformativo == "avaliacoes":
+        lista_informativos.append(
+            { "ID_avaliacao": id,
+              "materia": objetoInformativo["materia"],
+              "assunto": objetoInformativo["assunto"],
+              "data_avaliacao": objetoInformativo["data_avaliacao"],
+              "hora_avaliacao": objetoInformativo["hora_avaliacao"],
+              "descricao": objetoInformativo["descricao"]
+            })
+        
+    elif tipoInformativo == "eventos":
+        lista_informativos.append(
+            { "ID_evento": id,
+              "nome": objetoInformativo["nome_evento"],
+              "data_evento": objetoInformativo["data_evento"],
+              "hora_evento": objetoInformativo["hora_evento"],
+              "descricao": objetoInformativo["descricao"]
+            })
+        
+    elif tipoInformativo == "materiais":
+        lista_informativos.append(
+            { "ID_material": id,
+              "tipo_material": objetoInformativo["tipo_material"],
+              "material": objetoInformativo["material"],
+              "materia": objetoInformativo["materia"],
+              "assunto": objetoInformativo["assunto"],
+              "descricao": objetoInformativo["descricao"]
+            })
