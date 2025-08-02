@@ -1,4 +1,4 @@
-import { requisiçãoHTTP } from "../../requisicaoHTTP";
+import { requisicaoHTTP } from requisicaoHTTP;
 
 //VERIFICAR AS PORTAS AS QUAIS ESTÃO RODANDO O FLASK E A PÁGINA HTML/JJAVASCRIPT
 
@@ -14,8 +14,10 @@ const tipoInformativos = ["Avisos", "Avaliacoes", "Materiais", "Eventos"];
 //Função responsavel pela exibição de informativos.
 document.addEventListener("DOMContentLoaded", async function(){
     if(exibicaoAvisos){
-        const informativos = await requisiçãoHTTP("/informativos/avisos")
+        const informativos = await requisicaoHTTP("/informativos/avisos")
         if(informativos === "Não há informativo desse tipo cadastrado."){
+            exibicaoAvisos.innerHTML = informativos;
+        }else if(informativos === "Não foi encontrado."){
             exibicaoAvisos.innerHTML = informativos;
         }else{
             let avisos = ``;
@@ -42,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async function(){
     };
 
     if(exibicaoAvalicoes){
-        const informativos = await requisiçãoHTTP("/informativos/avaliacoes")
+        const informativos = await requisicaoHTTP("/informativos/avaliacoes")
         if(informativos === "Não há informativo desse tipo cadastrado."){
             exibicaoAvalicoes.innerHTML = informativos;
         }else{
@@ -72,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async function(){
     };
 
     if(exibicaoMateriais){
-        const informativos = await requisiçãoHTTP("/informativos/materiais")
+        const informativos = await requisicaoHTTP("/informativos/materiais")
         if(informativos === "Não há informativo desse tipo cadastrado."){
             exibicaoMateriais.innerHTML = informativos;
         }else{
@@ -103,7 +105,7 @@ document.addEventListener("DOMContentLoaded", async function(){
     };
 
     if(exibicaoEventos){
-        const informativos = await requisiçãoHTTP("/informativos/eventos")
+        const informativos = await requisicaoHTTP("/informativos/eventos")
         if(informativos === "Não há informativos desse tipo registrado."){
             exibicaoEventos.innerHTML = informativos;
         }else{

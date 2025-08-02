@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.Create import criaInformativo
+from CRUD.Create import criaInformativo, returnData, returnHora
 from CRUD.Read import exibiInformativo
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
@@ -58,6 +58,7 @@ def returnUSUARIO(matricula):
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":
+        
         matricula = request.form["matricula"]
         senha = request.form["senha"]
 
@@ -65,13 +66,17 @@ def valida_login():
 
         if login == "invalido":
             return render_template("login.html")  
-      
         else:
             session["matricula"] = login["matricula"] # <-- Armazenados na sessão
             session["nomeUsuario"] = login["nome"]
             session["status"] = login["status"]
             session["ID_turma"]  = login["ID_turma"]
-            return redirect(f'/usuarios/{login["matricula"]}')
+
+            if session["status"] == "aluno":
+                return render_template("tela_comun.html", nome = session["nomeUsuario"])
+    
+            elif session["status"] == "aluno-lider":
+                return render_template("tela_lideres.html", nome = session["nomeUsuario"])
           
     return redirect(url_for("/"))
 
@@ -92,6 +97,10 @@ def form_avisos():
 
 @app.route("/submit_aviso", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
+    if "ID_turma" not in session:
+        return redirect(url_for("form_avisos"))
+    ID_turma = session["ID_turma"]
+
     if request.method == "POST":
         objetoInformativo = {}
         tipoInformativo = request.form["tipo_aviso"]
@@ -121,10 +130,10 @@ def CRUD_informativo():
             objetoInformativo["assunto"] = request.form["assunto"]
             objetoInformativo["descricao"] = request.form["descricao"]
 
-        criaInformativo(lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
+        criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
         #Criar uma função de exibição destinada a avaliações
         
-        return redirect(url_for(f"usuarios/{session["matricula"]}"))
+        return redirect(url_for(f"usuarios/{session['matricula']}"))
 
     elif request.method == "DELETE":
         return "olá mundo"

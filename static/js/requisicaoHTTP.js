@@ -3,10 +3,15 @@
 //async => Sinaliza função assíncrona, ou seja, leva tempo para serem exercutadas
 //await => Pausa a exercução até a Promise ser resolvida.
 
-export async function requisiçãoHTTP(URL){
+export async function requisicaoHTTP(URL){
     try { 
         //Bloco de código que será exercutado e tratado a requisição.
         const resposta = await fetch(URL);
+        //ADICIONAR E MELHORAR TRATAMENTO DE ERROS.
+        if(!resposta.ok){
+            resposta = {"mensagemServidor": "Não foi encontrado."}
+            return resposta["mensagemServidor"];
+        }
         const dados = await resposta.json();
         if("mensagemServidor" in dados){
             return dados["mensagemServidor"];

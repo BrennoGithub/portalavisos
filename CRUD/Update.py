@@ -1,32 +1,30 @@
-#Funções UPDATE
-def atualizaAviso(ID, lista_informativos, assunto, texto):
-    for item in lista_informativos["avisos"]:
-        if item["tipo"] == "aviso" and item["ID_aviso"] == ID:
-            item["assunto"] = assunto
-            item["texto"] == texto
+#Função UPDATE
+def atualizaInformativo(ID, lista_informativos, lista_id_informativos, tipoInformativo, objetoInformativo):
+    for item in lista_informativos:
+        if tipoInformativo == "avisos":
+            if item["ID_aviso"] == ID and ID in lista_id_informativos:
+                item["assunto"] = objetoInformativo["assunto"]
+                item["texto"] == objetoInformativo["texto"]
 
-def atualizaAvaliacao(ID, lista_informativos, materia, assunto, data_avaliacao, hora_avaliacao, descricao):
-    for item in lista_informativos["avaliacoes"]:
-        if item["tipo"] == "avaliacao" and item["ID_avaliacao"] == ID:
-            item["materia"] == materia
-            item["assunto"] == assunto
-            item["data_avaliacao"] == data_avaliacao
-            item["hora_avaliacao"] == hora_avaliacao
-            item["descricao"] == descricao
+        elif tipoInformativo == "avaliacoes":
+            if item["ID_avaliacao"] == ID and ID in lista_id_informativos:
+                item["materia"] == objetoInformativo["materia"]
+                item["assunto"] == objetoInformativo["assunto"]
+                item["data_avaliacao"] == objetoInformativo["data_avaliacao"]
+                item["hora_avaliacao"] == objetoInformativo["hora_avaliacao"]
+                item["descricao"] == objetoInformativo["descricao"]
 
-def atualizaEvento(ID, lista_informativos, nome, data_evento, hora_evento, descricao):
-    for item in lista_informativos["eventos"]:
-        if item["tipo"] == "evento" and item["ID_evento"] == ID:
-            item["nome"] == nome
-            item["data_evento"] == data_evento
-            item["hora_evento"] == hora_evento
-            item["descricao"] == descricao
+        elif tipoInformativo == "eventos":
+            if item["ID_evento"] == ID and ID in lista_id_informativos:
+                item["nome"] == objetoInformativo["nome"]
+                item["data_evento"] == objetoInformativo["data_evento"]
+                item["hora_evento"] == objetoInformativo["hora_evento"]
+                item["descricao"] == objetoInformativo["descricao"]
 
-def atualizaMaterial(ID, lista_informativos, material, materia, assunto, descricao):
-    for item in lista_informativos["materiais"]:
-        if item["tipo"] == "material" and item["ID_material"] == ID:
-            item["material"] == material
-            item["materia"] == materia
-            item["assunto"] == assunto
-            item["descricao"] == descricao
-#Por enquanto atualizaMaterial não atualiza tipo_material
+        elif tipoInformativo == "materiais":
+            if item["ID_material"] == ID and ID in lista_id_informativos:
+                item["material"] == objetoInformativo["material"]
+                item["materia"] == objetoInformativo["materia"]
+                item["assunto"] == objetoInformativo["assunto"]
+                item["descricao"] == objetoInformativo["descricao"]
+                #Por enquanto atualizaMaterial não atualiza tipo_material

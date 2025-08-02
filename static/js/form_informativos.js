@@ -105,21 +105,24 @@ document.getElementById("tipo_aviso").addEventListener('change', function(){
     const tipoInformativo = document.getElementById("tipo_aviso").value;
 
     switch(tipoInformativo){
-        case 'aviso':
+        case 'avisos':
             document.getElementById("form_informativo").innerHTML = form_aviso;
             break;
 
-        case 'avaliacao':
+        case 'avaliacoes':
             document.getElementById("form_informativo").innerHTML = form_avaliacao;
             break;
 
-        case 'evento':
+        case 'eventos':
             document.getElementById("form_informativo").innerHTML = form_evento;
             break;
 
-        case 'material':
+        case 'materiais':
             document.getElementById("form_informativo").innerHTML = form_material;
             break;
 
+        default:
+            document.getElementById("form_informativo").innerHTML = form_aviso;
+            break;
     }
 });

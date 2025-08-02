@@ -12,9 +12,8 @@ def returnHora():
     hora = data_hora.strftime("%H:%M")
     return hora
 
-#Funções CREATE
-
-def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, objetoInformativo):
+#Função CREATE
+def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInformativo, objetoInformativo):
     id = 1
     while id in lista_id_informativos:
         id += 1
@@ -23,7 +22,8 @@ def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, 
 
     if tipoInformativo == "avisos":
         lista_informativos.append(
-            { "ID_aviso": id, 
+            { "ID_turma": ID_turma,
+              "ID_aviso": id, 
               "data": objetoInformativo["data_atual"],
               "hora": objetoInformativo["hora_atual"],
               "assunto": objetoInformativo["assunto"],
@@ -32,7 +32,8 @@ def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, 
     
     elif tipoInformativo == "avaliacoes":
         lista_informativos.append(
-            { "ID_avaliacao": id,
+            { "ID_turma": ID_turma,
+              "ID_avaliacao": id,
               "materia": objetoInformativo["materia"],
               "assunto": objetoInformativo["assunto"],
               "data_avaliacao": objetoInformativo["data_avaliacao"],
@@ -42,7 +43,8 @@ def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, 
         
     elif tipoInformativo == "eventos":
         lista_informativos.append(
-            { "ID_evento": id,
+            { "ID_turma": ID_turma,
+              "ID_evento": id,
               "nome": objetoInformativo["nome_evento"],
               "data_evento": objetoInformativo["data_evento"],
               "hora_evento": objetoInformativo["hora_evento"],
@@ -51,7 +53,8 @@ def criaInformativo(lista_id_informativos, lista_informativos, tipoInformativo, 
         
     elif tipoInformativo == "materiais":
         lista_informativos.append(
-            { "ID_material": id,
+            { "ID_turma": ID_turma,
+              "ID_material": id,
               "tipo_material": objetoInformativo["tipo_material"],
               "material": objetoInformativo["material"],
               "materia": objetoInformativo["materia"],
