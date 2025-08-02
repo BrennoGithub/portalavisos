@@ -46,14 +46,12 @@ def returnUSUARIO(matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
         return redirect(url_for("login"))
 
-    statusUsuario = session["status"]
-    nomeUsuario = session["nomeUsuario"]
-
-    if statusUsuario == "aluno":
-        return render_template("tela_comun.html", nome=nomeUsuario)
+    usuario = {}
+    for alunos in lista_alunos:
+        if matricula == alunos["matricula"]:
+            usuario = alunos
     
-    elif statusUsuario == "aluno-lider":
-        return render_template("tela_lideres.html", nome=nomeUsuario)
+    return jsonify(usuario)
 
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
