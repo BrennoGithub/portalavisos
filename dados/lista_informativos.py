@@ -1,5 +1,6 @@
 #lista de ids de avisos
-lista_id_informativos = []
+lista_id_informativos = { "avisos":[1], "avaliacoes":[1], "eventos":[1], "materiais":[1] }
+
 lista_informativos = {
     "avisos":[ 
         {"ID_turma": 1, "ID_aviso": 1, "data": "DD/MM/AA", "hora": "HH:MM", "assunto": "assunto", "texto": "texto"} 
