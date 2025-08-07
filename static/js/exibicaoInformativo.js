@@ -1,18 +1,17 @@
 import { requisicaoHTTP } from requisicaoHTTP;
 
-//VERIFICAR AS PORTAS AS QUAIS ESTÃO RODANDO O FLASK E A PÁGINA HTML/JJAVASCRIPT
+//REFORMULAR TODA A LÓGICA DE CARREGAMENTO DOS INFORMATIVOS
 
 const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
 const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
 const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
 const exibicaoEventos = document.querySelector('.exibicaoEventos');
-//const STATIC_URL = window.STATIC_URL; // Usar a variável global definida no HTML
-//Melhorar a função de exibição.
 
 const tipoInformativos = ["Avisos", "Avaliacoes", "Materiais", "Eventos"];
     
 //Função responsavel pela exibição de informativos.
 document.addEventListener("DOMContentLoaded", async function(){
+
     if(exibicaoAvisos){
         const informativos = await requisicaoHTTP("/informativos/avisos")
         if(informativos === "Não há informativo desse tipo cadastrado."){
