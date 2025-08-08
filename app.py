@@ -45,13 +45,18 @@ def returnUSUARIOS():
 def returnUSUARIO(matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
         return redirect(url_for("login"))
-
-    usuario = {}
-    for alunos in lista_alunos:
-        if matricula == alunos["matricula"]:
-            usuario = alunos
     
-    return jsonify(usuario)
+    if session["status"] == "aluno":
+        return render_template("tela_comun.html", nome = session["nomeUsuario"])
+    
+    elif session["status"] == "aluno-lider":
+        return render_template("tela_lideres.html", nome = session["nomeUsuario"])
+
+    #usuario = {}
+    #for alunos in lista_alunos:
+    #    if matricula == alunos["matricula"]:
+    #        usuario = alunos
+    #return jsonify(usuario)
 
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
@@ -70,13 +75,11 @@ def valida_login():
             session["status"] = login["status"]
             session["ID_turma"]  = login["ID_turma"]
 
-            if session["status"] == "aluno":
-                return render_template("tela_comun.html", nome = session["nomeUsuario"])
-    
-            elif session["status"] == "aluno-lider":
-                return render_template("tela_lideres.html", nome = session["nomeUsuario"])
-          
+            return redirect(f'usuarios/{session["matricula"]}')
+            
     return redirect(url_for("/"))
+
+
 
 @app.route("/informativos/<string:tipo>")
 def returnInformativos(tipo):
@@ -93,7 +96,7 @@ def returnInformativos(tipo):
 def form_avisos():
     return render_template("form_avisos.html")
 
-@app.route("/submit_aviso", methods=["POST", "DELETE", "PUT"])
+@app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
     if "ID_turma" not in session:
         return redirect(url_for("form_avisos"))
