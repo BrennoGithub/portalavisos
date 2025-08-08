@@ -1,4 +1,4 @@
-import { requisicaoHTTP } from requisicaoHTTP;
+import { requisicaoHTTP } from "./requisicaoHTTP.js";
 
 export async function renderizaInformativos(elemento, tipo) {
     if(!elemento){

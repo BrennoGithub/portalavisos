@@ -1,4 +1,4 @@
-import { renderizaInformativos } from "./renderizacaoInformativos";
+import { renderizaInformativos } from "./renderizacaoInformativos.js";
 
 const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
 const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
