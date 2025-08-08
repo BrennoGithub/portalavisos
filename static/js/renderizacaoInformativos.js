@@ -1,18 +1,20 @@
-import { requisicaoHTTP } from requisicaoHTTP;
+import { requisicaoHTTP } from "./requisicaoHTTP.js";
 
 export async function renderizaInformativos(elemento, tipo) {
     if(!elemento){
         return "Elemento inexistente.";
     }
 
-    elemento.innerHTML = "<em>Carregando...</em>"
+    elemento.innerHTML = "<span class='carregando area'>Carregando...</span>"
 
     const informativos = await requisicaoHTTP(`/informativos/${tipo}`);
 
-    if(informativos === "Não há informativos desse tipo registrado."){
+    if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
     }
 
+    const STATIC_URL = "/static/";
+    
     switch (tipo){
         case "avisos":
             let avisos = ``;
