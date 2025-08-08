@@ -9,7 +9,7 @@ def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
             informativos.append(iten)
 
     if len(informativos) == 0:
-        return jsonify({"mensagemServidor": "Não há informativo desse tipo cadastrado."})
+        return jsonify({"mensagemServidor": "404 - Não foi encontrado informativo desse tipo."})
     
     else:
         return jsonify(informativos)

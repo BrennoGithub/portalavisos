@@ -9,7 +9,7 @@ export async function requisicaoHTTP(URL){
         const resposta = await fetch(URL);
         //ADICIONAR E MELHORAR TRATAMENTO DE ERROS.
         if(!resposta.ok){
-            resposta = {"mensagemServidor": "Não foi encontrado."}
+            resposta = {"mensagemServidor": "404 - Não encontrado."}
             return resposta["mensagemServidor"];
         }
         const dados = await resposta.json();

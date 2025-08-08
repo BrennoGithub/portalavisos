@@ -18,6 +18,7 @@
     height: auto;
     width: auto;
     display: block;
+    text-align: center;
 }
 
 .areaMaterial{
@@ -35,6 +36,13 @@
 
 .areaMaterial:hover{
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+}
+
+/*Mensagem de carregação*/
+.carregando{
+    font-style: italic;
+    font-size: 30px;
+    padding: 100px;
 }
 
 /*Estilo de avisos*/
