@@ -1,7 +1,5 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
 
-//NÃO ESTAR CARREGANDO OS INFORMATIVOS NA PÁGINA COMUN. RESOLVER ESSE PROBLEMA.
-
 const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
 const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
 const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
