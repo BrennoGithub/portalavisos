@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_avisos.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
     <script>
-        const STATIC_URL = "{{ url_for('static', filename='') }}";
+        //const STATIC_URL = "{{ url_for('static', filename='') }}";
     </script>
 </head>
 <body>
@@ -38,13 +38,12 @@
         </div>
         <h1>Portal Informativo - INFO V</h1>
     </header>
-        
-      
+
       <article class="area">
-        <span class="exibicaoAvisos">{{aviso}}</span>
-        <span class="exibicaoAvaliacoes">{{avaliacao}}</span>
-        <span class="exibicaoEventos">{{evento}}</span>
-        <span class="exibicaoMateriais">{{material}}</span>
+            <span class="exibicaoAvisos"></span>
+            <span class="exibicaoAvaliacoes"></span>
+            <span class="exibicaoEventos"></span>
+            <span class="exibicaoMateriais"></span>
       </article>
 
     <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
