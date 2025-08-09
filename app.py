@@ -134,7 +134,7 @@ def CRUD_informativo():
         criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
         #Criar uma função de exibição destinada a avaliações
         
-        return redirect(url_for(f"usuarios/{session['matricula']}"))
+        return redirect(f"/usuarios/{session['matricula']}")
 
     elif request.method == "DELETE":
         return "olá mundo"
