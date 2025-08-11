@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.Create import criaInformativo, returnData, returnHora
-from CRUD.Read import exibiInformativo
+from CRUD.Read import exibiInformativo, exibiTodosInformativos
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.lista_alunos import lista_alunos
@@ -91,6 +91,11 @@ def returnInformativos(tipo):
     if tipo in ["avisos", "avaliacoes", "materiais", "eventos"]:
         listaInformativo = exibiInformativo(tipo, lista_informativos, ID_turma)
         return listaInformativo
+    
+    elif tipo == "todos":
+        listaInformativo = exibiTodosInformativos(lista_informativos, ID_turma)
+        return listaInformativo
+
 
 @app.route("/form_avisos")
 def form_avisos():
