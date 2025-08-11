@@ -26,11 +26,11 @@
         </a>
           <hr>
  
-        <a href="#">Mural</a>
-        <a href="#">Avisos</a>
-        <a href="#">Avaliações</a>
-        <a href="#">Eventos</a>
-        <a href="#">Material Didatico</a>
+        <a href="#" class="sessao">Mural</a>
+        <a href="#" class="sessao">Avisos</a>
+        <a href="#" class="sessao">Avaliações</a>
+        <a href="#" class="sessao">Eventos</a>
+        <a href="#" class="sessao">Material Didatico</a>
         <a href="/logout" class="deslogar"> 
             <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
         </a>
@@ -45,6 +45,7 @@
       </header>
       
       <article class="area">
+            <span class="exibicaoMural"></span>
             <span class="exibicaoAvisos"></span>
             <span class="exibicaoAvaliacoes"></span>
             <span class="exibicaoEventos"></span>
@@ -52,6 +53,6 @@
       </article>
 
       <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-      <script type="module" src="{{ url_for('static', filename='js/exibicaoInformativos.js') }}"></script>
+      <script type="module" src="{{ url_for('static', filename='js/roteamento.js') }}"></script>
 </body>
 </html>
