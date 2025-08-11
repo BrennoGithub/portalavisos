@@ -9,8 +9,14 @@ const paginas = document.querySelectorAll(".sessao");
 
 //MELHORAR A FUNÇÃO DE ROTEAMENTO DAS PÁGINAS
 document.addEventListener("DOMContentLoaded", async function(){
-    for(const sessao in paginas){
-        const tituloPagina = sessao.querySelector("h2").textContent;
+    await renderizaInformativos(exibicaoMural, "todos");
+    await renderizaInformativos(exibicaoAvisos, "avisos");
+    await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
+    await renderizaInformativos(exibicaoMateriais, "materiais");
+    await renderizaInformativos(exibicaoEventos, "eventos");
+
+    /*for(const sessao in paginas){
+        const tituloPagina = sessao.textContent;
         switch (tituloPagina){
             case "Mural":
                 await renderizaInformativos(exibicaoMural, "todos");
@@ -31,6 +37,10 @@ document.addEventListener("DOMContentLoaded", async function(){
             case "Eventos":
                 await renderizaInformativos(exibicaoEventos, "eventos");
                 break;
+            
+            default:
+                await renderizaInformativos(exibicaoMural, "todos");
+                break;
         };
-    };
+    };*/
 });
