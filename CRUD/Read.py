@@ -3,7 +3,10 @@ from flask import jsonify
 #Funções READ
 def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
     informativos = []
-    lista_do_tipo = lista_informativos.get(tipo_informativos, []) 
+    lista_do_tipo = []
+    if tipo_informativos in lista_informativos:
+        lista_do_tipo = lista_informativos[tipo_informativos] 
+        
     for iten in lista_do_tipo:
         if int(iten["ID_turma"]) == int(ID_turma) and "ID_turma" in iten:
             informativos.append(iten)
@@ -13,4 +16,6 @@ def exibiInformativo(tipo_informativos, lista_informativos, ID_turma):
     
     else:
         return jsonify(informativos)
+    
+
  
