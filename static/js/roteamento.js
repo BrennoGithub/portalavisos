@@ -7,40 +7,49 @@ const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
 const exibicaoEventos = document.querySelector('.exibicaoEventos');
 const paginas = document.querySelectorAll(".sessao");
 
-//MELHORAR A FUNÇÃO DE ROTEAMENTO DAS PÁGINAS
-document.addEventListener("DOMContentLoaded", async function(){
-    await renderizaInformativos(exibicaoMural, "todos");
-    await renderizaInformativos(exibicaoAvisos, "avisos");
-    await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
-    await renderizaInformativos(exibicaoMateriais, "materiais");
-    await renderizaInformativos(exibicaoEventos, "eventos");
-
-    /*for(const sessao in paginas){
-        const tituloPagina = sessao.textContent;
-        switch (tituloPagina){
-            case "Mural":
+//Função de roteamento
+async function roteamento(tituloPagina){
+    switch (tituloPagina){
+        case "Mural":
                 await renderizaInformativos(exibicaoMural, "todos");
                 break;
             
-            case "Avisos":
+        case "Avisos":
                 await renderizaInformativos(exibicaoAvisos, "avisos");
                 break;
 
-            case "Avaliações":
+        case "Avaliações":
                 await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
                 break;
 
-            case "Materiais":
+        case "Materiais":
                 await renderizaInformativos(exibicaoMateriais, "materiais");
                 break;
 
-            case "Eventos":
+        case "Eventos":
                 await renderizaInformativos(exibicaoEventos, "eventos");
                 break;
             
-            default:
+        default:
                 await renderizaInformativos(exibicaoMural, "todos");
                 break;
         };
-    };*/
+}
+
+
+//Função de redenrização
+document.addEventListener("DOMContentLoaded", function(){
+    roteamento();
 });
+
+paginas.addEventListener("click", function(){
+
+})
+
+for(const elemento in paginas){
+    elemento.addEventListener("click", function(){
+        const tituloPagina = elemento.textContent;
+        alert(tituloPagina);
+        roteamento(tituloPagina);
+    });
+}
