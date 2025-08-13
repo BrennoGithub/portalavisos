@@ -99,7 +99,7 @@ def returnInformativos(tipo):
 
 @app.route("/form_avisos")
 def form_avisos():
-    return render_template("form_avisos.html")
+    return render_template("form_avisos.html", nome=session["nomeUsuario"])
 
 @app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():

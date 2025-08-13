@@ -1,55 +1,47 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
 
-const exibicaoMural = document.querySelector('.exibicaoMural')
-const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
-const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
-const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
-const exibicaoEventos = document.querySelector('.exibicaoEventos');
-const paginas = document.querySelectorAll(".sessao");
+const exibicaoInformativos = document.querySelector('.exibicaoInformativos')
 
 //Função de roteamento
 async function roteamento(tituloPagina){
     switch (tituloPagina){
         case "Mural":
-                await renderizaInformativos(exibicaoMural, "todos");
+                await renderizaInformativos(exibicaoInformativos, "todos");
                 break;
             
         case "Avisos":
-                await renderizaInformativos(exibicaoAvisos, "avisos");
+                await renderizaInformativos(exibicaoInformativos, "avisos");
                 break;
 
         case "Avaliações":
-                await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
+                await renderizaInformativos(exibicaoInformativos, "avaliacoes");
                 break;
 
-        case "Materiais":
-                await renderizaInformativos(exibicaoMateriais, "materiais");
+        case "Material Didatico":
+                await renderizaInformativos(exibicaoInformativos, "materiais");
                 break;
 
         case "Eventos":
-                await renderizaInformativos(exibicaoEventos, "eventos");
+                await renderizaInformativos(exibicaoInformativos, "eventos");
                 break;
             
         default:
-                await renderizaInformativos(exibicaoMural, "todos");
+                await renderizaInformativos(exibicaoInformativos, "todos");
                 break;
         };
 }
 
-
-//Função de redenrização
+//Função de redenrização ao carregar a página
 document.addEventListener("DOMContentLoaded", function(){
     roteamento();
 });
 
-paginas.addEventListener("click", function(){
-
-})
-
-for(const elemento in paginas){
-    elemento.addEventListener("click", function(){
+//Função de roteamento
+const paginas = document.querySelectorAll(".sessao");
+paginas.forEach(elemento => {
+        elemento.addEventListener("click", function(event){
+        event.preventDefault() //Impede que qunado clica em <a> recarregue a página
         const tituloPagina = elemento.textContent;
-        alert(tituloPagina);
         roteamento(tituloPagina);
     });
-}
+})
