@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_formInformativos.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_avisos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_Informativos.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
 </head>
 <body>
@@ -15,14 +15,17 @@
         <a href="javascript:void(0)" class="closebtn">
             <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
+
+        <a>{{nome}}</a>
+
         <a href="#">
             <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
         </a>
           <hr>
-        <a href="usuario-lider">Mural</a>
-        <a href="#">Avisos</a>
-        <a href="#">Avaliações</a>
-        <a href="#">Material Didatico</a>
+        <a href="usuario-lider"  class="sessao">Mural</a>
+        <a href="#"  class="sessao">Avisos</a>
+        <a href="#"  class="sessao">Avaliações</a>
+        <a href="#"  class="sessao">Material Didatico</a>
         <a href="/logout" class="deslogar"> 
             <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
         </a>
@@ -36,12 +39,12 @@
       </header>
       
       <article class="area formAviso">
-            <h1>Informativos</h1>
+            <h1>Informativo</h1>
                 <hr>
             <form class="" method="POST" action="/submit_informativo">
                 <fieldset class="area_campo_form">
-                    <legend><label for="tipo_aviso">Tipo Informativo</label></legend>
-                    <select id="tipo_aviso" name="tipo_aviso" class="campo_form conteudoOpcoes">
+                    <legend><label for="assunto_aviso">Assunto</label></legend>
+                    <select id="assunto_aviso" name="assunto_aviso" class="campo_form conteudoOpcoes">
                         <option value="avisos">Aviso</option>
                         <option value="avaliacoes">Avaliação</option>
                         <option value="eventos">Evento</option>

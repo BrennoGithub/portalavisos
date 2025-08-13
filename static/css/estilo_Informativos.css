@@ -7,7 +7,6 @@
     margin: 30px auto 30px auto;
     min-width: 600px;
     max-width: 900px;
-    /*box-shadow: 0px 1px 6px 3px rgba(148, 147, 147, 0.3);*/
 }
 
 .cabeca_pagina:hover{
@@ -26,16 +25,8 @@
 }
 
 .areaMaterial{
-    background-color: white;
     border: solid 1px gray;
     border-radius: 20px;
-    text-align: center;
-    width: auto;
-    min-height: 140px;
-    min-width: 600px;
-    max-width: 900px;
-    margin: 0px auto 30px auto;
-    display: block;
 }
 
 .areaMaterial:hover{
@@ -46,7 +37,9 @@
 .carregando{
     font-style: italic;
     font-size: 30px;
-    padding: 100px;
+    padding: 50px;
+    margin: 0px auto 30px auto;
+    display: block;
 }
 
 /*Estilo de avisos*/
@@ -58,10 +51,6 @@
 
 .estilo_aviso:hover{
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
-}
-
-.exibicaoAvisos{
-    display: block;
 }
 
 

@@ -26,6 +26,10 @@
     width: 150px;
 }
 
+.linhaUnica{
+    display: flex;
+}
+
 .linhaitem1{
     width: 50%;
     margin-left: 15px;

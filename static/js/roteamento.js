@@ -1,46 +1,47 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
 
-const exibicaoMural = document.querySelector('.exibicaoMural')
-const exibicaoAvisos = document.querySelector('.exibicaoAvisos');
-const exibicaoAvalicoes = document.querySelector('.exibicaoAvaliacoes');
-const exibicaoMateriais = document.querySelector('.exibicaoMateriais');
-const exibicaoEventos = document.querySelector('.exibicaoEventos');
-const paginas = document.querySelectorAll(".sessao");
+const exibicaoInformativos = document.querySelector('.exibicaoInformativos')
 
-//MELHORAR A FUNÇÃO DE ROTEAMENTO DAS PÁGINAS
-document.addEventListener("DOMContentLoaded", async function(){
-    await renderizaInformativos(exibicaoMural, "todos");
-    await renderizaInformativos(exibicaoAvisos, "avisos");
-    await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
-    await renderizaInformativos(exibicaoMateriais, "materiais");
-    await renderizaInformativos(exibicaoEventos, "eventos");
-
-    /*for(const sessao in paginas){
-        const tituloPagina = sessao.textContent;
-        switch (tituloPagina){
-            case "Mural":
-                await renderizaInformativos(exibicaoMural, "todos");
+//Função de roteamento
+async function roteamento(tituloPagina){
+    switch (tituloPagina){
+        case "Mural":
+                await renderizaInformativos(exibicaoInformativos, "todos");
                 break;
             
-            case "Avisos":
-                await renderizaInformativos(exibicaoAvisos, "avisos");
+        case "Avisos":
+                await renderizaInformativos(exibicaoInformativos, "avisos");
                 break;
 
-            case "Avaliações":
-                await renderizaInformativos(exibicaoAvalicoes, "avaliacoes");
+        case "Avaliações":
+                await renderizaInformativos(exibicaoInformativos, "avaliacoes");
                 break;
 
-            case "Materiais":
-                await renderizaInformativos(exibicaoMateriais, "materiais");
+        case "Material Didatico":
+                await renderizaInformativos(exibicaoInformativos, "materiais");
                 break;
 
-            case "Eventos":
-                await renderizaInformativos(exibicaoEventos, "eventos");
+        case "Eventos":
+                await renderizaInformativos(exibicaoInformativos, "eventos");
                 break;
             
-            default:
-                await renderizaInformativos(exibicaoMural, "todos");
+        default:
+                await renderizaInformativos(exibicaoInformativos, "todos");
                 break;
         };
-    };*/
+}
+
+//Função de redenrização ao carregar a página
+document.addEventListener("DOMContentLoaded", function(){
+    roteamento();
 });
+
+//Função de roteamento
+const paginas = document.querySelectorAll(".sessao");
+paginas.forEach(elemento => {
+        elemento.addEventListener("click", function(event){
+        event.preventDefault() //Impede que qunado clica em <a> recarregue a página
+        const tituloPagina = elemento.textContent;
+        roteamento(tituloPagina);
+    });
+})
