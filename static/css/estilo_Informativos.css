@@ -64,7 +64,7 @@
 }
 
 .segunda_area{
-    width: 25%;
+    width: 30%;
     padding: 14px;
     font-weight: bold;
     text-align: left;
@@ -72,16 +72,11 @@
 }
 
 .terceira_area{
-    width: 55%;
-    padding: 14px;
-    text-align: left;
-}
-
-.quarta_area{
-    width: 10%;
+    width: 60%;
     border-radius: 0px 10px 10px 0px;
     padding: 14px;
     text-align: left;
+    border-radius: 0px 10px 10px 0px;
 }
 
 .azul_1{ background-color: #9FB3DF; }
@@ -99,3 +94,10 @@
 .roxo_1{ background-color: #8174A0; }
 .roxo_2{ background-color: #A888B5; }
 .roxo_3{ background-color: #EFB6C8; }
+
+.botoesEdit{
+    display: flex;
+    margin-right: 100px;
+    margin-top: 10px;
+    text-align: right;
+}

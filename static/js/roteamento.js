@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function(){
 const paginas = document.querySelectorAll(".sessao");
 paginas.forEach(elemento => {
         elemento.addEventListener("click", function(event){
-        event.preventDefault() //Impede que qunado clica em <a> recarregue a página
+        event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
         const tituloPagina = elemento.textContent;
         roteamento(tituloPagina);
     });
