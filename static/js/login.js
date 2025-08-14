@@ -1,14 +1,11 @@
 //Funções de validação de campos de login
 document.getElementById('matricula').addEventListener('blur', function(){
     let campo_matricula = document.getElementById('matricula').value;
-    if(campo_matricula === ''){
-        document.querySelector('.area_matricula').style.borderColor = 'red';
-
-    }else if(campo_matricula.includes(' ')){
+    if(campo_matricula === '' || campo_matricula === ' '){
         document.querySelector('.area_matricula').style.borderColor = 'red';
 
     }else{
-        document.querySelector('.area_matricula').style.borderColor = 'green';
+        document.querySelector('.area_matricula').style.borderColor = 'black';
     }
 });
 
@@ -17,7 +14,7 @@ document.getElementById('senha').addEventListener('blur', function(){
     if(campo_senha === ''){
         document.querySelector('.senha_turma').style.borderColor = 'red';
     }else{
-        document.querySelector('.senha_turma').style.borderColor = 'green';
+        document.querySelector('.senha_turma').style.borderColor = 'black';
     }
     
 });
@@ -26,16 +23,12 @@ document.getElementById('senha').addEventListener('blur', function(){
 document.querySelector(".botao_campo_login").addEventListener('click', function(){
     let matricula_valida = '';
     let campo_matricula = document.getElementById('matricula').value;
-    if(campo_matricula === ''){
-        document.querySelector('.area_matricula').style.borderColor = 'red';
-        matricula_valida = false;
-
-    }else if(campo_matricula.includes(' ')){
+    if(campo_matricula === '' || campo_matricula === ' '){
         document.querySelector('.area_matricula').style.borderColor = 'red';
         matricula_valida = false;
 
     }else{
-        document.querySelector('.area_matricula').style.borderColor = 'green';
+        document.querySelector('.area_matricula').style.borderColor = 'black';
         matricula_valida = true;
     }
 
@@ -53,4 +46,4 @@ document.querySelector(".botao_campo_login").addEventListener('click', function(
     }else{
         alert('Login invalido')
     }
-})
+});
