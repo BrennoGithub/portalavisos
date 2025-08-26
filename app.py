@@ -105,49 +105,53 @@ def form_avisos():
 def CRUD_informativo():
     if "ID_turma" not in session:
         return redirect(url_for("form_avisos"))
+    
     ID_turma = session["ID_turma"]
 
-    if request.method == "POST":
-        objetoInformativo = {}
-        tipoInformativo = request.form["tipo_aviso"]
-        if tipoInformativo == "avisos":
-            objetoInformativo["assunto"] = request.form["assunto_aviso"]
-            objetoInformativo["texto"] = request.form["texto"]
-            objetoInformativo["data_atual"] = returnData()
-            objetoInformativo["hora_atual"] = returnHora()
+    match request.method:
+        case "POST":
+            objetoInformativo = {}
+            tipoInformativo = request.form["tipo_aviso"]
+
+            match tipoInformativo:
+                case "avisos":
+                    objetoInformativo["assunto"] = request.form["assunto_aviso"]
+                    objetoInformativo["texto"] = request.form["texto"]
+                    objetoInformativo["data_atual"] = returnData()
+                    objetoInformativo["hora_atual"] = returnHora()
        
-        elif tipoInformativo == "avaliacoes":
-            objetoInformativo["materia"] = request.form["materia"]
-            objetoInformativo["assunto"] = request.form["assunto"]
-            objetoInformativo["data_avaliacao"] = request.form["data"] #Ajusta data para modelo brasileiro.
-            objetoInformativo["hora_avaliacao"] = request.form["hora"]
-            objetoInformativo["descricao"] = request.form["descricao"]
+                case "avaliacoes":
+                    objetoInformativo["materia"] = request.form["materia"]
+                    objetoInformativo["assunto"] = request.form["assunto"]
+                    objetoInformativo["data_avaliacao"] = request.form["data"] #Ajusta data para modelo brasileiro.
+                    objetoInformativo["hora_avaliacao"] = request.form["hora"]
+                    objetoInformativo["descricao"] = request.form["descricao"]
 
-        elif tipoInformativo == "eventos":
-            objetoInformativo["nome_evento"] = request.form["nome"]
-            objetoInformativo["data_evento"] = request.form["data"] #Ajusta data para modelo brasileiro.
-            objetoInformativo["hora_evento"] = request.form["hora"]
-            objetoInformativo["descricao"] = request.form["descricao"]
+                case "eventos":
+                    objetoInformativo["nome_evento"] = request.form["nome"]
+                    objetoInformativo["data_evento"] = request.form["data"] #Ajusta data para modelo brasileiro.
+                    objetoInformativo["hora_evento"] = request.form["hora"]
+                    objetoInformativo["descricao"] = request.form["descricao"]
 
-        elif tipoInformativo == "materiais":
-            objetoInformativo["tipo_material"] = request.form["tipo_material"]
-            objetoInformativo["material"] = request.form["material"]
-            objetoInformativo["materia"] = request.form["materia"]
-            objetoInformativo["assunto"] = request.form["assunto"]
-            objetoInformativo["descricao"] = request.form["descricao"]
+                case "materiais":
+                    objetoInformativo["tipo_material"] = request.form["tipo_material"]
+                    objetoInformativo["material"] = request.form["material"]
+                    objetoInformativo["materia"] = request.form["materia"]
+                    objetoInformativo["assunto"] = request.form["assunto"]
+                    objetoInformativo["descricao"] = request.form["descricao"]
 
-        criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
-        #Criar uma função de exibição destinada a avaliações
+            criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
+            #Criar uma função de exibição destinada a avaliações
         
-        return redirect(f"/usuarios/{session['matricula']}")
+            return redirect(f"/usuarios/{session['matricula']}")
 
-    elif request.method == "DELETE":
-        return "olá mundo"
+        case "DELETE":
+            return "olá mundo"
         
-    elif request.method == "PUT":
-        return "olá mundo"
+        case "PUT":
+            return "olá mundo"
+        
     return redirect(url_for("form_avisos"))
-
 
 if __name__ == "__main__":
     app.run(debug=True)
