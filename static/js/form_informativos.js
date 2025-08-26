@@ -1,5 +1,6 @@
 //ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
-const form_aviso = `
+export function formInformativo(elemento){
+    const form_aviso = `
 <fieldset class="texto_campo_form">
     <legend><label for="texto">Texto</label></legend>
     <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
@@ -95,30 +96,31 @@ const form_material = `
 
 <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
 
-document.getElementById("form_informativo").innerHTML = form_aviso;
+elemento.innerHTML = form_aviso;
 
 document.getElementById("assunto_aviso").addEventListener('change', function(){
     const tipoInformativo = document.getElementById("assunto_aviso").value;
 
     switch(tipoInformativo){
         case 'avisos':
-            document.getElementById("form_informativo").innerHTML = form_aviso;
+            elemento.innerHTML = form_aviso;
             break;
 
         case 'avaliacoes':
-            document.getElementById("form_informativo").innerHTML = form_avaliacao;
+            elemento.innerHTML = form_avaliacao;
             break;
 
         case 'eventos':
-            document.getElementById("form_informativo").innerHTML = form_evento;
+            elemento.innerHTML = form_evento;
             break;
 
         case 'materiais':
-            document.getElementById("form_informativo").innerHTML = form_material;
+            elemento.innerHTML = form_material;
             break;
 
         default:
-            document.getElementById("form_informativo").innerHTML = form_aviso;
+            elemento.innerHTML = form_aviso;
             break;
-    }
-});
+        }
+    });
+};

@@ -20,8 +20,9 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInf
 
     lista_id_informativos.append(id)
 
-    if tipoInformativo == "avisos":
-        lista_informativos.append(
+    match tipoInformativo:
+        case "avisos":
+            lista_informativos.append(
             { "ID_turma": ID_turma,
               "ID_aviso": id, 
               "data": objetoInformativo["data_atual"],
@@ -29,9 +30,9 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInf
               "assunto": objetoInformativo["assunto"],
               "texto": objetoInformativo["texto"]
             })
-    
-    elif tipoInformativo == "avaliacoes":
-        lista_informativos.append(
+
+        case "avaliacoes":
+          lista_informativos.append(
             { "ID_turma": ID_turma,
               "ID_avaliacao": id,
               "materia": objetoInformativo["materia"],
@@ -40,9 +41,9 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInf
               "hora_avaliacao": objetoInformativo["hora_avaliacao"],
               "descricao": objetoInformativo["descricao"]
             })
-        
-    elif tipoInformativo == "eventos":
-        lista_informativos.append(
+          
+        case "eventos":
+          lista_informativos.append(
             { "ID_turma": ID_turma,
               "ID_evento": id,
               "nome": objetoInformativo["nome_evento"],
@@ -51,8 +52,8 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInf
               "descricao": objetoInformativo["descricao"]
             })
         
-    elif tipoInformativo == "materiais":
-        lista_informativos.append(
+        case "materiais":
+          lista_informativos.append(
             { "ID_turma": ID_turma,
               "ID_material": id,
               "tipo_material": objetoInformativo["tipo_material"],
