@@ -13,24 +13,29 @@
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
-.area{
-    height: auto;
-    width: auto;
-    display: block;
-    text-align: center;
-    min-height: 140px;
+.exibicaoInformativos{
     min-width: 600px;
     max-width: 900px;
     margin: 0px auto 30px auto;
+    border: solid 1px gray;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.exibicaoInformativos:hover{
+     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+}
+
+.areaTitulo{
+    display: block;
 }
 
 .areaMaterial{
-    border: solid 1px gray;
-    border-radius: 20px;
-}
-
-.areaMaterial:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
 /*Mensagem de carregação*/
@@ -44,27 +49,29 @@
 
 /*Estilo de avisos*/
 .estilo_aviso{
-    margin: 20px 20px 20px 20px;
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     border-radius: 10px;
+    width: auto;
+    height: auto;
+    margin: 10px;
 }
 
 .estilo_aviso:hover{
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
-
-.primeira_area{
-    width: 10%;
-    border-radius: 10px 0px 0px 10px;
+/*.primeira_area{
+    border-radius: 10px 10px 0px 0px;
     padding: 14px;
     font-style: italic;
     font-size: 12px;
     text-align: left;
-}
+}*/
 
 .segunda_area{
-    width: 30%;
+    border-radius: 10px 10px 0px 0px;
     padding: 14px;
     font-weight: bold;
     text-align: left;
@@ -72,11 +79,12 @@
 }
 
 .terceira_area{
-    width: 60%;
-    border-radius: 0px 10px 10px 0px;
+    flex-grow: 1;
+    border-radius: 0px 0px 10px 10px;
     padding: 14px;
     text-align: left;
-    border-radius: 0px 10px 10px 0px;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .azul_1{ background-color: #9FB3DF; }
