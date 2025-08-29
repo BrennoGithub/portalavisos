@@ -13,4 +13,20 @@ function closeNav() {
 document.querySelector(".openbtn").addEventListener('click', openNav);
 document.querySelector(".closebtn").addEventListener('click', closeNav);
 
+const botao_criaInformativo = document.querySelector(".icon_cria");
+const opcoesInformativos = document.querySelector(".areaOpcoes");
+botao_criaInformativo.addEventListener("click", function(){
+    switch (opcoesInformativos.style.display){
+        case "none":
+            opcoesInformativos.style.display = "block";
+            break;
+        case "block":
+            opcoesInformativos.style.display = "none";
+            break
+      default:
+            opcoesInformativos.style.display = "block";
+            break;
+    }
+})
 
+//const opcoesInformativo = document.querySelectorAll(".opcaoInformativo")

@@ -24,7 +24,7 @@
 .sidebar a:hover {
     /*background-color: lightgray;*/
     color: blue;
-}*
+}
   
 .sidebar .closebtn {
     position: absolute;
@@ -73,10 +73,19 @@
     width: 35px;
     border-radius: 5px;
     background-color: #789DBC;
+    margin-left: 20px;
 }
 
 .icon_cria:hover{
     background-color: lightgray;
+}
+
+.areaOpcoes{
+    display: none;
+    margin-left: 20px;
+    background-color: #789DBC;
+    border-radius: 5px;
+    width: max-content;
 }
 
 .icon_menu{

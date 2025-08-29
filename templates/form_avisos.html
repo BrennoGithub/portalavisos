@@ -29,7 +29,7 @@
         <a href="/logout" class="deslogar"> 
             <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
         </a>
-      </div>
+    </div>
      
       <header class="cabeca_pagina">
           <div id="main">
@@ -37,25 +37,9 @@
           </div>
           <h1>Portal Avisos de INFO V</h1>
       </header>
-      
-      <article class="area formAviso">
-            <h1>Informativo</h1>
-                <hr>
-            <form class="" method="POST" action="/submit_informativo">
-                <fieldset class="area_campo_form">
-                    <legend><label for="assunto_aviso">Assunto</label></legend>
-                    <select id="assunto_aviso" name="assunto_aviso" class="campo_form conteudoOpcoes">
-                        <option value="avisos">Aviso</option>
-                        <option value="avaliacoes">Avaliação</option>
-                        <option value="eventos">Evento</option>
-                        <option value="materiais">Material Didatico</option>
-                    </select>
-                </fieldset>
 
-                <div id="form_informativo"></div></div>
-            </form>
-      </article>
-    
+    <div id="form_informativo"></div></div>
+            
     <script src="{{url_for('static', filename='js/barra_lateral.js')}}"></script>
     <script src="{{ url_for('static', filename='js/roteamento.js') }}"></script>
     <script src="{{ url_for('static', filename='js/form_informativos.js') }}"></script>

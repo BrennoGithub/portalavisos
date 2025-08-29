@@ -5,7 +5,7 @@ export async function renderizaInformativos(elemento, tipo) {
         return "Elemento inexistente.";
     }
 
-    elemento.innerHTML = "<span class='carregando'>Carregando...</span>"
+    elemento.innerHTML = "<div class='carregando spinner'></div>"
 
     const informativos = await requisicaoHTTP(`/informativos/${tipo}`);
 
