@@ -1,5 +1,5 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
-import { formInformativo } from "./form_informativos.js"
+import { formularios } from "./form_informativos.js";
 
 const exibicaoInformativos = document.querySelector('.exibicaoInformativos')
 
@@ -47,7 +47,12 @@ paginas.forEach(elemento => {
     });
 })
 
-//ESTUDAR E ANALISE ROTEAMENTO PARA FORMULARIO DE INFORMATIVOS
-document.querySelector(".icon_cria").addEventListener("click", function(){
-        formInformativo(exibicaoInformativos);
-});
+//Exibição de formularios
+const opcoesInformativos = document.querySelectorAll(".opcaoInformativo");
+opcoesInformativos.forEach( opcao => {
+opcao.addEventListener("click", function(event){
+    event.preventDefault()
+    const tipoInformativo = opcao.textContent;
+    formularios(exibicaoInformativos, tipoInformativo);
+    })
+})

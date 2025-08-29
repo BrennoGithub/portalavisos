@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_Informativos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_formInformativos.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
 </head>
 <body>
@@ -18,11 +19,15 @@
 
         <a>{{nome}}</a>
 
-        <a href="{{ url_for('form_avisos') }}" style="display: block;">
-            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
-        </a>
-          <hr>
- 
+        <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
+            <div class="areaOpcoes">
+                <a href="" class="opcaoInformativo">Aviso</a>
+                <a href="" class="opcaoInformativo">Avaliação</a>
+                <a href="" class="opcaoInformativo">Evento</a>
+                <a href="" class="opcaoInformativo">Material Didatico</a>
+            </div>
+        <hr>
+
         <a href="" class="sessao">Mural</a>
         <a href="" class="sessao">Avisos</a>
         <a href="" class="sessao">Avaliações</a>
@@ -31,7 +36,6 @@
         <a href="/logout" class="deslogar"> 
             <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
         </a>
-
       </div>
     
       <header class="cabeca_pagina">
@@ -41,9 +45,7 @@
           <h1>Portal Informativo - INFO V</h1>
       </header>
       
-      <article class="area">
-            <span class="exibicaoInformativos"></span>
-      </article>
+      <span class="exibicaoInformativos"></span>
 
       <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
       <script type="module" src="{{ url_for('static', filename='js/roteamento.js') }}"></script>

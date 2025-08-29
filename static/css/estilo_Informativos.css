@@ -4,67 +4,81 @@
     border: solid 1px gray;
     border-radius: 20px;
     background-color: white;
-    margin: 30px auto 30px auto;
-    min-width: 600px;
-    max-width: 900px;
-}
-
-.cabeca_pagina:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
-}
-
-.area{
-    height: auto;
-    width: auto;
-    display: block;
-    text-align: center;
-    min-height: 140px;
-    min-width: 600px;
-    max-width: 900px;
     margin: 0px auto 30px auto;
+    min-width: 600px;
+    max-width: 1000px;
+}
+
+.exibicaoInformativos{
+    min-width: 600px;
+    max-width: 1000px;
+    min-height: max-content;
+    margin: 0px auto 30px auto;
+    border: solid 1px gray;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.areaTitulo{
+    display: block;
 }
 
 .areaMaterial{
-    border: solid 1px gray;
-    border-radius: 20px;
-}
-
-.areaMaterial:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
 }
 
 /*Mensagem de carregação*/
 .carregando{
-    font-style: italic;
-    font-size: 30px;
-    padding: 50px;
     margin: 0px auto 30px auto;
     display: block;
 }
 
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #ccc;                 /* Cor do círculo */
+  border-top: 5px solid #3498db;          /* Cor da parte animada */
+  border-radius: 50%;                       /* Deixa redondo */
+  animation: spin 1s linear infinite;       /* Faz girar */
+}
+
+/* Animação */
+@keyframes spin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 /*Estilo de avisos*/
 .estilo_aviso{
-    margin: 20px 20px 20px 20px;
     display: flex;
+    flex-direction: column;
+    flex-grow: 1;
     border-radius: 10px;
+    min-width: max-content;
+    max-width: 50%;
+    min-height: 100px;
+    max-height: auto;
+    margin: 10px;
 }
 
 .estilo_aviso:hover{
     box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
 }
 
-
-.primeira_area{
-    width: 10%;
-    border-radius: 10px 0px 0px 10px;
+/*.primeira_area{
+    border-radius: 10px 10px 0px 0px;
     padding: 14px;
     font-style: italic;
     font-size: 12px;
     text-align: left;
-}
+}*/
 
 .segunda_area{
-    width: 30%;
+    border-radius: 10px 10px 0px 0px;
     padding: 14px;
     font-weight: bold;
     text-align: left;
@@ -72,11 +86,12 @@
 }
 
 .terceira_area{
-    width: 60%;
-    border-radius: 0px 10px 10px 0px;
+    flex-grow: 1;
+    border-radius: 0px 0px 10px 10px;
     padding: 14px;
     text-align: left;
-    border-radius: 0px 10px 10px 0px;
+    flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .azul_1{ background-color: #9FB3DF; }
