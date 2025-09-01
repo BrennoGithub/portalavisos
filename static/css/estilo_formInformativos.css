@@ -3,9 +3,11 @@
     background-color: white;
     text-align: center;
     border-radius: 20px;
-    display: block;
-    width: 80%;
-    padding: 10px 10% 10px 10%;
+    display: flex;
+    flex-direction: column;
+    width: 560px;
+    margin: 0px auto;
+    justify-content: center;
 }
 
 .area_campo_form{
@@ -21,7 +23,7 @@
 
 .linhaUnica{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .linhaitem1{
@@ -40,6 +42,6 @@
 }
 
 .botao_campo_form{
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin: 10px auto 15px auto;
+    width: 80px;
 }

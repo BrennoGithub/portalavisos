@@ -1,5 +1,6 @@
 import { requisicaoHTTP } from "./requisicaoHTTP.js";
 
+//ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
 export async function renderizaInformativos(elemento, tipo) {
     if(!elemento){
         return "Elemento inexistente.";
@@ -21,7 +22,7 @@ export async function renderizaInformativos(elemento, tipo) {
             for(const x of informativos){
                 avisos = `<div class="estilo_aviso">
                     <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
-                    <div class="terceira_area  azul_3">${String(x['texto'])} <em>${x['data']} - ${x['hora']}</em>
+                    <div class="terceira_area  azul_3">${String(x['mensagem'])} <em>${x['data']} - ${x['hora']}</em>
                         <div class="botoesEdit">
                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                         <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -47,7 +48,7 @@ export async function renderizaInformativos(elemento, tipo) {
                                 <br>
                             <strong>Horario:</strong> <em>${x['data_avaliacao']} - ${x['hora_avaliacao']}</em>
                                 <br>
-                            ${String(x['descricao'])}
+                            ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -73,7 +74,7 @@ export async function renderizaInformativos(elemento, tipo) {
                                 <br>
                             <strong>Tipo do Material:</strong> ${x['tipo_material']}
                                 <br>
-                            ${String(x['material'])} ${String(x['descricao'])}
+                            ${String(x['material'])} ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -97,7 +98,7 @@ export async function renderizaInformativos(elemento, tipo) {
                          <div class="terceira_area  roxo_3">
                             <strong>Horário:</strong> <em>${x['data_evento']} ${x['hora_evento']}</em>
                                 <br>
-                            ${String(x['descricao'])}
+                            ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -118,7 +119,7 @@ export async function renderizaInformativos(elemento, tipo) {
             for(const x of informativos['avisos']){
                 mural = `<div class="estilo_aviso">
                     <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
-                    <div class="terceira_area  azul_3">${String(x['texto'])} <em>${x['data']} - ${x['hora']}</em>
+                    <div class="terceira_area  azul_3">${String(x['mensagem'])} <em>${x['data']} - ${x['hora']}</em>
                         <div class="botoesEdit">
                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                         <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -135,7 +136,7 @@ export async function renderizaInformativos(elemento, tipo) {
                                 <br>
                             <strong>Horario:</strong> <em>${x['data_avaliacao']} - ${x['hora_avaliacao']}</em>
                                 <br>
-                            ${String(x['descricao'])}
+                            ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -152,7 +153,7 @@ export async function renderizaInformativos(elemento, tipo) {
                                 <br>
                             <strong>Tipo do Material:</strong> ${x['tipo_material']}
                                 <br>
-                            ${String(x['material'])} ${String(x['descricao'])}
+                            ${String(x['material'])} ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -167,7 +168,7 @@ export async function renderizaInformativos(elemento, tipo) {
                          <div class="terceira_area  roxo_3">
                             <strong>Horário:</strong> <em>${x['data_evento']} ${x['hora_evento']}</em>
                                 <br>
-                            ${String(x['descricao'])}
+                            ${String(x['mensagem'])}
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">

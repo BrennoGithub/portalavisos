@@ -19,6 +19,19 @@ export function formularios(elemento){
 
         <div class="dadosAdicionais"></div>
 
+        <fieldset class="area_campo_form">
+            <legend><label for="tipo_material">Arquivo</label></legend>
+            <div class="linhaUnica">
+                <select name="tipo_material" id="tipo_material">
+                    <option value="">Tipo</option>
+                    <option value="url">Link</option>
+                    <option value="img">Imagem</option>
+                    <option value="file">Arquivo</option>
+                </select>
+                <input type="text" name="material" id="material" placeholder="Material">
+            </div>
+        </fieldset>
+
         <fieldset class="texto_campo_form">
             <legend><label for="texto">Texto</label></legend>
             <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
@@ -27,22 +40,6 @@ export function formularios(elemento){
         <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
         </form>`;
 };
-
-export function exibicaoOpcoes(assunto, opcoesInformativos){
-    assunto.addEventListener("focus", function(){
-    switch (opcoesInformativos.style.display){
-        case "none":
-            opcoesInformativos.style.display = "block";
-            break;
-        case "block":
-            opcoesInformativos.style.display = "none";
-            break
-      default:
-            opcoesInformativos.style.display = "block";
-            break;
-    }
-})
-}
 
 export function assuntoInformativo(elemento, assunto){
     switch (assunto){
@@ -105,19 +102,6 @@ export function assuntoInformativo(elemento, assunto){
                     <legend><label for="assunto">Assunto do Material</label></legend>
                     <input type="text" name="assunto" id="assunto" placeholder="Assunto do Material Didatico">
                 </fieldset>
-            </div>
-
-            <div class="linhaUnica">
-                <fieldset class="area_campo_form" style="width: 100%; display: flex;">
-                    <legend><label for="tipo_material">Material</label></legend>
-                    <select name="tipo_material" id="tipo_material" style="margin: 0 10px 0 10px; width: 25%; height: 30px">
-                        <option value="">Tipo</option>
-                        <option value="url">Link</option>
-                        <option value="img">Imagem</option>
-                        <option value="file">Arquivo</option>
-                    </select>
-                    <input type="text" name="material" id="material" placeholder="Material" style="margin: 0 10px 0 0px; width: 75%;">
-                </fieldset>
             </div>`;
             break;
         
@@ -126,3 +110,19 @@ export function assuntoInformativo(elemento, assunto){
             break;
     };
 }
+
+export function exibicaoOpcoes(elementoClicado, elementoOculto, tipoEvento, estadoPadrao){
+    elementoClicado.addEventListener(tipoEvento, function(){
+        switch (elementoOculto.style.display){
+            case "none":
+                elementoOculto.style.display = "flex";
+                break;
+            case "flex":
+                elementoOculto.style.display = "none";
+                break;
+            default:
+                elementoOculto.style.display = estadoPadrao;
+                break;
+        };
+    });
+};

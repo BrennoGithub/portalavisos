@@ -1,5 +1,5 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
-import { formularios, assuntoInformativo } from "./form_informativos.js";
+import { formularios, assuntoInformativo, exibicaoOpcoes} from "./form_informativos.js";
 
 const exibicaoInformativos = document.querySelector('.exibicaoInformativos')
 
@@ -33,17 +33,15 @@ async function roteamento(tituloPagina){
 }
 
 //Função de redenrização ao carregar a página
-document.addEventListener("DOMContentLoaded", function(){
-    roteamento();
-});
+document.addEventListener("DOMContentLoaded", function(){ roteamento(); });
 
 //Função de roteamento
 const paginas = document.querySelectorAll(".sessao");
 paginas.forEach(elemento => {
     elemento.addEventListener("click", function(event){
-    event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
-    const tituloPagina = elemento.textContent;
-    roteamento(tituloPagina);
+        event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
+        const tituloPagina = elemento.textContent;
+        roteamento(tituloPagina);
     });
 })
 
@@ -53,19 +51,7 @@ botaoCriar.addEventListener("click", function(){
     formularios(exibicaoInformativos);
     const assuntoArea = document.getElementById("assunto");
     const areaOpcoes = document.querySelector(".areaOpcoes");
-    assuntoArea.addEventListener("click", function(){
-        switch (areaOpcoes.style.display){
-        case "none":
-            areaOpcoes.style.display = "flex";
-            break;
-        case "flex":
-            areaOpcoes.style.display = "none";
-                break;
-        default:
-            areaOpcoes.style.display = "flex";
-            break;
-        }
-    });
+    exibicaoOpcoes(assuntoArea, areaOpcoes, "click", "flex");
 
     const dadosAdicionais = document.querySelector(".dadosAdicionais");
     const opcoesInformativos = document.querySelectorAll(".opcaoInformativo")
@@ -84,15 +70,16 @@ botaoCriar.addEventListener("click", function(){
             }
         });
     });
+
     assuntoArea.addEventListener("change", function(){
-        assuntoInformativo(dadosAdicionais, "");
+        assuntoInformativo(dadosAdicionais);
         switch (areaOpcoes.style.display){
-                case "flex":
+            case "flex":
                 areaOpcoes.style.display = "none";
                 break;
             default:
                 areaOpcoes.style.display = "none";
                 break;
-            }
+        }
     })
 })

@@ -79,22 +79,25 @@ def valida_login():
             
     return redirect(url_for("/"))
 
+@app.route("/informativos")
+def returnTodosInformativos():
+    if not 'ID_turma' in session:
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    ID_turma = session["ID_turma"]
+    informativos = exibiTodosInformativos(lista_informativos, ID_turma)
+    
+    return jsonify(informativos)
 
-
-@app.route("/informativos/<string:tipo>")
-def returnInformativos(tipo):
+@app.route("/informativos/<string:assunto>")
+def returnInformativos(assunto):
     if not 'ID_turma' in session:
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     ID_turma = session["ID_turma"]
 
-    if tipo in ["avisos", "avaliacoes", "materiais", "eventos"]:
-        listaInformativo = exibiInformativo(tipo, lista_informativos, ID_turma)
-        return listaInformativo
-    
-    elif tipo == "todos":
-        listaInformativo = exibiTodosInformativos(lista_informativos, ID_turma)
-        return listaInformativo
+    listaInformativo = exibiInformativo(assunto, lista_informativos, ID_turma)
+    return listaInformativo
 
 
 @app.route("/form_avisos")
@@ -114,31 +117,31 @@ def CRUD_informativo():
             tipoInformativo = request.form["tipo_aviso"]
 
             match tipoInformativo:
-                case "avisos":
-                    objetoInformativo["assunto"] = request.form["assunto_aviso"]
-                    objetoInformativo["texto"] = request.form["texto"]
-                    objetoInformativo["data_atual"] = returnData()
-                    objetoInformativo["hora_atual"] = returnHora()
-       
-                case "avaliacoes":
+                case "Avaliação":
                     objetoInformativo["materia"] = request.form["materia"]
                     objetoInformativo["assunto"] = request.form["assunto"]
                     objetoInformativo["data_avaliacao"] = request.form["data"] #Ajusta data para modelo brasileiro.
                     objetoInformativo["hora_avaliacao"] = request.form["hora"]
                     objetoInformativo["descricao"] = request.form["descricao"]
 
-                case "eventos":
+                case "Evento":
                     objetoInformativo["nome_evento"] = request.form["nome"]
                     objetoInformativo["data_evento"] = request.form["data"] #Ajusta data para modelo brasileiro.
                     objetoInformativo["hora_evento"] = request.form["hora"]
                     objetoInformativo["descricao"] = request.form["descricao"]
 
-                case "materiais":
+                case "Material Didatico":
                     objetoInformativo["tipo_material"] = request.form["tipo_material"]
                     objetoInformativo["material"] = request.form["material"]
                     objetoInformativo["materia"] = request.form["materia"]
                     objetoInformativo["assunto"] = request.form["assunto"]
                     objetoInformativo["descricao"] = request.form["descricao"]
+
+                case _:
+                    objetoInformativo["assunto"] = request.form["assunto_aviso"]
+                    objetoInformativo["texto"] = request.form["texto"]
+                    objetoInformativo["data_atual"] = returnData()
+                    objetoInformativo["hora_atual"] = returnHora()
 
             criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
             #Criar uma função de exibição destinada a avaliações
