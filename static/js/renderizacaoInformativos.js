@@ -43,7 +43,7 @@ export async function renderizaInformativos(elemento, tipo) {
             let avaliacoes = ``;
             for(const x of informativos){
                 avaliacoes = `<div class="estilo_aviso">
-                        <div class="segunda_area  verde_2">${x['assunto']}</div>
+                        <div class="segunda_area  verde_2">${x['tipoAvaliacao']}</div>
                         <div class="terceira_area  verde_3">
                             <strong>Assunto:</strong> ${String(x['assuntoAvalicao'])}
                                 <br>
@@ -121,7 +121,7 @@ export async function renderizaInformativos(elemento, tipo) {
                 switch (x['assunto']){
                     case "Avaliação":
                         mural = `<div class="estilo_aviso">
-                        <div class="segunda_area  verde_2">${x['assunto']}</div>
+                        <div class="segunda_area  verde_2">${x['tipoAvaliacao']}</div>
                         <div class="terceira_area  verde_3">
                             <strong>Assunto:</strong> ${String(x['assuntoAvalicao'])}
                                 <br>
@@ -165,7 +165,7 @@ export async function renderizaInformativos(elemento, tipo) {
                         </div>
                         </div>`+mural;
                         break;
-                    case "Aviso":
+                    default:
                         mural = `<div class="estilo_aviso">
                         <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
                         <div class="terceira_area  azul_3">${String(x['mensagem'])} <em>${x['dataInformativo']} - ${x['horaInformativo']}</em>
@@ -176,7 +176,7 @@ export async function renderizaInformativos(elemento, tipo) {
                         </div>
                         </div>`+mural;
                         break;
-                }
+                };
             };
             mural = `
             <div class="areaTitulo">

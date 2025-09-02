@@ -34,7 +34,7 @@ legend{
 input{
     border-radius: 5px;
     border: none;
-    outline: none; /*Essa propriedade remove o contorno padrão que aparece quando o input recebe foco. */
+    /*outline: none; Essa propriedade remove o contorno padrão que aparece quando o input recebe foco. */
     text-align: center;
     padding: 5px;
     margin: 5px;

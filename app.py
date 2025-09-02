@@ -108,36 +108,50 @@ def CRUD_informativo():
     match request.method:
         case "POST":
             objetoInformativo = {}
-            tipoInformativo = request.form["tipo_aviso"]
+            assuntoInformativo = request.form["assunto"]
 
-            match tipoInformativo:
+            match assuntoInformativo:
                 case "Avaliação":
                     objetoInformativo["materia"] = request.form["materia"]
                     objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["data_avaliacao"] = request.form["data"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["hora_avaliacao"] = request.form["hora"]
-                    objetoInformativo["descricao"] = request.form["descricao"]
+                    objetoInformativo["assuntoAvaliacao"] = request.form["assuntoAvaliacao"]
+                    objetoInformativo["tipoAvaliacao"] = request.form["tipoAvaliacao"]
+                    objetoInformativo["dataAvaliacao"] = request.form["dataAvaliacao"] #Ajusta data para modelo brasileiro.
+                    objetoInformativo["horaAvaliacao"] = request.form["horaAvaliacao"]
+                    objetoInformativo["mensagem"] = request.form["mensagem"]
+                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["dataInformativo"] = returnData()
+                    objetoInformativo["horaInformativo"] = returnHora()
 
                 case "Evento":
-                    objetoInformativo["nome_evento"] = request.form["nome"]
-                    objetoInformativo["data_evento"] = request.form["data"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["hora_evento"] = request.form["hora"]
-                    objetoInformativo["descricao"] = request.form["descricao"]
+                    objetoInformativo["assunto"] = request.form["assunto"]
+                    objetoInformativo["nomeEvento"] = request.form["nomeEvento"]
+                    objetoInformativo["dataInicial_Evento"] = request.form["dataInicial_Evento"] #Ajusta data para modelo brasileiro.
+                    objetoInformativo["horaInicial_Evento"] = request.form["horaInicial_Evento"]
+                    objetoInformativo["dataFinal_Evento"] = request.form["dataFinal_Evento"] #Ajusta data para modelo brasileiro.
+                    objetoInformativo["horaFinal_Evento"] = request.form["horaFinal_Evento"]
+                    objetoInformativo["mensagem"] = request.form["mensagem"]
+                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["dataInformativo"] = returnData()
+                    objetoInformativo["horaInformativo"] = returnHora()
 
                 case "Material Didatico":
-                    objetoInformativo["tipo_material"] = request.form["tipo_material"]
-                    objetoInformativo["material"] = request.form["material"]
-                    objetoInformativo["materia"] = request.form["materia"]
                     objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["descricao"] = request.form["descricao"]
+                    objetoInformativo["materia"] = request.form["materia"]
+                    objetoInformativo["assuntoMaterial"] = request.form["assunto"]
+                    objetoInformativo["mensagem"] = request.form["mensagem"]
+                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["dataInformativo"] = returnData()
+                    objetoInformativo["horaInformativo"] = returnHora()
 
                 case _:
-                    objetoInformativo["assunto"] = request.form["assunto_aviso"]
-                    objetoInformativo["texto"] = request.form["texto"]
-                    objetoInformativo["data_atual"] = returnData()
-                    objetoInformativo["hora_atual"] = returnHora()
+                    objetoInformativo["assunto"] = request.form["assunto"]
+                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["mensagem"] = request.form["mensagem"]
+                    objetoInformativo["dataInformativo"] = returnData()
+                    objetoInformativo["horaInformativo"] = returnHora()
 
-            criaInformativo(ID_turma, lista_id_informativos[tipoInformativo], lista_informativos[tipoInformativo], tipoInformativo, objetoInformativo)
+            criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
             #Criar uma função de exibição destinada a avaliações
         
             return redirect(f"/usuarios/{session['matricula']}")

@@ -21,18 +21,22 @@
     width: 150px;
 }
 
+.areaDate{
+    width: 100px;
+    height: 10px;
+}
+
 .linhaUnica{
     display: flex;
     justify-content: space-around;
+    font-size: large;
 }
 
-.linhaitem1{
+.caixaInterna{
     width: 50%;
+    text-align: center;
 }
 
-.linhaitem2{
-    width: 50%;
-}
 
 .texto_campo_form{
     width: auto;

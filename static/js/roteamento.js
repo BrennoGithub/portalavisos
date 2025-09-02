@@ -45,9 +45,8 @@ paginas.forEach(elemento => {
     });
 })
 
-//Exibição de formularios
-const botaoCriar = document.querySelector(".icon_cria");
-botaoCriar.addEventListener("click", function(){
+//Função de gerenciamento de formularios
+function gerenciamentoForm(){
     formularios(exibicaoInformativos);
     const assuntoArea = document.getElementById("assunto");
     const areaOpcoes = document.querySelector(".areaOpcoes");
@@ -82,4 +81,8 @@ botaoCriar.addEventListener("click", function(){
                 break;
         }
     })
-})
+}
+
+//Exibição de formularios
+const botaoCriar = document.querySelector(".icon_cria");
+botaoCriar.addEventListener("click", gerenciamentoForm)
