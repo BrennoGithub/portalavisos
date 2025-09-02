@@ -2,7 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.Create import criaInformativo, returnData, returnHora
-from CRUD.Read import exibiInformativo, exibiTodosInformativos
+from CRUD.Read import exibiInformativo
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.lista_alunos import lista_alunos
@@ -79,15 +79,6 @@ def valida_login():
             
     return redirect(url_for("/"))
 
-@app.route("/informativos")
-def returnTodosInformativos():
-    if not 'ID_turma' in session:
-        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
-    
-    ID_turma = session["ID_turma"]
-    informativos = exibiTodosInformativos(lista_informativos, ID_turma)
-    
-    return jsonify(informativos)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
@@ -96,8 +87,11 @@ def returnInformativos(assunto):
     
     ID_turma = session["ID_turma"]
 
-    listaInformativo = exibiInformativo(assunto, lista_informativos, ID_turma)
-    return listaInformativo
+    if assunto == "todos":
+        return jsonify(lista_informativos)
+    else:
+        listaInformativo = exibiInformativo(assunto, lista_informativos, ID_turma)
+        return jsonify(listaInformativo)
 
 
 @app.route("/form_avisos")

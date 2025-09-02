@@ -1,12 +1,10 @@
-from flask import jsonify
-
 #Funções READ
 def exibiInformativo(assuntoInformativo, lista_informativos, ID_turma):
     informativos = []
     for iten in lista_informativos:
         if int(iten["ID_turma"]) == int(ID_turma) and "ID_turma" in iten:
             match assuntoInformativo:
-                case "avalicoes":
+                case "avaliacoes":
                     if iten["assunto"] == "Avaliação":
                         informativos.append(iten)
                 case "eventos":
@@ -20,20 +18,8 @@ def exibiInformativo(assuntoInformativo, lista_informativos, ID_turma):
                         informativos.append(iten)
 
     if len(informativos) == 0:
-        return jsonify({"mensagemServidor": "404 - Não foi encontrado informativo desse tipo."})
+        return {"mensagemServidor": "404 - Não foi encontrado informativo desse tipo."}
     
     else:
-        return jsonify(informativos)
+        return informativos
     
-
-def exibiTodosInformativos(lista_informativos, ID_turma):
-    informativos = []
-    for iten in lista_informativos:
-        if int(iten["ID_turma"]) == int(ID_turma) and "ID_turma" in iten:
-            informativos.append(iten)
-
-    if len(informativos) == 0:
-        return jsonify({"mensagemServidor": "404 - Não foi encontrado informativo desse tipo."})
-    
-    else:
-        return jsonify(informativos)
