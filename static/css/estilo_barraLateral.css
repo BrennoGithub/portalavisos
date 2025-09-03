@@ -82,10 +82,20 @@
 
 .areaOpcoes{
     display: none;
-    margin-left: 20px;
+    flex-direction: column;
     background-color: #789DBC;
     border-radius: 5px;
     width: max-content;
+    position: absolute;
+    z-index: 2;
+}
+
+.areaOpcoes a{
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 10px;
 }
 
 .icon_menu{

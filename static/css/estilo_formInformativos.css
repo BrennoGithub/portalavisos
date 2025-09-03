@@ -3,9 +3,11 @@
     background-color: white;
     text-align: center;
     border-radius: 20px;
-    display: block;
-    width: 80%;
-    padding: 10px 10% 10px 10%;
+    display: flex;
+    flex-direction: column;
+    width: 560px;
+    margin: 0px auto;
+    justify-content: center;
 }
 
 .area_campo_form{
@@ -19,18 +21,22 @@
     width: 150px;
 }
 
+.areaDate{
+    width: 100px;
+    height: 10px;
+}
+
 .linhaUnica{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    font-size: large;
 }
 
-.linhaitem1{
+.caixaInterna{
     width: 50%;
+    text-align: center;
 }
 
-.linhaitem2{
-    width: 50%;
-}
 
 .texto_campo_form{
     width: auto;
@@ -40,6 +46,6 @@
 }
 
 .botao_campo_form{
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin: 10px auto 15px auto;
+    width: 80px;
 }
