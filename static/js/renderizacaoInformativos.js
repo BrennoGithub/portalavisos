@@ -21,14 +21,16 @@ export async function renderizaInformativos(elemento, tipo) {
             let avisos = ``;
             for(const x of informativos){
                 avisos = `<div class="estilo_aviso">
-                        <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
-                        <div class="terceira_area  azul_3">${String(x['mensagem'])} <em>${x['dataInformativo']} - ${x['horaInformativo']}</em>
-                            <div class="botoesEdit">
-                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
-                            </div>
+                <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
+                    <div class="terceira_area  azul_3">
+                        ${String(x['mensagem'])}
+                        <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                        <div class="botoesEdit">
+                            <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                            <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                         </div>
-                        </div>`+avisos;
+                    </div>
+                </div>`+avisos;
                 
             };
             avisos = `
@@ -45,14 +47,15 @@ export async function renderizaInformativos(elemento, tipo) {
                 avaliacoes = `<div class="estilo_aviso">
                         <div class="segunda_area  verde_2">${x['tipoAvaliacao']}</div>
                         <div class="terceira_area  verde_3">
-                            <strong>Assunto:</strong> ${String(x['assuntoAvalicao'])}
+                            <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])}
                                 <br>
                             <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em>
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
-                            <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                            <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
                         </div>
                         </div>`+avaliacoes;
@@ -76,6 +79,7 @@ export async function renderizaInformativos(elemento, tipo) {
                             <strong>Tipo do Material:</strong> ${x['anexo']}
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -100,6 +104,7 @@ export async function renderizaInformativos(elemento, tipo) {
                             <strong>Horário:</strong> <em>${x['dataInicial_Evento']} - ${x['horaInicial_Evento']}</em>
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -123,14 +128,15 @@ export async function renderizaInformativos(elemento, tipo) {
                         mural = `<div class="estilo_aviso">
                         <div class="segunda_area  verde_2">${x['tipoAvaliacao']}</div>
                         <div class="terceira_area  verde_3">
-                            <strong>Assunto:</strong> ${String(x['assuntoAvalicao'])}
+                            <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])}
                                 <br>
                             <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em>
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
-                            <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                            <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
                         </div>
                         </div>`+mural;
@@ -142,6 +148,7 @@ export async function renderizaInformativos(elemento, tipo) {
                             <strong>Horário:</strong> <em>${x['dataInicial_Evento']} - ${x['horaInicial_Evento']}</em>
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -158,6 +165,7 @@ export async function renderizaInformativos(elemento, tipo) {
                             <strong>Tipo do Material:</strong> ${x['anexo']}
                                 <br>
                             ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
                             <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                             <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
@@ -168,7 +176,9 @@ export async function renderizaInformativos(elemento, tipo) {
                     default:
                         mural = `<div class="estilo_aviso">
                         <div class="segunda_area  azul_2">${String(x['assunto'])}</div>
-                        <div class="terceira_area  azul_3">${String(x['mensagem'])} <em>${x['dataInformativo']} - ${x['horaInformativo']}</em>
+                        <div class="terceira_area  azul_3">
+                            ${String(x['mensagem'])}
+                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
                                 <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">

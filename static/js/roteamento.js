@@ -1,7 +1,7 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
 import { formularios, assuntoInformativo, exibicaoOpcoes} from "./form_informativos.js";
 
-const exibicaoInformativos = document.querySelector('.exibicaoInformativos')
+const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 
 //Função de roteamento
 async function roteamento(tituloPagina){
@@ -80,9 +80,9 @@ function gerenciamentoForm(){
                 areaOpcoes.style.display = "none";
                 break;
         }
-    })
-}
+    });
+};
 
 //Exibição de formularios
 const botaoCriar = document.querySelector(".icon_cria");
-botaoCriar.addEventListener("click", gerenciamentoForm)
+botaoCriar.addEventListener("click", gerenciamentoForm);
