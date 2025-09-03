@@ -17,15 +17,17 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assunto
     id = 1
     while id in lista_id_informativos:
         id += 1
-
     lista_id_informativos.append(id)
+
+    if objetoInformativo["assunto"] == "":
+       objetoInformativo["assunto"] = "Sem Assunto"
 
     match assuntoInformativo:
         case "Avaliação":
           lista_informativos.append(
             { "ID_turma": ID_turma,
               "ID_informativo": id,
-              "tipoAvaliação": objetoInformativo["tipoAvaliacao"],
+              "tipoAvaliacao": objetoInformativo["tipoAvaliacao"],
               "materia": objetoInformativo["materia"],
               "assunto": objetoInformativo["assunto"],
               "assuntoAvaliacao": objetoInformativo["assuntoAvaliacao"],

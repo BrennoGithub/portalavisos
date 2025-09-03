@@ -6,7 +6,7 @@ lista_informativos = [
      "mensagem": "texto", "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
 
     {"ID_turma": 1, "ID_informativo": 2, "assunto":"Avaliação", 
-     "tipoAvaliacao": "prova", "materia": "matematica", "assuntoAvalicao": "adição",
+     "tipoAvaliacao": "prova", "materia": "matematica", "assuntoAvaliacao": "adição",
      "dataAvaliacao": "DD/MM/AA", "horaAvaliacao": "HH:MM", "mensagem": "texto", 
      "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
 

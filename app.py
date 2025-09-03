@@ -84,13 +84,11 @@ def valida_login():
 def returnInformativos(assunto):
     if not 'ID_turma' in session:
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
-    
-    ID_turma = session["ID_turma"]
 
     if assunto == "todos":
         return jsonify(lista_informativos)
     else:
-        listaInformativo = exibiInformativo(assunto, lista_informativos, ID_turma)
+        listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
         return jsonify(listaInformativo)
 
 
@@ -102,8 +100,6 @@ def form_avisos():
 def CRUD_informativo():
     if "ID_turma" not in session:
         return redirect(url_for("form_avisos"))
-    
-    ID_turma = session["ID_turma"]
 
     match request.method:
         case "POST":
@@ -151,7 +147,7 @@ def CRUD_informativo():
                     objetoInformativo["dataInformativo"] = returnData()
                     objetoInformativo["horaInformativo"] = returnHora()
 
-            criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
+            criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
             #Criar uma função de exibição destinada a avaliações
         
             return redirect(f"/usuarios/{session['matricula']}")
