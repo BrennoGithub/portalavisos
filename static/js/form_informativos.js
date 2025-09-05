@@ -28,12 +28,12 @@ export function formularios(elemento){
                     <option value="img">Imagem</option>
                     <option value="file">Arquivo</option>
                 </select>
-                <input type="text" name="anexo" id="anexo" placeholder="Material">
+                <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado">
             </div>
         </fieldset>
 
         <fieldset class="texto_campo_form">
-            <legend><label for="texto">Texto</label></legend>
+            <legend><label for="texto">Mensagem</label></legend>
             <textarea placeholder="Mensagem" id="mensagem" name="mensagem" class="campo_form"></textarea>
         </fieldset>
 
@@ -47,7 +47,7 @@ export function assuntoInformativo(elemento, assunto){
             elemento.innerHTML = `
             <fieldset class="area_campo_form">
                 <legend><label for="assunto">Tipo Avaliação</label></legend>
-                <input type="text" name="tipoAvaliacao" id="tipoAvaliacao" placeholder="Tipo de avaliação">
+                <input type="text" name="tipoAvaliacao" id="tipoAvaliacao" placeholder="Ex.: Prova, seminario, lista de exercisios, etc.">
             </fieldset>         
 
             <div class="linhaUnica">
@@ -64,12 +64,12 @@ export function assuntoInformativo(elemento, assunto){
 
             <div class="linhaUnica">
                 <fieldset class="area_campo_form caixaInterna">
-                    <legend><label for="data">Data</label></legend>
+                    <legend><label for="data">Dia da Avaliação</label></legend>
                     <input type="date" name="dataAvaliacao" id="dataAvaliacao">
                 </fieldset>
 
                 <fieldset class="area_campo_form caixaInterna">
-                    <legend><label for="hora">Hora</label></legend>
+                    <legend><label for="hora">Hora da Avaliação</label></legend>
                     <input type="time" name="horaAvaliacao" id="horaAvaliacao">
                 </fieldset>
             </div>`;
@@ -79,11 +79,11 @@ export function assuntoInformativo(elemento, assunto){
             elemento.innerHTML = `    
             <fieldset class="area_campo_form">
                 <legend><label for="nomeEvento">Nome do Evento</label></legend>
-                <input type="text" name="nomeEvento" id="nomeEvento" placeholder="nome do evento">
+                <input type="text" name="nomeEvento" id="nomeEvento" placeholder="Nome do evento">
             </fieldset>
 
             <fieldset class="area_campo_form">
-                <legend><label for="data">Datas</label></legend>
+                <legend><label for="data">Dias do Evento</label></legend>
                 <div class="linhaUnica">
                     <label>
                         <em>Inicio:</em> <input type="date" name="dataInicial_Evento" id="dataInicial_Evento" class="areaDate"> 
@@ -95,7 +95,7 @@ export function assuntoInformativo(elemento, assunto){
             </fieldset>
             
             <fieldset class="area_campo_form">
-                <legend><label for="hora">Horario</label></legend>
+                <legend><label for="hora">Horario do Evento</label></legend>
                 <div class="linhaUnica">
                     <label> 
                         <em>Inicio:</em> <input type="time" name="horaInicial_Evento" id="horaInicial_Evento" class="areaDate">
