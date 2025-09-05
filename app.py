@@ -52,12 +52,6 @@ def returnUSUARIO(matricula):
     elif session["status"] == "aluno-lider":
         return render_template("tela_lideres.html", nome = session["nomeUsuario"])
 
-    #usuario = {}
-    #for alunos in lista_alunos:
-    #    if matricula == alunos["matricula"]:
-    #        usuario = alunos
-    #return jsonify(usuario)
-
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":

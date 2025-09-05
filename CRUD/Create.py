@@ -20,7 +20,7 @@ def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assunto
     lista_id_informativos.append(id)
 
     if objetoInformativo["assunto"] == "":
-       objetoInformativo["assunto"] = "Sem Assunto"
+       objetoInformativo["assunto"] = "Sem assunto"
 
     match assuntoInformativo:
         case "Avaliação":
