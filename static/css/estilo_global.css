@@ -1,6 +1,5 @@
 /*Estilo geral da página*/
 body{
-    /*background-color: #FEFF9F;*/
     background-color: white;
 }
 
@@ -32,26 +31,32 @@ legend{
 }
 
 input{
-    border-radius: 5px;
     border: none;
     outline: none; /*Essa propriedade remove o contorno padrão que aparece quando o input recebe foco. */
     text-align: center;
     padding: 5px;
     margin: 5px;
-    width: 60%;
+    width: 70%;
     height: 20px;
-    /*ADICIONAR ESTILO PARA INDICAR FOCO NO CAMPO*/
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+input:focus{
+    border-bottom: solid 1px;
 }
 
 textarea{
-    border-radius: 10px;
     border: none;
     outline: none;
     width: 90%;
-    height: 90px;
+    height: 100px;
     padding: 14px;
     resize: none;
     font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+textarea:focus{
+    border-bottom: solid 1px;
 }
 
 select{
@@ -61,6 +66,7 @@ select{
     text-align: center;
     padding: 5px;
     width: 120px;
+    height: min-content;
    
 }
 

@@ -1,128 +1,145 @@
-const form_aviso = `
-<fieldset class="area_campo_form">
-    <legend><label for="assunto_aviso">Assunto</label></legend>
-    <input type="text" placeholder="Assunto do aviso" id="assunto_aviso" name="assunto_aviso" class="campo_form">
-</fieldset>
+//ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
+export function formularios(elemento){
+    elemento.innerHTML = `
+        <div class="areaTitulo">
+            <h1>Informativo</h1><hr>
+        </div>
 
-<fieldset class="texto_campo_form">
-    <legend><label for="texto">Texto</label></legend>
-    <textarea placeholder="Aviso" id="texto" name="texto" class="campo_form"></textarea>
-</fieldset>
+        <form class="formAviso" method="POST" action="/submit_informativo">
 
-<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
+        <fieldset class="area_campo_form">
+            <legend><label for="assunto">Assunto</label></legend>
+            <input type="text" name="assunto" id="assunto" placeholder="Assunto do Informativo">
+            <div class="areaOpcoes">
+                <a href="#" class="opcaoInformativo">Avaliação</a>
+                <a href="#" class="opcaoInformativo">Evento</a>
+                <a href="#" class="opcaoInformativo">Material Didatico</a>
+            </div>
+        </fieldset>
 
-const form_avaliacao = `
-<fieldset class="area_campo_form">
-    <legend><label for="materia">Materia</label></legend>
-    <input type="text" name="materia" id="materia" placeholder="Materia da avaliação">
-</fieldset>
+        <div class="dadosAdicionais"></div>
 
-<fieldset class="area_campo_form">
-    <legend><label for="assunto">Assunto</label></legend>
-    <input type="text" name="assunto" id="assunto" placeholder="Assunto da avaliação">
-</fieldset>
+        <fieldset class="area_campo_form">
+            <legend><label for="tipo_material">Arquivo</label></legend>
+            <div class="linhaUnica">
+                <select name="tipo_material" id="tipo_material">
+                    <option value="">Tipo</option>
+                    <option value="url">Link</option>
+                    <option value="img">Imagem</option>
+                    <option value="file">Arquivo</option>
+                </select>
+                <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado">
+            </div>
+        </fieldset>
 
-<div style="display: flex;">
-    <fieldset class="area_campo_form linhaitem1">
-        <legend><label for="data">Data</label></legend>
-        <input type="date" name="data" id="data">
-    </fieldset>
+        <fieldset class="texto_campo_form">
+            <legend><label for="texto">Mensagem</label></legend>
+            <textarea placeholder="Mensagem" id="mensagem" name="mensagem" class="campo_form"></textarea>
+        </fieldset>
 
-    <fieldset class="area_campo_form linhaitem2">
-        <legend><label for="hora">Hora</label></legend>
-        <input type="time" name="hora" id="hora">
-    </fieldset>
-</div>
+        <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
+        </form>`;
+};
 
-<fieldset class="texto_campo_form">
-    <legend><label for="descricao">Descrição</label></legend>
-    <textarea placeholder="Descrição da avaliação" id="descricao" name="descricao" class="campo_form"></textarea>
-</fieldset>
+export function assuntoInformativo(elemento, assunto){
+    switch (assunto){
+        case 'Avaliação':
+            elemento.innerHTML = `
+            <fieldset class="area_campo_form">
+                <legend><label for="assunto">Tipo Avaliação</label></legend>
+                <input type="text" name="tipoAvaliacao" id="tipoAvaliacao" placeholder="Ex.: Prova, seminario, lista de exercisios, etc.">
+            </fieldset>         
 
-<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
+            <div class="linhaUnica">
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="materia">Materia</label></legend>
+                    <input type="text" name="materia" id="materia" placeholder="Materia da avaliação">
+                </fieldset>
 
-const form_evento = `
-<fieldset class="area_campo_form">
-    <legend><label for="nome">Evento</label></legend>
-    <input type="text" name="nome" id="nome" placeholder="nome do evento">
-</fieldset>
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="assunto">Assunto da Avaliação</label></legend>
+                    <input type="text" name="assuntoAvaliacao" id="assuntoAvaliacao" placeholder="Assunto da avaliação">
+                </fieldset>
+            </div>
 
-<div style="display: flex;">
-    <fieldset class="area_campo_form linhaitem1">
-        <legend><label for="data">Data</label></legend>
-        <input type="date" name="data" id="data">
-    </fieldset>
+            <div class="linhaUnica">
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="data">Dia da Avaliação</label></legend>
+                    <input type="date" name="dataAvaliacao" id="dataAvaliacao">
+                </fieldset>
 
-    <fieldset class="area_campo_form linhaitem2">
-        <legend><label for="hora">Hora</label></legend>
-        <input type="time" name="hora" id="hora">
-    </fieldset>
-</div>
-
-<fieldset class="texto_campo_form">
-    <legend><label for="descricao">Descrição</label></legend>
-    <textarea placeholder="Descrição da avaliação" id="descricao" name="descricao" class="campo_form"></textarea>
-</fieldset>
-
-<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
-
-const form_material = `
-<div style="display: flex;">
-<fieldset class="area_campo_form linhaitem1" >
-    <legend><label for="materia">Materia</label></legend>
-    <input type="text" name="materia" id="materia" placeholder="Materia">
-</fieldset>
-
-<fieldset class="area_campo_form linhaitem2"  >
-    <legend><label for="assunto">Assunto</label></legend>
-    <input type="text" name="assunto" id="assunto" placeholder="Assunto">
-</fieldset>
-</div>
-
-<div style="display: flex;">
-<fieldset class="area_campo_form" style="width: 100%; display: flex;">
-    <legend><label for="tipo_material">Material</label></legend>
-    <select name="tipo_material" id="tipo_material" style="margin: 0 10px 0 10px; width: 25%; height: 30px">
-        <option value="">Tipo</option>
-        <option value="url">Link</option>
-        <option value="img">Imagem</option>
-        <option value="file">Arquivo</option>
-    </select>
-    <input type="text" name="material" id="material" placeholder="Material" style="margin: 0 10px 0 0px; width: 75%;">
-</fieldset>
-</div>
-
-<fieldset class="texto_campo_form">
-    <legend><label for="descricao">Descrição</label></legend>
-    <textarea placeholder="Descrição do material" id="descricao" name="descricao" class="campo_form"></textarea>
-</fieldset>
-
-<button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>`;
-
-document.getElementById("form_informativo").innerHTML = form_aviso;
-
-document.getElementById("tipo_aviso").addEventListener('change', function(){
-    const tipoInformativo = document.getElementById("tipo_aviso").value;
-
-    switch(tipoInformativo){
-        case 'avisos':
-            document.getElementById("form_informativo").innerHTML = form_aviso;
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="hora">Hora da Avaliação</label></legend>
+                    <input type="time" name="horaAvaliacao" id="horaAvaliacao">
+                </fieldset>
+            </div>`;
             break;
 
-        case 'avaliacoes':
-            document.getElementById("form_informativo").innerHTML = form_avaliacao;
+        case 'Evento':
+            elemento.innerHTML = `    
+            <fieldset class="area_campo_form">
+                <legend><label for="nomeEvento">Nome do Evento</label></legend>
+                <input type="text" name="nomeEvento" id="nomeEvento" placeholder="Nome do evento">
+            </fieldset>
+
+            <fieldset class="area_campo_form">
+                <legend><label for="data">Dias do Evento</label></legend>
+                <div class="linhaUnica">
+                    <label>
+                        <em>Inicio:</em> <input type="date" name="dataInicial_Evento" id="dataInicial_Evento" class="areaDate"> 
+                    </label>
+                    <label> 
+                        <em>Fim:</em> <input type="date" name="dataFinal_Evento" id="dataFinal_Evento" class="areaDate"> 
+                    </label>
+                </div>
+            </fieldset>
+            
+            <fieldset class="area_campo_form">
+                <legend><label for="hora">Horario do Evento</label></legend>
+                <div class="linhaUnica">
+                    <label> 
+                        <em>Inicio:</em> <input type="time" name="horaInicial_Evento" id="horaInicial_Evento" class="areaDate">
+                    </label>
+                    <label> 
+                        <em>Fim:</em> <input type="time" name="horaFinal_Evento" id="horaFinal_Evento" class="areaDate"> 
+                    </label>
+                </div>
+            </fieldset>`;
             break;
 
-        case 'eventos':
-            document.getElementById("form_informativo").innerHTML = form_evento;
-            break;
+        case 'Material Didatico':
+            elemento.innerHTML = `
+            <div class="linhaUnica">
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="materia">Materia</label></legend>
+                    <input type="text" name="materia" id="materia" placeholder="Materia">
+                </fieldset>
 
-        case 'materiais':
-            document.getElementById("form_informativo").innerHTML = form_material;
+                <fieldset class="area_campo_form caixaInterna">
+                    <legend><label for="assunto">Assunto do Material</label></legend>
+                    <input type="text" name="assuntoMaterial" id="assuntoMaterial" placeholder="Assunto do Material Didatico">
+                </fieldset>
+            </div>`;
             break;
-
+        
         default:
-            document.getElementById("form_informativo").innerHTML = form_aviso;
+            elemento.innerHTML = "";
             break;
-    }
-});
+    };
+}
+
+export function exibicaoOpcoes(elementoClicado, elementoOculto, tipoEvento, estadoPadrao){
+    elementoClicado.addEventListener(tipoEvento, function(){
+        switch (elementoOculto.style.display){
+            case "none":
+                elementoOculto.style.display = "flex";
+                break;
+            case "flex":
+                elementoOculto.style.display = "none";
+                break;
+            default:
+                elementoOculto.style.display = estadoPadrao;
+                break;
+        };
+    });
+};

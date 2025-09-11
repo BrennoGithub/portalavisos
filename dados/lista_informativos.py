@@ -1,18 +1,21 @@
 #lista de ids de avisos
-lista_id_informativos = { "avisos":[1], "avaliacoes":[1], "eventos":[1], "materiais":[1] }
+lista_id_informativos = [1, 2, 3, 4]
 
-lista_informativos = {
-    "avisos":[ 
-        {"ID_turma": 1, "ID_aviso": 1, "data": "DD/MM/AA", "hora": "HH:MM", "assunto": "assunto", "texto": "texto"} 
-    ],
-    "avaliacoes":[ 
-        {"ID_turma": 1, "ID_avaliacao": 1, "materia": "matematica", "assunto": "adição", "data_avaliacao": "DD/MM/AA", "hora_avaliacao": "HH:MM", "descricao": "Prova escrita"} 
-    ],
-    "eventos":[ 
-        {"ID_turma": 1, "ID_evento": 1, "nome": "festa da uva", "data_evento": "DD/MM/AA", "hora_evento": "HH:MM", "descricao": "rtriojprioyjhrtuio"} 
-    ],
-    "materiais":[ 
-        {"ID_turma": 1, "ID_material": 1, "tipo_material": "texto", "material": "olá mundo", "materia": "matematica", "assunto": "matematica", "descricao": "eriuthrguilthgrtuiythguirtog"} 
-    ]
-}
+lista_informativos = [
+    {"ID_turma": 1, "ID_informativo": 1, "assunto":"Aviso", 
+     "mensagem": "texto", "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
+
+    {"ID_turma": 1, "ID_informativo": 2, "assunto":"Avaliação", 
+     "tipoAvaliacao": "prova", "materia": "matematica", "assuntoAvaliacao": "adição",
+     "dataAvaliacao": "DD/MM/AA", "horaAvaliacao": "HH:MM", "mensagem": "texto", 
+     "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
+
+    {"ID_turma": 1, "ID_informativo": 3, "assunto":"Evento",
+     "nomeEvento": "festa da uva", "dataInicial_Evento": "DD/MM/AA", "dataFinal_Evento": "DD/MM/AA", 
+     "horaInicial_Evento": "HH:MM", "horaFinal_Evento": "HH:MM",
+     "mensagem": "texto", "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
+
+    {"ID_turma": 1, "ID_informativo": 4, "assunto":"Material Didatico", "materia": "matematica", "assuntoMaterial": "matematica",
+     "mensagem": "texto", "anexo": "ARQUIVO", "dataInformativo": "DD/MM/AA", "horaInformativo": "HH:MM"},
+]
 

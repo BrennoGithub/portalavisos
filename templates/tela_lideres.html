@@ -7,11 +7,9 @@
     <title>Portal Informativo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_avisos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_Informativos.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_formInformativos.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
-    <script>
-        //const STATIC_URL = "{{ url_for('static', filename='') }}";
-    </script>
 </head>
 <body>
     <div id="mySidebar" class="sidebar">
@@ -21,20 +19,18 @@
 
         <a>{{nome}}</a>
 
-        <a href="{{ url_for('form_avisos') }}" style="display: block;">
-            <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
-        </a>
-          <hr>
- 
-        <a href="#">Mural</a>
-        <a href="#">Avisos</a>
-        <a href="#">Avaliações</a>
-        <a href="#">Eventos</a>
-        <a href="#">Material Didatico</a>
+        <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
+        
+        <hr>
+
+        <a href="" class="sessao">Mural</a>
+        <a href="" class="sessao">Avisos</a>
+        <a href="" class="sessao">Avaliações</a>
+        <a href="" class="sessao">Eventos</a>
+        <a href="" class="sessao">Material Didatico</a>
         <a href="/logout" class="deslogar"> 
             <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
         </a>
-
       </div>
     
       <header class="cabeca_pagina">
@@ -44,14 +40,9 @@
           <h1>Portal Informativo - INFO V</h1>
       </header>
       
-      <article class="area">
-            <span class="exibicaoAvisos"></span>
-            <span class="exibicaoAvaliacoes"></span>
-            <span class="exibicaoEventos"></span>
-            <span class="exibicaoMateriais"></span>
-      </article>
+      <span class="exibicaoInformativos"></span>
 
       <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-      <script type="module" src="{{ url_for('static', filename='js/exibicaoInformativo.js') }}"></script>
+      <script type="module" src="{{ url_for('static', filename='js/roteamento.js') }}"></script>
 </body>
 </html>

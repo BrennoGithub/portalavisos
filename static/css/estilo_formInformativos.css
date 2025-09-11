@@ -2,17 +2,31 @@
 .formAviso{
     background-color: white;
     text-align: center;
-    border: 1px solid gray;
-    margin-left: auto;
-    margin-right: auto;
     border-radius: 20px;
-    display: block;
-    min-width: 300px;
-    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    width: 560px;
+    margin: 20px auto 15px auto;
+    justify-content: center;
 }
 
-.formAviso:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+.areaOpcoes{
+    display: none;
+    flex-direction: column;
+    background-color: lightgray;
+    border-radius: 5px;
+    width: 200px;
+    margin: 0px auto;
+    position: relative;
+    z-index: 1;
+}
+
+.areaOpcoes a{
+    color: black;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    padding: 5px 10px;
 }
 
 .area_campo_form{
@@ -22,21 +36,22 @@
     margin-right: 15px;
 }
 
-.conteudoOpcoes{
-    width: 150px;
+.areaDate{
+    width: 100px;
+    height: 10px;
 }
 
-.linhaitem1{
-    width: 50%;
-    margin-left: 15px;
-    margin-right: 15px;
+.linhaUnica{
+    display: flex;
+    justify-content: space-around;
+    font-size: large;
 }
 
-.linhaitem2{
+.caixaInterna{
     width: 50%;
-    margin-right: 15px;
-    margin-left: 0px;
+    text-align: center;
 }
+
 
 .texto_campo_form{
     width: auto;
@@ -46,6 +61,6 @@
 }
 
 .botao_campo_form{
-    margin-top: 10px;
-    margin-bottom: 15px;
+    margin: 10px auto;
+    width: 80px;
 }

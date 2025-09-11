@@ -13,51 +13,69 @@ def returnHora():
     return hora
 
 #Função CREATE
-def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, tipoInformativo, objetoInformativo):
+def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo):
     id = 1
     while id in lista_id_informativos:
         id += 1
-
     lista_id_informativos.append(id)
 
-    if tipoInformativo == "avisos":
-        lista_informativos.append(
+    if objetoInformativo["assunto"] == "":
+       objetoInformativo["assunto"] = "Sem assunto"
+
+    match assuntoInformativo:
+        case "Avaliação":
+          lista_informativos.append(
             { "ID_turma": ID_turma,
-              "ID_aviso": id, 
-              "data": objetoInformativo["data_atual"],
-              "hora": objetoInformativo["hora_atual"],
-              "assunto": objetoInformativo["assunto"],
-              "texto": objetoInformativo["texto"]
-            })
-    
-    elif tipoInformativo == "avaliacoes":
-        lista_informativos.append(
-            { "ID_turma": ID_turma,
-              "ID_avaliacao": id,
+              "ID_informativo": id,
+              "tipoAvaliacao": objetoInformativo["tipoAvaliacao"],
               "materia": objetoInformativo["materia"],
               "assunto": objetoInformativo["assunto"],
-              "data_avaliacao": objetoInformativo["data_avaliacao"],
-              "hora_avaliacao": objetoInformativo["hora_avaliacao"],
-              "descricao": objetoInformativo["descricao"]
+              "assuntoAvaliacao": objetoInformativo["assuntoAvaliacao"],
+              "dataAvaliacao": objetoInformativo["dataAvaliacao"],
+              "horaAvaliacao": objetoInformativo["horaAvaliacao"],
+              "mensagem": objetoInformativo["mensagem"],
+              "anexo": objetoInformativo["anexo"],
+              "dataInformativo": objetoInformativo["dataInformativo"],
+              "horaInformativo": objetoInformativo["horaInformativo"],
             })
-        
-    elif tipoInformativo == "eventos":
-        lista_informativos.append(
+          
+        case "Evento":
+          lista_informativos.append(
             { "ID_turma": ID_turma,
-              "ID_evento": id,
-              "nome": objetoInformativo["nome_evento"],
-              "data_evento": objetoInformativo["data_evento"],
-              "hora_evento": objetoInformativo["hora_evento"],
-              "descricao": objetoInformativo["descricao"]
-            })
-        
-    elif tipoInformativo == "materiais":
-        lista_informativos.append(
-            { "ID_turma": ID_turma,
-              "ID_material": id,
-              "tipo_material": objetoInformativo["tipo_material"],
-              "material": objetoInformativo["material"],
-              "materia": objetoInformativo["materia"],
+              "ID_informativo": id,
               "assunto": objetoInformativo["assunto"],
-              "descricao": objetoInformativo["descricao"]
+              "nomeEvento": objetoInformativo["nomeEvento"],
+              "dataInicial_Evento": objetoInformativo["dataInicial_Evento"],
+              "dataFinal_Evento": objetoInformativo["dataFinal_Evento"],
+              "horaInicial_Evento": objetoInformativo["horaInicial_Evento"],
+              "horaFinal_Evento": objetoInformativo["horaFinal_Evento"],
+              "mensagem": objetoInformativo["mensagem"],
+              "anexo": objetoInformativo["anexo"],
+              "dataInformativo": objetoInformativo["dataInformativo"],
+              "horaInformativo": objetoInformativo["horaInformativo"],
+            })
+        
+        case "Material Didatico":
+          lista_informativos.append(
+            { "ID_turma": ID_turma,
+              "ID_informativo": id,
+              "materia": objetoInformativo["materia"],
+              "assuntoMaterial": objetoInformativo["assuntoMaterial"],
+              "assunto": objetoInformativo["assunto"],
+              "mensagem": objetoInformativo["mensagem"],
+              "dataInformativo": objetoInformativo["dataInformativo"],
+              "horaInformativo": objetoInformativo["horaInformativo"],
+              "anexo": objetoInformativo["anexo"]
+            })
+        
+        case _:
+          lista_informativos.append(
+            { "ID_turma": ID_turma,
+              "ID_informativo": id,
+              "assunto": objetoInformativo["assunto"],
+              "mensagem": objetoInformativo["mensagem"],
+              "dataInformativo": objetoInformativo["dataInformativo"],
+              "horaInformativo": objetoInformativo["horaInformativo"],
+              "anexo": objetoInformativo["anexo"]
+              
             })
