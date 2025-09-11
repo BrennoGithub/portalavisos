@@ -1,10 +1,11 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.Create import criaInformativo, returnData, returnHora
+from CRUD.Create import criaInformativo
 from CRUD.Read import exibiInformativo
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
+from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
 
 #VER E ALTERAR URL_FOR PARA CORRIGIR ERROS.
@@ -99,6 +100,8 @@ def CRUD_informativo():
         case "POST":
             objetoInformativo = {}
             assuntoInformativo = request.form["assunto"]
+            if assuntoInformativo == "":
+                assuntoInformativo = "Sem assunto"
 
             match assuntoInformativo:
                 case "Avaliação":
@@ -110,8 +113,8 @@ def CRUD_informativo():
                     objetoInformativo["horaAvaliacao"] = request.form["horaAvaliacao"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
 
                 case "Evento":
                     objetoInformativo["assunto"] = request.form["assunto"]
@@ -122,8 +125,8 @@ def CRUD_informativo():
                     objetoInformativo["horaFinal_Evento"] = request.form["horaFinal_Evento"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
 
                 case "Material Didatico":
                     objetoInformativo["assunto"] = request.form["assunto"]
@@ -131,15 +134,15 @@ def CRUD_informativo():
                     objetoInformativo["assuntoMaterial"] = request.form["assunto"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
 
                 case _:
                     objetoInformativo["assunto"] = request.form["assunto"]
                     objetoInformativo["anexo"] = request.form["anexo"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
 
             criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
             #Criar uma função de exibição destinada a avaliações

@@ -1,12 +1,16 @@
 // Organizar informativos
-function ordenarInformativos(informativos) {
-    return informativos.sort((a, b) => new Date(a.data) - new Date(b.data));
+export function ordenarInformativos(informativos, tipoData) {
+    return informativos.sort((a, b) => new Date(a[tipoData]) - new Date(b[tipoData]));
   }
-  
-  const informativos = [
-    { titulo: "Informativo 3", data: "2023-08-12" },
-    { titulo: "Informativo 1", data: "2021-05-03" },
-    { titulo: "Informativo 2", data: "2022-11-20" }
-  ];
-  
-  console.log(ordenarInformativos(informativos));
+
+//ANALISAR A FUNÇÃO PARA FAZER ELE FORMATAR TODO TIPO DE DATA
+export function formataData(informativo, tipoData){
+    informativo.forEach( info => {
+        data = info[tipoData];
+        data = data.split("-");
+        dia = data[2];
+        mes = data[1];
+        ano = data[0];
+        info[tipoData] = `${dia}/${mes}/${ano}`;
+    });
+};

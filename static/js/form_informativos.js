@@ -1,10 +1,11 @@
 //ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
 export function formularios(elemento){
     elemento.innerHTML = `
-        <div class="areaTitulo">
-            <h1>Informativo</h1><hr>
-        </div>
+    <div class="areaTitulo">
+        <h1>Informativo</h1><hr>
+    </div>
 
+    <div class="areaCorpo">
         <form class="formAviso" method="POST" action="/submit_informativo">
 
         <fieldset class="area_campo_form">
@@ -38,7 +39,8 @@ export function formularios(elemento){
         </fieldset>
 
         <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
-        </form>`;
+        </form>
+    <div>`;
 };
 
 export function assuntoInformativo(elemento, assunto){
