@@ -37,8 +37,6 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 20px;
-    min-width: 600px;
-    max-width: 1000px;
     min-height: max-content;
     justify-content: flex-start;
     align-items: flex-start;

@@ -1,5 +1,5 @@
 import { requisicaoHTTP } from "./requisicaoHTTP.js";
-import { ordenarInformativos } from "./organizar_informativos.js"
+import { ordenarInformativos, formataData } from "./organizar_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
 export async function renderizaInformativos(elemento, tipo) {
@@ -83,7 +83,7 @@ export async function renderizaInformativos(elemento, tipo) {
             break;
         
         case "eventos":
-            informativos = await ordenarInformativos(informativos, "dataInicial_Evento");
+            informativos = await ordenarInformativos(informativos, 'dataInicial_Evento');
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">

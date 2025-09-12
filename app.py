@@ -113,8 +113,8 @@ def CRUD_informativo():
                     objetoInformativo["horaAvaliacao"] = request.form["horaAvaliacao"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Evento":
                     objetoInformativo["assunto"] = request.form["assunto"]
@@ -125,8 +125,8 @@ def CRUD_informativo():
                     objetoInformativo["horaFinal_Evento"] = request.form["horaFinal_Evento"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Material Didatico":
                     objetoInformativo["assunto"] = request.form["assunto"]
@@ -134,15 +134,15 @@ def CRUD_informativo():
                     objetoInformativo["assuntoMaterial"] = request.form["assunto"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
                     objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case _:
                     objetoInformativo["assunto"] = request.form["assunto"]
                     objetoInformativo["anexo"] = request.form["anexo"]
                     objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("Dia")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("Hora")
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
             criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
             #Criar uma função de exibição destinada a avaliações
