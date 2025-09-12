@@ -7,27 +7,27 @@ const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 async function roteamento(tituloPagina){
     switch (tituloPagina){
         case "Mural":
-                await renderizaInformativos(exibicaoInformativos, "todos");
+                await renderizaInformativos(exibicaoInformativos, "");
                 break;
             
         case "Avisos":
-                await renderizaInformativos(exibicaoInformativos, "avisos");
+                await renderizaInformativos(exibicaoInformativos, "/avisos");
                 break;
 
         case "Avaliações":
-                await renderizaInformativos(exibicaoInformativos, "avaliacoes");
+                await renderizaInformativos(exibicaoInformativos, "/avaliacoes");
                 break;
 
         case "Material Didatico":
-                await renderizaInformativos(exibicaoInformativos, "materiais");
+                await renderizaInformativos(exibicaoInformativos, "/materiais");
                 break;
 
         case "Eventos":
-                await renderizaInformativos(exibicaoInformativos, "eventos");
+                await renderizaInformativos(exibicaoInformativos, "/eventos");
                 break;
             
         default:
-                await renderizaInformativos(exibicaoInformativos, "todos");
+                await renderizaInformativos(exibicaoInformativos, "");
                 break;
         };
 }

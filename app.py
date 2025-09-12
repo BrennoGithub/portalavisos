@@ -74,17 +74,24 @@ def valida_login():
             
     return redirect(url_for("/"))
 
+@app.route("/informativos")
+def returnTodosInformativos():
+    if not 'ID_turma' in session:
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    listaInformativos = []
+    for iten in lista_informativos:
+        if iten["ID_turma"] == session["ID_turma"]:
+            listaInformativos.append(iten)
+    return jsonify(listaInformativos)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
     if not 'ID_turma' in session:
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    if assunto == "todos":
-        return jsonify(lista_informativos)
-    else:
-        listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
-        return jsonify(listaInformativo)
+    listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    return jsonify(listaInformativo)
 
 
 @app.route("/form_avisos")

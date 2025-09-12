@@ -2,14 +2,15 @@ import { requisicaoHTTP } from "./requisicaoHTTP.js";
 import { ordenarInformativos, formataData } from "./organizar_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
-export async function renderizaInformativos(elemento, tipo) {
+export async function renderizaInformativos(elemento, rotaAPI) {
     if(!elemento){
         return "Elemento inexistente.";
     }
 
     elemento.innerHTML = "<div class='carregando spinner'></div>"
 
-    let informativos = await requisicaoHTTP(`/informativos/${tipo}`);
+    let informativos = await requisicaoHTTP(`/informativos${rotaAPI}`);
+    informativos = formataData(informativos, "dataInformativo");
 
     if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
@@ -18,8 +19,8 @@ export async function renderizaInformativos(elemento, tipo) {
     const STATIC_URL = "/static/";
     let conteudo = ``;
     
-    switch (tipo){
-        case "avisos":
+    switch (rotaAPI){
+        case "/avisos":
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -39,8 +40,9 @@ export async function renderizaInformativos(elemento, tipo) {
             conteudo = `<div class="areaTitulo"> <h2>Avisos</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
-        case "avaliacoes":
+        case "/avaliacoes":
             informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
+            informativos = formataData(informativos, "dataAvaliacao");
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -61,7 +63,7 @@ export async function renderizaInformativos(elemento, tipo) {
             conteudo = `<div class="areaTitulo"> <h2>Avaliações</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
-        case "materiais":
+        case "/materiais":
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -82,8 +84,10 @@ export async function renderizaInformativos(elemento, tipo) {
             conteudo = `<div class="areaTitulo"> <h2>Materiais</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
         
-        case "eventos":
+        case "/eventos":
             informativos = await ordenarInformativos(informativos, 'dataInicial_Evento');
+            informativos = formataData(informativos, 'dataInicial_Evento');
+            informativos = formataData(informativos, 'dataFinal_Evento');
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -104,7 +108,7 @@ export async function renderizaInformativos(elemento, tipo) {
             conteudo = `<div class="areaTitulo"> <h2>Eventos</h2><hr> </div> <div class="areaCorpo">${conteudo}<div>`;
             break;
 
-        case "todos":
+        default:
             for(const x of informativos){
                 switch (x['assunto']){
                     case "Avaliação":
