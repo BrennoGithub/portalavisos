@@ -1,5 +1,5 @@
 import { requisicaoHTTP } from "./requisicaoHTTP.js";
-import { ordenarInformativos, formataData } from "./organizar_informativos.js"
+import { ordenarInformativos, formataDatas , formataUnicaData} from "./organizar_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
 export async function renderizaInformativos(elemento, rotaAPI) {
@@ -10,11 +10,10 @@ export async function renderizaInformativos(elemento, rotaAPI) {
     elemento.innerHTML = "<div class='carregando spinner'></div>"
 
     let informativos = await requisicaoHTTP(`/informativos${rotaAPI}`);
-    informativos = formataData(informativos, "dataInformativo");
-
     if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
     }
+    informativos = formataDatas(informativos, "dataInformativo");
 
     const STATIC_URL = "/static/";
     let conteudo = ``;
@@ -42,7 +41,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
 
         case "/avaliacoes":
             informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
-            informativos = formataData(informativos, "dataAvaliacao");
+            informativos = formataDatas(informativos, "dataAvaliacao");
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -86,8 +85,8 @@ export async function renderizaInformativos(elemento, rotaAPI) {
         
         case "/eventos":
             informativos = await ordenarInformativos(informativos, 'dataInicial_Evento');
-            informativos = formataData(informativos, 'dataInicial_Evento');
-            informativos = formataData(informativos, 'dataFinal_Evento');
+            informativos = formataDatas(informativos, 'dataInicial_Evento');
+            informativos = formataDatas(informativos, 'dataFinal_Evento');
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -112,6 +111,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             for(const x of informativos){
                 switch (x['assunto']){
                     case "Avaliação":
+                        x['dataAvaliacao'] = formataUnicaData(x['dataAvaliacao']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
@@ -129,6 +129,8 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         </div>`+conteudo;
                         break;
                     case "Evento":
+                        x['dataInicial_Evento'] = formataUnicaData(x['dataInicial_Evento']);
+                        x['dataFinal_Evento'] = formataUnicaData(x['dataFinal_Evento']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>

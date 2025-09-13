@@ -4,7 +4,7 @@
     border: solid 1px gray;
     border-radius: 20px;
     background-color: white;
-    margin: 0px auto 30px auto;
+    margin: 30px auto;
     min-width: 600px;
     max-width: 1000px;
 }
@@ -72,7 +72,7 @@
     min-width: 250px;
     max-width: 300px;
     min-height: auto;
-    max-height: max-content;
+    max-height: min-content;
     margin: 10px;
 }
 
@@ -85,7 +85,7 @@
     padding: 14px;
     font-weight: bold;
     font-size: 18px;
-    overflow-wrap: break-word;
+    overflow-wrap: break-word; /*Quebra alinha de textos longos na horizontal, quando ultrapassam alargura do elemento*/
   
 }
 
@@ -127,12 +127,20 @@
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    width: 70%;
+    /*width: 70%;*/
+    flex-grow: 7;
 }
 
 .botoesEdit{
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    width: 30%;
+    /*width: 30%;*/
+    flex-grow: 1;
+}
+
+.icone_delete{
+    background-color: red;
+    padding: 5px;
+    border-radius: 5px;
 }
