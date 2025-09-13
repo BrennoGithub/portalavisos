@@ -1,10 +1,11 @@
 //ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
 export function formularios(elemento){
     elemento.innerHTML = `
-        <div class="areaTitulo">
-            <h1>Informativo</h1><hr>
-        </div>
+    <div class="areaTitulo">
+        <h1>Informativo</h1><hr>
+    </div>
 
+    <div class="areaCorpo">
         <form class="formAviso" method="POST" action="/submit_informativo">
 
         <fieldset class="area_campo_form">
@@ -38,7 +39,8 @@ export function formularios(elemento){
         </fieldset>
 
         <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
-        </form>`;
+        </form>
+    <div>`;
 };
 
 export function assuntoInformativo(elemento, assunto){
@@ -49,25 +51,21 @@ export function assuntoInformativo(elemento, assunto){
                 <legend><label for="assunto">Tipo Avaliação</label></legend>
                 <input type="text" name="tipoAvaliacao" id="tipoAvaliacao" placeholder="Ex.: Prova, seminario, lista de exercisios, etc.">
             </fieldset>         
-
             <div class="linhaUnica">
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="materia">Materia</label></legend>
                     <input type="text" name="materia" id="materia" placeholder="Materia da avaliação">
                 </fieldset>
-
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="assunto">Assunto da Avaliação</label></legend>
                     <input type="text" name="assuntoAvaliacao" id="assuntoAvaliacao" placeholder="Assunto da avaliação">
                 </fieldset>
             </div>
-
             <div class="linhaUnica">
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="data">Dia da Avaliação</label></legend>
                     <input type="date" name="dataAvaliacao" id="dataAvaliacao">
                 </fieldset>
-
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="hora">Hora da Avaliação</label></legend>
                     <input type="time" name="horaAvaliacao" id="horaAvaliacao">
@@ -81,7 +79,6 @@ export function assuntoInformativo(elemento, assunto){
                 <legend><label for="nomeEvento">Nome do Evento</label></legend>
                 <input type="text" name="nomeEvento" id="nomeEvento" placeholder="Nome do evento">
             </fieldset>
-
             <fieldset class="area_campo_form">
                 <legend><label for="data">Dias do Evento</label></legend>
                 <div class="linhaUnica">
@@ -93,7 +90,6 @@ export function assuntoInformativo(elemento, assunto){
                     </label>
                 </div>
             </fieldset>
-            
             <fieldset class="area_campo_form">
                 <legend><label for="hora">Horario do Evento</label></legend>
                 <div class="linhaUnica">
@@ -114,7 +110,6 @@ export function assuntoInformativo(elemento, assunto){
                     <legend><label for="materia">Materia</label></legend>
                     <input type="text" name="materia" id="materia" placeholder="Materia">
                 </fieldset>
-
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="assunto">Assunto do Material</label></legend>
                     <input type="text" name="assuntoMaterial" id="assuntoMaterial" placeholder="Assunto do Material Didatico">
