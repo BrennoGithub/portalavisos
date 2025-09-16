@@ -107,53 +107,58 @@ def teste():
 @app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
     if "ID_turma" not in session:
-        return redirect(url_for("form_avisos"))
+        #return redirect(url_for("form_avisos"))
+        print("Erro na criação de informativo")
+        return "Erro na criação de informativo"
+    
+    resposta = request.json
+    print(resposta)
 
     match request.method:
         case "POST":
             objetoInformativo = {}
-            assuntoInformativo = request.form["assunto"] #Mudar essa linha para não buscar o campo assunto no formulario.
+            assuntoInformativo =  resposta["assunto"]
             if assuntoInformativo == "":
                 assuntoInformativo = "Sem assunto"
 
             match assuntoInformativo:
                 case "Avaliação":
-                    objetoInformativo["materia"] = request.form["materia"]
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["assuntoAvaliacao"] = request.form["assuntoAvaliacao"]
-                    objetoInformativo["tipoAvaliacao"] = request.form["tipoAvaliacao"]
-                    objetoInformativo["dataAvaliacao"] = request.form["dataAvaliacao"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaAvaliacao"] = request.form["horaAvaliacao"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["materia"] = resposta["materia"]
+                    objetoInformativo["assunto"] = resposta["assunto"]
+                    objetoInformativo["assuntoAvaliacao"] = resposta["assuntoAvaliacao"]
+                    objetoInformativo["tipoAvaliacao"] = resposta["tipoAvaliacao"]
+                    objetoInformativo["dataAvaliacao"] = resposta["dataAvaliacao"] 
+                    objetoInformativo["horaAvaliacao"] = resposta["horaAvaliacao"]
+                    objetoInformativo["mensagem"] = resposta["mensagem"]
+                    objetoInformativo["anexo"] = resposta["anexo"]
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Evento":
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["nomeEvento"] = request.form["nomeEvento"]
-                    objetoInformativo["dataInicial_Evento"] = request.form["dataInicial_Evento"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaInicial_Evento"] = request.form["horaInicial_Evento"]
-                    objetoInformativo["dataFinal_Evento"] = request.form["dataFinal_Evento"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaFinal_Evento"] = request.form["horaFinal_Evento"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["assunto"] = resposta["assunto"]
+                    objetoInformativo["nomeEvento"] = resposta["nomeEvento"]
+                    objetoInformativo["dataInicial_Evento"] = resposta["dataInicial_Evento"] 
+                    objetoInformativo["horaInicial_Evento"] = resposta["horaInicial_Evento"]
+                    objetoInformativo["dataFinal_Evento"] = resposta["dataFinal_Evento"]
+                    objetoInformativo["horaFinal_Evento"] = resposta["horaFinal_Evento"]
+                    objetoInformativo["mensagem"] = resposta["mensagem"]
+                    objetoInformativo["anexo"] = resposta["anexo"]
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Material Didatico":
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["materia"] = request.form["materia"]
-                    objetoInformativo["assuntoMaterial"] = request.form["assunto"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
+                    objetoInformativo["assunto"] = resposta["assunto"]
+                    objetoInformativo["materia"] = resposta["materia"]
+                    objetoInformativo["assuntoMaterial"] = resposta["assunto"]
+                    objetoInformativo["mensagem"] = resposta["mensagem"]
+                    objetoInformativo["anexo"] = resposta["anexo"]
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case _:
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
+                    objetoInformativo["assunto"] = resposta["assunto"]
+                    objetoInformativo["anexo"] = resposta["anexo"]
+                    objetoInformativo["mensagem"] = resposta["mensagem"]
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
@@ -168,7 +173,7 @@ def CRUD_informativo():
         case "PUT":
             return "olá mundo"
         
-    return redirect(url_for("form_avisos"))
+    return redirect(f"/usuarios/{session["ID_turma"]}")
 
 if __name__ == "__main__":
     app.run(debug=True)

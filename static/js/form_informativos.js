@@ -142,8 +142,18 @@ export function dadosForm(assuntoForm){
     //CRIAR OS OUTROS CASES DE ASSUNTO
     switch (assuntoForm){
         case "Avaliação":
-            const dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
-            const horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
+            let dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
+            const dia = dataAvaliacao.getDay();
+            const mes = Number(dataAvaliacao.getMonth()) + 1;
+            const ano = dataAvaliacao.getFullYear();
+            dataAvaliacao = `${ano}-${mes}-${dia}`;
+            let horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
+            /*const hora = dataAvaliacao.getHours();
+            const minuto = dataAvaliacao.getMinutes();
+            horaAvaliacao = `${hora}:${minuto}`;
+            AJUSTAR PROBLEMA DA HORA, QUE SÓ DA NULL E AJUSTAR DATA
+            */
+
             dadosForm = {
                 "assunto":assuntoForm,"tipoAvaliacao": document.getElementById("tipoAvaliacao").value, 
                 "materia": document.getElementById("materia").value, 
@@ -152,6 +162,27 @@ export function dadosForm(assuntoForm){
                 "mensagem": document.getElementById("mensagem").value,
                 "anexo": document.getElementById("anexo").value, 
             };
+            break;
+        case "Evento":
+            const dataInicial_Evento = new Date(document.getElementById("dataInicial_Evento").value);
+            const dataFinal_Evento = new Date(document.getElementById("dataFinal_Evento").value);
+            const horaInicial_Evento = new Date(document.getElementById("horaInicial_Evento").value);
+            const horaFinal_Evento = new Date(document.getElementById("horaFinal_Evento").value);
+            dadosForm = {
+                "assunto": assuntoForm, "nomeEvento": document.getElementById("nomeEvento").value, 
+                "dataInicial_Evento": dataInicial_Evento, "dataFinal_Evento": dataFinal_Evento, 
+                "horaInicial_Evento": horaInicial_Evento, "horaFinal_Evento": horaFinal_Evento,
+                "mensagem": document.getElementById("mensagem").value, "anexo": document.getElementById("anexo").value
+            }
+            break;
+        case "Material Didatico":
+            dadosForm = {
+                "assunto": assuntoForm, 
+                "materia": document.getElementById("materia").value, 
+                "assuntoMaterial": document.getElementById("assuntoMaterial").value,
+                "mensagem": document.getElementById("mensagem").value, 
+                "anexo": document.getElementById("anexo").value
+            }
             break;
         default:
             dadosForm = {
