@@ -1,5 +1,6 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
-import { formularios, assuntoInformativo, exibicaoOpcoes} from "./form_informativos.js";
+import { formularios, assuntoInformativo, exibicaoOpcoes, dadosForm} from "./form_informativos.js";
+import { POST } from "./requisicaoHTTP.js";
 
 const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 
@@ -81,6 +82,10 @@ function gerenciamentoForm(){
                 break;
         }
     });
+
+    const assunto = document.getElementById("assunto");
+    const dados = dadosForm(assunto);
+    POST("/submit_informativo", dados);
 };
 
 //Exibição de formularios

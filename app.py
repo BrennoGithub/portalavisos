@@ -98,6 +98,12 @@ def returnInformativos(assunto):
 def form_avisos():
     return render_template("form_avisos.html", nome=session["nomeUsuario"])
 
+@app.route("/rotaTESTE", methods=["POST"])
+def teste():
+    resposta = request.json
+    print(resposta)
+    return resposta
+
 @app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
     if "ID_turma" not in session:
@@ -106,7 +112,7 @@ def CRUD_informativo():
     match request.method:
         case "POST":
             objetoInformativo = {}
-            assuntoInformativo = request.form["assunto"]
+            assuntoInformativo = request.form["assunto"] #Mudar essa linha para não buscar o campo assunto no formulario.
             if assuntoInformativo == "":
                 assuntoInformativo = "Sem assunto"
 

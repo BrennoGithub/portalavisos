@@ -1,4 +1,4 @@
-import { requisicaoHTTP } from "./requisicaoHTTP.js";
+import { GET } from "./requisicaoHTTP.js";
 import { ordenarInformativos, formataDatas , formataUnicaData} from "./organizar_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
@@ -9,7 +9,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
 
     elemento.innerHTML = "<div class='carregando spinner'></div>"
 
-    let informativos = await requisicaoHTTP(`/informativos${rotaAPI}`);
+    let informativos = await GET(`/informativos${rotaAPI}`);
     if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
     }
@@ -36,7 +36,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                 </div>`+conteudo;
                 
             };
-            conteudo = `<div class="areaTitulo"> <h2>Avisos</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
+            conteudo = `<div class="areaTitulo"> <h2>Avisos</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
         case "/avaliacoes":
@@ -59,7 +59,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     </div>
                 </div>`+conteudo;
             };
-            conteudo = `<div class="areaTitulo"> <h2>Avaliações</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
+            conteudo = `<div class="areaTitulo"> <h2>Avaliações</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
         case "/materiais":
@@ -80,7 +80,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     </div>
                 </div>`+conteudo;
             };
-            conteudo = `<div class="areaTitulo"> <h2>Materiais</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
+            conteudo = `<div class="areaTitulo"> <h2>Materiais</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
         
         case "/eventos":
@@ -104,7 +104,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     </div>
                 </div>`+conteudo;
             };
-            conteudo = `<div class="areaTitulo"> <h2>Eventos</h2><hr> </div> <div class="areaCorpo">${conteudo}<div>`;
+            conteudo = `<div class="areaTitulo"> <h2>Eventos</h2> </div> <div class="areaCorpo">${conteudo}<div>`;
             break;
 
         default:
@@ -181,7 +181,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         break;
                 };
             };
-            conteudo = `<div class="areaTitulo"> <h2>Mural</h2><hr> </div> <div class="areaCorpo">${conteudo}</div>`;
+            conteudo = `<div class="areaTitulo"> <h2>Mural</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
     };
     elemento.innerHTML = conteudo;

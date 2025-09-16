@@ -21,9 +21,7 @@
 }
 
 .areaTitulo{
-    border-top: solid 1px gray;
-    border-right: solid 1px gray;
-    border-left: solid 1px gray;
+    border: solid 1px gray;;
     border-radius: 20px 20px 0px 0px;
     display: block;
 }
