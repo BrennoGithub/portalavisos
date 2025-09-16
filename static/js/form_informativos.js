@@ -1,9 +1,7 @@
 //ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
 export function formularios(elemento){
     elemento.innerHTML = `
-    <div class="areaTitulo">
-        <h1>Informativo</h1><hr>
-    </div>
+    <div class="areaTitulo"> <h1>Informativo</h1> </div>
 
     <div class="areaCorpo">
         <form class="formAviso" method="POST" action="/submit_informativo">
@@ -138,3 +136,29 @@ export function exibicaoOpcoes(elementoClicado, elementoOculto, tipoEvento, esta
         };
     });
 };
+
+export function dadosForm(assuntoForm){
+    let dadosForm = {}
+    //CRIAR OS OUTROS CASES DE ASSUNTO
+    switch (assuntoForm){
+        case "Avaliação":
+            const dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
+            const horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
+            dadosForm = {
+                "assunto":assuntoForm,"tipoAvaliacao": document.getElementById("tipoAvaliacao").value, 
+                "materia": document.getElementById("materia").value, 
+                "assuntoAvaliacao": document.getElementById("assuntoAvaliacao").value,
+                "dataAvaliacao": dataAvaliacao, "horaAvaliacao": horaAvaliacao, 
+                "mensagem": document.getElementById("mensagem").value,
+                "anexo": document.getElementById("anexo").value, 
+            };
+            break;
+        default:
+            dadosForm = {
+                "assunto": assuntoForm,
+                "mensagem": document.getElementById("mensagem").value,
+                "anexo": document.getElementById("anexo").value, 
+            };
+    }
+    return dadosForm;
+}
