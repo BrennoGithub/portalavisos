@@ -1,219 +1,188 @@
-import { requisicaoHTTP } from "./requisicaoHTTP.js";
+import { GET } from "./requisicaoHTTP.js";
+import { ordenarInformativos, formataDatas , formataUnicaData} from "./datas_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
-export async function renderizaInformativos(elemento, tipo) {
+export async function renderizaInformativos(elemento, rotaAPI) {
     if(!elemento){
         return "Elemento inexistente.";
     }
 
     elemento.innerHTML = "<div class='carregando spinner'></div>"
 
-    const informativos = await requisicaoHTTP(`/informativos/${tipo}`);
-
+    let informativos = await GET(`/informativos${rotaAPI}`);
     if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
     }
+    informativos = formataDatas(informativos, "dataInformativo");
 
     const STATIC_URL = "/static/";
+    let conteudo = ``;
     
-    switch (tipo){
-        case "avisos":
-            let avisos = ``;
+    switch (rotaAPI){
+        case "/avisos":
             for(const x of informativos){
-                avisos = `<div class="estilo_aviso">
-                <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                    <div class="terceira_area  azul_2">
-                        ${String(x['mensagem'])}
+                conteudo = `
+                <div class="estilo_aviso">
+                    <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
+                    <div class="terceira_area  azul_2"> ${String(x['mensagem'])} <br> ${x['anexo']}
                         <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
-                                </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                            <div class="botoesEdit">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
+                            <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                        </div>
                     </div>
-                </div>`+avisos;
+                </div>`+conteudo;
                 
             };
-            avisos = `
-            <div class="areaTitulo">
-                <h2>Avisos</h2><hr> 
-            </div>
-            <div class="areaMaterial">${avisos}</div>`;
-            elemento.innerHTML = avisos;
+            conteudo = `<div class="areaTitulo"> <h2>Avisos</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
-        case "avaliacoes":
-            let avaliacoes = ``;
+        case "/avaliacoes":
+            informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
+            informativos = formataDatas(informativos, "dataAvaliacao");
             for(const x of informativos){
-                avaliacoes = `<div class="estilo_aviso">
-                        <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
-                        <div class="terceira_area  verde_2">
-                            <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])}
-                                <br>
-                            <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em>
-                                <br>
-                            ${String(x['mensagem'])}
-                                <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
-                                </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                conteudo = `
+                <div class="estilo_aviso">
+                    <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
+                    <div class="terceira_area  verde_2">
+                        <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])} <br>
+                        <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em> <br> ${String(x['mensagem'])}
+                        <div class="blocoFinal">
+                            <div class="botoesEdit">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
+                            <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                         </div>
-                        </div>`+avaliacoes;
+                    </div>
+                </div>`+conteudo;
             };
-            avaliacoes = `
-            <div class="areaTitulo">
-                <h2>Avaliações</h2><hr> 
-            </div>    
-            <div class="areaMaterial">${avaliacoes}</div>`;
-            elemento.innerHTML = avaliacoes;
+            conteudo = `<div class="areaTitulo"> <h2>Avaliações</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
 
-        case "materiais":
-            let materiais = ``;
+        case "/materiais":
             for(const x of informativos){
-                materiais = `<div class="estilo_aviso">
-                        <div class="segunda_area laranja_1">${x['materia']}</div>
-                        <div class="terceira_area laranja_2">
-                            <strong>Assunto:</strong> ${x['assuntoMaterial']}
-                                <br>
-                            <strong>Anexo:</strong> ${x['anexo']}
-                                <br>
-                            ${String(x['mensagem'])}
-                                <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
-                                </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                conteudo = `
+                <div class="estilo_aviso">
+                    <div class="segunda_area laranja_1">${x['materia']}</div>
+                    <div class="terceira_area laranja_2">
+                        <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
+                        ${String(x['mensagem'])} <br> ${x['anexo']}
+                        <div class="blocoFinal">
+                            <div class="botoesEdit">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
+                            <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                         </div>
-                        </div>`+materiais;
+                    </div>
+                </div>`+conteudo;
             };
-            materiais = `
-            <div class="areaTitulo">
-                <h2>Materiais</h2><hr>
-            </div>
-            <div class="areaMaterial">${materiais}</div>`;
-            elemento.innerHTML = materiais;
+            conteudo = `<div class="areaTitulo"> <h2>Materiais</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
         
-        case "eventos":
-            let eventos = ``;
+        case "/eventos":
+            informativos = await ordenarInformativos(informativos, 'dataInicial_Evento');
+            informativos = formataDatas(informativos, 'dataInicial_Evento');
+            informativos = formataDatas(informativos, 'dataFinal_Evento');
             for(const x of informativos){
-                eventos = `<div class="estilo_aviso">
-                        <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
-                        <div class="terceira_area  roxo_2">
-                            <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em>
-                                <br>
-                            <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em>
-                                <br>
-                            ${String(x['mensagem'])}
-                                <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
-                                </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                conteudo = `
+                <div class="estilo_aviso">
+                    <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
+                    <div class="terceira_area  roxo_2">
+                        <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em> <br>
+                        <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em> <br> ${String(x['mensagem'])}
+                        <div class="blocoFinal">
+                            <div class="botoesEdit">
+                                <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
                             </div>
-                         </div>
-                         </div>`+eventos;
+                            <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
+                        </div>
+                    </div>
+                </div>`+conteudo;
             };
-            eventos = `
-            <div class="areaTitulo">
-                <h2>Eventos</h2><hr>
-            </div>
-            <div class="areaMaterial">${eventos}<div>`;
-            elemento.innerHTML = eventos;
+            conteudo = `<div class="areaTitulo"> <h2>Eventos</h2> </div> <div class="areaCorpo">${conteudo}<div>`;
             break;
 
-        case "todos":
-            let mural = ``;
+        default:
             for(const x of informativos){
                 switch (x['assunto']){
                     case "Avaliação":
-                        mural = `<div class="estilo_aviso">
-                        <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
-                        <div class="terceira_area  verde_2">
-                            <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])}
-                                <br>
-                            <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em>
-                                <br>
-                            ${String(x['mensagem'])}
-                            <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                        x['dataAvaliacao'] = formataUnicaData(x['dataAvaliacao']);
+                        conteudo = `
+                        <div class="estilo_aviso">
+                            <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
+                            <div class="terceira_area  verde_2">
+                                <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])} <br>
+                                <strong>Horario:</strong> <em>${x['dataAvaliacao']} - ${x['horaAvaliacao']}</em> <br> ${String(x['mensagem'])}
+                                <div class="blocoFinal">
+                                    <div class="botoesEdit">
+                                        <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                        <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                    </div>
+                                    <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                                 </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             </div>
-                        </div>
-                        </div>`+mural;
+                        </div>`+conteudo;
                         break;
                     case "Evento":
-                        mural = `<div class="estilo_aviso">
-                        <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
-                        <div class="terceira_area  roxo_2">
-                            <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em>
-                                <br>
-                            <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em>
-                                <br>
-                            ${String(x['mensagem'])}
-                            <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                        x['dataInicial_Evento'] = formataUnicaData(x['dataInicial_Evento']);
+                        x['dataFinal_Evento'] = formataUnicaData(x['dataFinal_Evento']);
+                        conteudo = `
+                        <div class="estilo_aviso">
+                            <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
+                            <div class="terceira_area  roxo_2">
+                                <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em> <br>
+                                <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em> <br> ${String(x['mensagem'])}
+                                <div class="blocoFinal">
+                                    <div class="botoesEdit">
+                                        <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                        <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                    </div>
+                                    <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                                 </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             </div>
-                         </div>
-                         </div>`+mural;
-                         break;
+                        </div>`+conteudo;
+                        break;
                     case "Material Didatico":
-                        mural = `<div class="estilo_aviso">
-                        <div class="segunda_area laranja_1">${x['materia']}</div>
-                        <div class="terceira_area laranja_2">
-                            <strong>Assunto:</strong> ${x['assuntoMaterial']}
-                                <br>
-                            <strong>Anexo:</strong> ${x['anexo']}
-                                <br>
-                            ${String(x['mensagem'])}
-                            <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                        conteudo = `
+                        <div class="estilo_aviso">
+                            <div class="segunda_area laranja_1">${x['materia']}</div>
+                            <div class="terceira_area laranja_2">
+                                <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
+                                ${String(x['mensagem'])} <br> ${x['anexo']}
+                                <div class="blocoFinal">
+                                    <div class="botoesEdit">
+                                        <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                        <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                    </div>
+                                    <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                                 </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             </div>
-                        </div>
-                        </div>`+mural;
+                        </div>`+conteudo;
                         break;
                     default:
-                        mural = `<div class="estilo_aviso">
-                        <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                        <div class="terceira_area  azul_2">
-                            ${String(x['mensagem'])}
-                            <div class="blocoFinal">
-                                <div class="botoesEdit">
-                                    <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
-                                    <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                        conteudo = `
+                        <div class="estilo_aviso">
+                            <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
+                            <div class="terceira_area  azul_2">${String(x['mensagem'])} <br> ${x['anexo']}
+                                <div class="blocoFinal">
+                                    <div class="botoesEdit">
+                                        <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
+                                        <img src="${STATIC_URL}icones/Edit.svg" alt="Icone Delete" class="icone_delete">
+                                    </div>
+                                    <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                                 </div>
-                                <div class="dataCriacao">${x['dataInformativo']} - ${x['horaInformativo']}</div>
                             </div>
-                        </div>
-                        </div>`+mural;
+                        </div>`+conteudo;
                         break;
                 };
             };
-            mural = `
-            <div class="areaTitulo">
-                <h2>Mural</h2><hr>
-            </div>
-            <div class="areaMaterial">${mural}</div>`;
-            elemento.innerHTML = mural;
+            conteudo = `<div class="areaTitulo"> <h2>Mural</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
             break;
     };
+    elemento.innerHTML = conteudo;
 };

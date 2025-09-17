@@ -1,5 +1,6 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
-import { formularios, assuntoInformativo, exibicaoOpcoes} from "./form_informativos.js";
+import { formularios, assuntoInformativo, exibicaoOpcoes, dadosForm} from "./form_informativos.js";
+import { POST } from "./requisicaoHTTP.js";
 
 const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 
@@ -7,27 +8,27 @@ const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 async function roteamento(tituloPagina){
     switch (tituloPagina){
         case "Mural":
-                await renderizaInformativos(exibicaoInformativos, "todos");
+                await renderizaInformativos(exibicaoInformativos, "");
                 break;
             
         case "Avisos":
-                await renderizaInformativos(exibicaoInformativos, "avisos");
+                await renderizaInformativos(exibicaoInformativos, "/avisos");
                 break;
 
         case "Avaliações":
-                await renderizaInformativos(exibicaoInformativos, "avaliacoes");
+                await renderizaInformativos(exibicaoInformativos, "/avaliacoes");
                 break;
 
         case "Material Didatico":
-                await renderizaInformativos(exibicaoInformativos, "materiais");
+                await renderizaInformativos(exibicaoInformativos, "/materiais");
                 break;
 
         case "Eventos":
-                await renderizaInformativos(exibicaoInformativos, "eventos");
+                await renderizaInformativos(exibicaoInformativos, "/eventos");
                 break;
             
         default:
-                await renderizaInformativos(exibicaoInformativos, "todos");
+                await renderizaInformativos(exibicaoInformativos, "");
                 break;
         };
 }
@@ -59,19 +60,12 @@ function gerenciamentoForm(){
         opcao.addEventListener("click", function(){
             assuntoInformativo(dadosAdicionais, assunto);
             assuntoArea.value = assunto;
-            switch (areaOpcoes.style.display){
-                case "flex":
-                    areaOpcoes.style.display = "none";
-                    break;
-                default:
-                    areaOpcoes.style.display = "none";
-                    break;
-            }
+            areaOpcoes.style.display = "none";
         });
     });
 
     assuntoArea.addEventListener("change", function(){
-        assuntoInformativo(dadosAdicionais);
+        assuntoInformativo(dadosAdicionais, assuntoArea.value);
         switch (areaOpcoes.style.display){
             case "flex":
                 areaOpcoes.style.display = "none";
@@ -81,6 +75,14 @@ function gerenciamentoForm(){
                 break;
         }
     });
+
+    document.querySelector(".formAviso").addEventListener("submit", function(event){
+        event.preventDefault(); //Prevene o comportamento padrão do evento de submit para que a requisição seja feita apenas pelo seu JavaScript, e não pelo formulário.
+        const assunto = document.getElementById("assunto").value;
+        const dados = dadosForm(assunto);
+        POST("/submit_informativo", dados);
+        roteamento(); //Volta para a página principal
+    })
 };
 
 //Exibição de formularios
