@@ -1,42 +1,35 @@
-//ADICIONAR UM BOTÃO DE OPÇÕES PARA ASSUNTO
+import {formataDataForm} from "./datas_informativos.js";
+
 export function formularios(elemento){
     elemento.innerHTML = `
     <div class="areaTitulo"> <h1>Informativo</h1> </div>
-
     <div class="areaCorpo">
-        <form class="formAviso" method="POST" action="/submit_informativo">
-
-        <fieldset class="area_campo_form">
-            <legend><label for="assunto">Assunto</label></legend>
-            <input type="text" name="assunto" id="assunto" placeholder="Assunto do Informativo">
-            <div class="areaOpcoes">
-                <a href="#" class="opcaoInformativo">Avaliação</a>
-                <a href="#" class="opcaoInformativo">Evento</a>
-                <a href="#" class="opcaoInformativo">Material Didatico</a>
-            </div>
-        </fieldset>
-
-        <div class="dadosAdicionais"></div>
-
-        <fieldset class="area_campo_form">
-            <legend><label for="tipo_material">Arquivo</label></legend>
-            <div class="linhaUnica">
-                <select name="tipo_material" id="tipo_material">
-                    <option value="">Tipo</option>
-                    <option value="url">Link</option>
-                    <option value="img">Imagem</option>
-                    <option value="file">Arquivo</option>
-                </select>
-                <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado">
-            </div>
-        </fieldset>
-
-        <fieldset class="texto_campo_form">
-            <legend><label for="texto">Mensagem</label></legend>
-            <textarea placeholder="Mensagem" id="mensagem" name="mensagem" class="campo_form"></textarea>
-        </fieldset>
-
-        <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
+        <form class="formAviso">
+            <fieldset class="area_campo_form">
+                <legend><label for="assunto">Assunto</label></legend>
+                <input type="text" name="assunto" id="assunto" placeholder="Assunto do Informativo">
+                <div class="areaOpcoes">
+                    <a href="#" class="opcaoInformativo">Avaliação</a>
+                    <a href="#" class="opcaoInformativo">Evento</a>
+                    <a href="#" class="opcaoInformativo">Material Didatico</a>
+                </div>
+            </fieldset>
+            <div class="dadosAdicionais"></div>
+            <fieldset class="area_campo_form">
+                <legend><label for="tipo_material">Arquivo</label></legend>
+                <div class="linhaUnica">
+                    <select name="tipo_material" id="tipo_material">
+                        <option value="">Tipo</option> <option value="url">Link</option>
+                        <option value="img">Imagem</option> <option value="file">Arquivo</option>
+                    </select>
+                    <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado">
+                </div>
+            </fieldset>
+            <fieldset class="texto_campo_form">
+                <legend><label for="texto">Mensagem</label></legend>
+                <textarea placeholder="Mensagem" id="mensagem" name="mensagem" class="campo_form"></textarea>
+            </fieldset>
+            <button type="submit" id="criaAviso" class="botao_campo_form">Criar</button>
         </form>
     <div>`;
 };
@@ -80,23 +73,15 @@ export function assuntoInformativo(elemento, assunto){
             <fieldset class="area_campo_form">
                 <legend><label for="data">Dias do Evento</label></legend>
                 <div class="linhaUnica">
-                    <label>
-                        <em>Inicio:</em> <input type="date" name="dataInicial_Evento" id="dataInicial_Evento" class="areaDate"> 
-                    </label>
-                    <label> 
-                        <em>Fim:</em> <input type="date" name="dataFinal_Evento" id="dataFinal_Evento" class="areaDate"> 
-                    </label>
+                    <label> <em>Inicio:</em> <input type="date" name="dataInicial_Evento" id="dataInicial_Evento" class="areaDate"> </label>
+                    <label> <em>Fim:</em> <input type="date" name="dataFinal_Evento" id="dataFinal_Evento" class="areaDate"> </label>
                 </div>
             </fieldset>
             <fieldset class="area_campo_form">
                 <legend><label for="hora">Horario do Evento</label></legend>
                 <div class="linhaUnica">
-                    <label> 
-                        <em>Inicio:</em> <input type="time" name="horaInicial_Evento" id="horaInicial_Evento" class="areaDate">
-                    </label>
-                    <label> 
-                        <em>Fim:</em> <input type="time" name="horaFinal_Evento" id="horaFinal_Evento" class="areaDate"> 
-                    </label>
+                    <label> <em>Inicio:</em> <input type="time" name="horaInicial_Evento" id="horaInicial_Evento" class="areaDate"> </label>
+                    <label> <em>Fim:</em> <input type="time" name="horaFinal_Evento" id="horaFinal_Evento" class="areaDate"> </label>
                 </div>
             </fieldset>`;
             break;
@@ -142,8 +127,10 @@ export function dadosForm(assuntoForm){
     //CRIAR OS OUTROS CASES DE ASSUNTO
     switch (assuntoForm){
         case "Avaliação":
-            const dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
-            const horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
+            let dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
+            dataAvaliacao = formataDataForm("data", dataAvaliacao);
+            let horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
+            horaAvaliacao = formataDataForm("hora", horaAvaliacao);
             dadosForm = {
                 "assunto":assuntoForm,"tipoAvaliacao": document.getElementById("tipoAvaliacao").value, 
                 "materia": document.getElementById("materia").value, 
@@ -152,6 +139,31 @@ export function dadosForm(assuntoForm){
                 "mensagem": document.getElementById("mensagem").value,
                 "anexo": document.getElementById("anexo").value, 
             };
+            break;
+        case "Evento":
+            let dataInicial_Evento = new Date(document.getElementById("dataInicial_Evento").value);
+            dataInicial_Evento = formataDataForm("data", dataInicial_Evento);
+            let dataFinal_Evento = new Date(document.getElementById("dataFinal_Evento").value);
+            dataFinal_Evento = formataDataForm("data", dataFinal_Evento);
+            let horaInicial_Evento = new Date(document.getElementById("horaInicial_Evento").value);
+            horaInicial_Evento = formataDataForm("hora", horaInicial_Evento);
+            let horaFinal_Evento = new Date(document.getElementById("horaFinal_Evento").value);
+            horaFinal_Evento = formataDataForm("hora", horaFinal_Evento);
+            dadosForm = {
+                "assunto": assuntoForm, "nomeEvento": document.getElementById("nomeEvento").value, 
+                "dataInicial_Evento": dataInicial_Evento, "dataFinal_Evento": dataFinal_Evento, 
+                "horaInicial_Evento": horaInicial_Evento, "horaFinal_Evento": horaFinal_Evento,
+                "mensagem": document.getElementById("mensagem").value, "anexo": document.getElementById("anexo").value
+            }
+            break;
+        case "Material Didatico":
+            dadosForm = {
+                "assunto": assuntoForm, 
+                "materia": document.getElementById("materia").value, 
+                "assuntoMaterial": document.getElementById("assuntoMaterial").value,
+                "mensagem": document.getElementById("mensagem").value, 
+                "anexo": document.getElementById("anexo").value
+            }
             break;
         default:
             dadosForm = {

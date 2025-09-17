@@ -1,5 +1,5 @@
 import { GET } from "./requisicaoHTTP.js";
-import { ordenarInformativos, formataDatas , formataUnicaData} from "./organizar_informativos.js"
+import { ordenarInformativos, formataDatas , formataUnicaData} from "./datas_informativos.js"
 
 //ALTERAR O FORMATO DA FUNÇÃO DO MURAL      
 export async function renderizaInformativos(elemento, rotaAPI) {
@@ -24,7 +24,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                 conteudo = `
                 <div class="estilo_aviso">
                     <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                    <div class="terceira_area  azul_2"> ${String(x['mensagem'])}
+                    <div class="terceira_area  azul_2"> ${String(x['mensagem'])} <br> ${x['anexo']}
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -69,7 +69,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     <div class="segunda_area laranja_1">${x['materia']}</div>
                     <div class="terceira_area laranja_2">
                         <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
-                        <strong>Anexo:</strong> ${x['anexo']} <br> ${String(x['mensagem'])}
+                        ${String(x['mensagem'])} <br> ${x['anexo']}
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -153,7 +153,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                             <div class="segunda_area laranja_1">${x['materia']}</div>
                             <div class="terceira_area laranja_2">
                                 <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
-                                <strong>Anexo:</strong> ${x['anexo']} <br> ${String(x['mensagem'])}
+                                ${String(x['mensagem'])} <br> ${x['anexo']}
                                 <div class="blocoFinal">
                                     <div class="botoesEdit">
                                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -168,7 +168,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                            <div class="terceira_area  azul_2">${String(x['mensagem'])}
+                            <div class="terceira_area  azul_2">${String(x['mensagem'])} <br> ${x['anexo']}
                                 <div class="blocoFinal">
                                     <div class="botoesEdit">
                                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">

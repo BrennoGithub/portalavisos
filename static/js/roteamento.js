@@ -60,19 +60,12 @@ function gerenciamentoForm(){
         opcao.addEventListener("click", function(){
             assuntoInformativo(dadosAdicionais, assunto);
             assuntoArea.value = assunto;
-            switch (areaOpcoes.style.display){
-                case "flex":
-                    areaOpcoes.style.display = "none";
-                    break;
-                default:
-                    areaOpcoes.style.display = "none";
-                    break;
-            }
+            areaOpcoes.style.display = "none";
         });
     });
 
     assuntoArea.addEventListener("change", function(){
-        assuntoInformativo(dadosAdicionais);
+        assuntoInformativo(dadosAdicionais, assuntoArea.value);
         switch (areaOpcoes.style.display){
             case "flex":
                 areaOpcoes.style.display = "none";
@@ -83,9 +76,13 @@ function gerenciamentoForm(){
         }
     });
 
-    const assunto = document.getElementById("assunto");
-    const dados = dadosForm(assunto);
-    POST("/submit_informativo", dados);
+    document.querySelector(".formAviso").addEventListener("submit", function(event){
+        event.preventDefault(); //Prevene o comportamento padrão do evento de submit para que a requisição seja feita apenas pelo seu JavaScript, e não pelo formulário.
+        const assunto = document.getElementById("assunto").value;
+        const dados = dadosForm(assunto);
+        POST("/submit_informativo", dados);
+        roteamento(); //Volta para a página principal
+    })
 };
 
 //Exibição de formularios
