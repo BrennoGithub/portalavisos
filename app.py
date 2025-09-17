@@ -55,7 +55,7 @@ def returnUSUARIO(matricula):
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":
-        
+        #ANALISAR PROBLEMA DE LOGIN DEPOIS DO LOGOUT
         matricula = request.form["matricula"]
         senha = request.form["senha"]
 

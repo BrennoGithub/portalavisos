@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,8 @@
         <a href="" class="sessao">Eventos</a>
         <a href="" class="sessao">Material Didatico</a>
         <a href="/logout" class="deslogar"> 
-            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
+            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar">
+            <span class="textoSessao">Sair</span>
         </a>
       </div>
     
@@ -37,7 +38,7 @@
           <div id="main">
                 <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
           </div>
-          <h1>Portal Informativo - INFO V</h1>
+          <h1>Portal Informativo</h1>
       </header>
       
       <span class="exibicaoInformativos"></span>
