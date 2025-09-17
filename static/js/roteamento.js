@@ -60,19 +60,12 @@ function gerenciamentoForm(){
         opcao.addEventListener("click", function(){
             assuntoInformativo(dadosAdicionais, assunto);
             assuntoArea.value = assunto;
-            switch (areaOpcoes.style.display){
-                case "flex":
-                    areaOpcoes.style.display = "none";
-                    break;
-                default:
-                    areaOpcoes.style.display = "none";
-                    break;
-            }
+            areaOpcoes.style.display = "none";
         });
     });
 
     assuntoArea.addEventListener("change", function(){
-        assuntoInformativo(dadosAdicionais);
+        assuntoInformativo(dadosAdicionais, assuntoArea.value);
         switch (areaOpcoes.style.display){
             case "flex":
                 areaOpcoes.style.display = "none";
