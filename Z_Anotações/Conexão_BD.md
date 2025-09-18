@@ -3,25 +3,25 @@ A conexão com o Banco de dados e criação de tabelas é feita no backend utili
 
 --------------------------------Instalação das dependências--------------------------------
 
-# Instalação do conector do MySQL e SQLAlchemy
+## Instalação do conector do MySQL e SQLAlchemy
 pip install flask flask-mysql-connector flask-sqlalchemy
 
-# Instalação do Flask Migrate
+## Instalação do Flask Migrate
 pip install flask-migrate
 
 --------------------------------Importação--------------------------------
 
-# Importar flask MySQL
+## Importar flask MySQL
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 
-# Importar Flask Migrate (para alterar tabelas)
+## Importar Flask Migrate (para alterar tabelas)
 from flask_migrate inport Migrate
 from models import db 
 
 migrate = Migrate(app, db)
 
-# Configuração do banco MySQL
+## Configuração do banco MySQL
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://usuario:senha@localhost/meubanco'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -29,32 +29,31 @@ db = SQLAlchemy(app)
 
 --------------------------------Criação e alteração de Tabelas--------------------------------
 
-# Criar uma tabela em models.py
+## Criar uma tabela em models.py
 from app import db
 
-class Usuario(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    email = db.Column(db.String(100), unique=True, nullable=False)
+class usuarios(db.Model):
+    nome = db.Column(db.String(50), nullable=False)
+    matricula = db.Column(db.Integer, primary_key=True)
 
     def to_dict(self):
-        return {"id": self.id, "nome": self.nome, "email": self.email}
+        return {"nome": self.nome, "matricula": self.matricula}
 
-# No terminal:
+## No terminal:
 from app import db
 from models import usuario
 db.create_all()
 
-# Alterar uma tabela em models.py: 
+## Alterar uma tabela em models.py: 
 
-# 1-terminal:
+## 1-terminal:
 flask db init
 
-# 2-No models.py
+## 2-No models.py
 Fazer a modificação que deseja
 flask db -m "nome da mudança"
 
-# 3-Aplicar a mudança
+## 3-Aplicar a mudança
 flask db upgrade
 
 --------------------------------Implementar CRUD--------------------------------
@@ -63,6 +62,7 @@ flask db upgrade
 from models import Usuario, db
 
 --> Criar (Create)
+
 @app.route("/usuarios", methods=["POST"])
 def criar_usuario():
     data = request.json
@@ -72,12 +72,14 @@ def criar_usuario():
     return jsonify(novo.to_dict()), 201
 
 --> Listar (Read)
+
 @app.route("/usuarios", methods=["GET"])
 def listar_usuarios():
     usuarios = Usuario.query.all()
     return jsonify([u.to_dict() for u in usuarios])
 
 --> Atualizar (Update)
+
 @app.route("/usuarios/<int:id>", methods=["PUT"])
 def atualizar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
@@ -88,6 +90,7 @@ def atualizar_usuario(id):
     return jsonify(usuario.to_dict())
 
 --> Deletar (Delete)
+
 @app.route("/usuarios/<int:id>", methods=["DELETE"])
 def deletar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
@@ -97,14 +100,14 @@ def deletar_usuario(id):
 
 --------------------------------Testar CRUD--------------------------------
 
-# Criar usuário:
+## Criar usuário:
 curl -X POST http://127.0.0.1:5000/usuarios -H "Content-Type: application/json" -d '{"nome": "Breno", "email": "breno@email.com"}'
 
-# Listar usuários:
+## Listar usuários:
 curl http://127.0.0.1:5000/usuarios
 
-# Atualizar usuários:
+## Atualizar usuários:
 curl -X PUT http://127.0.0.1:5000/usuarios/1 -H "Content-Type: application/json" -d '{"nome": "Breno Atualizado"}'
 
-# Deletar usuários:
+## Deletar usuários:
 curl -X DELETE http://127.0.0.1:5000/usuarios/1
