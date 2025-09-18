@@ -62,7 +62,7 @@ flask db upgrade
 
 from models import Usuario, db
 
-# Criar (Create)
+--> Criar (Create)
 @app.route("/usuarios", methods=["POST"])
 def criar_usuario():
     data = request.json
@@ -71,13 +71,13 @@ def criar_usuario():
     db.session.commit()
     return jsonify(novo.to_dict()), 201
 
-# Listar (Read)
+--> Listar (Read)
 @app.route("/usuarios", methods=["GET"])
 def listar_usuarios():
     usuarios = Usuario.query.all()
     return jsonify([u.to_dict() for u in usuarios])
 
-# Atualizar (Update)
+--> Atualizar (Update)
 @app.route("/usuarios/<int:id>", methods=["PUT"])
 def atualizar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
@@ -87,7 +87,7 @@ def atualizar_usuario(id):
     db.session.commit()
     return jsonify(usuario.to_dict())
 
-# Deletar (Delete)
+--> Deletar (Delete)
 @app.route("/usuarios/<int:id>", methods=["DELETE"])
 def deletar_usuario(id):
     usuario = Usuario.query.get_or_404(id)
