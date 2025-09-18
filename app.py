@@ -7,9 +7,24 @@ from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
+# Import para banco de dados
+from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
+# Flask Migrate
+from flask_migrate inport Migrate
+from models import db 
+
+migrate = Migrate(app, db)
+
 
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
+
+#Configuração BD
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://usuario:senha@localhost/meubanco' #alterar nome depois
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 @app.route("/")
 def loginRedirect():
