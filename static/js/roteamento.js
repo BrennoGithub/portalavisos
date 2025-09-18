@@ -81,7 +81,7 @@ function gerenciamentoForm(){
         const assunto = document.getElementById("assunto").value;
         const dados = dadosForm(assunto);
         POST("/submit_informativo", dados);
-        roteamento(); //Volta para a página principal
+        window.location.reload(); //Recarrega a página
     })
 };
 
