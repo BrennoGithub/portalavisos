@@ -3,10 +3,10 @@ A conexão com o Banco de dados e criação de tabelas é feita no backend utili
 
 
 ## Instalação do conector do MySQL e SQLAlchemy
-pip install flask flask-mysql-connector flask-sqlalchemy
+pip install Flask-SQLAlchemy PyMySQL
 
 ## Instalação do Flask Migrate
-pip install flask-migrate
+pip install Flask-Migrate
 
 ## Importar flask MySQL
 from flask import Flask, request, jsonify

@@ -7,28 +7,47 @@ from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
-# Import para banco de dados
-from flask import Flask, request, jsonify
+
 from flask_sqlalchemy import SQLAlchemy
 # Flask Migrate
-from flask_migrate inport Migrate
-from models import db 
-
-migrate = Migrate(app, db)
-
+#from flask_migrate import Migrate
+#from models import Autor
 
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
+usuario = "root"
+senha = ""
+
 #Configuração BD
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://usuario:senha@localhost/meubanco' #alterar nome depois
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{usuario}:{senha}@localhost:3306/atividadesinfo3v' #alterar nome depois
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+#migrate = Migrate(app, db)
+
+class Autor(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
 
 @app.route("/")
 def loginRedirect():
     return redirect(url_for("login"))
+
+@app.route("/rotaTESTE")
+def teste():
+    autores = Autor.query.all()
+    
+    lista_autores = []
+    for autor in autores:
+        autor_dict = {
+            'id': autor.id,
+            'nome': autor.nome
+        }
+        lista_autores.append(autor_dict)
+
+    return jsonify(lista_autores)
+
 
 @app.route("/login")
 def login():
