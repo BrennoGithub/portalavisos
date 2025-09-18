@@ -1,15 +1,12 @@
 # Conexão com o Banco de Dados Mysql 
 A conexão com o Banco de dados e criação de tabelas é feita no backend utilizando o Flask.
 
---------------------------------Instalação das dependências--------------------------------
 
 ## Instalação do conector do MySQL e SQLAlchemy
 pip install flask flask-mysql-connector flask-sqlalchemy
 
 ## Instalação do Flask Migrate
 pip install flask-migrate
-
---------------------------------Importação--------------------------------
 
 ## Importar flask MySQL
 from flask import Flask, request, jsonify
@@ -27,7 +24,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
---------------------------------Criação e alteração de Tabelas--------------------------------
 
 ## Criar uma tabela em models.py
 from app import db
@@ -56,8 +52,8 @@ flask db -m "nome da mudança"
 ## 3-Aplicar a mudança
 flask db upgrade
 
---------------------------------Implementar CRUD--------------------------------
 
+## Implementar CRUD
 
 from models import Usuario, db
 
@@ -98,7 +94,6 @@ def deletar_usuario(id):
     db.session.commit()
     return jsonify({"message": "Usuário deletado com sucesso"})
 
---------------------------------Testar CRUD--------------------------------
 
 ## Criar usuário:
 curl -X POST http://127.0.0.1:5000/usuarios -H "Content-Type: application/json" -d '{"nome": "Breno", "email": "breno@email.com"}'
