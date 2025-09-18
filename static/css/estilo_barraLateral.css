@@ -14,7 +14,7 @@
 }
   
 .sidebar a {
-    padding: 8px 8px 8px 20px;
+    padding: 8px 8px 8px 15px;
     text-decoration: none;
     font-size: 21px;
     color: black;
@@ -69,7 +69,8 @@
     width: 35px;
     border-radius: 5px;
     background-color: #789DBC;
-    margin-left: 20px;
+    margin-left: 15px;
+    padding: 0px 5px;
 }
 
 .icon_cria:hover{
@@ -82,16 +83,24 @@
     border-radius: 5px;
 }
 
-.deslogar {
-    margin: 95% 0px 10px 0px;
-    background-color: lightgray;
-    color: red;
+.sessao {
     display: flex;
     align-items: center; /* Alinha o ícone e o texto verticalmente */
-    gap: 12px; /* Adiciona um espaço de 8px entre o ícone e o texto */
+    gap: 20px; /* Adiciona um espaço de 8px entre o ícone e o texto */
 }
 
-.icone_deslogar {
+.deslogar{
+    margin: 95% 0px 10px 0px;
+    background-color: lightgray;
+}
+
+.textoDeslogar{
+    color: #EA3323;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icone{
     width: 30px;
     display: inline-block;
     vertical-align: middle;
