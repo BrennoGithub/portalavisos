@@ -1,10 +1,11 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.Create import criaInformativo, returnData, returnHora
+from CRUD.Create import criaInformativo
 from CRUD.Read import exibiInformativo
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
+from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
 # Import para banco de dados
 from flask import Flask, request, jsonify
@@ -15,8 +16,6 @@ from models import db
 
 migrate = Migrate(app, db)
 
-
-#VER E ALTERAR URL_FOR PARA CORRIGIR ERROS.
 
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
@@ -43,6 +42,7 @@ def logout():
 @app.route("/turmas/<int:ID_turma>")
 def returnTurma(ID_turma):
     if "ID_turma" not in session or session["ID_turma"] != ID_turma:
+        print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
     turma = []
@@ -70,7 +70,7 @@ def returnUSUARIO(matricula):
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":
-        
+        #ANALISAR PROBLEMA DE LOGIN DEPOIS DO LOGOUT
         matricula = request.form["matricula"]
         senha = request.form["senha"]
 
@@ -88,76 +88,85 @@ def valida_login():
             
     return redirect(url_for("/"))
 
+@app.route("/informativos")
+def returnTodosInformativos():
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    listaInformativos = []
+    for iten in lista_informativos:
+        if iten["ID_turma"] == session["ID_turma"]:
+            listaInformativos.append(iten)
+    return jsonify(listaInformativos)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
     if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    if assunto == "todos":
-        return jsonify(lista_informativos)
-    else:
-        listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
-        return jsonify(listaInformativo)
+    listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    return jsonify(listaInformativo)
 
-
-@app.route("/form_avisos")
-def form_avisos():
-    return render_template("form_avisos.html", nome=session["nomeUsuario"])
-
+#CRIAR ROTAS E PARA OS OUTROS TIPOS DE REQUISIÇÃO (PUT E DELETE)
 @app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
 def CRUD_informativo():
     if "ID_turma" not in session:
-        return redirect(url_for("form_avisos"))
+        print("MENSAGEM SERVIDOR: Erro na criação de informativo")
+        return {"mensagemServidor":"Erro na criação de informativo"}
+    
+    dadosPOST = request.json
 
     match request.method:
         case "POST":
             objetoInformativo = {}
-            assuntoInformativo = request.form["assunto"]
+            assuntoInformativo =  dadosPOST["assunto"]
+            if assuntoInformativo == "":
+                assuntoInformativo = "Sem assunto"
 
             match assuntoInformativo:
                 case "Avaliação":
-                    objetoInformativo["materia"] = request.form["materia"]
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["assuntoAvaliacao"] = request.form["assuntoAvaliacao"]
-                    objetoInformativo["tipoAvaliacao"] = request.form["tipoAvaliacao"]
-                    objetoInformativo["dataAvaliacao"] = request.form["dataAvaliacao"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaAvaliacao"] = request.form["horaAvaliacao"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["materia"] = dadosPOST["materia"]
+                    objetoInformativo["assunto"] = dadosPOST["assunto"]
+                    objetoInformativo["assuntoAvaliacao"] = dadosPOST["assuntoAvaliacao"]
+                    objetoInformativo["tipoAvaliacao"] = dadosPOST["tipoAvaliacao"]
+                    objetoInformativo["dataAvaliacao"] = dadosPOST["dataAvaliacao"] 
+                    objetoInformativo["horaAvaliacao"] = dadosPOST["horaAvaliacao"]
+                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
+                    objetoInformativo["anexo"] = dadosPOST["anexo"]
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Evento":
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["nomeEvento"] = request.form["nomeEvento"]
-                    objetoInformativo["dataInicial_Evento"] = request.form["dataInicial_Evento"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaInicial_Evento"] = request.form["horaInicial_Evento"]
-                    objetoInformativo["dataFinal_Evento"] = request.form["dataFinal_Evento"] #Ajusta data para modelo brasileiro.
-                    objetoInformativo["horaFinal_Evento"] = request.form["horaFinal_Evento"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["assunto"] = dadosPOST["assunto"]
+                    objetoInformativo["nomeEvento"] = dadosPOST["nomeEvento"]
+                    objetoInformativo["dataInicial_Evento"] = dadosPOST["dataInicial_Evento"] 
+                    objetoInformativo["horaInicial_Evento"] = dadosPOST["horaInicial_Evento"]
+                    objetoInformativo["dataFinal_Evento"] = dadosPOST["dataFinal_Evento"]
+                    objetoInformativo["horaFinal_Evento"] = dadosPOST["horaFinal_Evento"]
+                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
+                    objetoInformativo["anexo"] = dadosPOST["anexo"]
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case "Material Didatico":
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["materia"] = request.form["materia"]
-                    objetoInformativo["assuntoMaterial"] = request.form["assunto"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["assunto"] = dadosPOST["assunto"]
+                    objetoInformativo["materia"] = dadosPOST["materia"]
+                    objetoInformativo["assuntoMaterial"] = dadosPOST["assunto"]
+                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
+                    objetoInformativo["anexo"] = dadosPOST["anexo"]
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
                 case _:
-                    objetoInformativo["assunto"] = request.form["assunto"]
-                    objetoInformativo["anexo"] = request.form["anexo"]
-                    objetoInformativo["mensagem"] = request.form["mensagem"]
-                    objetoInformativo["dataInformativo"] = returnData()
-                    objetoInformativo["horaInformativo"] = returnHora()
+                    objetoInformativo["assunto"] = dadosPOST["assunto"]
+                    objetoInformativo["anexo"] = dadosPOST["anexo"]
+                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
+                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
+                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
             criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
-            #Criar uma função de exibição destinada a avaliações
         
             return redirect(f"/usuarios/{session['matricula']}")
 
@@ -167,7 +176,7 @@ def CRUD_informativo():
         case "PUT":
             return "olá mundo"
         
-    return redirect(url_for("form_avisos"))
+    return redirect(f"/usuarios/{session['ID_turma']}")
 
 if __name__ == "__main__":
     app.run(debug=True)

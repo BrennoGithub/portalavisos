@@ -1,26 +1,9 @@
-import datetime #Modulo padrão Python para datas e horas
-
-#Função para chamar data atual
-def returnData():
-    data_hora = datetime.datetime.now() #Objeto com data e hora atual
-    data = data_hora.strftime("%d/%m/%y")
-    return data
-
-#Função para chamar a hora atual
-def returnHora():
-    data_hora = datetime.datetime.now() #Objeto com data e hora atual
-    hora = data_hora.strftime("%H:%M")
-    return hora
-
 #Função CREATE
 def criaInformativo(ID_turma, lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo):
     id = 1
     while id in lista_id_informativos:
         id += 1
     lista_id_informativos.append(id)
-
-    if objetoInformativo["assunto"] == "":
-       objetoInformativo["assunto"] = "Sem assunto"
 
     match assuntoInformativo:
         case "Avaliação":

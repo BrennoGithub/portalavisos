@@ -10,21 +10,16 @@
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    border-right: solid 1px gray;
+    overflow-y: auto; /*Barra de rolagem na vertical*/
 }
   
 .sidebar a {
-    padding: 8px 8px 8px 20px;
+    padding: 8px 8px 8px 15px;
     text-decoration: none;
     font-size: 21px;
     color: black;
     display: block;
     transition: 0.3s;
-}
-  
-.sidebar a:hover {
-    /*background-color: lightgray;*/
-    color: blue;
 }
   
 .sidebar .closebtn {
@@ -59,7 +54,7 @@
     .sidebar a {font-size: 18px;}
 }
 
-
+/*MUDAR OS ICONES DO PORTAL INFORMATIVO*/
 /*Estilo dos icones usados na aplicação*/
 .icon_fecha{
     width: 26px;
@@ -74,7 +69,8 @@
     width: 35px;
     border-radius: 5px;
     background-color: #789DBC;
-    margin-left: 20px;
+    margin-left: 15px;
+    padding: 0px 5px;
 }
 
 .icon_cria:hover{
@@ -87,12 +83,30 @@
     border-radius: 5px;
 }
 
-.icone_deslogar{
-    width: 25px;
+.sessao {
+    display: flex;
+    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    gap: 20px; /* Adiciona um espaço de 8px entre o ícone e o texto */
 }
 
 .deslogar{
     margin: 95% 0px 10px 0px;
     background-color: lightgray;
-    color: black;
+}
+
+.textoDeslogar{
+    color: #EA3323;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.icone{
+    width: 30px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.textoSessao{
+    display: inline-block;
+    vertical-align: middle;
 }
