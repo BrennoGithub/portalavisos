@@ -7,32 +7,22 @@
     <title>Portal Informativo</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_login.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icones/Portal.ico') }}" type="image/x-icon">
 </head>
 <body>
-        <form id="loginForm" class="formLogin" method="POST" action='/submit_login'>
-            
-            <h2>Login</h2>
-            <hr>
-           
-            <fieldset class="area_campo_login area_matricula">
-                <legend>
-                    <label for="matricula">Matrícula</label>
-                </legend>
-                 <input type="text" id="matricula" name="matricula" placeholder="Digite sua Matrícula">
+    <form id="loginForm" class="formLogin" method="POST" action='/submit_login'>        
+        <h2>Login</h2> <hr>
+        <fieldset class="area_campo_login area_matricula">
+            <legend> <label for="matricula">Matrícula</label> </legend>
+                <input type="text" id="matricula" name="matricula" placeholder="Digite sua Matrícula">
             </fieldset>
-                
+        <fieldset class="area_campo_login senha_turma">
+            <legend> <label for="senha">Senha</label> </legend>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+        </fieldset>    
+        <button type="submit" class="botao_campo_login">ACESSAR</button>
+    </form>
 
-            <fieldset class="area_campo_login senha_turma">
-                <legend>
-                    <label for="senha">Senha</label>
-                </legend>
-                 <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
-            </fieldset>    
-                
-
-            <button type="submit" class="botao_campo_login">ACESSAR</button>
-        </form>
     <script type="module" src="{{ url_for('static', filename='js/login.js') }}"></script>
 </body>
 </html>

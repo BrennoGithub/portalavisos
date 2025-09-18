@@ -37,7 +37,7 @@ async function roteamento(tituloPagina){
 document.addEventListener("DOMContentLoaded", function(){ roteamento(); });
 
 //Função de roteamento
-const paginas = document.querySelectorAll(".sessao");
+const paginas = document.querySelectorAll(".textoSessao");
 paginas.forEach(elemento => {
     elemento.addEventListener("click", function(event){
         event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
