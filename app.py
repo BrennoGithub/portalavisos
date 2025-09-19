@@ -14,16 +14,17 @@ app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c
 
 usuario = "root"
 senha = ""
+banco = ""
 
 #Configuração BD
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{usuario}:{senha}@localhost:3306/atividadesinfo3v' #Rota padrão do SQL é 3306
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{usuario}:{senha}@localhost:3306/{banco}' #Porta padrão do SQL é 3306
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
-db = SQLAlchemy(app)
+db = SQLAlchemy(app) #Objeto da conexão
 
 #Ao criar a classe, der o nome da tabela
-class Autores(db.Model):
+class Autor(db.Model):
     ID_autor = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
 
@@ -33,7 +34,7 @@ def loginRedirect():
 
 @app.route("/rotaTESTE")
 def teste():
-    autores = Autores.query.all()
+    autores = Autor.query.all()
     
     lista_autores = []
     #Converte o objeto da table para um dicionario
