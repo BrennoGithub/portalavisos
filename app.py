@@ -7,27 +7,25 @@ from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.validadeLogin import validadeLogin
 from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
-
 from flask_sqlalchemy import SQLAlchemy
-# Flask Migrate
-#from flask_migrate import Migrate
-#from models import Autor
 
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
 usuario = "root"
 senha = ""
+banco = ""
 
 #Configuração BD
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+mysqlconnector://{usuario}:{senha}@localhost:3306/atividadesinfo3v' #alterar nome depois
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{usuario}:{senha}@localhost:3306/{banco}' #Porta padrão do SQL é 3306
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(app)
-#migrate = Migrate(app, db)
+#VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
+db = SQLAlchemy(app) #Objeto da conexão
 
+#Ao criar a classe, der o nome da tabela
 class Autor(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    ID_autor = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
 
 @app.route("/")
@@ -39,9 +37,10 @@ def teste():
     autores = Autor.query.all()
     
     lista_autores = []
+    #Converte o objeto da table para um dicionario
     for autor in autores:
         autor_dict = {
-            'id': autor.id,
+            'ID_autor': autor.ID_autor,
             'nome': autor.nome
         }
         lista_autores.append(autor_dict)
