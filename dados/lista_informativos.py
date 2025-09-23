@@ -1,4 +1,5 @@
 #lista de ids de avisos
+#ANALISAR COMO CONVERTER PARA O FORMATO SQL NO MYSQL
 lista_id_informativos = [1, 2, 3, 4]
 
 lista_informativos = [
@@ -19,3 +20,14 @@ lista_informativos = [
      "mensagem": "texto", "anexo": "ARQUIVO", "dataInformativo": "2025-12-07", "horaInformativo": "HH:MM"},
 ]
 
+for info in lista_informativos:
+    match info["assunto"]:
+        case "Avaliação":
+            print(f'INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES({info["assunto"]}, {info["mensagem"]}, {info["dataInformativo"]})')
+            print("Avaliação")
+        case "Evento":
+            print("Evento")
+        case "Material Didatico":
+            print("Material Didatico")
+        case _:
+            print("Aviso")
