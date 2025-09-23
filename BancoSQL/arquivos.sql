@@ -1,0 +1,15 @@
+-- Tabela de arquivos anexados aos informativos
+CREATE TABLE arquivos ( 
+    ID_arquivo int AUTO_INCREMENT PRIMARY KEY,  
+    tipoArquivo ENUM("Arquivo", "Link") DEFAULT "Arquivo",  
+    arquivo text NOT NULL 
+); 
+
+-- Tabela intermediaria arquivo-informativo
+CREATE TABLE informativo_arquivo ( 
+    ID_relacionamento int AUTO_INCREMENT PRIMARY KEY,  
+    informativo int NOT NULL,
+    FOREIGN KEY (informativo) REFERENCES informativos(ID_informativo),
+    arquivo int NOT NULL,
+    FOREIGN KEY (arquivo) REFERENCES arquivos(ID_arquivo)
+); 

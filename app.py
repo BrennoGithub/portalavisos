@@ -12,12 +12,17 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
-usuario = "root"
-senha = ""
-banco = ""
+#Rota banco
+configuracao = {
+    "usuario":"root",
+    "senha":"",
+    "servidor":"localhost", #Maquina local
+    "porta":"3306", #Porta padrão do SQL é 3306
+    "banco":""
+}
 
 #Configuração BD
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{usuario}:{senha}@localhost:3306/{banco}' #Porta padrão do SQL é 3306
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{configuracao["usuario"]}:{configuracao["senha"]}@{configuracao["servidor"]}:{configuracao["porta"]}/{configuracao["banco"]}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
