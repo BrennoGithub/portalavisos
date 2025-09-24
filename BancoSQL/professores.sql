@@ -7,6 +7,6 @@ CREATE TABLE professores(
     nome varchar(100) NOT NULL,
     nomeSocial varchar(100) NOT NULL,
     aniversario date NOT NULL,
-    pronome varchar(20) DEFAULT 'Não informado',
+    pronome varchar(20) DEFAULT 'Não informado', -- Remover
     senhaSistema varchar(8) NOT NULL
 );
