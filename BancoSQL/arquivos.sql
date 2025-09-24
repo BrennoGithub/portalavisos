@@ -1,7 +1,8 @@
 -- Tabela de arquivos anexados aos informativos
 CREATE TABLE arquivos ( 
     ID_arquivo int AUTO_INCREMENT PRIMARY KEY,  
-    tipoArquivo ENUM("Arquivo", "Link") DEFAULT "Arquivo",  
+    tipoArquivo ENUM("Arquivo", "Link") DEFAULT "Arquivo",
+    dataRegistro date DEFAULT CURRENT_TIMESTAMP
     arquivo text NOT NULL 
 ); 
 
