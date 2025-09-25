@@ -9,7 +9,7 @@ lista_alunos = [
     {
         "nome":"Afonso Silva",
         "matricula":"20231144010009",
-         "ID_turma": 1,
+        "ID_turma": 1,
         "senha":"info09",
         "status":"False",
     },
