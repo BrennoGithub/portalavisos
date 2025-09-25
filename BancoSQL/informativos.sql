@@ -55,11 +55,13 @@ INSERT INTO turma_informativo(turma, informativo) VALUES(1, 1);
 
 INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES(2, "Avaliação", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 2);
-INSERT INTO dados_avaliacoes(tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) VALUES("prova", "adição", "2025-12-07 HH:MM:SS", "matematica", 2);
+INSERT INTO dados_avaliacoes(tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) 
+VALUES("prova", "adição", "2025-12-07 HH:MM:SS", "matematica", 2);
 
 INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES(3, "Evento", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 3);
-INSERT INTO dados_eventos(nomeEvento, dataInicial_Evento, dataFinal_Evento, horaInicial_Evento, horaFinal_Evento, informativo) VALUES("festa da uva", "2025-12-07", "2025-12-07", "HH:MM:SS", "HH:MM:SS", 3);
+INSERT INTO dados_eventos(nomeEvento, dataInicial_Evento, dataFinal_Evento, horaInicial_Evento, horaFinal_Evento, informativo) 
+VALUES("festa da uva", "2025-12-07", "2025-12-07", "HH:MM:SS", "HH:MM:SS", 3);
 
 INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES(4, "Material Didatico", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, materia, informativo) VALUES(1, 4);
