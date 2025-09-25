@@ -8,7 +8,9 @@ from dados.validadeLogin import validadeLogin
 from dados.funcoesData import return_DataAtual
 from dados.lista_alunos import lista_alunos
 from flask_sqlalchemy import SQLAlchemy
+from modelos import *
 
+#Instância da aplicação Flask.
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
@@ -21,6 +23,7 @@ configuracao = {
     "banco":""
 }
 
+
 #Configuração BD
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{configuracao["usuario"]}:{configuracao["senha"]}@{configuracao["servidor"]}:{configuracao["porta"]}/{configuracao["banco"]}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -28,14 +31,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
 db = SQLAlchemy(app) #Objeto da conexão
 
-#Ao criar a classe, der o nome da tabela
-class Autor(db.Model):
-    ID_autor = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-
 @app.route("/")
 def loginRedirect():
     return redirect(url_for("login"))
+
 
 @app.route("/rotaTESTE")
 def teste():
@@ -84,10 +83,10 @@ def returnUSUARIO(matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
         return redirect(url_for("login"))
     
-    if session["status"] == "aluno":
+    if session["status"] == "False":
         return render_template("tela_comun.html", nome = session["nomeUsuario"])
     
-    elif session["status"] == "aluno-lider":
+    elif session["status"] == "True":
         return render_template("tela_lideres.html", nome = session["nomeUsuario"])
 
 @app.route("/submit_login", methods=["POST"])

@@ -20,6 +20,7 @@ lista_informativos = [
      "mensagem": "texto", "anexo": "ARQUIVO", "dataCriacao": "2025-12-07 HH:MM:SS"},
 ]
 
+'''
 for info in lista_informativos:
     match info["assunto"]:
         case "Avaliação":
@@ -37,3 +38,4 @@ for info in lista_informativos:
         case _:
             print(f'INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES({info["ID_informativo"]}, "{info["assunto"]}", "{info["mensagem"]}", "{info["dataCriacao"]}");')
             print(f'INSERT INTO turma_informativo(turma, informativo) VALUES({info["ID_turma"]}, {info["ID_informativo"]});')
+'''
