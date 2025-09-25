@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,40 +9,54 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_barraLateral.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_Informativos.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo_formInformativos.css') }}">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='icones/portal.ico') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icones/LogoPI.png') }}" type="image/x-icon">
 </head>
 <body>
     <div id="mySidebar" class="sidebar">
         <a href="javascript:void(0)" class="closebtn">
-            <img src="{{ url_for('static', filename='icones/fechar.svg')}}" alt="Icone de fechar" class="icon_fecha">
+            <img src="{{ url_for('static', filename='icones/Fechar_preto.svg')}}" alt="Icone de fechar" class="icon_fecha">
         </a>
 
         <a>{{nome}}</a>
-
-        <img src="{{ url_for('static', filename='icones/adicionar.svg')}}" alt="Icone de cria" class="icon_cria">
-        
+        <img src="{{ url_for('static', filename='icones/Adicao_branco.svg')}}" alt="Icone de adição" class="icon_cria">
         <hr>
 
-        <a href="" class="sessao">Mural</a>
-        <a href="" class="sessao">Avisos</a>
-        <a href="" class="sessao">Avaliações</a>
-        <a href="" class="sessao">Eventos</a>
-        <a href="" class="sessao">Material Didatico</a>
-        <a href="/logout" class="deslogar"> 
-            <img src="{{ url_for('static', filename='icones/Deslogar.svg')}}" alt="Botão de Deslogar" class="icone_deslogar"><span style="margin-left: 10px;">Sair</span>
+        <a href="" class="sessao">
+            <img src="{{ url_for('static', filename='icones/Inicial_preto.svg')}}" alt="Icone Inicial" class="icone">
+            <span class="textoSessao">Mural</span>
         </a>
-      </div>
+        <a href="" class="sessao">
+            <img src="{{ url_for('static', filename='icones/Aviso_preto.svg')}}" alt="Icone Avisos" class="icone">
+            <span class="textoSessao">Avisos</span>
+        </a>
+        <a href="" class="sessao">
+            <img src="{{ url_for('static', filename='icones/Avaliacao_preto.svg')}}" alt="Icone Avaliação" class="icone">
+            <span class="textoSessao">Avaliações</span>
+        </a>
+        <a href="" class="sessao">
+            <img src="{{ url_for('static', filename='icones/Evento_preto.svg')}}" alt="Icone Eventos" class="icone">
+            <span class="textoSessao">Eventos</span>
+        </a>
+        <a href="" class="sessao">
+            <img src="{{ url_for('static', filename='icones/Material_preto.svg')}}" alt="Icone Material" class="icone">
+            <span class="textoSessao">Material Didatico</span>
+        </a>
+        <a href="/logout" class="sessao deslogar"> 
+            <img src="{{ url_for('static', filename='icones/Logout.svg')}}" alt="Icone Deslogar" class="icone">
+            <span class="textoDeslogar">Sair</span>
+        </a>
+    </div>
     
-      <header class="cabeca_pagina">
-          <div id="main">
-                <img src="{{ url_for('static', filename='icones/menu.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
-          </div>
-          <h1>Portal Informativo - INFO V</h1>
-      </header>
-      
-      <span class="exibicaoInformativos"></span>
+    <header class="cabeca_pagina">
+        <div id="main">
+            <img src="{{ url_for('static', filename='icones/Menu_branco.svg')}}" alt="Icone de menu" class="icon_menu openbtn">
+        </div>
+        <h1>Portal Informativo</h1>
+    </header>
+    
+    <span class="exibicaoInformativos"></span>
 
-      <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
-      <script type="module" src="{{ url_for('static', filename='js/roteamento.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/barra_lateral.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='js/roteamento.js') }}"></script>
 </body>
 </html>

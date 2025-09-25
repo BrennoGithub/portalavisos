@@ -75,7 +75,7 @@
 }
 
 .estilo_aviso:hover{
-    box-shadow: 0px 1px 6px 5px rgba(148, 147, 147, 0.3);
+    box-shadow: 0px 1px 10px 5px lightgray;
 }
 
 .segunda_area{
@@ -138,7 +138,6 @@
 }
 
 .icone_delete{
-    background-color: red;
     padding: 5px;
     border-radius: 5px;
 }
