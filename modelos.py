@@ -36,7 +36,7 @@ class Curso_materia(db.Model):
 class Turmas(db.Model):
     ID_turma = db.Column(db.Integer, primary_key=True)
     nomeTurma = db.Column(db.String(100), nullable=False)
-    dataCriacao = db.Column(db.DateTime, default=db.func.now())
+    dataCriacao = db.Column(db.Date, default=db.func.now())
     turno = db.Column(Enum("Matutino","Vespertino"), nullable=False)
     periodo = db.Column(Enum("1","2","3","4"), default='1')
 
