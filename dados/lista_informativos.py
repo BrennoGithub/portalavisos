@@ -20,22 +20,3 @@ lista_informativos = [
      "mensagem": "texto", "anexo": "ARQUIVO", "dataCriacao": "2025-12-07 HH:MM:SS"},
 ]
 
-'''
-for info in lista_informativos:
-    match info["assunto"]:
-        case "Avaliação":
-            print(f'INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES({info["ID_informativo"]}, "{info["assunto"]}", "{info["mensagem"]}", "{info["dataCriacao"]}");')
-            print(f'INSERT INTO turma_informativo(turma, informativo) VALUES({info["ID_turma"]}, {info["ID_informativo"]});')
-            print(f'INSERT INTO dados_avaliacoes(tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) VALUES("{info["tipoAvaliacao"]}", "{info["assuntoAvaliacao"]}", "{info["dataAvaliacao"]}", "{info["materia"]}", {info["ID_informativo"]});')
-        case "Evento":
-            print(f'INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES({info["ID_informativo"]}, "{info["assunto"]}", "{info["mensagem"]}", "{info["dataCriacao"]}");')
-            print(f'INSERT INTO turma_informativo(turma, informativo) VALUES({info["ID_turma"]}, {info["ID_informativo"]});')
-            print(f'INSERT INTO dados_eventos(nomeEvento, dataInicial_Evento, dataFinal_Evento, horaInicial_Evento, horaFinal_Evento, informativo) VALUES("{info["nomeEvento"]}", "{info["dataInicial_Evento"]}", "{info["dataFinal_Evento"]}", "{info["horaInicial_Evento"]}", "{info["horaFinal_Evento"]}", {info["ID_informativo"]});')
-        case "Material Didatico":
-            print(f'INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES({info["ID_informativo"]}, "{info["assunto"]}", "{info["mensagem"]}", "{info["dataCriacao"]}");')
-            print(f'INSERT INTO turma_informativo(turma, materia, informativo) VALUES({info["ID_turma"]}, {info["ID_informativo"]});')
-            print(f'INSERT INTO dados_materiais(assuntoMaterial, materia, informativo) VALUES("{info["assuntoMaterial"]}", "{info["materia"]}", {info["ID_informativo"]});')
-        case _:
-            print(f'INSERT INTO informativos(ID_informativo, assunto, mensagem, dataCriacao) VALUES({info["ID_informativo"]}, "{info["assunto"]}", "{info["mensagem"]}", "{info["dataCriacao"]}");')
-            print(f'INSERT INTO turma_informativo(turma, informativo) VALUES({info["ID_turma"]}, {info["ID_informativo"]});')
-'''
