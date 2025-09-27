@@ -10,35 +10,21 @@ from dados.lista_alunos import lista_alunos
 from flask_sqlalchemy import SQLAlchemy
 from modelos import *
 
-#Instância da aplicação Flask.
 app = Flask(__name__)
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
-#Rota banco
 configuracao = {
-    "usuario":"root",
-    "senha":"",
-    "servidor":"localhost", #Maquina local
-    "porta":"3306", #Porta padrão do SQL é 3306
-    "banco":"portal_informativo"
-}
+        "usuario": "root",
+        "senha": "",
+        "servidor": "localhost",
+        "porta": "3306",
+        "banco": "portal_informativo"
+    }
 
-#Configuração BD
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{configuracao["usuario"]}:{configuracao["senha"]}@{configuracao["servidor"]}:{configuracao["porta"]}/{configuracao["banco"]}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
-db = SQLAlchemy(app) #Objeto da conexão
-
-#ENTENDER PORQUE A CLASSE SÓ FUNCIONA QUANDO A CLASSE É DECLARADA EM APP.PY
-class Alunos(db.Model):
-    matricula = db.Column(db.String(20), primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-    nomeSocial = db.Column(db.String(100), nullable=False)
-    aniversario = db.Column(db.Date, nullable=False)  
-    liderTurma = db.Column(Enum("True","False"), default="False")
-    senhaSistema = db.Column(db.String(8), nullable=False)
-    turma = db.Column(db.Integer, db.ForeignKey('turmas.ID_turma'), nullable=False)
+db = SQLAlchemy(app)
 
 @app.route("/")
 def loginRedirect():
@@ -209,6 +195,6 @@ def CRUD_informativo():
             return "olá mundo"
         
     return redirect(f"/usuarios/{session['ID_turma']}")
-
-if __name__ == "__main__":
+    
+if __name__ == '__main__':
     app.run(debug=True)
