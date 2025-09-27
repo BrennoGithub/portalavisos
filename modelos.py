@@ -1,4 +1,4 @@
-from app import db
+from config import db
 from sqlalchemy import Enum
 
 #Ao criar a classe, der o nome da tabela
