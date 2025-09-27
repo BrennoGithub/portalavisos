@@ -20,9 +20,8 @@ configuracao = {
     "senha":"",
     "servidor":"localhost", #Maquina local
     "porta":"3306", #Porta padrão do SQL é 3306
-    "banco":""
+    "banco":"portal_informativo"
 }
-
 
 #Configuração BD
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://{configuracao["usuario"]}:{configuracao["senha"]}@{configuracao["servidor"]}:{configuracao["porta"]}/{configuracao["banco"]}'
@@ -31,6 +30,16 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #VER PORQUE SO FUNCIONA A CONEXÃO NO PC LOCAL
 db = SQLAlchemy(app) #Objeto da conexão
 
+#ENTENDER PORQUE A CLASSE SÓ FUNCIONA QUANDO A CLASSE É DECLARADA EM APP.PY
+class Alunos(db.Model):
+    matricula = db.Column(db.String(20), primary_key=True)
+    nome = db.Column(db.String(100), nullable=False)
+    nomeSocial = db.Column(db.String(100), nullable=False)
+    aniversario = db.Column(db.Date, nullable=False)  
+    liderTurma = db.Column(Enum("True","False"), default="False")
+    senhaSistema = db.Column(db.String(8), nullable=False)
+    turma = db.Column(db.Integer, db.ForeignKey('turmas.ID_turma'), nullable=False)
+
 @app.route("/")
 def loginRedirect():
     return redirect(url_for("login"))
@@ -38,18 +47,19 @@ def loginRedirect():
 
 @app.route("/rotaTESTE")
 def teste():
-    autores = Autor.query.all()
+    alunos = Alunos.query.all()
     
-    lista_autores = []
-    #Converte o objeto da table para um dicionario
-    for autor in autores:
-        autor_dict = {
-            'ID_autor': autor.ID_autor,
-            'nome': autor.nome
+    lista_alunos = []
+    for iten in alunos:
+        objetoAluno = {
+            "matricula": iten.matricula,
+            "nome": iten.nome,
+            "senhaSistema": iten.senhaSistema,
+            "liderTurma": iten.liderTurma
         }
-        lista_autores.append(autor_dict)
-
-    return jsonify(lista_autores)
+        lista_alunos.append(objetoAluno)
+    
+    return jsonify(lista_alunos)
 
 
 @app.route("/login")
