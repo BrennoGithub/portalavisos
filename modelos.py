@@ -1,13 +1,7 @@
-from app  import db
+from config import db
 from sqlalchemy import Enum
 
 #Ao criar a classe, der o nome da tabela
-
-class Autor(db.Model):
-    ID_autor = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100), nullable=False)
-
-
 class Professores(db.Model):
     matricula = db.Column(db.String(20), primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
