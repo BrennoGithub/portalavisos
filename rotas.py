@@ -4,30 +4,12 @@ from CRUD.Create import criaInformativo
 from CRUD.Read import exibiInformativo
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.funcoesData import return_DataAtual
-from dados.lista_alunos import lista_alunos
 from modelos import *
 from config import app
 
 @app.route("/")
 def loginRedirect():
     return redirect(url_for("login"))
-
-
-@app.route("/rotaTESTE")
-def teste():
-    alunos = Alunos.query.all()
-    
-    lista_alunos = []
-    for iten in alunos:
-        objetoAluno = {
-            "matricula": iten.matricula,
-            "nome": iten.nome,
-            "senhaSistema": iten.senhaSistema,
-            "liderTurma": iten.liderTurma
-        }
-        lista_alunos.append(objetoAluno)
-    return jsonify(lista_alunos)
-
 
 @app.route("/login")
 def login():
@@ -44,12 +26,15 @@ def returnTurma(ID_turma):
         print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
-    turma = []
-    for aluno in lista_alunos:
-        if aluno["ID_turma"] == ID_turma:
-            turma.append(aluno)
-
-    return jsonify(turma)
+    turma = Turmas.query.get_or_404(session["ID_turma"])
+    objetoTurma = {
+        "ID_turma": turma.ID_turma,
+        "nomeTurma": turma.nomeTurma,
+        "dataCriacao": turma.dataCriacao,
+        "turno": turma.turno,
+        "periodo": turma.periodo
+    }
+    return jsonify(objetoTurma)
 
 @app.route("/usuarios/<string:tipoUsuario>")
 def returnUSUARIOS(tipoUsuario):
@@ -140,11 +125,50 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    listaInformativos = []
-    for iten in lista_informativos:
-        if iten["ID_turma"] == session["ID_turma"]:
-            listaInformativos.append(iten)
-    return jsonify(listaInformativos)
+    #TERMINAR FUNÇÃO DE GET INFORATIVOS E DADOS ADICIONAIS
+    informativos = Informativos.query.filter_by(turma=session["ID_turma"])
+    lista_informativos = []
+    for iten in informativos:
+        match iten.assunto:
+            case "Avaliação":
+                dadosAdicionais = Dados_avaliacoes.query.get_or_404(iten.ID_informativo)
+                objetoInformativo = {
+                    "ID_informativo": iten.ID_informativo,
+                    "assunto": iten.assunto,
+                    "mensagem": iten.mensagem,
+                    "dataCriacao": iten.dataCriacao,
+                    "tipoAvaliacao": dadosAdicionais,
+                    "assuntoAvaliacao": dadosAdicionais,
+                    "dataAvaliacao": dadosAdicionais,
+                }
+                lista_informativos.append(objetoInformativo)
+            case "Evento":
+                dadosAdicionais = Dados_eventos.query.get_or_404(iten.ID_informativo)
+                objetoInformativo = {
+                    "ID_informativo": iten.ID_informativo,
+                    "assunto": iten.assunto,
+                    "mensagem": iten.mensagem,
+                    "dataCriacao": iten.dataCriacao
+                }
+                lista_informativos.append(objetoInformativo)
+            case "Material Didatico":
+                dadosAdicionais = Dados_materiais.query.get_or_404(iten.ID_informativo)
+                objetoInformativo = {
+                    "ID_informativo": iten.ID_informativo,
+                    "assunto": iten.assunto,
+                    "mensagem": iten.mensagem,
+                    "dataCriacao": iten.dataCriacao
+                }
+                lista_informativos.append(objetoInformativo)
+            case _:
+                objetoInformativo = {
+                    "ID_informativo": iten.ID_informativo,
+                    "assunto": iten.assunto,
+                    "mensagem": iten.mensagem,
+                    "dataCriacao": iten.dataCriacao
+                }
+                lista_informativos.append(objetoInformativo)
+    return jsonify(lista_informativos)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
