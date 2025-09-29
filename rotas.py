@@ -2,6 +2,8 @@ from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.Create import criaInformativo
 from CRUD.Read import exibiInformativo
+from CRUD.CRUD_turmas import GET_turmas
+from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.funcoesData import return_DataAtual
 from modelos import *
@@ -26,48 +28,13 @@ def returnTurma(ID_turma):
         print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
-    turma = Turmas.query.get_or_404(session["ID_turma"])
-    objetoTurma = {
-        "ID_turma": turma.ID_turma,
-        "nomeTurma": turma.nomeTurma,
-        "dataCriacao": turma.dataCriacao,
-        "turno": turma.turno,
-        "periodo": turma.periodo
-    }
-    return jsonify(objetoTurma)
+    turma = GET_turmas(Turmas, session)
+    return jsonify(turma)
 
 @app.route("/usuarios/<string:tipoUsuario>")
 def returnUSUARIOS(tipoUsuario):
-    match tipoUsuario:
-        case "aluno":
-            alunos = Alunos.query.all()
-            lista_alunos = []
-            for iten in alunos:
-                objetoAluno = {
-                    "matricula": iten.matricula,
-                    "nome": iten.nome,
-                    "nomeSocial": iten.nomeSocial,
-                    "aniversario": iten.aniversario,
-                    "senhaSistema": iten.senhaSistema,
-                    "liderTurma": iten.liderTurma,
-                    "turma": iten.turma
-                }
-                lista_alunos.append(objetoAluno)
-            return jsonify(lista_alunos)
-        
-        case "professor":
-            professores = Professores.query.all()
-            lista_professores = []
-            for iten in professores:
-                objetoProfessor = {
-                    "matricula": iten.matricula,
-                    "nome": iten.nome,
-                    "nomeSocial": iten.nomeSocial,
-                    "aniversario": iten.aniversario,
-                    "senhaSistema": iten.senhaSistema
-                }
-                lista_alunos.append(objetoProfessor)
-            return jsonify(lista_professores)
+    lista_tipoUsuario = GET_usuarios(tipoUsuario, Alunos, Professores)
+    return jsonify(lista_tipoUsuario)
 
 @app.route("/usuarios/<string:tipoUsuario>/<string:matricula>")
 def returnUSUARIO(tipoUsuario, matricula):
@@ -90,32 +57,22 @@ def valida_login():
         matricula = request.form["matricula"]
         senha = request.form["senha"]
         
-        usuario = ""
-        usuario = Alunos.query.get_or_404(matricula)
-        if usuario == None:
-            usuario = Professores.query.get_or_404(matricula)
-            if usuario == None:
-                usuario = "[ Matricula invalida ]"
-            else:
-                session["tipoUsuario"] = "professor"
-        else:
-            session["tipoUsuario"] = "aluno"
-        print(usuario)
+        usuario = GET_usuario(Alunos, Professores, session, matricula)
         
-        login = ""
         if usuario.senhaSistema != senha:
-            login = "invalido"
-        else:
-            login = usuario.liderTurma
-
-        if login == "invalido":
             return render_template("login.html")  
         else:
-            session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-            session["nomeUsuario"] = usuario.nome
-            session["liderTurma"] = usuario.liderTurma
-            session["ID_turma"]  = usuario.turma
-            return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+            if session["tipoUsuario"] == "professor":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+            
+            elif session["tipoUsuario"] == "aluno":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                session["liderTurma"] = usuario.liderTurma
+                session["ID_turma"]  = usuario.turma
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
             
     return redirect(url_for("/"))
 
@@ -125,49 +82,7 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    #TERMINAR FUNÇÃO DE GET INFORATIVOS E DADOS ADICIONAIS
-    informativos = Informativos.query.filter_by(turma=session["ID_turma"])
-    lista_informativos = []
-    for iten in informativos:
-        match iten.assunto:
-            case "Avaliação":
-                dadosAdicionais = Dados_avaliacoes.query.get_or_404(iten.ID_informativo)
-                objetoInformativo = {
-                    "ID_informativo": iten.ID_informativo,
-                    "assunto": iten.assunto,
-                    "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao,
-                    "tipoAvaliacao": dadosAdicionais,
-                    "assuntoAvaliacao": dadosAdicionais,
-                    "dataAvaliacao": dadosAdicionais,
-                }
-                lista_informativos.append(objetoInformativo)
-            case "Evento":
-                dadosAdicionais = Dados_eventos.query.get_or_404(iten.ID_informativo)
-                objetoInformativo = {
-                    "ID_informativo": iten.ID_informativo,
-                    "assunto": iten.assunto,
-                    "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao
-                }
-                lista_informativos.append(objetoInformativo)
-            case "Material Didatico":
-                dadosAdicionais = Dados_materiais.query.get_or_404(iten.ID_informativo)
-                objetoInformativo = {
-                    "ID_informativo": iten.ID_informativo,
-                    "assunto": iten.assunto,
-                    "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao
-                }
-                lista_informativos.append(objetoInformativo)
-            case _:
-                objetoInformativo = {
-                    "ID_informativo": iten.ID_informativo,
-                    "assunto": iten.assunto,
-                    "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao
-                }
-                lista_informativos.append(objetoInformativo)
+    
     return jsonify(lista_informativos)
 
 @app.route("/informativos/<string:assunto>")
