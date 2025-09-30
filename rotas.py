@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.Create import criaInformativo
-from CRUD.Read import exibiInformativo
+from CRUD.CRUD import *
 from CRUD.CRUD_turmas import GET_turmas
 from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
+from CRUD.CRUD_informativos import GET_informartivos
 from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.funcoesData import return_DataAtual
 from modelos import *
@@ -82,6 +82,7 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
+    lista_informativos = GET_informartivos(Informativos, Turma_informativo, session, Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
     
     return jsonify(lista_informativos)
 
