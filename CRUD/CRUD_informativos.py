@@ -5,7 +5,13 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
     informativos = [] # Informativos da turma 
     for iten in lista:
         info = Informativos.query.get_or_404(iten.informativo)
-        informativos.append(info)
+        objetoInfo = {
+            "ID_informativo": info.ID_informativo,
+            "assunto": info.assunto,
+            "mensagem": info.mensagem,
+            "dataCriacao": info.dataCriacao
+        }
+        informativos.append(objetoInfo)
 
     lista_informativos = []
     for iten in informativos:
@@ -47,7 +53,9 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "ID_informativo": iten.ID_informativo,
                     "assunto": iten.assunto,
                     "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao
+                    "dataCriacao": iten.dataCriacao,
+                    "materia": materia.nomeMateria,
+                    "assuntoMaterial": iten.assuntoMaterial
                 }
                 lista_informativos.append(objetoInformativo)
 
@@ -56,9 +64,7 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "ID_informativo": iten.ID_informativo,
                     "assunto": iten.assunto,
                     "mensagem": iten.mensagem,
-                    "dataCriacao": iten.dataCriacao,
-                    "materia": materia.nomeMateria,
-                    "assuntoMaterial": iten.assuntoMaterial
+                    "dataCriacao": iten.dataCriacao
                 }
                 lista_informativos.append(objetoInformativo)
 
