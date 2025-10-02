@@ -1,35 +1,15 @@
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.Create import criaInformativo
-from CRUD.Read import exibiInformativo
-from dados.lista_informativos import lista_id_informativos, lista_informativos
-from dados.validadeLogin import validadeLogin
+from CRUD.CRUD_turmas import GET_turma
+from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
+from CRUD.CRUD_informativos import GET_informartivos
 from dados.funcoesData import return_DataAtual
-from dados.lista_alunos import lista_alunos
 from modelos import *
 from config import app
 
 @app.route("/")
 def loginRedirect():
     return redirect(url_for("login"))
-
-
-@app.route("/rotaTESTE")
-def teste():
-    alunos = Alunos.query.all()
-    
-    lista_alunos = []
-    for iten in alunos:
-        objetoAluno = {
-            "matricula": iten.matricula,
-            "nome": iten.nome,
-            "senhaSistema": iten.senhaSistema,
-            "liderTurma": iten.liderTurma
-        }
-        lista_alunos.append(objetoAluno)
-    
-    return jsonify(lista_alunos)
-
 
 @app.route("/login")
 def login():
@@ -46,46 +26,51 @@ def returnTurma(ID_turma):
         print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
-    turma = []
-    for aluno in lista_alunos:
-        if aluno["ID_turma"] == ID_turma:
-            turma.append(aluno)
-
+    turma = GET_turma(Turmas, session["ID_turma"])
     return jsonify(turma)
 
-@app.route("/usuarios")
-def returnUSUARIOS():
-    return jsonify(lista_alunos)
+@app.route("/usuarios/<string:tipoUsuario>")
+def returnUSUARIOS(tipoUsuario):
+    lista_tipoUsuario = GET_usuarios(tipoUsuario, Alunos, Professores)
+    return jsonify(lista_tipoUsuario)
 
-@app.route("/usuarios/<string:matricula>")
-def returnUSUARIO(matricula):
+@app.route("/usuarios/<string:tipoUsuario>/<string:matricula>")
+def returnUSUARIO(tipoUsuario, matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
         return redirect(url_for("login"))
     
-    if session["status"] == "False":
-        return render_template("tela_comun.html", nome = session["nomeUsuario"])
-    
-    elif session["status"] == "True":
-        return render_template("tela_lideres.html", nome = session["nomeUsuario"])
+    match tipoUsuario:
+        case "aluno":
+            if session["liderTurma"] == "False":
+                return render_template("tela_comun.html", nome = session["nomeUsuario"])
+            elif session["liderTurma"] == "True":
+                return render_template("tela_lideres.html", nome = session["nomeUsuario"])
+        case "professor":
+            return render_template("tela_lideres.html", nome = session["nomeUsuario"])
 
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":
-        #ANALISAR PROBLEMA DE LOGIN DEPOIS DO LOGOUT
+        #ANALISAR COMO FAZER O LOGIN DE PROFESSORES
         matricula = request.form["matricula"]
         senha = request.form["senha"]
-
-        login = validadeLogin(lista_alunos, matricula, senha)
-
-        if login == "invalido":
+        
+        usuario = GET_usuario(Alunos, Professores, session, matricula)
+        
+        if usuario.senhaSistema != senha:
             return render_template("login.html")  
         else:
-            session["matricula"] = login["matricula"] # <-- Armazenados na sessão
-            session["nomeUsuario"] = login["nome"]
-            session["status"] = login["status"]
-            session["ID_turma"]  = login["ID_turma"]
-
-            return redirect(f'usuarios/{session["matricula"]}')
+            if session["tipoUsuario"] == "professor":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+            
+            elif session["tipoUsuario"] == "aluno":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                session["liderTurma"] = usuario.liderTurma
+                session["ID_turma"]  = usuario.turma
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
             
     return redirect(url_for("/"))
 
@@ -95,11 +80,9 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    listaInformativos = []
-    for iten in lista_informativos:
-        if iten["ID_turma"] == session["ID_turma"]:
-            listaInformativos.append(iten)
-    return jsonify(listaInformativos)
+    lista_informativos = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+    
+    return jsonify(lista_informativos)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
@@ -107,7 +90,8 @@ def returnInformativos(assunto):
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    #listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    listaInformativo = {"ola":"mundo"}
     return jsonify(listaInformativo)
 
 #CRIAR ROTAS E PARA OS OUTROS TIPOS DE REQUISIÇÃO (PUT E DELETE)
@@ -167,7 +151,7 @@ def CRUD_informativo():
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
-            criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
+            #criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
         
             return redirect(f"/usuarios/{session['matricula']}")
 
