@@ -74,15 +74,15 @@ def valida_login():
             
     return redirect(url_for("/"))
 
-@app.route("/informativos")
+@app.route("/informativos/")
 def returnTodosInformativos():
     if not 'ID_turma' in session:
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    lista_informativos = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
-    
-    return jsonify(lista_informativos)
+    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+
+    return jsonify(listaInformativo)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
@@ -91,7 +91,7 @@ def returnInformativos(assunto):
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
     #listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
-    listaInformativo = {"ola":"mundo"}
+    listaInformativo = {"ola":assunto}
     return jsonify(listaInformativo)
 
 #CRIAR ROTAS E PARA OS OUTROS TIPOS DE REQUISIÇÃO (PUT E DELETE)
