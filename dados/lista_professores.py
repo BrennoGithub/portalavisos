@@ -80,14 +80,6 @@ lista_professores = [
         "materia": 9
     },
     {
-        "matricula": "2664007",
-        "nome": "Alvaro Hermano da Silva",
-        "nomeSocial": "",
-        "aniversario": "",
-        "senhaSistema": "prof007",
-        "materia": 10
-    },
-    {
         "matricula": "1815949",
         "nome": "Zulmar Jofli dos Santos Junior",
         "nomeSocial": "",
@@ -102,14 +94,6 @@ lista_professores = [
         "aniversario": "",
         "senhaSistema": "prof615",
         "materia": 12
-    },
-    {
-        "matricula": "1071759",
-        "nome": "Daniel Aguiar da Silva Oliveira Carvalho",
-        "nomeSocial": "",
-        "aniversario": "",
-        "senhaSistema": "prof759",
-        "materia": 13
     },
     {
         "matricula": "2476638",

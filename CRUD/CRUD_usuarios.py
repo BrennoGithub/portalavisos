@@ -1,9 +1,9 @@
 #Função GET
 def GET_usuarios(tipoUsuario, Alunos, Professores):
+    lista_usuarios = []
     match tipoUsuario:
         case "aluno":
             alunos = Alunos.query.all()
-            lista_alunos = []
             for iten in alunos:
                 objetoAluno = {
                     "matricula": iten.matricula,
@@ -14,13 +14,11 @@ def GET_usuarios(tipoUsuario, Alunos, Professores):
                     "liderTurma": iten.liderTurma,
                     "turma": iten.turma
                 }
-                lista_alunos.append(objetoAluno)
-            return lista_alunos
+                lista_usuarios.append(objetoAluno)
            
         
         case "professor":
             professores = Professores.query.all()
-            lista_professores = []
             for iten in professores:
                 objetoProfessor = {
                     "matricula": iten.matricula,
@@ -29,8 +27,9 @@ def GET_usuarios(tipoUsuario, Alunos, Professores):
                     "aniversario": iten.aniversario,
                     "senhaSistema": iten.senhaSistema
                 }
-                lista_alunos.append(objetoProfessor)
-            return lista_professores
+                lista_usuarios.append(objetoProfessor)
+    return lista_usuarios
+            
             
 def GET_usuario(Alunos, Professores, session, matricula):
     usuario = None

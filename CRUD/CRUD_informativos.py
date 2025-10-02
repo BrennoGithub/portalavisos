@@ -1,6 +1,7 @@
 #Função GET
-def GET_informartivos(Informativos, Turma_informativo, session, Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias, Arquivos, Informativo_arquivo):
-    lista = Turma_informativo.query.filter_by(turma=session["ID_turma"]) #Lista informativos-turma
+#VERIFICAR OS PROBLEMAS DA FUNÇÃO, POIS NÃO ESTAR CONSEGUINDO TRAZER OS INFORMATIVOS.
+def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias):
+    lista = Turma_informativo.query.filter_by(turma=ID_turma) #Lista informativos-turma
     informativos = [] # Informativos da turma 
     for iten in lista:
         info = Informativos.query.get_or_404(iten.informativo)
@@ -12,8 +13,6 @@ def GET_informartivos(Informativos, Turma_informativo, session, Dados_avaliacoes
             case "Avaliação":
                 dadosAdicionais = Dados_avaliacoes.query.get_or_404(iten.ID_informativo)
                 materia = Materias.query.get_or_404(iten.materia)
-                lista_arquivo = Informativo_arquivo.query.filter_by(informativo=iten.ID_informativo)
-                arquivo = Arquivos.query.get_or_404(lista_arquivo.arquivo)
                 objetoInformativo = {
                     "ID_informativo": iten.ID_informativo,
                     "assunto": iten.assunto,
@@ -22,8 +21,7 @@ def GET_informartivos(Informativos, Turma_informativo, session, Dados_avaliacoes
                     "tipoAvaliacao": dadosAdicionais.tipoAvaliacao,
                     "materia": materia.nomeMateria,
                     "assuntoAvaliacao": dadosAdicionais.assuntoAvaliacao,
-                    "dataAvaliacao": dadosAdicionais.dataAvaliacao,
-                    "arquivo": arquivo
+                    "dataAvaliacao": dadosAdicionais.dataAvaliacao
                 }
                 lista_informativos.append(objetoInformativo)
 

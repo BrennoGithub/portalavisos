@@ -1,10 +1,8 @@
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.CRUD import *
-from CRUD.CRUD_turmas import GET_turmas
+from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
 from CRUD.CRUD_informativos import GET_informartivos
-from dados.lista_informativos import lista_id_informativos, lista_informativos
 from dados.funcoesData import return_DataAtual
 from modelos import *
 from config import app
@@ -28,7 +26,7 @@ def returnTurma(ID_turma):
         print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
-    turma = GET_turmas(Turmas, session)
+    turma = GET_turma(Turmas, session["ID_turma"])
     return jsonify(turma)
 
 @app.route("/usuarios/<string:tipoUsuario>")
@@ -82,7 +80,7 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    lista_informativos = GET_informartivos(Informativos, Turma_informativo, session, Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+    lista_informativos = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
     
     return jsonify(lista_informativos)
 
@@ -92,7 +90,8 @@ def returnInformativos(assunto):
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    #listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
+    listaInformativo = {"ola":"mundo"}
     return jsonify(listaInformativo)
 
 #CRIAR ROTAS E PARA OS OUTROS TIPOS DE REQUISIÇÃO (PUT E DELETE)
@@ -152,7 +151,7 @@ def CRUD_informativo():
                     objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
                     objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
 
-            criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
+            #criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
         
             return redirect(f"/usuarios/{session['matricula']}")
 
