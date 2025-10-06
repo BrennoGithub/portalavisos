@@ -1,3 +1,5 @@
+-- CORRIGIR A RELAÇÃO DE DADOS ADCIONAIS COM INFORMATIVOS NO BANCO MYSQL
+
 -- Tabela informativos
 CREATE TABLE informativos ( 
     ID_informativo int AUTO_INCREMENT PRIMARY KEY,  
@@ -55,14 +57,14 @@ INSERT INTO turma_informativo(turma, informativo) VALUES(1, 1);
 
 INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Avaliação", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 2);
-INSERT INTO dados_avaliacoes(tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) 
-VALUES("prova", "adição", "2025-12-07 HH:MM:SS", 1, 2);
+INSERT INTO dados_avaliacoes(ID_avaliacao, tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) 
+VALUES(2, "prova", "adição", "2025-12-07 HH:MM:SS", 1, 2);
 
 INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Evento", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 3);
-INSERT INTO dados_eventos(nomeEvento, data_InicioEvento, data_FinalEvento, hora_InicioEvento, hora_FinalEvento, informativo) 
-VALUES("festa da uva", "2025-12-07", "2025-12-07", "HH:MM:SS", "HH:MM:SS", 3);
+INSERT INTO dados_eventos(ID_eventos, nomeEvento, data_InicioEvento, data_FinalEvento, hora_InicioEvento, hora_FinalEvento, informativo) 
+VALUES(3, "festa da uva", "2025-12-07", "2025-12-07", "HH:MM:SS", "HH:MM:SS", 3);
 
 INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Material Didatico", "texto", "2025-12-07 HH:MM:SS");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 4);
-INSERT INTO dados_materiais(assuntoMaterial, materia, informativo) VALUES("matematica", 1, 4);
+INSERT INTO dados_materiais(ID_material , assuntoMaterial, materia, informativo) VALUES(4, "matematica", 1, 4);
