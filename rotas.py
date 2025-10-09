@@ -3,7 +3,6 @@ from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
 from CRUD.CRUD_informativos import GET_informartivos
-from dados.funcoesData import return_DataAtual
 from modelos import *
 from config import app
 
@@ -90,78 +89,54 @@ def returnInformativos(assunto):
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    #listaInformativo = exibiInformativo(assunto, lista_informativos, session["ID_turma"])
-    listaInformativo = {"ola":assunto}
-    return jsonify(listaInformativo)
+    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
 
-#CRIAR ROTAS E PARA OS OUTROS TIPOS DE REQUISIÇÃO (PUT E DELETE)
-@app.route("/submit_informativo", methods=["POST", "DELETE", "PUT"])
-def CRUD_informativo():
+    lista_assunto = []
+    for info in listaInformativo:
+        match assunto:
+            case "avaliacoes":
+                if info["assunto"] == "Avaliação":
+                    lista_assunto.append(info)
+            case "eventos":
+                if info["assunto"] == "Evento":
+                    lista_assunto.append(info)
+            case "materiais":
+                if info["assunto"] == "Material Didatico":
+                    lista_assunto.append(info)
+            case "avisos":
+                if info["assunto"] != "Material Didatico" and info["assunto"] != "Avaliação" and info["assunto"] != "Evento":
+                    lista_assunto.append(info)
+
+    return jsonify(lista_assunto)
+
+@app.route("/informativos/POST", methods=["POST"])
+def CREATE_informativo():
     if "ID_turma" not in session:
         print("MENSAGEM SERVIDOR: Erro na criação de informativo")
         return {"mensagemServidor":"Erro na criação de informativo"}
     
     dadosPOST = request.json
 
-    match request.method:
-        case "POST":
-            objetoInformativo = {}
-            assuntoInformativo =  dadosPOST["assunto"]
-            if assuntoInformativo == "":
-                assuntoInformativo = "Sem assunto"
-
-            match assuntoInformativo:
-                case "Avaliação":
-                    objetoInformativo["materia"] = dadosPOST["materia"]
-                    objetoInformativo["assunto"] = dadosPOST["assunto"]
-                    objetoInformativo["assuntoAvaliacao"] = dadosPOST["assuntoAvaliacao"]
-                    objetoInformativo["tipoAvaliacao"] = dadosPOST["tipoAvaliacao"]
-                    objetoInformativo["dataAvaliacao"] = dadosPOST["dataAvaliacao"] 
-                    objetoInformativo["horaAvaliacao"] = dadosPOST["horaAvaliacao"]
-                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
-                    objetoInformativo["anexo"] = dadosPOST["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
-
-                case "Evento":
-                    objetoInformativo["assunto"] = dadosPOST["assunto"]
-                    objetoInformativo["nomeEvento"] = dadosPOST["nomeEvento"]
-                    objetoInformativo["dataInicial_Evento"] = dadosPOST["dataInicial_Evento"] 
-                    objetoInformativo["horaInicial_Evento"] = dadosPOST["horaInicial_Evento"]
-                    objetoInformativo["dataFinal_Evento"] = dadosPOST["dataFinal_Evento"]
-                    objetoInformativo["horaFinal_Evento"] = dadosPOST["horaFinal_Evento"]
-                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
-                    objetoInformativo["anexo"] = dadosPOST["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
-
-                case "Material Didatico":
-                    objetoInformativo["assunto"] = dadosPOST["assunto"]
-                    objetoInformativo["materia"] = dadosPOST["materia"]
-                    objetoInformativo["assuntoMaterial"] = dadosPOST["assunto"]
-                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
-                    objetoInformativo["anexo"] = dadosPOST["anexo"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
-
-                case _:
-                    objetoInformativo["assunto"] = dadosPOST["assunto"]
-                    objetoInformativo["anexo"] = dadosPOST["anexo"]
-                    objetoInformativo["mensagem"] = dadosPOST["mensagem"]
-                    objetoInformativo["dataInformativo"] = return_DataAtual("DD/MM/AAAA")
-                    objetoInformativo["horaInformativo"] = return_DataAtual("HH:MM")
-
-            #criaInformativo(session["ID_turma"], lista_id_informativos, lista_informativos, assuntoInformativo, objetoInformativo)
+    objetoInformativo = {}
+    assuntoInformativo =  dadosPOST["assunto"]
         
-            return redirect(f"/usuarios/{session['matricula']}")
+    return redirect(f"/usuarios/{session['matricula']}")
 
-        case "DELETE":
-            return "olá mundo"
-        
-        case "PUT":
-            return "olá mundo"
-        
-    return redirect(f"/usuarios/{session['ID_turma']}")
+@app.route("/informativos/PUT/<int:ID_informativo>", methods=["PUT"])
+def UPDATE_informativo(ID_informativo):
+    if "ID_turma" not in session:
+        print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
+        return {"mensagemServidor":"Erro na atualização de informativo"}
+    
+    return redirect(f"/usuarios/{session['matricula']}")
+    
+@app.route("/informativos/DELETE/<int:ID_informativo>", methods=["DELETE"])
+def DELETE_informativo(ID_informativo):
+    if "ID_turma" not in session:
+        print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
+        return {"mensagemServidor":"Erro na exclusão de informativo"}
+    
+    return redirect(f"/usuarios/{session['matricula']}")
     
 if __name__ == '__main__':
     app.run(debug=True)

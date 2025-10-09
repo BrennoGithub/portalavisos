@@ -14,10 +14,11 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
         materia = None
         Assunto = str(info.assunto)
 
-        if Assunto == "Avaliação":
-            dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
-            materia = Materias.query.get_or_404(dadosAdicionais.materia)
-            objetoInformativo = {
+        match Assunto:
+            case "Avaliação":
+                dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
+                materia = Materias.query.get_or_404(dadosAdicionais.materia)
+                objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
@@ -27,10 +28,9 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "assuntoAvaliacao": dadosAdicionais.assuntoAvaliacao,
                     "dataAvaliacao": str(dadosAdicionais.dataAvaliacao)
                 }
-            
-        elif  Assunto == "Evento":
-            dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
-            objetoInformativo = {
+            case "Evento":
+                dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
+                objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
@@ -41,11 +41,10 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "hora_InicioEvento": str(dadosAdicionais.hora_InicioEvento),
                     "hora_FinalEvento": str(dadosAdicionais.hora_FinalEvento)
                 }
-           
-        elif Assunto == "Material Didatico":
-            dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
-            materia = Materias.query.get_or_404(dadosAdicionais.materia)
-            objetoInformativo = {
+            case "Material Didatico":
+                dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
+                materia = Materias.query.get_or_404(dadosAdicionais.materia)
+                objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
@@ -53,20 +52,28 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "materia": materia.nomeMateria,
                     "assuntoMaterial": dadosAdicionais.assuntoMaterial
                 }
-            
-        else:
-            objetoInformativo = {
+            case _:
+                objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
                     "dataCriacao": str(info.dataCriacao)
                 }
-            
-
         lista_informativos.append(objetoInformativo)
-    
-    print("------------------------")
-    print(lista_informativos[2])
-
 
     return lista_informativos
+
+#Função POST
+def POST_informativo(assuntoInformativo, objetoInformativo):
+    match assuntoInformativo:
+        case "Avaliação":
+            print("Avaliacao")
+
+        case "Evento":
+            print("Evento")
+
+        case "Material Didatico":
+            print("Material Didatico")
+
+        case _:
+            print("Aviso")
