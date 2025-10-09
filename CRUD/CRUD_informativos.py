@@ -1,7 +1,4 @@
-from CRUD_dadosAdicionais import GET_dadosAdicionaL
-
 #Função GET
-#VERIFICAR O GET DE DADOS ADICIONAIS
 def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias):
     lista_relacionamento = Turma_informativo.query.filter_by(turma=ID_turma).all() #Lista informativos-turma
    
@@ -18,8 +15,8 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
         Assunto = info.assunto
 
         if Assunto == "Avaliação":
-            dadosAdicionais = GET_dadosAdicionaL(Dados_avaliacoes, info.ID_informativo) # <-- Resolver problema de GET de dados aidcionais 
-            materia = Materias.query.get_or_404(info.materia)
+            dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
+            materia = Materias.query.get_or_404(dadosAdicionais.materia)
             objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
@@ -31,8 +28,8 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "dataAvaliacao": dadosAdicionais.dataAvaliacao
                 }
             
-        elif  Assunto == "Evento":
-            dadosAdicionais = GET_dadosAdicionaL(Dados_eventos, info.ID_informativo)
+        elif  Assunto == "evento":
+            dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
             objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
@@ -45,8 +42,8 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "hora_FinalEvento": dadosAdicionais.hora_FinalEvento
                 }
            
-        elif Assunto == "Material Didatico":
-            dadosAdicionais = GET_dadosAdicionaL(Dados_materiais, info.ID_informativo)
+        elif Assunto == "material didatico":
+            dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
             materia = Materias.query.get_or_404(dadosAdicionais.materia)
             objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
@@ -68,8 +65,8 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
 
         lista_informativos.append(objetoInformativo)
     
-    print("--------------------")
-    print(lista_informativos)
+    print("------------------------")
+    print(lista_informativos[2])
 
 
     return lista_informativos

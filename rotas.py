@@ -82,8 +82,6 @@ def returnTodosInformativos():
     
     listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
 
-    #listaInformativo = "ola"
-    print(listaInformativo)
     return jsonify(listaInformativo)
 
 @app.route("/informativos/<string:assunto>")
