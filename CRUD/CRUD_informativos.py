@@ -12,7 +12,7 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
         objetoInformativo = {}
         dadosAdicionais = None
         materia = None
-        Assunto = info.assunto
+        Assunto = str(info.assunto)
 
         if Assunto == "Avaliação":
             dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
@@ -21,35 +21,35 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
-                    "dataCriacao": info.dataCriacao,
+                    "dataCriacao": str(info.dataCriacao), # <-- Converter data e hora em razão de possuir um formato não compartivel
                     "tipoAvaliacao": dadosAdicionais.tipoAvaliacao,
                     "materia": materia.nomeMateria,
                     "assuntoAvaliacao": dadosAdicionais.assuntoAvaliacao,
-                    "dataAvaliacao": dadosAdicionais.dataAvaliacao
+                    "dataAvaliacao": str(dadosAdicionais.dataAvaliacao)
                 }
             
-        elif  Assunto == "evento":
+        elif  Assunto == "Evento":
             dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
             objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
-                    "dataCriacao": info.dataCriacao,
+                    "dataCriacao": str(info.dataCriacao),
                     "nomeEvento": dadosAdicionais.nomeEvento,
-                    "data_InicioEvento": dadosAdicionais.data_InicioEvento,
-                    "data_FinalEvento": dadosAdicionais.data_FinalEvento,
-                    "hora_InicioEvento": dadosAdicionais.hora_InicioEvento,
-                    "hora_FinalEvento": dadosAdicionais.hora_FinalEvento
+                    "data_InicioEvento": str(dadosAdicionais.data_InicioEvento),
+                    "data_FinalEvento": str(dadosAdicionais.data_FinalEvento),
+                    "hora_InicioEvento": str(dadosAdicionais.hora_InicioEvento),
+                    "hora_FinalEvento": str(dadosAdicionais.hora_FinalEvento)
                 }
            
-        elif Assunto == "material didatico":
+        elif Assunto == "Material Didatico":
             dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
             materia = Materias.query.get_or_404(dadosAdicionais.materia)
             objetoInformativo = {
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
-                    "dataCriacao": info.dataCriacao,
+                    "dataCriacao": str(info.dataCriacao),
                     "materia": materia.nomeMateria,
                     "assuntoMaterial": dadosAdicionais.assuntoMaterial
                 }
@@ -59,7 +59,7 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                     "ID_informativo": info.ID_informativo,
                     "assunto": info.assunto,
                     "mensagem": info.mensagem,
-                    "dataCriacao": info.dataCriacao
+                    "dataCriacao": str(info.dataCriacao)
                 }
             
 
