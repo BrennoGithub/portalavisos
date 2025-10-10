@@ -3,7 +3,7 @@ CREATE TABLE informativos (
     ID_informativo int AUTO_INCREMENT PRIMARY KEY,  
     assunto varchar(100) DEFAULT "Sem assunto",  
     mensagem text NOT NULL,  
-    dataCriacao date DEFAULT CURRENT_TIMESTAMP
+    dataCriacao timestamp DEFAULT CURRENT_TIMESTAMP -- TIPO DE DADO MUDADO
 ); 
 
 -- Tabela intermediaria turma-informativos
@@ -21,8 +21,8 @@ CREATE TABLE dados_eventos (
     nomeEvento char(100) NOT NULL, 
     data_InicioEvento date NOT NULL,
     data_FinalEvento date NOT NULL,
-    hora_InicioEvento date NOT NULL,
-    hora_FinalEvento date NOT NULL, 
+    hora_InicioEvento time NOT NULL, -- TIPO DE DADO MUDADO
+    hora_FinalEvento time NOT NULL,  -- TIPO DE DADO MUDADO
     informativo int NOT NULL,
     FOREIGN KEY (informativo) REFERENCES informativos(ID_informativo)
 ); 
@@ -32,7 +32,7 @@ CREATE TABLE dados_avaliacoes (
     ID_avaliacao int PRIMARY KEY AUTO_INCREMENT,
     tipoAvaliacao varchar(100) NOT NULL,
     assuntoAvaliacao char(100) NOT NULL,
-    dataAvaliacao date NOT NULL,  
+    dataAvaliacao timestamp NOT NULL,  -- TIPO DE DADO MUDADO 
     informativo int NOT NULL,
     FOREIGN KEY (informativo) REFERENCES informativos(ID_informativo),
     materia int NOT NULL,
@@ -50,19 +50,19 @@ CREATE TABLE dados_materiais (
 ); 
 
 -- Cadastro dos informativos
-INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Aviso", "texto", "2025-12-07 HH:MM:SS");
+INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Aviso", "texto", "2025-12-07 13:20:00");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 1);
 
-INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Avaliação", "texto", "2025-12-07 HH:MM:SS");
+INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Avaliação", "texto", "2025-12-07 13:20:00");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 2);
 INSERT INTO dados_avaliacoes(tipoAvaliacao, assuntoAvaliacao, dataAvaliacao, materia, informativo) 
-VALUES("prova", "adição", "2025-12-07 HH:MM:SS", 1, 2);
+VALUES("prova", "adição", "2025-12-07 13:20:00", 1, 2);
 
-INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Evento", "texto", "2025-12-07 HH:MM:SS");
+INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Evento", "texto", "2025-12-07 13:20:00");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 3);
 INSERT INTO dados_eventos(nomeEvento, data_InicioEvento, data_FinalEvento, hora_InicioEvento, hora_FinalEvento, informativo) 
-VALUES("festa da uva", "2025-12-07", "2025-12-07", "HH:MM:SS", "HH:MM:SS", 3);
+VALUES("festa da uva", "2025-12-07", "2025-12-07", "13:20:00", "13:20:00", 3);
 
-INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Material Didatico", "texto", "2025-12-07 HH:MM:SS");
+INSERT INTO informativos(assunto, mensagem, dataCriacao) VALUES("Material Didatico", "texto", "2025-12-07 13:20:00");
 INSERT INTO turma_informativo(turma, informativo) VALUES(1, 4);
 INSERT INTO dados_materiais(assuntoMaterial, materia, informativo) VALUES("matematica", 1, 4);
