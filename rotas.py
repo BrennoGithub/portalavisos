@@ -7,8 +7,11 @@ from modelos import *
 from config import app
 
 @app.route("/")
-def loginRedirect():
-    return redirect(url_for("login"))
+def PaginaPrincipal():
+    if "matricula" in session and "tipoUsuario" in session:
+        return redirect(url_for(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}'))
+    else:
+        return redirect(url_for("login"))
 
 @app.route("/login")
 def login():
@@ -50,7 +53,6 @@ def returnUSUARIO(tipoUsuario, matricula):
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
     if request.method == "POST":
-        #ANALISAR COMO FAZER O LOGIN DE PROFESSORES
         matricula = request.form["matricula"]
         senha = request.form["senha"]
         
@@ -81,7 +83,11 @@ def returnTodosInformativos():
     
     listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
 
-    return jsonify(listaInformativo)
+    if len(listaInformativo) == 0 or listaInformativo == None:
+        print("MENSAGEM SERVIDOR: Informativos não encontrados")
+        return "MENSAGEM SERVIDOR: Informativos não encontrados"
+    else:
+        return jsonify(listaInformativo)
 
 @app.route("/informativos/<string:assunto>")
 def returnInformativos(assunto):
@@ -107,9 +113,13 @@ def returnInformativos(assunto):
                 if info["assunto"] != "Material Didatico" and info["assunto"] != "Avaliação" and info["assunto"] != "Evento":
                     lista_assunto.append(info)
 
-    return jsonify(lista_assunto)
+    if len(lista_assunto) == 0:
+        print("MENSAGEM SERVIDOR: Informativos não encontrados")
+        return "MENSAGEM SERVIDOR: Informativos não encontrados"
+    else:
+        return jsonify(lista_assunto)
 
-@app.route("/informativos/POST", methods=["POST"])
+@app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
     if "ID_turma" not in session:
         print("MENSAGEM SERVIDOR: Erro na criação de informativo")
@@ -122,7 +132,7 @@ def CREATE_informativo():
         
     return redirect(f"/usuarios/{session['matricula']}")
 
-@app.route("/informativos/PUT/<int:ID_informativo>", methods=["PUT"])
+@app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
     if "ID_turma" not in session:
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
@@ -130,7 +140,7 @@ def UPDATE_informativo(ID_informativo):
     
     return redirect(f"/usuarios/{session['matricula']}")
     
-@app.route("/informativos/DELETE/<int:ID_informativo>", methods=["DELETE"])
+@app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
     if "ID_turma" not in session:
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
