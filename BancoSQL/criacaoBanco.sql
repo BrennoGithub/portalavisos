@@ -1,7 +1,7 @@
 -- Criação de banco de dados Portal Informativo
 CREATE DATABASE portal_informativo;
 
--- #Ordem de criação de tabelas: 
+-- Ordem de criação de tabelas: 
 --   01. professores
 --   02. materias
 --   03. professor_materia

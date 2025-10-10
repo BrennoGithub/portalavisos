@@ -5,7 +5,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof907",
-        "materia": "Química I"
+        "materia": 1
     },
     {
         "matricula": "3441856",
@@ -13,7 +13,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof856",
-        "materia": "Filosofia III"
+        "materia": 2
     },
     {
         "matricula": "1456703",
@@ -21,7 +21,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof703",
-        "materia": "Matemática III"
+        "materia": 3
     },
     {
         "matricula": "1814262",
@@ -29,7 +29,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof262",
-        "materia": "Matemática III"
+        "materia": 3
     },
     {
         "matricula": "1934732",
@@ -37,7 +37,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof732",
-        "materia": "História I"
+        "materia": 4
     },
     {
         "matricula": "1577142",
@@ -45,7 +45,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof142",
-        "materia": "Arquitetura de Redes"
+        "materia": 5
     },
     {
         "matricula": "2664007",
@@ -53,7 +53,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof007",
-        "materia": "Orientação para a Prática Profissional II"
+        "materia": 6
     },
     {
         "matricula": "3330062",
@@ -61,7 +61,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof062",
-        "materia": "Biologia I"
+        "materia": 7
     },
     {
         "matricula": "1814194",
@@ -69,7 +69,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof194",
-        "materia": "Língua Portuguesa e Literatura III"
+        "materia": 8
     },
     {
         "matricula": "1071759",
@@ -77,15 +77,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof759",
-        "materia": "Autoria Web"
-    },
-    {
-        "matricula": "2664007",
-        "nome": "Alvaro Hermano da Silva",
-        "nomeSocial": "",
-        "aniversario": "",
-        "senhaSistema": "prof007",
-        "materia": "Desenvolvimento de Projeto Integrador"
+        "materia": 9
     },
     {
         "matricula": "1815949",
@@ -93,7 +85,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof949",
-        "materia": "Organização e Manutenção de Computadores"
+        "materia": 11
     },
     {
         "matricula": "3399615",
@@ -101,15 +93,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof615",
-        "materia": "Programação com Acesso a Banco de Dados"
-    },
-    {
-        "matricula": "1071759",
-        "nome": "Daniel Aguiar da Silva Oliveira Carvalho",
-        "nomeSocial": "",
-        "aniversario": "",
-        "senhaSistema": "prof759",
-        "materia": "Orientação para a Prática Profissional I"
+        "materia": 12
     },
     {
         "matricula": "2476638",
@@ -117,6 +101,7 @@ lista_professores = [
         "nomeSocial": "",
         "aniversario": "",
         "senhaSistema": "prof638",
-        "materia": "Sociologia III"
+        "materia": 14
     }
 ]
+

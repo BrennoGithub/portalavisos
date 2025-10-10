@@ -1,11 +1,11 @@
 {
-  "name": "portalavisos",
+  "name": "portalainformativo",
   "version": "1.0.0",
   "description": "Sistema de avisos escolares para a turma de informatica vespetino, onde os lideres das turmas podem colocar avisos de provas, trabalhos, avisos e material de estudo. \r Sistema em desenvolvimento por [Breno Gusmão](https://github.com/BrennoGithub) e [Júlio César](https://github.com/JCOAlves) para a matéria de Autoria Web do curso de Informatica.",
-  "main": "app.py",
+  "main": "config.py",
   "type": "module",
   "scripts": {
-    "start": "Python app.py",
+    "start": "Python rotas.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

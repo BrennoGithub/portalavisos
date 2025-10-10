@@ -9,7 +9,7 @@ lista_alunos = [
     {
         "nome":"Afonso Silva",
         "matricula":"20231144010009",
-         "ID_turma": 1,
+        "ID_turma": 1,
         "senha":"info09",
         "status":"False",
     },
@@ -232,7 +232,3 @@ lista_alunos = [
     },     
 ]
 
-'''
-for aluno in lista_alunos:
-    print(f'INSERT INTO alunos(matricula, nome, statusTurma, senhaSistema, turma) VALUES("{aluno["matricula"]}","{aluno["nome"]}", "{aluno["status"]}", "{aluno["senha"]}", 1);')
-'''
