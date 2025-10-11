@@ -13,7 +13,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
     if(informativos === "404 - Não foi encontrado informativo desse tipo." || informativos === "404 - Não encontrado."){
         elemento.innerHTML = `<em>${informativos}</em>`;
     }
-    //informativos = formataDatas(informativos, "dataCriacao");
+    informativos = formataDatas(informativos, "dataCriacao");
 
     const STATIC_URL = "/static/";
     let conteudo = ``;
@@ -24,7 +24,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                 conteudo = `
                 <div class="estilo_aviso">
                     <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                    <div class="terceira_area  azul_2"> ${String(x['mensagem'])} <br> ${x['anexo']}
+                    <div class="terceira_area  azul_2"> ${String(x['mensagem'])} <br> 'anexo'
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -40,8 +40,8 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             break;
 
         case "/avaliacoes":
-            /*informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
-            informativos = formataDatas(informativos, "dataAvaliacao");*/
+            informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
+            informativos = formataDatas(informativos, "dataAvaliacao");
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
@@ -69,7 +69,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     <div class="segunda_area laranja_1">${x['materia']}</div>
                     <div class="terceira_area laranja_2">
                         <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
-                        ${String(x['mensagem'])} <br> ${x['anexo']}
+                        ${String(x['mensagem'])} <br> ANEXO
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -84,16 +84,16 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             break;
         
         case "/eventos":
-            /*informativos = await ordenarInformativos(informativos, 'dataInicial_Evento');
-            informativos = formataDatas(informativos, 'dataInicial_Evento');
-            informativos = formataDatas(informativos, 'dataFinal_Evento');*/
+            informativos = await ordenarInformativos(informativos, 'data_InicioEvento');
+            informativos = formataDatas(informativos, 'data_InicioEvento');
+            informativos = formataDatas(informativos, 'data_FinalEvento');
             for(const x of informativos){
                 conteudo = `
                 <div class="estilo_aviso">
                     <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
                     <div class="terceira_area  roxo_2">
-                        <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em> <br>
-                        <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em> <br> ${String(x['mensagem'])}
+                        <strong>Dia(s):</strong> <em>${x['data_InicioEvento']} a ${x['data_FinalEvento']}</em> <br>
+                        <strong>Horário:</strong> <em>${x['hora_InicioEvento']} - ${x['hora_FinalEvento']}</em> <br> ${String(x['mensagem'])}
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -111,7 +111,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             for(const x of informativos){
                 switch (x['assunto']){
                     case "Avaliação":
-                        //x['dataAvaliacao'] = formataUnicaData(x['dataAvaliacao']);
+                        x['dataAvaliacao'] = formataUnicaData(x['dataAvaliacao']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
@@ -129,14 +129,14 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         </div>`+conteudo;
                         break;
                     case "Evento":
-                        x['dataInicial_Evento'] = formataUnicaData(x['dataInicial_Evento']);
-                        x['dataFinal_Evento'] = formataUnicaData(x['dataFinal_Evento']);
+                        x['data_InicioEvento'] = formataUnicaData(x['data_InicioEvento']);
+                        x['data_FinalEvento'] = formataUnicaData(x['data_FinalEvento']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
                             <div class="terceira_area  roxo_2">
-                                <strong>Dia(s):</strong> <em>${x['dataInicial_Evento']} a ${x['dataFinal_Evento']}</em> <br>
-                                <strong>Horário:</strong> <em>${x['horaInicial_Evento']} - ${x['horaFinal_Evento']}</em> <br> ${String(x['mensagem'])}
+                                <strong>Dia(s):</strong> <em>${x['data_InicioEvento']} a ${x['data_FinalEvento']}</em> <br>
+                                <strong>Horário:</strong> <em>${x['hora_InicioEvento']} - ${x['hora_FinalEvento']}</em> <br> ${String(x['mensagem'])}
                                 <div class="blocoFinal">
                                     <div class="botoesEdit">
                                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -153,7 +153,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                             <div class="segunda_area laranja_1">${x['materia']}</div>
                             <div class="terceira_area laranja_2">
                                 <strong>Assunto:</strong> ${x['assuntoMaterial']} <br>
-                                ${String(x['mensagem'])} <br> ${x['anexo']}
+                                ${String(x['mensagem'])} <br> ANEXO
                                 <div class="blocoFinal">
                                     <div class="botoesEdit">
                                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
@@ -168,7 +168,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  azul_1">${String(x['assunto'])}</div>
-                            <div class="terceira_area  azul_2">${String(x['mensagem'])} <br> ${x['anexo']}
+                            <div class="terceira_area  azul_2">${String(x['mensagem'])} <br> ANEXO
                                 <div class="blocoFinal">
                                     <div class="botoesEdit">
                                         <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">
