@@ -18,47 +18,59 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
             case "Avaliação":
                 dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
                 materia = Materias.query.get_or_404(dadosAdicionais.materia)
-                objetoInformativo = {
-                    "ID_informativo": info.ID_informativo,
-                    "assunto": info.assunto,
-                    "mensagem": info.mensagem,
-                    "dataCriacao": str(info.dataCriacao), # <-- Converter data e hora em razão de possuir um formato não compartivel
-                    "tipoAvaliacao": dadosAdicionais.tipoAvaliacao,
-                    "materia": materia.nomeMateria,
-                    "assuntoAvaliacao": dadosAdicionais.assuntoAvaliacao,
-                    "dataAvaliacao": str(dadosAdicionais.dataAvaliacao)
-                }
+
+                dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
+                dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
+
+                objetoInformativo["ID_informativo"] = info.ID_informativo
+                objetoInformativo["assunto"] = info.assunto
+                objetoInformativo["mensagem"] = info.mensagem
+                objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0] # <-- Converter data e hora em razão de possuir um formato não compartivel
+                objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+                objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
+                objetoInformativo["materia"] = materia.nomeMateria
+                objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
+                objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
+                objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
+
             case "Evento":
                 dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
-                objetoInformativo = {
-                    "ID_informativo": info.ID_informativo,
-                    "assunto": info.assunto,
-                    "mensagem": info.mensagem,
-                    "dataCriacao": str(info.dataCriacao),
-                    "nomeEvento": dadosAdicionais.nomeEvento,
-                    "data_InicioEvento": str(dadosAdicionais.data_InicioEvento),
-                    "data_FinalEvento": str(dadosAdicionais.data_FinalEvento),
-                    "hora_InicioEvento": str(dadosAdicionais.hora_InicioEvento),
-                    "hora_FinalEvento": str(dadosAdicionais.hora_FinalEvento)
-                }
+
+                dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
+                
+                objetoInformativo["ID_informativo"] = info.ID_informativo
+                objetoInformativo["assunto"] = info.assunto
+                objetoInformativo["mensagem"] = info.mensagem
+                objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
+                objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+                objetoInformativo["nomeEvento"] = dadosAdicionais.nomeEvento
+                objetoInformativo["data_InicioEvento"] = str(dadosAdicionais.data_InicioEvento)
+                objetoInformativo["data_FinalEvento"] = str(dadosAdicionais.data_FinalEvento)
+                objetoInformativo["hora_InicioEvento"] = str(dadosAdicionais.hora_InicioEvento)
+                objetoInformativo["hora_FinalEvento"] = str(dadosAdicionais.hora_FinalEvento)
+                
             case "Material Didatico":
                 dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
                 materia = Materias.query.get_or_404(dadosAdicionais.materia)
-                objetoInformativo = {
-                    "ID_informativo": info.ID_informativo,
-                    "assunto": info.assunto,
-                    "mensagem": info.mensagem,
-                    "dataCriacao": str(info.dataCriacao),
-                    "materia": materia.nomeMateria,
-                    "assuntoMaterial": dadosAdicionais.assuntoMaterial
-                }
+
+                dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
+                
+                objetoInformativo["ID_informativo"] = info.ID_informativo
+                objetoInformativo["assunto"] = info.assunto
+                objetoInformativo["mensagem"] = info.mensagem
+                objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
+                objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+                objetoInformativo["materia"] = materia.nomeMateria
+                objetoInformativo["assuntoMaterial"] = dadosAdicionais.assuntoMaterial
+                
             case _:
-                objetoInformativo = {
-                    "ID_informativo": info.ID_informativo,
-                    "assunto": info.assunto,
-                    "mensagem": info.mensagem,
-                    "dataCriacao": str(info.dataCriacao)
-                }
+                dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
+                objetoInformativo["ID_informativo"] = info.ID_informativo
+                objetoInformativo["assunto"] = info.assunto
+                objetoInformativo["mensagem"] = info.mensagem
+                objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
+                objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+                
         lista_informativos.append(objetoInformativo)
 
     return lista_informativos

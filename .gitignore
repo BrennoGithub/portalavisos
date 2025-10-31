@@ -4,3 +4,5 @@
 __pycache__/
 *.pyc
 #Arquivos e pasta __pycache__ não será commitado.
+
+.vscode/
