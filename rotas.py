@@ -90,7 +90,7 @@ def returnTodosInformativos():
         return jsonify(listaInformativo)
 
 @app.route("/informativos/<string:assunto>")
-def returnInformativos(assunto):
+def returnInformativos_assunto(assunto):
     if not 'ID_turma' in session:
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
@@ -118,6 +118,18 @@ def returnInformativos(assunto):
         return "MENSAGEM SERVIDOR: Informativos não encontrados"
     else:
         return jsonify(lista_assunto)
+    
+@app.route("/informativos/<int:ID_informativo>")
+def returnInformativo_ID(ID_informativo):
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+
+    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+
+    for info in listaInformativo:
+        if info["ID_informativo"] == ID_informativo:
+            return jsonify(info)
 
 @app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
