@@ -43,6 +43,12 @@ paginas.forEach(elemento => {
         event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
         const tituloPagina = elemento.textContent;
         roteamento(tituloPagina);
+
+        //Condicional que faz a barra lateral fechar depois do click
+        const larguraJanela = window.innerWidth;
+        if(larguraJanela < 1000){
+            document.getElementById("mySidebar").style.width = "0";
+        }
     });
 })
 

@@ -1,7 +1,7 @@
--- Criação de banco de dados Portal Informativo
-CREATE DATABASE portal_informativo;
+-- O arquivo portal_informativo.sql guarda o script do banco de dados Portal Informativo,
+-- exportado de PHPMyAdmin
 
--- Ordem de criação de tabelas: 
+-- O banco possui as seguintes tabelas: 
 --   01. professores
 --   02. materias
 --   03. professor_materia
