@@ -70,6 +70,7 @@ def GET_informartivos(Informativos, Turma_informativo, ID_turma, Dados_avaliacoe
                 objetoInformativo["mensagem"] = info.mensagem
                 objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
                 objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+
                 
         lista_informativos.append(objetoInformativo)
 

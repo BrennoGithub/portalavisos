@@ -4,7 +4,7 @@ def GET_arquivos(Informativo_arquivo, Arquivos, ID_informativo):
 
     arquivos = []
     for obj in lista_arquivo:
-        arquivo = Arquivos.query.filter_by(arquivo=obj.arquivo).first()
+        arquivo = Arquivos.query.get_or_404(obj.arquivo)
         arquivos.append(arquivo)
         
     lista_arquivos = []
