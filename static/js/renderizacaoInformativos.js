@@ -48,7 +48,7 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                     <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
                     <div class="terceira_area  verde_2">
                         <strong>Assunto:</strong> ${String(x['assuntoAvaliacao'])}
-                        <strong>Horario:</strong> <em>${x['dataAvaliacao']}</em> ${String(x['mensagem'])}
+                        <div><strong>Horario:</strong> <em>${x['dataAvaliacao']}</em> ${String(x['mensagem'])}
                         <div class="blocoFinal">
                             <div class="botoesEdit">
                                 <img src="${STATIC_URL}icones/Delete.svg" alt="Icone Delete" class="icone_delete">

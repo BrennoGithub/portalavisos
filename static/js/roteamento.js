@@ -37,11 +37,19 @@ async function roteamento(tituloPagina){
 document.addEventListener("DOMContentLoaded", function(){ roteamento(); });
 
 //Função de roteamento
-const paginas = document.querySelectorAll(".textoSessao");
+const paginas = document.querySelectorAll(".sessao");
+paginas[0].style.backgroundColor = "lightgray";
 paginas.forEach(elemento => {
     elemento.addEventListener("click", function(event){
         event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
-        const tituloPagina = elemento.textContent;
+
+        paginas.forEach(outrosEle => {
+            outrosEle.style.backgroundColor = "white";
+        })
+
+        elemento.style.backgroundColor = "lightgray";
+
+        const tituloPagina = elemento.querySelector(".textoSessao").textContent;
         roteamento(tituloPagina);
 
         //Condicional que faz a barra lateral fechar depois do click

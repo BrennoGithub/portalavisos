@@ -89,9 +89,20 @@
     gap: 20px; /* Adiciona um espaço de 8px entre o ícone e o texto */
 }
 
+.sessao:hover{
+    background-color: rgb(237, 237, 237);
+}
+
 .deslogar{
-    margin: 95% 0px 10px 0px;
-    background-color: lightgray;
+    margin: 280px 0px 20px 0px;
+    display: flex;
+    align-items: center; 
+    gap: 20px; 
+    
+}
+
+.deslogar:hover{
+    background-color: rgb(237, 237, 237);
 }
 
 .textoDeslogar{
