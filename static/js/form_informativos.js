@@ -5,9 +5,9 @@ export function formularios(elemento){
     <div class="areaTitulo"> <h1>Informativo</h1> </div>
     <div class="areaCorpo">
         <form class="formAviso">
-            <fieldset class="area_campo_form">
+            <fieldset class="area_campo_assunto">
                 <legend><label for="assunto">Assunto</label></legend>
-                <input type="text" name="assunto" id="assunto" placeholder="Assunto do Informativo">
+                <input type="text" name="assunto" id="assunto" placeholder="Assunto do Informativo" autocomplete="off">
                 <div class="areaOpcoes">
                     <a href="#" class="opcaoInformativo">Avaliação</a>
                     <a href="#" class="opcaoInformativo">Evento</a>
@@ -22,7 +22,7 @@ export function formularios(elemento){
                         <option value="">Tipo</option> <option value="url">Link</option>
                         <option value="img">Imagem</option> <option value="file">Arquivo</option>
                     </select>
-                    <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado">
+                    <input type="text" name="anexo" id="anexo" placeholder="Arquivo anexado" autocomplete="off">
                 </div>
             </fieldset>
             <fieldset class="texto_campo_form">
@@ -49,7 +49,7 @@ export function assuntoInformativo(elemento, assunto){
                 </fieldset>
                 <fieldset class="area_campo_form caixaInterna">
                     <legend><label for="assunto">Assunto da Avaliação</label></legend>
-                    <input type="text" name="assuntoAvaliacao" id="assuntoAvaliacao" placeholder="Assunto da avaliação">
+                    <input type="text" name="assuntoAvaliacao" id="assuntoAvaliacao" placeholder="Assunto da avaliação" autocomplete="off">
                 </fieldset>
             </div>
             <div class="linhaUnica">

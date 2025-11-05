@@ -1,9 +1,9 @@
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.CRUD_turmas import GET_turma
-from CRUD.CRUD_usuarios import GET_usuarios, GET_usuario
+from CRUD.CRUD_turmas import *
+from CRUD.CRUD_usuarios import *
 from CRUD.CRUD_informativos import GET_informartivos
-from modelos import *
+from CRUD.CRUD_materias import *
 from config import app
 
 @app.route("/")
@@ -28,12 +28,12 @@ def returnTurma(ID_turma):
         print("MENSAGEM SERVIDOR: Turma não encontrada - 404")
         return "Turma não encontrada - 404"
     
-    turma = GET_turma(Turmas, session["ID_turma"])
+    turma = GET_turma(session["ID_turma"])
     return jsonify(turma)
 
 @app.route("/usuarios/<string:tipoUsuario>")
 def returnUSUARIOS(tipoUsuario):
-    lista_tipoUsuario = GET_usuarios(tipoUsuario, Alunos, Professores)
+    lista_tipoUsuario = GET_usuarios(tipoUsuario)
     return jsonify(lista_tipoUsuario)
 
 @app.route("/usuarios/<string:tipoUsuario>/<string:matricula>")
@@ -56,7 +56,7 @@ def valida_login():
         matricula = request.form["matricula"]
         senha = request.form["senha"]
         
-        usuario = GET_usuario(Alunos, Professores, session, matricula)
+        usuario = GET_usuario(session, matricula)
         
         if usuario.senhaSistema != senha:
             return render_template("login.html")  
@@ -75,13 +75,23 @@ def valida_login():
             
     return redirect(url_for("/"))
 
+@app.route("/materias/")
+def returnMaterias():
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    lista_materias = GET_materias(session["ID_turma"])
+
+    return jsonify(lista_materias)
+
 @app.route("/informativos/")
 def returnTodosInformativos():
     if not 'ID_turma' in session:
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
-    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+    listaInformativo = GET_informartivos(session["ID_turma"])
 
     if len(listaInformativo) == 0 or listaInformativo == None:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
@@ -95,7 +105,7 @@ def returnInformativos_assunto(assunto):
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+    listaInformativo = GET_informartivos(session["ID_turma"])
 
     lista_assunto = []
     for info in listaInformativo:
@@ -113,10 +123,15 @@ def returnInformativos_assunto(assunto):
                 if info["assunto"] != "Material Didatico" and info["assunto"] != "Avaliação" and info["assunto"] != "Evento":
                     lista_assunto.append(info)
 
+
     if len(lista_assunto) == 0:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
         return "MENSAGEM SERVIDOR: Informativos não encontrados"
     else:
+        if assunto == "avaliacoes":
+            lista_assunto = sorted(lista_assunto, key=lambda x: x["dataAvaliacao"]) # <-- Organza a lista por dataAvaliacao
+        elif assunto == "eventos":
+            lista_assunto = sorted(lista_assunto, key=lambda x: x["data_InicioEvento"]) # <-- Organza a lista por data_InicioEvento
         return jsonify(lista_assunto)
     
 @app.route("/informativos/<int:ID_informativo>")
@@ -125,15 +140,17 @@ def returnInformativo_ID(ID_informativo):
         print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
 
-    listaInformativo = GET_informartivos(Informativos, Turma_informativo, session["ID_turma"], Dados_avaliacoes, Dados_eventos, Dados_materiais, Materias)
+    listaInformativo = GET_informartivos(session["ID_turma"])
 
     for info in listaInformativo:
         if info["ID_informativo"] == ID_informativo:
             return jsonify(info)
+        
+#DESENVOLVER OS METODOS PUT, POST, DELETE
 
 @app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
-    if "ID_turma" not in session:
+    if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na criação de informativo")
         return {"mensagemServidor":"Erro na criação de informativo"}
     
@@ -146,7 +163,7 @@ def CREATE_informativo():
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
-    if "ID_turma" not in session:
+    if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
         return {"mensagemServidor":"Erro na atualização de informativo"}
     
@@ -154,7 +171,7 @@ def UPDATE_informativo(ID_informativo):
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
-    if "ID_turma" not in session:
+    if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
         return {"mensagemServidor":"Erro na exclusão de informativo"}
     
