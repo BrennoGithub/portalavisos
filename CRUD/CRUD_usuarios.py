@@ -1,5 +1,7 @@
+from Modelos.Usuarios import *
+
 #Função GET
-def GET_usuarios(tipoUsuario, Alunos, Professores):
+def GET_usuarios(tipoUsuario):
     lista_usuarios = []
     match tipoUsuario:
         case "aluno":
@@ -31,7 +33,7 @@ def GET_usuarios(tipoUsuario, Alunos, Professores):
     return lista_usuarios
             
             
-def GET_usuario(Alunos, Professores, session, matricula):
+def GET_usuario(session, matricula):
     usuario = None
     usuario = Alunos.query.get_or_404(matricula)
     if usuario == None:

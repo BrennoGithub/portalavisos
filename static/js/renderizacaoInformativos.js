@@ -1,7 +1,7 @@
 import { GET } from "./requisicaoHTTP.js";
-import { ordenarInformativos, formataDatas , formataUnicaData} from "./datas_informativos.js"
+import { formataDatas } from "./datas_informativos.js"
 
-//ALTERAR O FORMATO DAS FUNÇÕES DE  FORMATAÇÃO E ORDENAÇÃO DE DATAS PARA O NOVO FORMATO (AAAA-MM-DD HH:MM:SS)    
+//A LISTA DE INFORMATIVOS JÁ VEM DO SERVIDOR ORGANIZADAS   
 export async function renderizaInformativos(elemento, rotaAPI) {
     if(!elemento){
         return "Elemento inexistente.";
@@ -40,7 +40,6 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             break;
 
         case "/avaliacoes":
-            informativos = await ordenarInformativos(informativos, "dataAvaliacao"); //Organização de informativos em ordem cronologica
             informativos = formataDatas(informativos, "dataAvaliacao");
             for(const x of informativos){
                 conteudo = `
@@ -84,7 +83,6 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             break;
         
         case "/eventos":
-            informativos = await ordenarInformativos(informativos, 'data_InicioEvento');
             informativos = formataDatas(informativos, 'data_InicioEvento');
             informativos = formataDatas(informativos, 'data_FinalEvento');
             for(const x of informativos){
@@ -111,7 +109,6 @@ export async function renderizaInformativos(elemento, rotaAPI) {
             for(const x of informativos){
                 switch (x['assunto']){
                     case "Avaliação":
-                        x['dataAvaliacao'] = formataUnicaData(x['dataAvaliacao']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  verde_1">${x['tipoAvaliacao']}</div>
@@ -129,8 +126,6 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         </div>`+conteudo;
                         break;
                     case "Evento":
-                        x['data_InicioEvento'] = formataUnicaData(x['data_InicioEvento']);
-                        x['data_FinalEvento'] = formataUnicaData(x['data_FinalEvento']);
                         conteudo = `
                         <div class="estilo_aviso">
                             <div class="segunda_area  roxo_1">${String(x['nomeEvento'])}</div>
