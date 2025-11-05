@@ -11,3 +11,24 @@ function closeNav() {
 document.querySelector(".openbtn").addEventListener('click', openNav);
 document.querySelector(".closebtn").addEventListener('click', closeNav);
 
+//Função de seleção de sessão da barrala lateral
+export function sessaoSelecionada(pagina){
+    const paginas = document.querySelectorAll(".sessao");
+    paginas.forEach(pag => {
+        if(pag.textContent == pagina){
+            paginas.forEach(outrosEle => {
+                outrosEle.style.backgroundColor = "white";
+            })
+            pag.style.backgroundColor = "lightgray";
+        }
+    })
+}
+
+//Função de fechar a barra lateral depois do click
+export function clickFecha(){
+    const larguraJanela = window.innerWidth;
+    if(larguraJanela < 1000){
+        document.getElementById("mySidebar").style.width = "0";
+    }
+}
+

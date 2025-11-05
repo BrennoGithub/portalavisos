@@ -1,5 +1,7 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
+from config import db
+from datetime import datetime
 
 #Função GET
 def GET_informartivos(ID_turma):
@@ -58,15 +60,54 @@ def GET_informartivos(ID_turma):
 
 #Função POST
 def POST_informativo(assuntoInformativo, objetoInformativo):
+    novo_informativo = Informativos(
+        assunto = objetoInformativo["assunto"], 
+        mensagem = objetoInformativo["mensagem"]
+    )
+
+    relacionamento = Turma_informativo(
+        turma = objetoInformativo["ID_turma"],
+        #informativo = objetoInformativo["ID_informativo"] <-- DESCOBRIR COMO ACESSAR O ID_INFORMATIVO QUE VAI SER CRIADO
+    )
+
+    novos_dadosAdicionais = None
+
     match assuntoInformativo:
         case "Avaliação":
-            print("Avaliacao")
+            novos_dadosAdicionais = Dados_avaliacoes(
+                tipoAvaliacao = objetoInformativo["tipoAvaliacao"],
+                assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"],
+                dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
+                #informativo = objetoInformativo["tipoAvaliacao"],
+                materia = objetoInformativo["materia"]
+            )
 
         case "Evento":
-            print("Evento")
+            novos_dadosAdicionais = Dados_eventos(
+                nomeEvento = objetoInformativo["nomeEvento"],
+                #data_InicioEvento = db.Column(db.Date, nullable=False),
+                #data_FinalEvento = db.Column(db.Date, nullable=False),
+                #hora_InicioEvento = db.Column(db.Time, nullable=False),
+                #hora_FinalEvento = db.Column(db.Time, nullable=False),
+                #informativo = db.Column(db.Integer, db.ForeignKey('informativos.ID_informativo'), nullable=False),
+            )
 
         case "Material Didatico":
-            print("Material Didatico")
-
+            novos_dadosAdicionais = Dados_materiais(
+                assuntoMaterial = objetoInformativo["assuntoMaterial"],
+                materia = objetoInformativo["materia"],
+                #informativo = db.Column(db.Integer, db.ForeignKey('informativos.ID_informativo'), nullable=False)
+            )
+        
         case _:
-            print(assuntoInformativo)
+            novos_dadosAdicionais = "Sem dados adicionais"
+
+    if novos_dadosAdicionais != None:
+        db.session.add(novo_informativo, relacionamento, novos_dadosAdicionais)
+        db.session.commit()
+    elif novos_dadosAdicionais == "Sem dados adicionais":
+        db.session.add(novo_informativo, relacionamento)
+        db.session.commit()
+
+    print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
+    return {"mensagemServidor":"Informativo criado com sucesso"}
