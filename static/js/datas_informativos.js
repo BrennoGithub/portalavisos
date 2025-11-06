@@ -1,8 +1,4 @@
 // Organizar informativos em ordem cronologica
-export async function ordenarInformativos(informativos, tipoData) {
-    return informativos.sort((a, b) => new Date(a[tipoData]) - new Date(b[tipoData]));
-  }
-
 export function formataDatas(informativo, tipoData){
     informativo.forEach( info => {
         let data = info[tipoData];

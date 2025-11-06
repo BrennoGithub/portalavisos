@@ -1,4 +1,5 @@
 import { renderizaInformativos } from "./renderizacaoInformativos.js";
+import { clickFecha, sessaoSelecionada } from "./barra_lateral.js"
 import { formularios, assuntoInformativo, exibicaoOpcoes, dadosForm} from "./form_informativos.js";
 import { POST } from "./requisicaoHTTP.js";
 
@@ -9,26 +10,32 @@ async function roteamento(tituloPagina){
     switch (tituloPagina){
         case "Mural":
                 await renderizaInformativos(exibicaoInformativos, "");
+                sessaoSelecionada(tituloPagina);
                 break;
             
         case "Avisos":
                 await renderizaInformativos(exibicaoInformativos, "/avisos");
+                sessaoSelecionada(tituloPagina);
                 break;
 
         case "Avaliações":
                 await renderizaInformativos(exibicaoInformativos, "/avaliacoes");
+                sessaoSelecionada(tituloPagina);
                 break;
 
         case "Material Didatico":
                 await renderizaInformativos(exibicaoInformativos, "/materiais");
+                sessaoSelecionada(tituloPagina);
                 break;
 
         case "Eventos":
                 await renderizaInformativos(exibicaoInformativos, "/eventos");
+                sessaoSelecionada(tituloPagina);
                 break;
             
         default:
                 await renderizaInformativos(exibicaoInformativos, "");
+                sessaoSelecionada("Mural");
                 break;
         };
 }
@@ -38,30 +45,20 @@ document.addEventListener("DOMContentLoaded", function(){ roteamento(); });
 
 //Função de roteamento
 const paginas = document.querySelectorAll(".sessao");
-paginas[0].style.backgroundColor = "lightgray";
 paginas.forEach(elemento => {
     elemento.addEventListener("click", function(event){
         event.preventDefault() //<-- Impede que qunado clica em <a> recarregue a página
 
-        paginas.forEach(outrosEle => {
-            outrosEle.style.backgroundColor = "white";
-        })
-
-        elemento.style.backgroundColor = "lightgray";
-
         const tituloPagina = elemento.querySelector(".textoSessao").textContent;
         roteamento(tituloPagina);
 
-        //Condicional que faz a barra lateral fechar depois do click
-        const larguraJanela = window.innerWidth;
-        if(larguraJanela < 1000){
-            document.getElementById("mySidebar").style.width = "0";
-        }
+        clickFecha();
     });
 })
 
 //Função de gerenciamento de formularios
 function gerenciamentoForm(){
+    clickFecha();
     formularios(exibicaoInformativos);
     const assuntoArea = document.getElementById("assunto");
     const areaOpcoes = document.querySelector(".areaOpcoes");

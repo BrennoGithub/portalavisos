@@ -1,10 +1,10 @@
+from config import app
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
-from CRUD.CRUD_turmas import *
-from CRUD.CRUD_usuarios import *
+from CRUD.CRUD_turmas import GET_turma
+from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
 from CRUD.CRUD_informativos import GET_informartivos
-from CRUD.CRUD_materias import *
-from config import app
+from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
 def PaginaPrincipal():
@@ -16,6 +16,31 @@ def PaginaPrincipal():
 @app.route("/login")
 def login():
     return render_template("login.html")
+
+@app.route("/submit_login", methods=["POST"])
+def valida_login():
+    if request.method == "POST":
+        matricula = request.form["matricula"]
+        senha = request.form["senha"]
+        
+        usuario = GET_usuario(session, matricula)
+        
+        if usuario.senhaSistema != senha:
+            return render_template("login.html")  
+        else:
+            if session["tipoUsuario"] == "professor":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+            
+            elif session["tipoUsuario"] == "aluno":
+                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
+                session["nomeUsuario"] = usuario.nome
+                session["liderTurma"] = usuario.liderTurma
+                session["ID_turma"]  = usuario.turma
+                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+            
+    return redirect(url_for("/"))
 
 @app.route("/logout")
 def logout():
@@ -50,30 +75,6 @@ def returnUSUARIO(tipoUsuario, matricula):
         case "professor":
             return render_template("tela_lideres.html", nome = session["nomeUsuario"])
 
-@app.route("/submit_login", methods=["POST"])
-def valida_login():
-    if request.method == "POST":
-        matricula = request.form["matricula"]
-        senha = request.form["senha"]
-        
-        usuario = GET_usuario(session, matricula)
-        
-        if usuario.senhaSistema != senha:
-            return render_template("login.html")  
-        else:
-            if session["tipoUsuario"] == "professor":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
-            
-            elif session["tipoUsuario"] == "aluno":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                session["liderTurma"] = usuario.liderTurma
-                session["ID_turma"]  = usuario.turma
-                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
-            
-    return redirect(url_for("/"))
 
 @app.route("/materias/")
 def returnMaterias():
@@ -152,30 +153,30 @@ def returnInformativo_ID(ID_informativo):
 def CREATE_informativo():
     if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na criação de informativo")
-        return {"mensagemServidor":"Erro na criação de informativo"}
+        return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
 
     objetoInformativo = {}
     assuntoInformativo =  dadosPOST["assunto"]
         
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
     if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
-        return {"mensagemServidor":"Erro na atualização de informativo"}
+        return jsonify({"mensagemServidor":"Erro na atualização de informativo"})
     
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
     if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
-        return {"mensagemServidor":"Erro na exclusão de informativo"}
+        return jsonify({"mensagemServidor":"Erro na exclusão de informativo"})
     
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
     
 if __name__ == '__main__':
     app.run(debug=True)
