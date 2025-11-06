@@ -65,9 +65,15 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
         mensagem = objetoInformativo["mensagem"]
     )
 
+    # Registra informativo na tabela
+    db.session.add(novo_informativo)
+    db.session.commit()
+
+    informativos_mais_recente = Informativos.query.order_by(Informativos.ID_informativo.desc()).first() # <-- Pega o ID do informativo que foi criado recentemente
+
     relacionamento = Turma_informativo(
         turma = objetoInformativo["ID_turma"],
-        #informativo = objetoInformativo["ID_informativo"] <-- DESCOBRIR COMO ACESSAR O ID_INFORMATIVO QUE VAI SER CRIADO
+        informativo = informativos_mais_recente.ID_informativo
     )
 
     novos_dadosAdicionais = None
@@ -78,36 +84,76 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
                 tipoAvaliacao = objetoInformativo["tipoAvaliacao"],
                 assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"],
                 dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
-                #informativo = objetoInformativo["tipoAvaliacao"],
+                informativo = informativos_mais_recente.ID_informativo,
                 materia = objetoInformativo["materia"]
             )
 
         case "Evento":
             novos_dadosAdicionais = Dados_eventos(
                 nomeEvento = objetoInformativo["nomeEvento"],
-                #data_InicioEvento = db.Column(db.Date, nullable=False),
-                #data_FinalEvento = db.Column(db.Date, nullable=False),
-                #hora_InicioEvento = db.Column(db.Time, nullable=False),
-                #hora_FinalEvento = db.Column(db.Time, nullable=False),
-                #informativo = db.Column(db.Integer, db.ForeignKey('informativos.ID_informativo'), nullable=False),
+                data_InicioEvento = datetime.strptime(objetoInformativo["data_InicioEvento"], "%Y-%m-%d"),
+                data_FinalEvento = datetime.strptime(objetoInformativo["data_FinalEvento"], "%Y-%m-%d"),
+                hora_InicioEvento = datetime.strptime(objetoInformativo["hora_InicioEvento"], "%H:%M:%S"),
+                hora_FinalEvento = datetime.strptime(objetoInformativo["hora_FinalEvento"], "%H:%M:%S"),
+                informativo = informativos_mais_recente.ID_informativo,
             )
 
         case "Material Didatico":
             novos_dadosAdicionais = Dados_materiais(
                 assuntoMaterial = objetoInformativo["assuntoMaterial"],
                 materia = objetoInformativo["materia"],
-                #informativo = db.Column(db.Integer, db.ForeignKey('informativos.ID_informativo'), nullable=False)
+                informativo = informativos_mais_recente.ID_informativo
             )
         
         case _:
             novos_dadosAdicionais = "Sem dados adicionais"
 
     if novos_dadosAdicionais != None:
-        db.session.add(novo_informativo, relacionamento, novos_dadosAdicionais)
-        db.session.commit()
+        db.session.add(relacionamento, novos_dadosAdicionais)
     elif novos_dadosAdicionais == "Sem dados adicionais":
-        db.session.add(novo_informativo, relacionamento)
-        db.session.commit()
+        db.session.add(relacionamento)
+    db.session.commit()
 
     print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
     return {"mensagemServidor":"Informativo criado com sucesso"}
+
+#Função PUT
+def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
+    informativo = Informativos.query.get(ID_informativo)
+    if informativo == None:
+        print("MENSAGEM SERVIDOR: Informativo não encontrado")
+        return {"mensagemServidor":"Informativo não encontrado"}
+    
+    print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
+    return {"mensagemServidor":"Informativo atualizado com sucesso"}
+
+#Função DELETE
+def DELETE_informativo(ID_informativo, assuntoInformativo):
+    relacionamento = Turma_informativo.query.filter_by(informativo=ID_informativo).first()
+
+    dadosAdicionais = None
+    match assuntoInformativo:
+        case "Avaliação":
+            dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=ID_informativo).first()
+        case "Evento":
+            dadosAdicionais = Dados_eventos.query.filter_by(informativo=ID_informativo).first()
+        case "Material Didatico":
+            dadosAdicionais = Dados_materiais.query.filter_by(informativo=ID_informativo).first()
+        case _:
+            dadosAdicionais = "Sem dados adicionais"
+
+    informativo = Informativos.query.get(ID_informativo)
+    if informativo == None:
+        print("MENSAGEM SERVIDOR: Informativo não encontrado")
+        return {"mensagemServidor":"Informativo não encontrado"}
+
+    if dadosAdicionais != None:
+        db.session.delete(relacionamento, dadosAdicionais, informativo)
+    elif dadosAdicionais == "Sem dados adicionais":
+        db.session.delete(relacionamento, dadosAdicionais, informativo)
+    else:
+        db.session.delete(relacionamento, informativo)
+    db.session.commit()
+
+    print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
+    return {"mensagemServidor":"Informativo deletado com sucesso"}

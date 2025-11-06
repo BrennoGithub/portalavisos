@@ -159,7 +159,7 @@ def CREATE_informativo():
     objetoInformativo = {}
     assuntoInformativo =  dadosPOST["assunto"]
         
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
@@ -167,7 +167,7 @@ def UPDATE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
         return {"mensagemServidor":"Erro na atualização de informativo"}
     
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
@@ -175,7 +175,7 @@ def DELETE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
         return {"mensagemServidor":"Erro na exclusão de informativo"}
     
-    return redirect(f"/usuarios/{session['matricula']}")
+    #return redirect(f"/usuarios/{session['matricula']}")
     
 if __name__ == '__main__':
     app.run(debug=True)
