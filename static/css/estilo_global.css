@@ -35,8 +35,9 @@ input{
     outline: none; /*Essa propriedade remove o contorno padrão que aparece quando o input recebe foco. */
     text-align: center;
     padding: 5px;
-    margin: 5px;
+    margin: 5px auto;
     width: 70%;
+    max-width: 350px;
     height: 20px;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
