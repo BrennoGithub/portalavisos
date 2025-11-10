@@ -35,7 +35,7 @@ async function roteamento(tituloPagina){
             
         default:
                 await renderizaInformativos(exibicaoInformativos, "");
-                sessaoSelecionada("Mural");
+                sessaoSelecionada("");
                 break;
         };
 }

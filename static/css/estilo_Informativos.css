@@ -1,7 +1,7 @@
 /*Estilo da área de conteudo do sistema de aviso*/
 .cabeca_pagina{
     display: flex;
-    border: solid 1px gray;
+    border: solid 1px black;
     border-radius: 20px;
     background-color: white;
     margin: 30px auto;
@@ -19,15 +19,15 @@
 }
 
 .areaTitulo{
-    border: solid 1px gray;;
+    border: solid 1px black;
     border-radius: 20px 20px 0px 0px;
     display: block;
 }
 
 .areaCorpo{
-    border-bottom: solid 1px gray;
-    border-right: solid 1px gray;
-    border-left: solid 1px gray;
+    border-bottom: solid 1px black;
+    border-right: solid 1px black;
+    border-left: solid 1px black;
     border-radius: 0px 0px 20px 20px;
     display: flex;
     flex-direction: row;
