@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
-from CRUD.CRUD_informativos import GET_informartivos
+from CRUD.CRUD_informativos import GET_informartivos, POST_informativo
 from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
@@ -156,9 +156,9 @@ def CREATE_informativo():
         return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
-
-    objetoInformativo = {}
     assuntoInformativo =  dadosPOST["assunto"]
+
+    POST_informativo(assuntoInformativo, dadosPOST)
         
     #return redirect(f"/usuarios/{session['matricula']}")
 

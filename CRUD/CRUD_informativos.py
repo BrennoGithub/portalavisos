@@ -60,7 +60,7 @@ def GET_informartivos(ID_turma):
     return lista_informativos
 
 #Função POST
-def POST_informativo(assuntoInformativo, objetoInformativo):
+def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA PARA REGISTRAR ANEXOS
     novo_informativo = Informativos(
         assunto = objetoInformativo["assunto"], 
         mensagem = objetoInformativo["mensagem"]
