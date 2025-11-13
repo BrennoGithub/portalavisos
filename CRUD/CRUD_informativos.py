@@ -69,9 +69,10 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
     # Registra informativo na tabela
     db.session.add(novo_informativo)
     db.session.commit()
+    print("Informativos registrados")
 
     relacionamento = Turma_informativo(
-        turma = int(objetoInformativo["ID_turma"]),
+        turma = objetoInformativo["ID_turma"],
         informativo = novo_informativo.ID_informativo
     )
 
@@ -103,9 +104,6 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
                 materia = objetoInformativo["materia"],
                 informativo = novo_informativo.ID_informativo
             )
-        
-        case _:
-            novos_dadosAdicionais = None
 
     if novos_dadosAdicionais is not None:
         db.session.add_all([relacionamento, novos_dadosAdicionais]) # <-- Aceita uma lista

@@ -93,7 +93,6 @@ def returnTodosInformativos():
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     listaInformativo = GET_informartivos(session["ID_turma"])
-    print(listaInformativo)
 
     if len(listaInformativo) == 0 or listaInformativo == None:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
