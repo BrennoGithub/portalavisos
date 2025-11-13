@@ -9,7 +9,7 @@ from CRUD.CRUD_materias import GET_materias
 @app.route("/")
 def PaginaPrincipal():
     if "matricula" in session and "tipoUsuario" in session:
-        return redirect(url_for(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}'))
+        return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
     else:
         return redirect(url_for("login"))
 
@@ -93,6 +93,7 @@ def returnTodosInformativos():
         return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
     
     listaInformativo = GET_informartivos(session["ID_turma"])
+    print(listaInformativo)
 
     if len(listaInformativo) == 0 or listaInformativo == None:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
@@ -156,11 +157,15 @@ def CREATE_informativo():
         return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
-    assuntoInformativo =  dadosPOST["assunto"]
-
-    POST_informativo(assuntoInformativo, dadosPOST)
+    print(dadosPOST)
+    if dadosPOST is None:
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
+        return jsonify({"mensagemServidor":"Nenhum dado foi encontrado na requisição"})
+    else:
+        assuntoInformativo =  dadosPOST["assunto"]
+        POST_informativo(assuntoInformativo, dadosPOST)
         
-    #return redirect(f"/usuarios/{session['matricula']}")
+    return redirect(url_for(f"/usuarios/{session['matricula']}"))
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):

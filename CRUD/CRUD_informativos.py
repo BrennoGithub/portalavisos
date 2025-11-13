@@ -20,7 +20,7 @@ def GET_informartivos(ID_turma):
         objetoInformativo["assunto"] = info.assunto
         objetoInformativo["mensagem"] = info.mensagem
         
-        dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
+        dataCriacao_Fragmentada = info.dataCriacao.strftime("%Y-%m-%d %H:%M:%S").split(" ")
         objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
         objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
 
@@ -33,7 +33,7 @@ def GET_informartivos(ID_turma):
                 objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
                 objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
                 
-                dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
+                dataAvaliacao_Fragmentada = dadosAdicionais.dataAvaliacao.strftime("%Y-%m-%d %H:%M:%S").split(" ")
                 objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
                 objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
                 
@@ -43,10 +43,10 @@ def GET_informartivos(ID_turma):
             case "Evento":
                 dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
                 objetoInformativo["nomeEvento"] = dadosAdicionais.nomeEvento 
-                objetoInformativo["data_InicioEvento"] = str(dadosAdicionais.data_InicioEvento)
-                objetoInformativo["data_FinalEvento"] = str(dadosAdicionais.data_FinalEvento)
-                objetoInformativo["hora_InicioEvento"] = str(dadosAdicionais.hora_InicioEvento)
-                objetoInformativo["hora_FinalEvento"] = str(dadosAdicionais.hora_FinalEvento)
+                objetoInformativo["data_InicioEvento"] = dadosAdicionais.data_InicioEvento.strftime("%Y-%m-%d")
+                objetoInformativo["data_FinalEvento"] = dadosAdicionais.data_FinalEvento.strftime("%Y-%m-%d")
+                objetoInformativo["hora_InicioEvento"] = dadosAdicionais.hora_InicioEvento.strftime("%H:%M:%S")
+                objetoInformativo["hora_FinalEvento"] = dadosAdicionais.hora_FinalEvento.strftime("%H:%M:%S")
                 
             case "Material Didatico":
                 dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
@@ -70,11 +70,9 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
     db.session.add(novo_informativo)
     db.session.commit()
 
-    informativos_mais_recente = Informativos.query.order_by(Informativos.ID_informativo.desc()).first() # <-- Pega o ID do informativo que foi criado recentemente
-
     relacionamento = Turma_informativo(
-        turma = objetoInformativo["ID_turma"],
-        informativo = informativos_mais_recente.ID_informativo
+        turma = int(objetoInformativo["ID_turma"]),
+        informativo = novo_informativo.ID_informativo
     )
 
     novos_dadosAdicionais = None
@@ -84,8 +82,8 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
             novos_dadosAdicionais = Dados_avaliacoes(
                 tipoAvaliacao = objetoInformativo["tipoAvaliacao"],
                 assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"],
-                dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
-                informativo = informativos_mais_recente.ID_informativo,
+                dataAvaliacao = datetime.strptime(f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}', "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
+                informativo = novo_informativo.ID_informativo,
                 materia = objetoInformativo["materia"]
             )
 
@@ -96,22 +94,22 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
                 data_FinalEvento = datetime.strptime(objetoInformativo["data_FinalEvento"], "%Y-%m-%d"),
                 hora_InicioEvento = datetime.strptime(objetoInformativo["hora_InicioEvento"], "%H:%M:%S"),
                 hora_FinalEvento = datetime.strptime(objetoInformativo["hora_FinalEvento"], "%H:%M:%S"),
-                informativo = informativos_mais_recente.ID_informativo,
+                informativo = novo_informativo.ID_informativo,
             )
 
         case "Material Didatico":
             novos_dadosAdicionais = Dados_materiais(
                 assuntoMaterial = objetoInformativo["assuntoMaterial"],
                 materia = objetoInformativo["materia"],
-                informativo = informativos_mais_recente.ID_informativo
+                informativo = novo_informativo.ID_informativo
             )
         
         case _:
-            novos_dadosAdicionais = "Sem dados adicionais"
+            novos_dadosAdicionais = None
 
-    if novos_dadosAdicionais != None:
-        db.session.add(relacionamento, novos_dadosAdicionais)
-    elif novos_dadosAdicionais == "Sem dados adicionais":
+    if novos_dadosAdicionais is not None:
+        db.session.add_all([relacionamento, novos_dadosAdicionais]) # <-- Aceita uma lista
+    else:
         db.session.add(relacionamento)
     db.session.commit()
 
