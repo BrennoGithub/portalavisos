@@ -156,7 +156,7 @@ def CREATE_informativo():
         return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
-    print(dadosPOST)
+    dadosPOST["ID_turma"] = session["ID_turma"]
     if dadosPOST is None:
         print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
         return jsonify({"mensagemServidor":"Nenhum dado foi encontrado na requisição"})

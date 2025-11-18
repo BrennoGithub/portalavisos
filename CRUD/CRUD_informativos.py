@@ -1,5 +1,6 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
+from CRUD.CRUD_arquivos import GET_arquivos
 from config import db
 from datetime import datetime
 #ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
@@ -20,9 +21,11 @@ def GET_informartivos(ID_turma):
         objetoInformativo["assunto"] = info.assunto
         objetoInformativo["mensagem"] = info.mensagem
         
-        dataCriacao_Fragmentada = info.dataCriacao.strftime("%Y-%m-%d %H:%M:%S").split(" ")
+        dataCriacao_Fragmentada = str(info.dataCriacao).split(" ")
         objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
         objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
+
+        objetoInformativo["anexos"] = GET_arquivos(info.ID_informativo)
 
         dadosAdicionais = None
         materia = None
@@ -33,7 +36,8 @@ def GET_informartivos(ID_turma):
                 objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
                 objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
                 
-                dataAvaliacao_Fragmentada = dadosAdicionais.dataAvaliacao.strftime("%Y-%m-%d %H:%M:%S").split(" ")
+                #Analisar como conveter um objeto Python de tempo para string com datatime e strftime
+                dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
                 objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
                 objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
                 
@@ -43,10 +47,10 @@ def GET_informartivos(ID_turma):
             case "Evento":
                 dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
                 objetoInformativo["nomeEvento"] = dadosAdicionais.nomeEvento 
-                objetoInformativo["data_InicioEvento"] = dadosAdicionais.data_InicioEvento.strftime("%Y-%m-%d")
-                objetoInformativo["data_FinalEvento"] = dadosAdicionais.data_FinalEvento.strftime("%Y-%m-%d")
-                objetoInformativo["hora_InicioEvento"] = dadosAdicionais.hora_InicioEvento.strftime("%H:%M:%S")
-                objetoInformativo["hora_FinalEvento"] = dadosAdicionais.hora_FinalEvento.strftime("%H:%M:%S")
+                objetoInformativo["data_InicioEvento"] = str(dadosAdicionais.data_InicioEvento)
+                objetoInformativo["data_FinalEvento"] = str(dadosAdicionais.data_FinalEvento)
+                objetoInformativo["hora_InicioEvento"] = str(dadosAdicionais.hora_InicioEvento)
+                objetoInformativo["hora_FinalEvento"] = str(dadosAdicionais.hora_FinalEvento)
                 
             case "Material Didatico":
                 dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
@@ -65,19 +69,17 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
         assunto = objetoInformativo["assunto"], 
         mensagem = objetoInformativo["mensagem"]
     )
-
-    # Registra informativo na tabela
     db.session.add(novo_informativo)
     db.session.commit()
-    print("Informativos registrados")
 
     relacionamento = Turma_informativo(
         turma = objetoInformativo["ID_turma"],
         informativo = novo_informativo.ID_informativo
     )
+    db.session.add(relacionamento)
+    db.session.commit()
 
     novos_dadosAdicionais = None
-
     match assuntoInformativo:
         case "Avaliação":
             novos_dadosAdicionais = Dados_avaliacoes(
@@ -104,22 +106,19 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
                 materia = objetoInformativo["materia"],
                 informativo = novo_informativo.ID_informativo
             )
-
     if novos_dadosAdicionais is not None:
-        db.session.add_all([relacionamento, novos_dadosAdicionais]) # <-- Aceita uma lista
-    else:
-        db.session.add(relacionamento)
-    db.session.commit()
+        db.session.add(novos_dadosAdicionais) 
+        db.session.commit()
 
     print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
-    return {"mensagemServidor":"Informativo criado com sucesso"}
+    return {"mensagemServidor": "Informativo criado com sucesso"}
 
 #Função PUT
 def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
     informativo = Informativos.query.get(ID_informativo)
     if informativo == None:
         print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor":"Informativo não encontrado"}
+        return {"mensagemServidor": "Informativo não encontrado"}
    
     if informativo.mensagem != objetoInformativo["mensagem"]:
         informativo.mensagem = objetoInformativo["mensagem"]
@@ -134,8 +133,8 @@ def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
                 dadosAdicionais.assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"]
             if dadosAdicionais.materia != objetoInformativo["materia"]:
                 dadosAdicionais.materia = objetoInformativo["materia"]
-            if str(dadosAdicionais.dataAvaliacao) != objetoInformativo["dataAvaliacao"]:
-                dadosAdicionais.dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S")
+            if str(dadosAdicionais.dataAvaliacao) != f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}':
+                dadosAdicionais.dataAvaliacao = datetime.strptime(f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}', "%Y-%m-%d %H:%M:%S")
 
         case "Evento":
             dadosAdicionais = Dados_eventos.query.filter_by(informativo=ID_informativo).first()
@@ -166,7 +165,7 @@ def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
     db.session.commit()
     
     print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
-    return {"mensagemServidor":"Informativo atualizado com sucesso"}
+    return {"mensagemServidor": "Informativo atualizado com sucesso"}
 
 #Função DELETE
 def DELETE_informativo(ID_informativo, assuntoInformativo):
@@ -180,21 +179,20 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
             dadosAdicionais = Dados_eventos.query.filter_by(informativo=ID_informativo).first()
         case "Material Didatico":
             dadosAdicionais = Dados_materiais.query.filter_by(informativo=ID_informativo).first()
-        case _:
-            dadosAdicionais = "Sem dados adicionais"
 
     informativo = Informativos.query.get(ID_informativo)
-    if informativo == None:
+    if informativo is None:
         print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor":"Informativo não encontrado"}
+        return {"mensagemServidor": "Informativo não encontrado"}
 
-    if dadosAdicionais != None:
-        db.session.delete(relacionamento, dadosAdicionais, informativo)
-    elif dadosAdicionais == "Sem dados adicionais":
-        db.session.delete(relacionamento, dadosAdicionais, informativo)
+    if dadosAdicionais is not None:
+        db.session.delete(relacionamento)
+        db.session.delete(dadosAdicionais)
+        db.session.delete(informativo)
     else:
-        db.session.delete(relacionamento, informativo)
+        db.session.delete(relacionamento)
+        db.session.delete(informativo)
     db.session.commit()
 
     print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
-    return {"mensagemServidor":"Informativo deletado com sucesso"}
+    return {"mensagemServidor": "Informativo deletado com sucesso"}
