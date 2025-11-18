@@ -176,7 +176,9 @@ export async function renderizaInformativos(elemento, rotaAPI) {
                         break;
                 };
             };
-            conteudo = `<div class="areaTitulo"> <h2>Mural</h2> </div> <div class="areaCorpo">${conteudo}</div>`;
+            conteudo = `
+            <div class="areaTitulo"> <h2>Mural</h2> </div> 
+            <div class="areaCorpo">${conteudo}</div>`;
             break;
     };
     elemento.innerHTML = conteudo;

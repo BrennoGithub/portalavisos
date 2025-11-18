@@ -122,55 +122,47 @@ export function exibicaoOpcoes(elementoClicado, elementoOculto, tipoEvento, esta
     });
 };
 
+//ALTERAR AS CHAVES DAS DATAS DOS EVENTOS
 export function dadosForm(assuntoForm){
     let dadosForm = {}
-    //CRIAR OS OUTROS CASES DE ASSUNTO
+    dadosForm["assunto"] = assuntoForm;
+    dadosForm["mensagem"] = document.getElementById("mensagem").value;
+    //dadosForm["anexos"] = document.getElementById("anexo").value;
+    
     switch (assuntoForm){
         case "Avaliação":
-            let dataAvaliacao = new Date(document.getElementById("dataAvaliacao").value);
-            dataAvaliacao = formataDataForm("data", dataAvaliacao);
-            let horaAvaliacao = new Date(document.getElementById("horaAvaliacao").value);
-            horaAvaliacao = formataDataForm("hora", horaAvaliacao);
-            dadosForm = {
-                "assunto":assuntoForm,"tipoAvaliacao": document.getElementById("tipoAvaliacao").value, 
-                "materia": document.getElementById("materia").value, 
-                "assuntoAvaliacao": document.getElementById("assuntoAvaliacao").value,
-                "dataAvaliacao": dataAvaliacao, "horaAvaliacao": horaAvaliacao, 
-                "mensagem": document.getElementById("mensagem").value,
-                "anexo": document.getElementById("anexo").value, 
-            };
+            dadosForm["tipoAvaliacao"] = document.getElementById("tipoAvaliacao").value
+            dadosForm["materia"] = document.getElementById("materia").value
+            dadosForm["assuntoAvaliacao"] = document.getElementById("assuntoAvaliacao").value
+
+            const dataAvaliacao = formataDataForm("data", new Date(document.getElementById("dataAvaliacao").value));
+            dadosForm["dataAvaliacao"] = dataAvaliacao
+
+            const horaAvaliacao = formataDataForm("hora", new Date(document.getElementById("horaAvaliacao").value));
+            dadosForm["horaAvaliacao"] = horaAvaliacao
             break;
+
         case "Evento":
-            let dataInicial_Evento = new Date(document.getElementById("dataInicial_Evento").value);
-            dataInicial_Evento = formataDataForm("data", dataInicial_Evento);
-            let dataFinal_Evento = new Date(document.getElementById("dataFinal_Evento").value);
-            dataFinal_Evento = formataDataForm("data", dataFinal_Evento);
-            let horaInicial_Evento = new Date(document.getElementById("horaInicial_Evento").value);
-            horaInicial_Evento = formataDataForm("hora", horaInicial_Evento);
-            let horaFinal_Evento = new Date(document.getElementById("horaFinal_Evento").value);
-            horaFinal_Evento = formataDataForm("hora", horaFinal_Evento);
-            dadosForm = {
-                "assunto": assuntoForm, "nomeEvento": document.getElementById("nomeEvento").value, 
-                "dataInicial_Evento": dataInicial_Evento, "dataFinal_Evento": dataFinal_Evento, 
-                "horaInicial_Evento": horaInicial_Evento, "horaFinal_Evento": horaFinal_Evento,
-                "mensagem": document.getElementById("mensagem").value, "anexo": document.getElementById("anexo").value
-            }
+            dadosForm["nomeEvento"] = document.getElementById("nomeEvento").value
+
+            const dataInicial_Evento = formataDataForm("data", new Date(document.getElementById("dataInicial_Evento").value));
+            dadosForm["data_InicioEvento"] = dataInicial_Evento
+            
+            const dataFinal_Evento = formataDataForm("data", new Date(document.getElementById("dataFinal_Evento").value));
+            dadosForm["data_FinalEvento"] = dataFinal_Evento
+            
+            const horaInicial_Evento = formataDataForm("hora", new Date(document.getElementById("horaInicial_Evento").value));
+            dadosForm["hora_InicioEvento"] = horaInicial_Evento
+
+            const horaFinal_Evento = formataDataForm("hora", new Date(document.getElementById("horaFinal_Evento").value));
+            dadosForm["hora_FinalEvento"] = horaFinal_Evento
             break;
+
         case "Material Didatico":
-            dadosForm = {
-                "assunto": assuntoForm, 
-                "materia": document.getElementById("materia").value, 
-                "assuntoMaterial": document.getElementById("assuntoMaterial").value,
-                "mensagem": document.getElementById("mensagem").value, 
-                "anexo": document.getElementById("anexo").value
-            }
+            dadosForm["materia"] = document.getElementById("materia").value
+            dadosForm["assuntoMaterial"] = document.getElementById("assuntoMaterial").value
             break;
-        default:
-            dadosForm = {
-                "assunto": assuntoForm,
-                "mensagem": document.getElementById("mensagem").value,
-                "anexo": document.getElementById("anexo").value, 
-            };
+
     }
     return dadosForm;
 }

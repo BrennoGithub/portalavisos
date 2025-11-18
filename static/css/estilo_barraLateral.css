@@ -89,8 +89,8 @@
     gap: 20px; /* Adiciona um espaço de 8px entre o ícone e o texto */
 }
 
-.sessao:hover{
-    background-color: rgb(237, 237, 237);
+.sessao:hover {
+    background: rgb(237, 237, 237);
 }
 
 .deslogar{

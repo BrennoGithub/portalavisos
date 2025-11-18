@@ -9,7 +9,7 @@ const exibicaoInformativos = document.querySelector('.exibicaoInformativos');
 async function roteamento(tituloPagina){
     switch (tituloPagina){
         case "Mural":
-                await renderizaInformativos(exibicaoInformativos, "");
+                await renderizaInformativos(exibicaoInformativos, "/");
                 sessaoSelecionada(tituloPagina);
                 break;
             
@@ -34,8 +34,8 @@ async function roteamento(tituloPagina){
                 break;
             
         default:
-                await renderizaInformativos(exibicaoInformativos, "");
-                sessaoSelecionada("Mural");
+                await renderizaInformativos(exibicaoInformativos, "/");
+                sessaoSelecionada("");
                 break;
         };
 }
@@ -91,7 +91,7 @@ function gerenciamentoForm(){
         event.preventDefault(); //Prevene o comportamento padrão do evento de submit para que a requisição seja feita apenas pelo seu JavaScript, e não pelo formulário.
         const assunto = document.getElementById("assunto").value;
         const dados = dadosForm(assunto);
-        POST("/submit_informativo", dados);
+        POST("/POST/informativos", dados);
         window.location.reload(); //Recarrega a página
     })
 };
