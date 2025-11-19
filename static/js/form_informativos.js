@@ -127,8 +127,8 @@ export function dadosForm(assuntoForm){
     let dadosForm = {}
     dadosForm["assunto"] = assuntoForm;
     dadosForm["mensagem"] = document.getElementById("mensagem").value;
-    dadosForm["anexo"] = document.getElementById("anexo").value;
-    dadosForm["tipoAnexo"] = document.getElementById("tipoAnexo").value;
+    //dadosForm["anexo"] = document.getElementById("anexo").value;
+    //dadosForm["tipoAnexo"] = document.getElementById("tipoAnexo").value;
     
     switch (assuntoForm){
         case "Avaliação":

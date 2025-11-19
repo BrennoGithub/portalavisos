@@ -85,7 +85,7 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
     db.session.add(relacionamento)
     db.session.commit()
 
-    POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
+    #POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
 
     novos_dadosAdicionais = None
     match assuntoInformativo:
