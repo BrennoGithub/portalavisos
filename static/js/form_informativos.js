@@ -127,7 +127,8 @@ export function dadosForm(assuntoForm){
     let dadosForm = {}
     dadosForm["assunto"] = assuntoForm;
     dadosForm["mensagem"] = document.getElementById("mensagem").value;
-    //dadosForm["anexos"] = document.getElementById("anexo").value;
+    dadosForm["anexo"] = document.getElementById("anexo").value;
+    dadosForm["tipoAnexo"] = document.getElementById("tipoAnexo").value;
     
     switch (assuntoForm){
         case "Avaliação":
@@ -162,7 +163,6 @@ export function dadosForm(assuntoForm){
             dadosForm["materia"] = document.getElementById("materia").value
             dadosForm["assuntoMaterial"] = document.getElementById("assuntoMaterial").value
             break;
-
     }
     return dadosForm;
 }

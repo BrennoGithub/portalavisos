@@ -1,6 +1,6 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
-from CRUD.CRUD_arquivos import GET_arquivos
+from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos
 from config import db
 from datetime import datetime
 #ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
@@ -64,11 +64,17 @@ def GET_informartivos(ID_turma):
     return lista_informativos
 
 #Função POST
-def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA PARA REGISTRAR ANEXOS
-    novo_informativo = Informativos(
-        assunto = objetoInformativo["assunto"], 
-        mensagem = objetoInformativo["mensagem"]
-    )
+def POST_informativo(assuntoInformativo, objetoInformativo):
+    novo_informativo = None
+    if objetoInformativo["assunto"] == "" or objetoInformativo["assunto"] == " ":
+        novo_informativo = Informativos(
+            mensagem = objetoInformativo["mensagem"]
+        )
+    else:
+        novo_informativo = Informativos(
+            assunto = objetoInformativo["assunto"], 
+            mensagem = objetoInformativo["mensagem"]
+        )
     db.session.add(novo_informativo)
     db.session.commit()
 
@@ -78,6 +84,8 @@ def POST_informativo(assuntoInformativo, objetoInformativo): #ADICIONAR A LINHA 
     )
     db.session.add(relacionamento)
     db.session.commit()
+
+    POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
 
     novos_dadosAdicionais = None
     match assuntoInformativo:
