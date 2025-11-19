@@ -25,7 +25,7 @@ def GET_arquivos(ID_informativo):
     return lista_arquivos
 
 #Função POST
-def POST_arquivos(ID_informativo, tipoArquivo, arquivo):
+def POST_arquivos(ID_informativo, tipoArquivo, arquivo): # Registro de apenas 1 anexo por informativo
     novo_arquivo = Arquivos(
         tipoArquivo = tipoArquivo,
         arquivo = arquivo
@@ -41,14 +41,14 @@ def POST_arquivos(ID_informativo, tipoArquivo, arquivo):
     db.session.commit()
 
     print("MENSAGEM SERVIDOR: Arquivo anexado ao informativo com sucesso")
-    return {"mensagemServidor": "Arquivo anexado ao informativo com sucesso"}
+    #return {"mensagemServidor": "Arquivo anexado ao informativo com sucesso"}
 
 #Função POST
-def PUT_arquivos():
+def PUT_arquivos(ID_arquivos, tipoArquivo, arquivo):
     print("MENSAGEM SERVIDOR: ")
     return {"mensagemServidor": ""}
 
 #Função POST
-def DELETE_arquivos():
+def DELETE_arquivos(ID_informativo, ID_arquivos):
     print("MENSAGEM SERVIDOR: ")
     return {"mensagemServidor": ""}
