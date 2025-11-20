@@ -3,13 +3,13 @@ from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
-from CRUD.CRUD_informativos import GET_informartivos
+from CRUD.CRUD_informativos import GET_informartivos, POST_informativo
 from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
 def PaginaPrincipal():
     if "matricula" in session and "tipoUsuario" in session:
-        return redirect(url_for(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}'))
+        return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
     else:
         return redirect(url_for("login"))
 
@@ -156,11 +156,15 @@ def CREATE_informativo():
         return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
-
-    objetoInformativo = {}
-    assuntoInformativo =  dadosPOST["assunto"]
+    dadosPOST["ID_turma"] = session["ID_turma"]
+    if dadosPOST is None:
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
+        return jsonify({"mensagemServidor":"Nenhum dado foi encontrado na requisição"})
+    else:
+        assuntoInformativo =  dadosPOST["assunto"]
+        POST_informativo(assuntoInformativo, dadosPOST)
         
-    #return redirect(f"/usuarios/{session['matricula']}")
+    return redirect(url_for(f"/usuarios/{session['matricula']}"))
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):

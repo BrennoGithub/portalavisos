@@ -1,5 +1,6 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
+from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos
 from config import db
 from datetime import datetime
 #ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
@@ -24,6 +25,8 @@ def GET_informartivos(ID_turma):
         objetoInformativo["dataCriacao"] = dataCriacao_Fragmentada[0]
         objetoInformativo["horaCriacao"] = dataCriacao_Fragmentada[1]
 
+        objetoInformativo["anexos"] = GET_arquivos(info.ID_informativo)
+
         dadosAdicionais = None
         materia = None
 
@@ -33,6 +36,7 @@ def GET_informartivos(ID_turma):
                 objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
                 objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
                 
+                #Analisar como conveter um objeto Python de tempo para string com datatime e strftime
                 dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
                 objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
                 objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
@@ -61,31 +65,36 @@ def GET_informartivos(ID_turma):
 
 #Função POST
 def POST_informativo(assuntoInformativo, objetoInformativo):
-    novo_informativo = Informativos(
-        assunto = objetoInformativo["assunto"], 
-        mensagem = objetoInformativo["mensagem"]
-    )
-
-    # Registra informativo na tabela
+    novo_informativo = None
+    if objetoInformativo["assunto"] == "" or objetoInformativo["assunto"] == " ":
+        novo_informativo = Informativos(
+            mensagem = objetoInformativo["mensagem"]
+        )
+    else:
+        novo_informativo = Informativos(
+            assunto = objetoInformativo["assunto"], 
+            mensagem = objetoInformativo["mensagem"]
+        )
     db.session.add(novo_informativo)
     db.session.commit()
 
-    informativos_mais_recente = Informativos.query.order_by(Informativos.ID_informativo.desc()).first() # <-- Pega o ID do informativo que foi criado recentemente
-
     relacionamento = Turma_informativo(
         turma = objetoInformativo["ID_turma"],
-        informativo = informativos_mais_recente.ID_informativo
+        informativo = novo_informativo.ID_informativo
     )
+    db.session.add(relacionamento)
+    db.session.commit()
+
+    #POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
 
     novos_dadosAdicionais = None
-
     match assuntoInformativo:
         case "Avaliação":
             novos_dadosAdicionais = Dados_avaliacoes(
                 tipoAvaliacao = objetoInformativo["tipoAvaliacao"],
                 assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"],
-                dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
-                informativo = informativos_mais_recente.ID_informativo,
+                dataAvaliacao = datetime.strptime(f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}', "%Y-%m-%d %H:%M:%S"), # <-- converter data para objeto Python
+                informativo = novo_informativo.ID_informativo,
                 materia = objetoInformativo["materia"]
             )
 
@@ -96,34 +105,28 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
                 data_FinalEvento = datetime.strptime(objetoInformativo["data_FinalEvento"], "%Y-%m-%d"),
                 hora_InicioEvento = datetime.strptime(objetoInformativo["hora_InicioEvento"], "%H:%M:%S"),
                 hora_FinalEvento = datetime.strptime(objetoInformativo["hora_FinalEvento"], "%H:%M:%S"),
-                informativo = informativos_mais_recente.ID_informativo,
+                informativo = novo_informativo.ID_informativo,
             )
 
         case "Material Didatico":
             novos_dadosAdicionais = Dados_materiais(
                 assuntoMaterial = objetoInformativo["assuntoMaterial"],
                 materia = objetoInformativo["materia"],
-                informativo = informativos_mais_recente.ID_informativo
+                informativo = novo_informativo.ID_informativo
             )
-        
-        case _:
-            novos_dadosAdicionais = "Sem dados adicionais"
-
-    if novos_dadosAdicionais != None:
-        db.session.add(relacionamento, novos_dadosAdicionais)
-    elif novos_dadosAdicionais == "Sem dados adicionais":
-        db.session.add(relacionamento)
-    db.session.commit()
+    if novos_dadosAdicionais is not None:
+        db.session.add(novos_dadosAdicionais) 
+        db.session.commit()
 
     print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
-    return {"mensagemServidor":"Informativo criado com sucesso"}
+    return {"mensagemServidor": "Informativo criado com sucesso"}
 
 #Função PUT
 def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
     informativo = Informativos.query.get(ID_informativo)
     if informativo == None:
         print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor":"Informativo não encontrado"}
+        return {"mensagemServidor": "Informativo não encontrado"}
    
     if informativo.mensagem != objetoInformativo["mensagem"]:
         informativo.mensagem = objetoInformativo["mensagem"]
@@ -138,8 +141,8 @@ def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
                 dadosAdicionais.assuntoAvaliacao = objetoInformativo["assuntoAvaliacao"]
             if dadosAdicionais.materia != objetoInformativo["materia"]:
                 dadosAdicionais.materia = objetoInformativo["materia"]
-            if str(dadosAdicionais.dataAvaliacao) != objetoInformativo["dataAvaliacao"]:
-                dadosAdicionais.dataAvaliacao = datetime.strptime(objetoInformativo["dataAvaliacao"], "%Y-%m-%d %H:%M:%S")
+            if str(dadosAdicionais.dataAvaliacao) != f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}':
+                dadosAdicionais.dataAvaliacao = datetime.strptime(f'{objetoInformativo["dataAvaliacao"]} {objetoInformativo["horaAvaliacao"]}', "%Y-%m-%d %H:%M:%S")
 
         case "Evento":
             dadosAdicionais = Dados_eventos.query.filter_by(informativo=ID_informativo).first()
@@ -170,7 +173,7 @@ def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
     db.session.commit()
     
     print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
-    return {"mensagemServidor":"Informativo atualizado com sucesso"}
+    return {"mensagemServidor": "Informativo atualizado com sucesso"}
 
 #Função DELETE
 def DELETE_informativo(ID_informativo, assuntoInformativo):
@@ -184,21 +187,20 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
             dadosAdicionais = Dados_eventos.query.filter_by(informativo=ID_informativo).first()
         case "Material Didatico":
             dadosAdicionais = Dados_materiais.query.filter_by(informativo=ID_informativo).first()
-        case _:
-            dadosAdicionais = "Sem dados adicionais"
 
     informativo = Informativos.query.get(ID_informativo)
-    if informativo == None:
+    if informativo is None:
         print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor":"Informativo não encontrado"}
+        return {"mensagemServidor": "Informativo não encontrado"}
 
-    if dadosAdicionais != None:
-        db.session.delete(relacionamento, dadosAdicionais, informativo)
-    elif dadosAdicionais == "Sem dados adicionais":
-        db.session.delete(relacionamento, dadosAdicionais, informativo)
+    if dadosAdicionais is not None:
+        db.session.delete(relacionamento)
+        db.session.delete(dadosAdicionais)
+        db.session.delete(informativo)
     else:
-        db.session.delete(relacionamento, informativo)
+        db.session.delete(relacionamento)
+        db.session.delete(informativo)
     db.session.commit()
 
     print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
-    return {"mensagemServidor":"Informativo deletado com sucesso"}
+    return {"mensagemServidor": "Informativo deletado com sucesso"}

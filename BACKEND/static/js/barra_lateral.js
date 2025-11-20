@@ -14,13 +14,19 @@ document.querySelector(".closebtn").addEventListener('click', closeNav);
 //Função de seleção de sessão da barrala lateral
 export function sessaoSelecionada(pagina){
     const paginas = document.querySelectorAll(".sessao");
+    paginas[0].style.backgroundColor = "lightgray";
+
+    //CONSERTAR O PROBLEMA DE DESTAQUE DA SESSÃO SELECIONADA
     paginas.forEach(pag => {
-        if(pag.textContent == pagina){
-            paginas.forEach(outrosEle => {
-                outrosEle.style.backgroundColor = "white";
-            })
-            pag.style.backgroundColor = "lightgray";
-        }
+        const textoSessao = pag.querySelector(".textoSessao").textContent;
+        pag.addEventListener("click", () => {
+            if(textoSessao === pagina){
+                paginas.forEach(outrosEle => {
+                    outrosEle.style.backgroundColor = "white";
+                })
+                pag.style.backgroundColor = "lightgray";
+            }
+        })
     })
 }
 
