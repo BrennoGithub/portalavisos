@@ -1,4 +1,4 @@
-from config import db
+from BACKEND.App import db
 from sqlalchemy import Enum
 
 class Professores(db.Model):

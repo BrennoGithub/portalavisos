@@ -1,5 +1,5 @@
 from Modelos.Arquivos import *
-from config import db
+from BACKEND.App import db
 
 #Função GET
 def GET_arquivos(ID_informativo):

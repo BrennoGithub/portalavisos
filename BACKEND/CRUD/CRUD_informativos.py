@@ -1,7 +1,7 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
 from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos
-from config import db
+from BACKEND.App import db
 from datetime import datetime
 #ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
 
