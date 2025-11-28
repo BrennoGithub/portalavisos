@@ -1,13 +1,43 @@
 import React from "react";
+import "../static/css/estilo_Informativos.css"
+import Delete from "../static/icones/Delete.svg"
+import Edit from "../static/icones/Edit.svg"
 
-function Card({assunto, mensagem}){
-    const estiloInformativo = null
+function Card({tipoInfo, titulo, texto, exibiEdit}){
+    let estiloTitulo
+    let estiloCorpo
+    switch (tipoInfo){
+        case "avalicao":
+            estiloTitulo = "verde_1"
+            estiloCorpo = "verde_2"
+        case "evento":
+            estiloTitulo = "roxo_1"
+            estiloCorpo = "roxo_2"
+        case "material":
+            estiloTitulo = "laranja_1"
+            estiloCorpo = "laranja_2"
+        default:
+            estiloTitulo = "azul_1"
+            estiloCorpo = "azul_2"
+    }
+
     return (
-        <div style={estiloInformativo}>
-            <div style={estiloInformativo}>{assunto}</div>
-            <div style={estiloInformativo}>
-                <div style={estiloInformativo}>{mensagem}</div>
-                <div style={estiloInformativo}>Área edit</div>
+        <div className="estilo_aviso">
+            <div className={`segunda_area  ${estiloTitulo}`}>{titulo}</div>
+            <div className={`terceira_area  ${estiloCorpo}`}>
+                {texto}
+                <br/>
+                {exibiEdit ? 
+                <div className="blocoFinal">
+                    <div class="botoesEdit">
+                        <img src={Delete} alt="Icone Delete" className="icone_delete"/>
+                        <img src={Edit} alt="Icone Edit" className="icone_delete"/>
+                    </div>
+                    <div className="dataCriacao">DD/MM/AAAA</div>
+                </div> : 
+                <div className="blocoFinal">
+                    <div className="dataCriacao">DD/MM/AAAA</div>
+                </div>}
             </div>
         </div>
     )
