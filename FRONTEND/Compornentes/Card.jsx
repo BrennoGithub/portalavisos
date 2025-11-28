@@ -1,4 +1,3 @@
-import React from "react";
 import "../static/css/estilo_Informativos.css"
 import Delete from "../static/icones/Delete.svg"
 import Edit from "../static/icones/Edit.svg"
@@ -7,18 +6,22 @@ function Card({tipoInfo, titulo, texto, exibiEdit}){
     let estiloTitulo
     let estiloCorpo
     switch (tipoInfo){
-        case "avalicao":
+        case "avaliacao":
             estiloTitulo = "verde_1"
             estiloCorpo = "verde_2"
+            break;
         case "evento":
             estiloTitulo = "roxo_1"
             estiloCorpo = "roxo_2"
+            break;
         case "material":
             estiloTitulo = "laranja_1"
             estiloCorpo = "laranja_2"
+            break;
         default:
             estiloTitulo = "azul_1"
             estiloCorpo = "azul_2"
+            break;
     }
 
     return (

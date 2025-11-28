@@ -1,15 +1,16 @@
 //Funções JavaScript responsaveis por abrir e fechar da barra lateral
 export function openNav() {
     document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("mySidebar").style.boxShadow = "0px 1px 6px 5px rgba(148, 147, 147, 0.3)";
+    document.getElementById("mySidebar").style.borderRight = "solid 1px lightgray";
+    document.getElementById("mySidebar").style.boxShadow = "0px 1px 6px 5px rgba(156, 150, 150, 0.5)";
   }
   
 export function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
+    document.getElementById("mySidebar").style.borderRight = "none";
+    document.getElementById("mySidebar").style.boxShadow = "none";
 }
   
-//document.querySelector(".openbtn").addEventListener('click', openNav);
-//document.querySelector(".closebtn").addEventListener('click', closeNav);
 
 //Função de seleção de sessão da barrala lateral
 export function sessaoSelecionada(pagina){

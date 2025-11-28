@@ -1,32 +1,44 @@
+import {useState, useEffect} from "react"
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
 import Card from "../Compornentes/Card.jsx"
 
 
-function Inicial({info="", tituloSessao="Mural"}){
-    let listaInfo
-    switch (info){
-        case "avaliacoes":
-            listaInfo = [{"titulo": info, "texto": "mundo"}, {"titulo": info, "texto": "mundo"}]
-            break;
-        case "eventos":
-            listaInfo = [{"titulo": info, "texto": "mundo"}, {"titulo": info, "texto": "mundo"}]
-            break;
-        case "materiais":
-            listaInfo = [{"titulo": info, "texto": "mundo"}, {"titulo": info, "texto": "mundo"}]
-            break;
-        default:
-            listaInfo = [{"titulo": "ola", "texto": "mundo"}, {"titulo": "ola", "texto": "mundo"}]
-            break;
-    }
+function Inicial({info="Mural", tituloSessao="Mural"}){
+    const [informativos, setInformativos] = useState([])
+
+    useEffect(() => {
+        switch (info){
+            case "avaliacoes":
+                setInformativos([{"tipo": "avaliacao", "titulo": info, "texto": "mundo"}])
+                break;
+            case "eventos":
+                setInformativos([{"tipo": "evento", "titulo": info, "texto": "mundo"}])
+                break;
+            case "materiais":
+                setInformativos([{"tipo": "material", "titulo": info, "texto": "mundo"}])
+                break;
+            case "avisos":
+                setInformativos([{"tipo": "aviso", "titulo": info, "texto": "mundo"}])
+                break;
+            default:
+                setInformativos([{"tipo": "", "titulo": info, "texto": "mundo"}, 
+                    {"tipo": "avaliacao", "titulo": info, "texto": "mundo"},
+                    {"tipo": "evento", "titulo": info, "texto": "mundo"},
+                    {"tipo": "material", "titulo": info, "texto": "mundo"}, 
+                    {"tipo": "aviso", "titulo": info, "texto": "mundo"}
+                ])
+                break;
+        }
+    }, [info])
 
     return (
         <>
             <BarraLateral liderTurma={true} nomeUsuario={"Júlio César"}/>
             <Cabecalho/>
             <Corpo titulo={tituloSessao}>
-                {listaInfo.map((info, index) => (<Card titulo={info["titulo"]} texto={info["texto"]} exibiEdit={false} key={index}/>))}
+                {informativos.map((info, index) => (<Card tipoInfo={info["tipo"]} titulo={info["titulo"]} texto={info["texto"]} exibiEdit={true} key={index}/>))}
             </Corpo>
         </>
     )

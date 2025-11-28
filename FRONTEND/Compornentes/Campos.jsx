@@ -49,10 +49,12 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
         setExibiOpcoes(!exibiOpcoes);
     }
 
-    function SelecionaTexto(Opcao){
+    function SelecionaTexto(event, ID_campo, Opcao){
+        event.preventDefault();
         setAssuntoInfo(Opcao)
-        ExibiOpcoes();
+        document.getElementById(ID_campo).value = assuntoInfo;
         funcaoSelecao ? funcaoSelecao(Opcao) : null
+        ExibiOpcoes();
     }
 
     return (
@@ -60,9 +62,10 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
             <legend>
                 <label htmlFor={id_campo}>{nomeCampo}</label>
             </legend>
-            <input type="text" id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} autoComplete="off" onClick={() => {ExibiOpcoes()}} value={assuntoInfo}/>
+            <input type="text" id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} 
+                autoComplete="off" onFocus={() => {ExibiOpcoes()}} onChange={() => {funcaoSelecao("")}}/>
             {exibiOpcoes ? <div className="areaOpcoes">
-                {listaOpcoes.map((opcao, index) => (<a href="#" className="opcaoInformativo" key={index} id={index} onClick={() => {SelecionaTexto(opcao)}}>{opcao}</a>))}
+                {listaOpcoes.map((opcao, index) => (<a href="" className="opcaoInformativo" key={index} id={index} onClick={(event) => {SelecionaTexto(event, id_campo, opcao)}}>{opcao}</a>))}
             </div> : null}
         </fieldset>
     )
