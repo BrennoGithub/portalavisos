@@ -1,4 +1,4 @@
-from config import app
+from BACKEND.App import app
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
@@ -9,13 +9,13 @@ from CRUD.CRUD_materias import GET_materias
 @app.route("/")
 def PaginaPrincipal():
     if "matricula" in session and "tipoUsuario" in session:
-        return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+        return jsonify({"login": True})
     else:
-        return redirect(url_for("login"))
+        return jsonify({"login": False})
 
 @app.route("/login")
 def login():
-    return render_template("login.html")
+    return "login.html"
 
 @app.route("/submit_login", methods=["POST"])
 def valida_login():
@@ -26,21 +26,19 @@ def valida_login():
         usuario = GET_usuario(session, matricula)
         
         if usuario.senhaSistema != senha:
-            return render_template("login.html")  
+            return jsonify({"login": False})
         else:
             if session["tipoUsuario"] == "professor":
                 session["matricula"] = usuario.matricula # <-- Armazenados na sessão
                 session["nomeUsuario"] = usuario.nome
-                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
+                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"]})
             
             elif session["tipoUsuario"] == "aluno":
                 session["matricula"] = usuario.matricula # <-- Armazenados na sessão
                 session["nomeUsuario"] = usuario.nome
                 session["liderTurma"] = usuario.liderTurma
                 session["ID_turma"]  = usuario.turma
-                return redirect(f'usuarios/{session["tipoUsuario"]}/{session["matricula"]}')
-            
-    return redirect(url_for("/"))
+                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"], "liderTurma": session["liderTurma"]})
 
 @app.route("/logout")
 def logout():

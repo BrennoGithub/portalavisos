@@ -11,7 +11,7 @@
 }
 
 .areaOpcoes{
-    display: none;
+    display: flex;
     flex-direction: column;
     background-color: lightgray;
     border-radius: 5px;
