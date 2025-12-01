@@ -9,7 +9,6 @@ from CRUD.CRUD_materias import GET_materias
 @app.route("/")
 def PaginaPrincipal():
     if "matricula" in session and "tipoUsuario" in session:
-        print(session)
         return jsonify({"login": True})
     else:
         return jsonify({"login": False})

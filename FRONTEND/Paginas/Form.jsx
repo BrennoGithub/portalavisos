@@ -17,9 +17,9 @@ function Form(){
                 setDadosAdicionais(<>
                     <Campo nomeCampo="Tipo Avaliação" id_campo="tipoAvaliacao" 
                         mensagemPlacerholder="Ex.: Prova, seminario, lista de exercisios, etc." obrigatorio={true}/>
-                    <DoisCampos nomeCampo1="Materia" nomeCampo2="Assunto da Avaliação" id_campo1="materia" id_campo2="assuntoAvaliacao" 
-                        mensagemPlacerholder1="Materia da avaliação" mensagemPlacerholder2="Assunto da avaliação"/>
-                    <DoisCampos tipoInput1="date" tipoInput2="time" id_campo1={"dataAvaliacao"} id_campo2={"horaAvaliacao"} nomeCampo1={"Dia da Avaliação"} nomeCampo2={"Hora da Avaliação"}/>
+                    <DoisCampos  nomesCampos={["Materia", "Assunto da Avaliação"]}  id_campos={["materia", "assuntoAvaliacao"]}
+                        mensagensPlacerholder={["Materia da avaliação", "Assunto da avaliação"]}/>
+                    <DoisCampos tiposInput={["date", "time"]} id_campos={["dataAvaliacao", "horaAvaliacao"]} nomesCampos={["Dia da Avaliação", "Hora da Avaliação"]}/>
                 </>)
                 break;
 
@@ -27,17 +27,17 @@ function Form(){
                 setDadosAdicionais(<>
                     <Campo nomeCampo="Nome do Evento" id_campo="nomeEvento" 
                         mensagemPlacerholder="Nome do evento" obrigatorio={true}/>
-                    <IntervaloTempo tipoInput="date" nomeCampo="Dias do Evento" id_campo1="dataInicial_Evento" id_campo2="dataFinal_Evento" 
-                        mensagemPlacerholder1="Inicio:" mensagemPlacerholder2="Fim:"/>
-                    <IntervaloTempo tipoInput="time" nomeCampo="Horario do Evento" id_campo1="horaInicial_Evento" id_campo2="horaFinal_Evento" 
-                        mensagemPlacerholder1="Inicio:" mensagemPlacerholder2="Fim:"/>
+                    <IntervaloTempo tipoInput="date" nomeCampo="Dias do Evento" id_campos={["dataInicial_Evento", "dataFinal_Evento"]}
+                        mensagensPlacerholder={["Inicio:", "Fim:"]}/>
+                    <IntervaloTempo tipoInput="time" nomeCampo="Horario do Evento" id_campos={["horaInicial_Evento", "horaFinal_Evento"]}
+                        mensagensPlacerholder={["Inicio:", "Fim:"]}/>
                 </>)
                 break;
 
             case "Material Didatico":
                 setDadosAdicionais(<>
-                    <DoisCampos nomeCampo1="Materia" nomeCampo2="Assunto do Material" id_campo1="materia" id_campo2="assuntoMaterial" 
-                        mensagemPlacerholder1="Materia" mensagemPlacerholder2="Assunto do Material Didatico"/>
+                    <DoisCampos nomesCampos={["Materia", "Assunto do Material"]} id_campos={["materia", "assuntoMaterial"]}
+                        mensagensPlacerholder={["Materia", "Assunto do Material Didatico"]}/>
                 </>)
                 break;
 
@@ -48,7 +48,7 @@ function Form(){
     }
 
 
-    return (
+    return ( //ATUALIZAÇÃO DOS DADOS DO FORM
         <>
         <BarraLateral  liderTurma={true} nomeUsuario={"Júlio César"}/>
         <Cabecalho/>
