@@ -14,7 +14,8 @@ def GET_usuarios(tipoUsuario):
                     "aniversario": iten.aniversario,
                     "senhaSistema": iten.senhaSistema,
                     "liderTurma": iten.liderTurma,
-                    "turma": iten.turma
+                    "turma": iten.turma,
+                    "tipoUsuario": "aluno"
                 }
                 lista_usuarios.append(objetoAluno)
            
@@ -27,21 +28,49 @@ def GET_usuarios(tipoUsuario):
                     "nome": iten.nome,
                     "nomeSocial": iten.nomeSocial,
                     "aniversario": iten.aniversario,
-                    "senhaSistema": iten.senhaSistema
+                    "senhaSistema": iten.senhaSistema,
+                    "tipoUsuario": "professor"
                 }
                 lista_usuarios.append(objetoProfessor)
+        case "todos":
+            alunos = Alunos.query.all()
+            for iten in alunos:
+                objetoAluno = {
+                    "matricula": iten.matricula,
+                    "nome": iten.nome,
+                    "nomeSocial": iten.nomeSocial,
+                    "aniversario": iten.aniversario,
+                    "senhaSistema": iten.senhaSistema,
+                    "liderTurma": iten.liderTurma,
+                    "turma": iten.turma,
+                    "tipoUsuario": "aluno"
+                }
+                lista_usuarios.append(objetoAluno)
+
+            professores = Professores.query.all()
+            for iten in professores:
+                objetoProfessor = {
+                    "matricula": iten.matricula,
+                    "nome": iten.nome,
+                    "nomeSocial": iten.nomeSocial,
+                    "aniversario": iten.aniversario,
+                    "senhaSistema": iten.senhaSistema,
+                    "tipoUsuario": "professor"
+                }
+                lista_usuarios.append(objetoProfessor)
+                
     return lista_usuarios
             
             
-def GET_usuario(session, matricula):
-    usuario = None
-    usuario = Alunos.query.get_or_404(matricula)
-    if usuario == None:
-        usuario = Professores.query.get_or_404(matricula)
-        if usuario == None:
-            usuario = "MENSAGEM SERVIDOR: Matricula invalida"
-        else:
-            session["tipoUsuario"] = "professor"
+def GET_usuario(matricula):
+    objetoUsuario = {}
+    listaUsuario = GET_usuarios("todos")
+    for usuario in listaUsuario:
+        if usuario["matricula"] == matricula:
+            objetoUsuario = usuario
+            break
+    
+    if objetoUsuario == {}:
+        return "Usuário não encontrado"
     else:
-        session["tipoUsuario"] = "aluno"
-    return usuario
+        return objetoUsuario

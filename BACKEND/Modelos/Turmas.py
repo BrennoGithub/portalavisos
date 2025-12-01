@@ -1,4 +1,4 @@
-from BACKEND.App import db
+from App import db
 from sqlalchemy import Enum
 
 class Turmas(db.Model):

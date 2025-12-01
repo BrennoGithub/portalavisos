@@ -1,4 +1,4 @@
-from BACKEND.App import app
+from App import app
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
@@ -9,41 +9,42 @@ from CRUD.CRUD_materias import GET_materias
 @app.route("/")
 def PaginaPrincipal():
     if "matricula" in session and "tipoUsuario" in session:
+        print(session)
         return jsonify({"login": True})
     else:
         return jsonify({"login": False})
 
-@app.route("/login")
-def login():
-    return "login.html"
-
-@app.route("/submit_login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def valida_login():
-    if request.method == "POST":
-        matricula = request.form["matricula"]
-        senha = request.form["senha"]
+    dadosLogin = request.json
+    matricula = dadosLogin["matricula"]
+    senha = dadosLogin["senha"]
         
-        usuario = GET_usuario(session, matricula)
+    usuario = GET_usuario(matricula)
         
-        if usuario.senhaSistema != senha:
-            return jsonify({"login": False})
-        else:
-            if session["tipoUsuario"] == "professor":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"]})
+    if usuario["senhaSistema"] != senha:
+        return jsonify({"login": False})
+    else:
+        if usuario["tipoUsuario"] == "professor":
+            session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
+            session["nomeUsuario"] = usuario["nome"]
+            session["tipoUsuario"] = usuario["tipoUsuario"]
+            return jsonify({"login": True, "tipoUsuario": usuario["tipoUsuario"]})
             
-            elif session["tipoUsuario"] == "aluno":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                session["liderTurma"] = usuario.liderTurma
-                session["ID_turma"]  = usuario.turma
-                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"], "liderTurma": session["liderTurma"]})
+        elif usuario["tipoUsuario"] == "aluno":
+            session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
+            session["nomeUsuario"] = usuario["nome"]
+            session["liderTurma"] = usuario["liderTurma"]
+            session["ID_turma"]  = usuario["turma"]
+            session["tipoUsuario"] = usuario["tipoUsuario"]
+            return jsonify({"login": True, "tipoUsuario": usuario["tipoUsuario"], "liderTurma": usuario["liderTurma"]})
 
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 def logout():
-    session.clear()
-    return redirect(url_for("login"))
+    Logout = request.get_json["logout"]
+    if Logout:
+        session.clear()
+        return jsonify({"mensagemServidor": "Logout concluido"})
 
 @app.route("/turmas/<int:ID_turma>")
 def returnTurma(ID_turma):

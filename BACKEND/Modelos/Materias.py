@@ -1,4 +1,4 @@
-from BACKEND.App import db
+from App import db
 
 #Ao criar a classe, der o nome da tabela
 class Materias(db.Model):
