@@ -11,12 +11,12 @@ function App() {
   const [logado, setLogado] = useState(false)
   useEffect(() => {
     async function checkLogin(){
-      const estaLogado = await GET("http://localhost:5000/")
+      const estaLogado = await GET("http://localhost:5000/");
       setLogado(estaLogado["login"])
       "mensagemServidor" in estaLogado ? alert(estaLogado["mensagemServidor"]) : null
     }
-    checkLogin()
-  }, [])
+    checkLogin();
+  }, []);
 
  
   return (
