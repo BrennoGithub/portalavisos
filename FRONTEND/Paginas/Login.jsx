@@ -4,6 +4,7 @@ import {POST} from "../static/js/requisicaoHTTP.js"
 import "../static/css/estilo_global.css";
 import "../static/css/estilo_login.css";
 
+
 function Login(){
     const navigate = useNavigate()
     async function EnvioLogin(event){

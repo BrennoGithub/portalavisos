@@ -54,7 +54,7 @@ function Form(){
         <Cabecalho/>
         <Corpo titulo={"Formulario"}>
             <form className="formAviso">
-                <TextoSelecao listaOpcoes={["Avaliação","Evento","Material Didatico"]} nomeCampo="Assunto" mensagemPlacerholder="Digite o assunto do informativo" id_campo="assunto" funcaoSelecao={TipoForm}/>
+                <TextoSelecao listaOpcoes={[[1,"Avaliação"],[2,"Evento"],[3,"Material Didatico"]]} nomeCampo="Assunto" mensagemPlacerholder="Digite o assunto do informativo" id_campo="assunto" funcaoSelecao={TipoForm}/>
                 {dadosAdicionais}
                 <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link"/>
                 <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true}/>

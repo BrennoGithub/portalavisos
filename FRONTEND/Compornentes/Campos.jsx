@@ -3,15 +3,17 @@ import "../static/css/estilo_login.css";
 import "../static/css/estilo_global.css";
 import "../static/css/estilo_formInformativos.css"
 
+//OS CAMPOS NÃO MUDAM DE ASSUNTO COMO O VALOR PRE-DEFINIDO. ALTERAR ISSO.
 export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerholder, valorCampo="", obrigatorio=false}){
+    document.getElementById(id_campo).value = valorCampo;
     return (
         <fieldset className="area_campo_form">
             <legend>
                 <label htmlFor={id_campo}>{nomeCampo}</label>
             </legend>
             {obrigatorio ? 
-            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} value={valorCampo} required/> : 
-            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} value={valorCampo}/>}
+            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} required/> : 
+            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} />}
         </fieldset>
     )
 }
