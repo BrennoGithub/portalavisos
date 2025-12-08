@@ -19,9 +19,6 @@ function App() {
     }
     checkLogin();
   }, []);
-
-
-  //AJEITAR DADOS USUARIOS PARA A PÁGINA INICIAL
  
   return (
     <BrowserRouter>
