@@ -27,7 +27,7 @@
 }
 
 .alertErro{
-    color: "red";
+    color: red;
     font-size: "15px";
     margin: "5px 15px";
     text-align: "left";

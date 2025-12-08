@@ -28,7 +28,7 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
     )
 }
 
-function BarraLateral({nomeUsuario, tipoUsuario, liderTurma}){
+function BarraLateral({nomeUsuario, tipoUsuario="", liderTurma}){
     const navigate = useNavigate()
     return (
         <nav id="mySidebar" className="sidebar">
@@ -36,7 +36,7 @@ function BarraLateral({nomeUsuario, tipoUsuario, liderTurma}){
                 <img src={fechar} alt="Icone de fechar" className="icon_fecha"/>
             </a>
             <a>{nomeUsuario}</a>
-            {tipoUsuario === "professor" || liderTurma ? <img src={criar} alt="Icone de adição" className="icon_cria" onClick={() => {navigate("/form")}}></img> : null}
+            {tipoUsuario === "professor" || liderTurma === "True" ? <img src={criar} alt="Icone de adição" className="icon_cria" onClick={() => {navigate("/form")}}></img> : null}
                 <hr/>
             <SessaoBarra nomeSessao="Mural" descricaoIcone={"Icone Inicial"} icone={Mural} rotaAPI="/"/>
             <SessaoBarra nomeSessao="Avisos" descricaoIcone={"Icone Avisos"} icone={Aviso}  rotaAPI="/avisos"/>

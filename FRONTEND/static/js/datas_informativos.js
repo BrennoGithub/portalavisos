@@ -11,16 +11,6 @@ export function formataDatas(informativo, tipoData){
     return informativo;
 };
 
-export function formataUnicaData(tipoAvaliacao){
-    let data = tipoAvaliacao;
-    data = data.split("-");
-    let dia = data[2];
-    let mes = data[1];
-    let ano = data[0];
-    data = `${dia}/${mes}/${ano}`;
-    return data;
-}
-
 ///formata as datas dos formularios
 export function formataDataForm(tipo, data){
     let formatacao = ``;

@@ -7,7 +7,7 @@ import "../static/css/estilo_login.css";
 
 
 function Login(){
-    const [mensagemServidor, setMensagem] = useState("");
+    const [mensagemServidor, setMensagem] = useState(null);
     const navigate = useNavigate()
     async function SubmitLogin(event){
         event.preventDefault()
@@ -18,7 +18,7 @@ function Login(){
             "senha": SenhaUsuario
         }
         const RespostaLogin = await POST("http://localhost:5000/login", dadosLogin)
-        RespostaLogin["login"] ? navigate("/") : setMensagem("Senha ou matricula incorreta.")
+        RespostaLogin["login"] ? navigate("/") : setMensagem("Matricula ou senha incorreta.")
     }
 
     return (

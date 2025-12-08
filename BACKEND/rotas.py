@@ -8,10 +8,23 @@ from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
 def PaginaPrincipal():
+    dadosSessao = {}
     if "matricula" in session and "tipoUsuario" in session:
-        return jsonify({"login": True})
+        dadosSessao["login"] = True
+
+        if "professor" == session["tipoUsuario"]: 
+            dadosSessao["tipoUsuario"] = session["tipoUsuario"]
+            dadosSessao["nomeUsuario"] = session["nomeUsuario"]
+
+        elif "aluno" == session["tipoUsuario"]: 
+            dadosSessao["tipoUsuario"] = session["tipoUsuario"]
+            dadosSessao["nomeUsuario"] = session["nomeUsuario"]
+            dadosSessao["liderTurma"] = session["liderTurma"]
+        
     else:
-        return jsonify({"login": False})
+        dadosSessao["login"] = False
+    
+    return jsonify(dadosSessao)
 
 @app.route("/login", methods=["POST"])
 def valida_login():
@@ -28,7 +41,6 @@ def valida_login():
             session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
             session["nomeUsuario"] = usuario["nome"]
             session["tipoUsuario"] = usuario["tipoUsuario"]
-            return jsonify({"login": True, "tipoUsuario": usuario["tipoUsuario"]})
             
         elif usuario["tipoUsuario"] == "aluno":
             session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
@@ -36,7 +48,8 @@ def valida_login():
             session["liderTurma"] = usuario["liderTurma"]
             session["ID_turma"]  = usuario["turma"]
             session["tipoUsuario"] = usuario["tipoUsuario"]
-            return jsonify({"login": True, "tipoUsuario": usuario["tipoUsuario"], "liderTurma": usuario["liderTurma"]})
+            
+        return jsonify({"login": True})
 
 @app.route("/logout", methods=["POST"])
 def logout():
@@ -94,7 +107,7 @@ def returnTodosInformativos():
 
     if len(listaInformativo) == 0 or listaInformativo == None:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
-        return "MENSAGEM SERVIDOR: Informativos não encontrados"
+        return jsonify({"mensagemServidor": "Informativos não encontrados"})
     else:
         return jsonify(listaInformativo)
 

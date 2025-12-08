@@ -108,7 +108,7 @@ export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacer
     )
 }
 
-export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder}){
+export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder, valorCampo=""}){
     useEffect(() =>{
         document.getElementById(id_campo).value = valorCampo;
     }, []);
