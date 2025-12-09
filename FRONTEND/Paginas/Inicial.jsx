@@ -17,7 +17,7 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
             let mes = data[1];
             let ano = data[0];
             info[tipoData] = `${dia}/${mes}/${ano}`})
-    }
+    };
 
     useEffect(() => {
         let listaInformativos

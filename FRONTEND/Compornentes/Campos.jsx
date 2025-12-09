@@ -3,7 +3,6 @@ import "../static/css/estilo_login.css";
 import "../static/css/estilo_global.css";
 import "../static/css/estilo_formInformativos.css"
 
-//OS CAMPOS NÃO MUDAM DE ASSUNTO COMO O VALOR PRE-DEFINIDO. ALTERAR ISSO.
 export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerholder, valorCampo="", obrigatorio=false}){
     useEffect(() =>{
         document.getElementById(id_campo).value = valorCampo;
@@ -97,11 +96,11 @@ export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacer
             <div className="linhaUnica">
                 <label> 
                     <em>{mensagensPlacerholder[0]}</em> 
-                    <input type={tipoInput} id={id_campos[0]} className="areaDate"/> 
+                    <input type={tipoInput} id={id_campos[0]} className="areaDate" required/> 
                 </label>
                 <label> 
                     <em>{mensagensPlacerholder[1]}</em> 
-                    <input type={tipoInput} id={id_campos[1]} className="areaDate"/> 
+                    <input type={tipoInput} id={id_campos[1]} className="areaDate" required/> 
                 </label>
             </div>
         </fieldset>

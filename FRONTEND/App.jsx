@@ -4,6 +4,7 @@ import {BrowserRouter, Routes, Route, Navigate, useNavigate} from "react-router-
 import Login from "./Paginas/Login.jsx"
 import Inicial from "./Paginas/Inicial.jsx"
 import Form from "./Paginas/Form.jsx"
+import Edit from "./Paginas/Edit.jsx"
 import "./static/css/estilo_global.css"
 import "./static/css/estilo_Informativos.css"
 
@@ -33,7 +34,7 @@ function App() {
         <Route path="/materiais" element={<Inicial info="materiais" tituloSessao="Materiais" objetoUsuario={dadosUsuario}/>}/>
         <Route path="/aniversariantes" element={<Inicial objetoUsuario={dadosUsuario}/>}/>
         <Route path="/form" element={<Form/>}/>
-        <Route path="/informativos/:id" element={<h1>Turma</h1>}/>
+        <Route path="/informativos/:id" element={<Edit/>}/>
         <Route path="*" element={<h1>Página não encontrada</h1>}></Route>
       </Routes>
     </BrowserRouter>

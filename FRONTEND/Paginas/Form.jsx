@@ -3,6 +3,8 @@ import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import {CampoAnexo, CampoTexto, TextoSelecao, Campo, DoisCampos, IntervaloTempo} from "../Compornentes/Campos.jsx";
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
+import {POST} from "../static/js/requisicaoHTTP.js"
+import {dadosForm} from "../static/js/form_informativos.js"
 import "../static/css/estilo_login.css";
 import "../static/css/estilo_global.css";
 import "../static/css/estilo_formInformativos.css"
@@ -47,13 +49,19 @@ function Form(){
         }
     }
 
+    async function CriarInfo(event){
+        event.preventDefault();
+        const assunto = document.getElementById("assunto").value;
+        const Formulario = dadosForm(assunto);
+        const InfoCriado = await POST("", Formulario);
+    }
 
-    return ( //ATUALIZAÇÃO DOS DADOS DO FORM
-        <>
+
+    return (<>
         <BarraLateral  liderTurma={true} nomeUsuario={"Júlio César"}/>
         <Cabecalho/>
         <Corpo titulo={"Formulario"}>
-            <form className="formAviso">
+            <form className="formAviso" onSubmit={async (event) => {CriarInfo(event)}}>
                 <TextoSelecao listaOpcoes={[[1,"Avaliação"],[2,"Evento"],[3,"Material Didatico"]]} nomeCampo="Assunto" mensagemPlacerholder="Digite o assunto do informativo" id_campo="assunto" funcaoSelecao={TipoForm}/>
                 {dadosAdicionais}
                 <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link"/>
@@ -61,8 +69,7 @@ function Form(){
                 <button type="submit" id="criaAviso" className="botao_campo_form">Criar</button>
             </form>
         </Corpo>
-        </>
-    )
+    </>)
 }
 
 export default Form;

@@ -42,5 +42,6 @@ export function dadosForm(assuntoForm){
             dadosForm["assuntoMaterial"] = document.getElementById("assuntoMaterial").value
             break;
     }
+    
     return dadosForm;
 }
