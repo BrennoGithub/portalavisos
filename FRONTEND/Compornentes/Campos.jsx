@@ -1,7 +1,7 @@
 import {useState, useEffect} from "react"
-import "../static/css/estilo_login.css";
-import "../static/css/estilo_global.css";
-import "../static/css/estilo_formInformativos.css"
+import "../css/estilo_login.css";
+import "../css/estilo_global.css";
+import "../css/estilo_formInformativos.css"
 
 export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerholder, valorCampo="", obrigatorio=false}){
     useEffect(() =>{

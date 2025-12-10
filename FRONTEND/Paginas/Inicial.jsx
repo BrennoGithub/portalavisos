@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react"
-import {GET} from "../static/js/requisicaoHTTP.js"
+import {GET} from "../js/requisicaoHTTP.js"
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"

@@ -1,6 +1,6 @@
-import menu from "../static/icones/Menu_branco.svg"
-import {openNav} from "../static/js/barra_lateral.js"
-import "../static/css/estilo_Informativos.css"
+import menu from "../icones/Menu_branco.svg"
+import {openNav} from "../js/barra_lateral.js"
+import "../css/estilo_Informativos.css"
 
 function Cabecalho(){
  return (

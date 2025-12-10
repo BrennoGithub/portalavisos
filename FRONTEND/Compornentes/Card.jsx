@@ -1,8 +1,11 @@
-import "../static/css/estilo_Informativos.css"
-import Delete from "../static/icones/Delete.svg"
-import Edit from "../static/icones/Edit.svg"
+import {useNavigate} from "react-router-dom"
+import {DELETE} from "../js/requisicaoHTTP"
+import "../css/estilo_Informativos.css"
+import Delete from "../icones/Delete.svg"
+import Edit from "../icones/Edit.svg"
 
 function Card({objetoInfo, exibiEdit}){
+    const navigate = useNavigate();
     let estiloTitulo
     let estiloCorpo
     let Titulo
@@ -48,6 +51,12 @@ function Card({objetoInfo, exibiEdit}){
             break;
     }
 
+    async function DeleteInfo(ID) {
+        const RespostaServ = await DELETE(`http://localhost:5000/DELETE/informativos/${ID}`);
+        RespostaServ["informativoDeletado"] && "informativoDeletado" in RespostaServ ? navigate("http://localhost:5173/") : 
+            ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na exclusão de informativo"))
+    }
+
     return (
         <div className="estilo_aviso">
             <div className={`segunda_area  ${estiloTitulo}`}>{Titulo}</div>
@@ -57,8 +66,9 @@ function Card({objetoInfo, exibiEdit}){
                 {exibiEdit ? 
                 <div className="blocoFinal">
                     <div class="botoesEdit">
-                        <img src={Delete} alt="Icone Delete" className="icone_delete"/>
-                        <img src={Edit} alt="Icone Edit" className="icone_delete"/>
+                        <img src={Delete} alt="Icone Delete" className="icone_delete" onClick={() => {DeleteInfo(objetoInfo["ID_informativo"])}}/>
+                        <img src={Edit} alt="Icone Edit" className="icone_delete" 
+                            onClick={() => {navigate(`http://localhost:5173/informativos/${objetoInfo["ID_informativo"]}`)}}/>
                     </div>
                     <div className="dataCriacao">{objetoInfo["dataCriacao"]}</div>
                 </div> : 

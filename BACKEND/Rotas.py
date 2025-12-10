@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
-from CRUD.CRUD_informativos import GET_informartivos, POST_informativo
+from CRUD.CRUD_informativos import GET_informartivos, POST_informativo, PUT_informativo, DELETE_informativo
 from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
@@ -49,6 +49,7 @@ def valida_login():
             session["ID_turma"]  = usuario["turma"]
             session["tipoUsuario"] = usuario["tipoUsuario"]
             
+        print("MENSAGEM SERVIDOR: Sessão inicializada")
         return jsonify({"login": True})
 
 @app.route("/logout", methods=["POST"])
@@ -56,7 +57,11 @@ def logout():
     Logout = request.get_json["logout"]
     if Logout:
         session.clear()
-        return jsonify({"mensagemServidor": "Logout concluido"})
+        print("MENSAGEM SERVIDOR: Sessão finalizada")
+        return jsonify({"deslogado": True})
+    else:
+        print("MENSAGEM SERVIDOR: Erro na finalização da sessão")
+        return jsonify({"deslogado": False})
 
 @app.route("/turmas/<int:ID_turma>")
 def returnTurma(ID_turma):
@@ -85,7 +90,6 @@ def returnUSUARIO(tipoUsuario, matricula):
                 return render_template("tela_lideres.html", nome = session["nomeUsuario"])
         case "professor":
             return render_template("tela_lideres.html", nome = session["nomeUsuario"])
-
 
 @app.route("/materias/")
 def returnMaterias():
@@ -158,8 +162,6 @@ def returnInformativo_ID(ID_informativo):
         if info["ID_informativo"] == ID_informativo:
             return jsonify(info)
         
-#DESENVOLVER OS METODOS PUT, POST, DELETE
-
 @app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
     if not "ID_turma" in session:
@@ -170,12 +172,13 @@ def CREATE_informativo():
     dadosPOST["ID_turma"] = session["ID_turma"]
     if dadosPOST is None:
         print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
-        return jsonify({"mensagemServidor":"Nenhum dado foi encontrado na requisição"})
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
     else:
         assuntoInformativo =  dadosPOST["assunto"]
-        POST_informativo(assuntoInformativo, dadosPOST)
-        
-    return redirect(url_for(f"/usuarios/{session['matricula']}"))
+        Resposta = POST_informativo(assuntoInformativo, dadosPOST)
+        if Resposta:
+            print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
+            return jsonify({"informativoCriado": True})
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
@@ -183,7 +186,17 @@ def UPDATE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
         return jsonify({"mensagemServidor":"Erro na atualização de informativo"})
     
-    #return redirect(f"/usuarios/{session['matricula']}")
+    dadosEdit = request.json
+    if dadosEdit is None:
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
+    else:
+        assuntoInformativo =  dadosEdit["assunto"]
+        Resposta = PUT_informativo(ID_informativo, assuntoInformativo, dadosEdit)
+        if Resposta:
+            print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
+            return jsonify({"informativoEditado": True})
+    
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
@@ -191,7 +204,18 @@ def DELETE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
         return jsonify({"mensagemServidor":"Erro na exclusão de informativo"})
     
-    #return redirect(f"/usuarios/{session['matricula']}")
+    assuntoInfo = ""
+    listaInformativo = GET_informartivos(session["ID_turma"])
+
+    for info in listaInformativo:
+        if info["ID_informativo"] == ID_informativo:
+            assuntoInfo = info["assunto"]
+            break
+    
+    Resposta = DELETE_informativo(ID_informativo, assuntoInfo)
+    if Resposta:
+        print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
+        return jsonify({"informativoDeletado": True})
     
 if __name__ == '__main__':
     app.run(debug=True)

@@ -2,19 +2,22 @@ import {CampoAnexo, CampoTexto, TextoSelecao, Campo, DoisCampos, IntervaloTempo}
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
 import {useState, useEffect} from "react"
-import {GET, PUT} from "../static/js/requisicaoHTTP.js"
-import {dadosForm} from "../static/js/form_informativos.js"
-import "../static/css/estilo_login.css";
-import "../static/css/estilo_global.css";
-import "../static/css/estilo_formInformativos.css"
+import {useParams} from "react-router-dom"
+import {GET, PUT} from "../js/requisicaoHTTP.js"
+import {dadosForm} from "../js/form_informativos.js"
+import "../css/estilo_login.css";
+import "../css/estilo_global.css";
+import "../css/estilo_formInformativos.css"
 
-function Edit({ID_informativo}){
-    const [form, setForm] = useState("null");
+function Edit({dadosUsuario}){
+    const [form, setForm] = useState(null);
+    const [informativo, setInformativo] = useState({})
     const [assuntoForm, setAssuntoForm] = useState("");
+    const { id } = useParams();
 
     useEffect(() => {
-        async function BuscaInformativo(ID) {
-            const info = await GET(`${ID}`)
+        async function BuscaInformativo() {
+            const info = await GET(`http://localhost:5000/informativos/${id}`)
             if ("mensagemServidor" in info){
                 alert(informativo["mensagemServidor"]);
 
@@ -23,7 +26,7 @@ function Edit({ID_informativo}){
             }
         };
 
-        const informativo = BuscaInformativo(ID_informativo);
+        setInformativo(BuscaInformativo());
 
         switch (informativo["assunto"]){
             case "Avaliação":
@@ -73,36 +76,30 @@ function Edit({ID_informativo}){
                 <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
                 <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
                 </>)
-                setAssuntoForm(informativo["assunto"]);
+                setAssuntoForm("");
                 break;
         }
 
-    }, []);
+    }, [id]);
 
     async function SubmitForm(event, tipoForm){
         event.preventDefault();
-        let dadosForm = {}
-        switch (tipoForm){
-            case "": 
-                break;
-            case "": 
-                break;
-            case "": 
-                break;
-            default: 
-                break;
-        }
-        await PUT("", dadosForm);
+        const assunto = tipoForm != "" ? assuntoForm : document.getElementById("assunto").value;
+        const dadosEdit = dadosForm(assunto)
+        const RespostaServ = await PUT(`http://localhost:5000/PUT/informativos/${informativo["ID_informativo"]}`, dadosEdit);
+        RespostaServ["informativoEditado"] && "informativoEditado" in RespostaServ ? navigate("http://localhost:5173/") : 
+            ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na edição de informativo"))
     };
 
     return (
         <>
-            <BarraLateral liderTurma={true} nomeUsuario={"Júlio César"}/>
+            <BarraLateral liderTurma={dadosUsuario["liderTurma"]} nomeUsuario={dadosUsuario["nomeUsuario"]} tipoUsuario={dadosUsuario["tipoUsuario"]}/>
             <Cabecalho/>
             <Corpo titulo={Edição}>
                 <form className="formAviso" onSubmit={async (event) => {SubmitForm(event, assuntoForm)}}>
                     {form}
                 </form>
+                <button type="submit" id="criaAviso" className="botao_campo_form">Editar</button>
             </Corpo>
         </>
     )

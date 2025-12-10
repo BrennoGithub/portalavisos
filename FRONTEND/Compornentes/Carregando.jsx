@@ -1,4 +1,4 @@
-import "../static/css/estilo_Informativos.css"
+import "../css/estilo_Informativos.css"
 
 function Carregando(){
     return <div className="carregando spinner"></div>

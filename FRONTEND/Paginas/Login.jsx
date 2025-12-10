@@ -1,9 +1,9 @@
 import { Campo } from "../Compornentes/Campos.jsx"
 import {useState} from "react"
 import {useNavigate} from "react-router-dom"
-import {POST} from "../static/js/requisicaoHTTP.js"
-import "../static/css/estilo_global.css";
-import "../static/css/estilo_login.css";
+import {POST} from "../js/requisicaoHTTP.js"
+import "../css/estilo_global.css";
+import "../css/estilo_login.css";
 
 
 function Login(){

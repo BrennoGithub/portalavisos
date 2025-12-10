@@ -1,17 +1,18 @@
-import {useState} from "react"
-import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import {CampoAnexo, CampoTexto, TextoSelecao, Campo, DoisCampos, IntervaloTempo} from "../Compornentes/Campos.jsx";
+import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
-import {POST} from "../static/js/requisicaoHTTP.js"
-import {dadosForm} from "../static/js/form_informativos.js"
-import "../static/css/estilo_login.css";
-import "../static/css/estilo_global.css";
-import "../static/css/estilo_formInformativos.css"
+import {useState} from "react"
+import {useNavigate} from "react-router-dom"
+import {POST} from "../js/requisicaoHTTP.js"
+import {dadosForm} from "../js/form_informativos.js"
+import "../css/estilo_login.css";
+import "../css/estilo_global.css";
+import "../css/estilo_formInformativos.css"
 
-//RESOLVER O PROBLEMA DA EXIBIÇÃO DOS DADOS ADICIONAIS
-function Form(){
+function Form({dadosUsuario}){
     const [dadosAdicionais, setDadosAdicionais] = useState(null)
+    const navigate = useNavigate();
 
     function TipoForm(tipo){
         switch (tipo){
@@ -53,12 +54,14 @@ function Form(){
         event.preventDefault();
         const assunto = document.getElementById("assunto").value;
         const Formulario = dadosForm(assunto);
-        const InfoCriado = await POST("", Formulario);
+        const RespostaServ = await POST("http://localhost:5000/POST/informativos", Formulario);
+        RespostaServ["informativoCriado"] && "informativoCriado" in RespostaServ ? navigate("http://localhost:5173/") : 
+            ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na criação de informativo"))
     }
 
 
     return (<>
-        <BarraLateral  liderTurma={true} nomeUsuario={"Júlio César"}/>
+        <BarraLateral liderTurma={dadosUsuario["liderTurma"]} nomeUsuario={dadosUsuario["nomeUsuario"]} tipoUsuario={dadosUsuario["tipoUsuario"]}/>
         <Cabecalho/>
         <Corpo titulo={"Formulario"}>
             <form className="formAviso" onSubmit={async (event) => {CriarInfo(event)}}>
