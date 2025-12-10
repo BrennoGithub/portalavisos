@@ -25,3 +25,10 @@
 .botao_campo_login{
     margin-bottom: 15px;
 }
+
+.alertErro{
+    color: red;
+    font-size: "15px";
+    margin: "5px 15px";
+    text-align: "left";
+}

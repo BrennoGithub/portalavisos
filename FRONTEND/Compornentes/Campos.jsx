@@ -1,9 +1,13 @@
-import {useState} from "react"
-import "../static/css/estilo_login.css";
-import "../static/css/estilo_global.css";
-import "../static/css/estilo_formInformativos.css"
+import {useState, useEffect} from "react"
+import "../css/estilo_login.css";
+import "../css/estilo_global.css";
+import "../css/estilo_formInformativos.css"
 
-export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerholder, obrigatorio=false}){
+export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerholder, valorCampo="", obrigatorio=false}){
+    useEffect(() =>{
+        document.getElementById(id_campo).value = valorCampo;
+    }, []);
+
     return (
         <fieldset className="area_campo_form">
             <legend>
@@ -11,27 +15,36 @@ export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerhold
             </legend>
             {obrigatorio ? 
             <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} required/> : 
-            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder}/>}
+            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} />}
         </fieldset>
     )
 }
 
-export function DoisCampos({tipoInput1="text", tipoInput2="text", nomeCampo1, nomeCampo2, id_campo1, id_campo2, mensagemPlacerholder1="", mensagemPlacerholder2=""}){
+export function DoisCampos({tiposInput=["text", "text"], nomesCampos, id_campos, mensagensPlacerholder, valoresCampos=["", ""]}){
+    useEffect(() =>{
+        document.getElementById(id_campos[0]).value = valoresCampos[0];
+        document.getElementById(id_campos[1]).value = valoresCampos[1];
+    }, []);
+    
     return (
         <div className="linhaUnica">
             <fieldset className="area_campo_form caixaInterna">
-                <legend><label htmlFor={id_campo1}>{nomeCampo1}</label></legend>
-                <input type={tipoInput1} name={id_campo1} id={id_campo1} placeholder={mensagemPlacerholder1}/>
+                <legend><label htmlFor={id_campos[0]}>{nomesCampos[0]}</label></legend>
+                <input type={tiposInput[0]} name={id_campos[0]} id={id_campos[0]} placeholder={mensagensPlacerholder[0]}/>
             </fieldset>
             <fieldset className="area_campo_form caixaInterna">
-                <legend><label htmlFor={id_campo2}>{nomeCampo2}</label></legend>
-                <input type={tipoInput2} name={id_campo2} id={id_campo2} placeholder={mensagemPlacerholder2}/>
+                <legend><label htmlFor={id_campos[1]}>{nomesCampos[1]}</label></legend>
+                <input type={tiposInput[1]} name={id_campos[1]} id={id_campos[1]} placeholder={mensagensPlacerholder[1]}/>
             </fieldset>
         </div>
     )
 }
 
-export function CampoTexto({nomeCampo, id_campo, mensagemPlacerholder, obrigatorio=false}){
+export function CampoTexto({nomeCampo, id_campo, mensagemPlacerholder, valorCampo="", obrigatorio=false}){
+    useEffect(() =>{
+        document.getElementById(id_campo).value = valorCampo;
+    }, []);
+
     return (
         <fieldset className="texto_campo_form">
             <legend><label htmlFor={id_campo}>{nomeCampo}</label></legend>
@@ -49,10 +62,12 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
         setExibiOpcoes(!exibiOpcoes);
     }
 
-    function SelecionaTexto(Opcao){
+    function SelecionaTexto(event, ID_campo, Opcao){
+        event.preventDefault();
         setAssuntoInfo(Opcao)
-        ExibiOpcoes();
+        document.getElementById(ID_campo).value = assuntoInfo;
         funcaoSelecao ? funcaoSelecao(Opcao) : null
+        ExibiOpcoes();
     }
 
     return (
@@ -60,33 +75,43 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
             <legend>
                 <label htmlFor={id_campo}>{nomeCampo}</label>
             </legend>
-            <input type="text" id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} autoComplete="off" onClick={() => {ExibiOpcoes()}} value={assuntoInfo}/>
+            <input type="text" id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} 
+                autoComplete="off" onFocus={() => {ExibiOpcoes()}} onChange={() => {funcaoSelecao("")}}/>
             {exibiOpcoes ? <div className="areaOpcoes">
-                {listaOpcoes.map((opcao, index) => (<a href="#" className="opcaoInformativo" key={index} id={index} onClick={() => {SelecionaTexto(opcao)}}>{opcao}</a>))}
+                {listaOpcoes.map((opcao, index) => (<a href="" className="opcaoInformativo" value={opcao[0]} key={index} id={index} onClick={(event) => {SelecionaTexto(event, id_campo, opcao[1])}}>{opcao[1]}</a>))}
             </div> : null}
         </fieldset>
     )
 }
 
-export function IntervaloTempo({tipoInput, nomeCampo, id_campo1, id_campo2, mensagemPlacerholder1, mensagemPlacerholder2}){
+export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacerholder, valoresCampos=["", ""]}){
+    useEffect(() =>{
+        document.getElementById(id_campos[0]).value = valoresCampos[0];
+        document.getElementById(id_campos[1]).value = valoresCampos[1];
+    }, []);
+
     return (
         <fieldset className="area_campo_form">
             <legend><label>{nomeCampo}</label></legend>
             <div className="linhaUnica">
                 <label> 
-                    <em>{mensagemPlacerholder1}</em> 
-                    <input type={tipoInput} id={id_campo1} className="areaDate"/> 
+                    <em>{mensagensPlacerholder[0]}</em> 
+                    <input type={tipoInput} id={id_campos[0]} className="areaDate" required/> 
                 </label>
                 <label> 
-                    <em>{mensagemPlacerholder2}</em> 
-                    <input type={tipoInput} id={id_campo2} className="areaDate"/> 
+                    <em>{mensagensPlacerholder[1]}</em> 
+                    <input type={tipoInput} id={id_campos[1]} className="areaDate" required/> 
                 </label>
             </div>
         </fieldset>
     )
 }
 
-export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder}){
+export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder, valorCampo=""}){
+    useEffect(() =>{
+        document.getElementById(id_campo).value = valorCampo;
+    }, []);
+    
     return (
         <fieldset className="area_campo_form">
             <legend><label htmlFor="tipo_material">{nomeCampo}</label></legend>

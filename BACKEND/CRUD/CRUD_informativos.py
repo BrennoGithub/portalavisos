@@ -1,7 +1,7 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
 from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos
-from BACKEND.App import db
+from App import db
 from datetime import datetime
 #ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
 
@@ -118,8 +118,7 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
         db.session.add(novos_dadosAdicionais) 
         db.session.commit()
 
-    print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
-    return {"mensagemServidor": "Informativo criado com sucesso"}
+    return True
 
 #Função PUT
 def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
@@ -172,8 +171,7 @@ def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
 
     db.session.commit()
     
-    print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
-    return {"mensagemServidor": "Informativo atualizado com sucesso"}
+    return True
 
 #Função DELETE
 def DELETE_informativo(ID_informativo, assuntoInformativo):
@@ -202,5 +200,4 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
         db.session.delete(informativo)
     db.session.commit()
 
-    print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
-    return {"mensagemServidor": "Informativo deletado com sucesso"}
+    return True

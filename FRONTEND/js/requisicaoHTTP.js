@@ -3,7 +3,7 @@
 //Metodo GET
 export async function GET(rota){ 
     try { 
-        let resposta = await fetch(rota);
+        let resposta = await fetch(rota, {credentials: 'include'}); // Permite que o navegador pegue cookies de sessão
         const dados = await resposta.json();
         if("mensagemServidor" in dados){
             return dados["mensagemServidor"];
@@ -13,7 +13,7 @@ export async function GET(rota){
 
     } catch (erro) {
         console.error("Erro na busca de dados", erro)
-        return `Erro na busca de dados: ${erro.message || erro}`;
+        return {"mensagemServidor": `Erro na busca de dados: ${erro.message || erro}`};
     }
 };
 
@@ -24,14 +24,15 @@ export async function POST(rota, objeto) {
         let resposta = await fetch(rota, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: objetoJSON
+            body: objetoJSON,
+            credentials: 'include' // Permite que o navegador envie cookies de sessão
         })
         resposta = await resposta.json();
-        console.log(objeto);
+        return resposta
     }
     catch {
         console.error("Erro no envio de dados", erro)
-        return `Erro no envio de dados: ${erro.message || erro}`;
+        return {"mensagemServidor": `Erro no envio de dados: ${erro.message || erro}`}
     }
 };
 
@@ -45,11 +46,11 @@ export async function PUT(rotaEspecifica, objeto) {
             body: objetoJSON
         })
         resposta = await resposta.json();
-        console.log(objeto);
+        return resposta
     }
     catch{
         console.error("Erro na atualização de dados", erro)
-        return `Erro na atualização de dados: ${erro.message || erro}`;
+        return {"mensagemServidor": `Erro na atualização de dados: ${erro.message || erro}`};
     }
 };
 
@@ -61,10 +62,10 @@ export async function DELETE(rotaEspecifica) {
             headers: { 'Content-Type': 'application/json' }
         })
         resposta = await resposta.json();
-        console.log(objeto);
+        return resposta
     }
     catch{
         console.error("Erro na excluição de dados", erro)
-        return `Erro na excluição de dados: ${erro.message || erro}`;
+        return {"mensagemServidor": `Erro na excluição de dados: ${erro.message || erro}`};
     }
 };

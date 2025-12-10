@@ -1,49 +1,67 @@
-from BACKEND.App import app
+from App import app
 from flask import render_template, request, redirect, url_for
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
-from CRUD.CRUD_informativos import GET_informartivos, POST_informativo
+from CRUD.CRUD_informativos import GET_informartivos, POST_informativo, PUT_informativo, DELETE_informativo
 from CRUD.CRUD_materias import GET_materias
 
 @app.route("/")
 def PaginaPrincipal():
+    dadosSessao = {}
     if "matricula" in session and "tipoUsuario" in session:
-        return jsonify({"login": True})
+        dadosSessao["login"] = True
+
+        if "professor" == session["tipoUsuario"]: 
+            dadosSessao["tipoUsuario"] = session["tipoUsuario"]
+            dadosSessao["nomeUsuario"] = session["nomeUsuario"]
+
+        elif "aluno" == session["tipoUsuario"]: 
+            dadosSessao["tipoUsuario"] = session["tipoUsuario"]
+            dadosSessao["nomeUsuario"] = session["nomeUsuario"]
+            dadosSessao["liderTurma"] = session["liderTurma"]
+        
     else:
-        return jsonify({"login": False})
+        dadosSessao["login"] = False
+    
+    return jsonify(dadosSessao)
 
-@app.route("/login")
-def login():
-    return "login.html"
-
-@app.route("/submit_login", methods=["POST"])
+@app.route("/login", methods=["POST"])
 def valida_login():
-    if request.method == "POST":
-        matricula = request.form["matricula"]
-        senha = request.form["senha"]
+    dadosLogin = request.json
+    matricula = dadosLogin["matricula"]
+    senha = dadosLogin["senha"]
         
-        usuario = GET_usuario(session, matricula)
+    usuario = GET_usuario(matricula)
         
-        if usuario.senhaSistema != senha:
-            return jsonify({"login": False})
-        else:
-            if session["tipoUsuario"] == "professor":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"]})
+    if usuario["senhaSistema"] != senha:
+        return jsonify({"login": False})
+    else:
+        if usuario["tipoUsuario"] == "professor":
+            session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
+            session["nomeUsuario"] = usuario["nome"]
+            session["tipoUsuario"] = usuario["tipoUsuario"]
             
-            elif session["tipoUsuario"] == "aluno":
-                session["matricula"] = usuario.matricula # <-- Armazenados na sessão
-                session["nomeUsuario"] = usuario.nome
-                session["liderTurma"] = usuario.liderTurma
-                session["ID_turma"]  = usuario.turma
-                return jsonify({"login": True, "tipoUsuario": session["tipoUsuario"], "liderTurma": session["liderTurma"]})
+        elif usuario["tipoUsuario"] == "aluno":
+            session["matricula"] = usuario["matricula"] # <-- Armazenados na sessão
+            session["nomeUsuario"] = usuario["nome"]
+            session["liderTurma"] = usuario["liderTurma"]
+            session["ID_turma"]  = usuario["turma"]
+            session["tipoUsuario"] = usuario["tipoUsuario"]
+            
+        print("MENSAGEM SERVIDOR: Sessão inicializada")
+        return jsonify({"login": True})
 
-@app.route("/logout")
+@app.route("/logout", methods=["POST"])
 def logout():
-    session.clear()
-    return redirect(url_for("login"))
+    Logout = request.get_json["logout"]
+    if Logout:
+        session.clear()
+        print("MENSAGEM SERVIDOR: Sessão finalizada")
+        return jsonify({"deslogado": True})
+    else:
+        print("MENSAGEM SERVIDOR: Erro na finalização da sessão")
+        return jsonify({"deslogado": False})
 
 @app.route("/turmas/<int:ID_turma>")
 def returnTurma(ID_turma):
@@ -73,7 +91,6 @@ def returnUSUARIO(tipoUsuario, matricula):
         case "professor":
             return render_template("tela_lideres.html", nome = session["nomeUsuario"])
 
-
 @app.route("/materias/")
 def returnMaterias():
     if not 'ID_turma' in session:
@@ -94,7 +111,7 @@ def returnTodosInformativos():
 
     if len(listaInformativo) == 0 or listaInformativo == None:
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
-        return "MENSAGEM SERVIDOR: Informativos não encontrados"
+        return jsonify({"mensagemServidor": "Informativos não encontrados"})
     else:
         return jsonify(listaInformativo)
 
@@ -145,8 +162,6 @@ def returnInformativo_ID(ID_informativo):
         if info["ID_informativo"] == ID_informativo:
             return jsonify(info)
         
-#DESENVOLVER OS METODOS PUT, POST, DELETE
-
 @app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
     if not "ID_turma" in session:
@@ -157,12 +172,13 @@ def CREATE_informativo():
     dadosPOST["ID_turma"] = session["ID_turma"]
     if dadosPOST is None:
         print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
-        return jsonify({"mensagemServidor":"Nenhum dado foi encontrado na requisição"})
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
     else:
         assuntoInformativo =  dadosPOST["assunto"]
-        POST_informativo(assuntoInformativo, dadosPOST)
-        
-    return redirect(url_for(f"/usuarios/{session['matricula']}"))
+        Resposta = POST_informativo(assuntoInformativo, dadosPOST)
+        if Resposta:
+            print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
+            return jsonify({"informativoCriado": True})
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
@@ -170,7 +186,17 @@ def UPDATE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
         return jsonify({"mensagemServidor":"Erro na atualização de informativo"})
     
-    #return redirect(f"/usuarios/{session['matricula']}")
+    dadosEdit = request.json
+    if dadosEdit is None:
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
+    else:
+        assuntoInformativo =  dadosEdit["assunto"]
+        Resposta = PUT_informativo(ID_informativo, assuntoInformativo, dadosEdit)
+        if Resposta:
+            print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
+            return jsonify({"informativoEditado": True})
+    
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_informativo(ID_informativo):
@@ -178,7 +204,18 @@ def DELETE_informativo(ID_informativo):
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
         return jsonify({"mensagemServidor":"Erro na exclusão de informativo"})
     
-    #return redirect(f"/usuarios/{session['matricula']}")
+    assuntoInfo = ""
+    listaInformativo = GET_informartivos(session["ID_turma"])
+
+    for info in listaInformativo:
+        if info["ID_informativo"] == ID_informativo:
+            assuntoInfo = info["assunto"]
+            break
+    
+    Resposta = DELETE_informativo(ID_informativo, assuntoInfo)
+    if Resposta:
+        print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
+        return jsonify({"informativoDeletado": True})
     
 if __name__ == '__main__':
     app.run(debug=True)
