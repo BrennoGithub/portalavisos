@@ -1,34 +1,27 @@
-import {CampoAnexo, CampoTexto, TextoSelecao, Campo, DoisCampos, IntervaloTempo} from "../Compornentes/Campos.jsx";
+import {CampoAnexo, CampoTexto, Campo, DoisCampos, IntervaloTempo} from "../Compornentes/Campos.jsx";
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
+import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import {useState, useEffect} from "react"
-import {useParams} from "react-router-dom"
+import {useParams, useNavigate} from "react-router-dom"
 import {GET, PUT} from "../js/requisicaoHTTP.js"
 import {dadosForm} from "../js/form_informativos.js"
 import "../css/estilo_login.css";
 import "../css/estilo_global.css";
 import "../css/estilo_formInformativos.css"
 
+//CONSERTAR EXIBIÇÃI DE FORM E FUNÇÃO RENDERIZAFORM
 function Edit({dadosUsuario}){
     const [form, setForm] = useState(null);
     const [informativo, setInformativo] = useState({})
-    const [assuntoForm, setAssuntoForm] = useState("");
+    const [assuntoForm, setAssuntoForm] = useState(null);
     const { id } = useParams();
+    const navigate = useNavigate()
 
-    useEffect(() => {
-        async function BuscaInformativo() {
-            const info = await GET(`http://localhost:5000/informativos/${id}`)
-            if ("mensagemServidor" in info){
-                alert(informativo["mensagemServidor"]);
+    function RenderizacaoForm(info){
+        setAssuntoForm(info["assunto"])
 
-            } else{
-                return info;
-            }
-        };
-
-        setInformativo(BuscaInformativo());
-
-        switch (informativo["assunto"]){
+        switch (assuntoForm){
             case "Avaliação":
                 setForm(<>
                 <Campo nomeCampo="Tipo Avaliação" id_campo="tipoAvaliacao" 
@@ -40,10 +33,7 @@ function Edit({dadosUsuario}){
                 <DoisCampos tiposInput={["date", "time"]} id_campos={["dataAvaliacao", "horaAvaliacao"]}
                     nomesCampos={["Dia da Avaliação", "Hora da Avaliação"]} 
                     valoresCampos={[informativo["dataAvaliacao"], informativo["horaAvaliacao"]]}/>
-                <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
-                <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
                 </>)
-                setAssuntoForm(informativo["assunto"]);
                 break;
             
             case "Evento":
@@ -54,52 +44,70 @@ function Edit({dadosUsuario}){
                     mensagensPlacerholder={["Inicio:", "Fim:"]} valoresCampos={[informativo["dataInicial_Evento"], informativo["dataFinal_Evento"]]}/>
                 <IntervaloTempo tipoInput="time" nomeCampo="Horario do Evento" id_campos={["horaInicial_Evento", "horaFinal_Evento"]}
                     mensagensPlacerholder={["Inicio:", "Fim:"]} valoresCampos={[informativo["horaInicial_Evento"], informativo["horaFinal_Evento"]]}/>
-                <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
-                <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
                 </>)
-                setAssuntoForm(informativo["assunto"]);
                 break;
-
+    
             case "Material Didatico":
                 setForm(<>
                 <DoisCampos nomesCampos={["Materia", "Assunto do Material"]} id_campos={["materia", "assuntoMaterial"]}
                     mensagensPlacerholder={["Materia", "Assunto do Material Didatico"]} valoresCampos={[informativo["materia"], informativo["assuntoMaterial"]]}/>
-                <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
-                <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
                 </>)
-                setAssuntoForm(informativo["assunto"]);
                 break;
-
+    
             default:
                 setForm(<>
                 <Campo nomeCampo="Assunto" mensagemPlacerholder="Digite o assunto do informativo" id_campo="assunto" valorCampo={informativo["assunto"]}/>
-                <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
-                <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
                 </>)
-                setAssuntoForm("");
                 break;
         }
+    }
+    
+    useEffect(() => {
+        async function BuscaInformativo() {
+            try{
+                const info = await GET(`http://localhost:5000/informativos/${id}`)
+                if ("mensagemServidor" in info){
+                    alert(informativo["mensagemServidor"]);
+    
+                } else{
+                    setInformativo(info);
+                    RenderizacaoForm(informativo)
+                }
+                
+            } catch(error){
+                alert(`Erro na busca de informativo: ${error}`)
+                return {}
+            }
+        };
 
-    }, [id]);
+        BuscaInformativo();
+
+    }, [informativo]);
 
     async function SubmitForm(event, tipoForm){
         event.preventDefault();
         const assunto = tipoForm != "" ? assuntoForm : document.getElementById("assunto").value;
         const dadosEdit = dadosForm(assunto)
         const RespostaServ = await PUT(`http://localhost:5000/PUT/informativos/${informativo["ID_informativo"]}`, dadosEdit);
-        RespostaServ["informativoEditado"] && "informativoEditado" in RespostaServ ? navigate("http://localhost:5173/") : 
-            ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na edição de informativo"))
+        if(RespostaServ["informativoEditado"] && "informativoEditado" in RespostaServ){
+            navigate("/")
+
+        }else if("mensagemServidor" in RespostaServ){
+            alert(RespostaServ["mensagemServidor"])
+        }
     };
 
     return (
         <>
             <BarraLateral liderTurma={dadosUsuario["liderTurma"]} nomeUsuario={dadosUsuario["nomeUsuario"]} tipoUsuario={dadosUsuario["tipoUsuario"]}/>
             <Cabecalho/>
-            <Corpo titulo={Edição}>
+            <Corpo titulo={"Edição de informativo"}>
                 <form className="formAviso" onSubmit={async (event) => {SubmitForm(event, assuntoForm)}}>
                     {form}
+                    <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={"ANEXO"}/>
+                    <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]}/>
+                    <button type="submit" id="criaAviso" className="botao_campo_form">Editar</button>
                 </form>
-                <button type="submit" id="criaAviso" className="botao_campo_form">Editar</button>
             </Corpo>
         </>
     )
