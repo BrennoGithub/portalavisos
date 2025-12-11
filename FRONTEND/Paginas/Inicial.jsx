@@ -21,6 +21,7 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
 
     useEffect(() => {
         let listaInformativos
+        let intervalId;
         async function BuscaInformativo(tipoInfo){
             switch (info){
                 case "avaliacoes":
@@ -59,6 +60,7 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
         };
 
         BuscaInformativo(info);
+        intervalId = setInterval(BuscaInformativo(info), 30000); // 30 segundo
 
     }, [info]);
     

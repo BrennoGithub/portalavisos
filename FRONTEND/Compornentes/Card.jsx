@@ -46,7 +46,7 @@ function Card({objetoInfo, exibiEdit}){
         default:
             estiloTitulo = "azul_1"
             estiloCorpo = "azul_2"
-            Titulo = objetoInfo["assunto"] + objetoInfo["ID_informativo"]
+            Titulo = objetoInfo["assunto"]
             Texto = objetoInfo["mensagem"]
             break;
     }

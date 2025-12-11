@@ -21,10 +21,10 @@ function Login({setLogado}){
         const RespostaLogin = await POST("http://localhost:5000/login", dadosLogin)
         if (RespostaLogin["login"]){
             setLogado(true)
+            navigate("/")
         }else{
             setMensagem("Matricula ou senha incorreta.")
         }
-        navigate("/")
     }
 
     return (
