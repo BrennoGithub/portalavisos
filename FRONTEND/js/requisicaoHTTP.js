@@ -43,7 +43,8 @@ export async function PUT(rotaEspecifica, objeto) {
         let resposta = await fetch(rotaEspecifica, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: objetoJSON
+            body: objetoJSON,
+            credentials: 'include' // Permite que o navegador envie cookies de sessão
         })
         resposta = await resposta.json();
         return resposta
@@ -59,7 +60,8 @@ export async function DELETE(rotaEspecifica) {
     try{
         let resposta = await fetch(rotaEspecifica, {
             method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' }
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include' // Permite que o navegador envie cookies de sessão
         })
         resposta = await resposta.json();
         return resposta

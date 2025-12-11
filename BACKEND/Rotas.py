@@ -1,5 +1,5 @@
 from App import app
-from flask import render_template, request, redirect, url_for
+from flask import request
 from flask import session, jsonify
 from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
@@ -48,13 +48,16 @@ def valida_login():
             session["liderTurma"] = usuario["liderTurma"]
             session["ID_turma"]  = usuario["turma"]
             session["tipoUsuario"] = usuario["tipoUsuario"]
-            
+        
+        print(session)
         print("MENSAGEM SERVIDOR: Sessão inicializada")
         return jsonify({"login": True})
 
 @app.route("/logout", methods=["POST"])
 def logout():
-    Logout = request.get_json["logout"]
+    funcaoLogout = request.json
+    print(funcaoLogout)
+    Logout = funcaoLogout["logout"]
     if Logout:
         session.clear()
         print("MENSAGEM SERVIDOR: Sessão finalizada")
@@ -80,16 +83,12 @@ def returnUSUARIOS(tipoUsuario):
 @app.route("/usuarios/<string:tipoUsuario>/<string:matricula>")
 def returnUSUARIO(tipoUsuario, matricula):
     if 'matricula' not in session or session['matricula'] != matricula:
-        return redirect(url_for("login"))
+        print("MENSAGEM SERVIDOR: Usuario não encontrado")
+        return jsonify({"mensagemServidor": "Usuario não encontrado"})
     
-    match tipoUsuario:
-        case "aluno":
-            if session["liderTurma"] == "False":
-                return render_template("tela_comun.html", nome = session["nomeUsuario"])
-            elif session["liderTurma"] == "True":
-                return render_template("tela_lideres.html", nome = session["nomeUsuario"])
-        case "professor":
-            return render_template("tela_lideres.html", nome = session["nomeUsuario"])
+    usuario = GET_usuario(session['matricula'])
+    
+    return jsonify(usuario)
 
 @app.route("/materias/")
 def returnMaterias():
@@ -199,10 +198,12 @@ def UPDATE_informativo(ID_informativo):
     
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
-def DELETE_informativo(ID_informativo):
+def DELETE_info(ID_informativo):
+    print(session)
     if not "ID_turma" in session:
         print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
         return jsonify({"mensagemServidor":"Erro na exclusão de informativo"})
+    
     
     assuntoInfo = ""
     listaInformativo = GET_informartivos(session["ID_turma"])

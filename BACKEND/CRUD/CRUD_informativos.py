@@ -191,13 +191,15 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
         print("MENSAGEM SERVIDOR: Informativo não encontrado")
         return {"mensagemServidor": "Informativo não encontrado"}
 
+    if relacionamento is not None:
+        db.session.delete(relacionamento)
+        db.session.commit()
+
     if dadosAdicionais is not None:
-        db.session.delete(relacionamento)
         db.session.delete(dadosAdicionais)
-        db.session.delete(informativo)
-    else:
-        db.session.delete(relacionamento)
-        db.session.delete(informativo)
+        db.session.commit()
+    
+    db.session.delete(informativo)
     db.session.commit()
 
     return True

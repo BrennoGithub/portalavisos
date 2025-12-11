@@ -46,15 +46,25 @@ function Card({objetoInfo, exibiEdit}){
         default:
             estiloTitulo = "azul_1"
             estiloCorpo = "azul_2"
-            Titulo = objetoInfo["assunto"]
+            Titulo = objetoInfo["assunto"] + objetoInfo["ID_informativo"]
             Texto = objetoInfo["mensagem"]
             break;
     }
 
     async function DeleteInfo(ID) {
-        const RespostaServ = await DELETE(`http://localhost:5000/DELETE/informativos/${ID}`);
-        RespostaServ["informativoDeletado"] && "informativoDeletado" in RespostaServ ? navigate("http://localhost:5173/") : 
-            ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na exclusão de informativo"))
+        try{
+            const RespostaServ = await DELETE(`http://localhost:5000/DELETE/informativos/${ID}`);
+            if("mensagemServidor" in RespostaServ){
+                alert(RespostaServ["mensagemServidor"])
+
+            } else if(RespostaServ["informativoDeletado"] && "informativoDeletado" in RespostaServ){
+                alert("Informativo deletado com sucesso")
+                window.location.reload();
+            }
+            
+        } catch(error){
+            alert(`Erro na exclusão de informativo: ${error}`)
+        }
     }
 
     return (
@@ -68,7 +78,7 @@ function Card({objetoInfo, exibiEdit}){
                     <div class="botoesEdit">
                         <img src={Delete} alt="Icone Delete" className="icone_delete" onClick={() => {DeleteInfo(objetoInfo["ID_informativo"])}}/>
                         <img src={Edit} alt="Icone Edit" className="icone_delete" 
-                            onClick={() => {navigate(`http://localhost:5173/informativos/${objetoInfo["ID_informativo"]}`)}}/>
+                            onClick={() => {navigate(`/informativos/${objetoInfo["ID_informativo"]}`)}}/>
                     </div>
                     <div className="dataCriacao">{objetoInfo["dataCriacao"]}</div>
                 </div> : 

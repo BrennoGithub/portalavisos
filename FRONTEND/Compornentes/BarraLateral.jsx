@@ -18,8 +18,14 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
     async function Navegacao(event){
         event.preventDefault()
         if(Deslogar){
-            sessaoLimpa = await POST("http://localhost:5000/logout", {"logout": true});
-            sessaoLimpa["deslogado"] && "deslogado" in sessaoLimpa ? navigate("http://localhost:5173/") : alert("Erro no desloge")
+            try{
+                await POST("http://localhost:5000/logout", {"logout": true});
+                
+            } catch (error){
+                alert(`Erro no deslogar na sessão: ${error}`)
+            }
+            navigate("/login")
+            
         } else{
             navigate(rotaAPI);
             clickFecha();
