@@ -43,14 +43,14 @@ function App() {
             setCarregando(false)
         }
     checkLogin();
-    }, []);
+    }, [logado]);
   
  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Verificacao logado={logado} carregando={carregando}> <Inicial objetoUsuario={dadosUsuario}/> </Verificacao>}/>
-        <Route path="/login" element={<Login setLogado={() => {setLogado()}}/>}/>
+        <Route path="/login" element={<Login setLogado={setLogado}/>}/>
         <Route path="/avisos" element={<Verificacao logado={logado} carregando={carregando}> <Inicial info="avisos" tituloSessao="Avisos" objetoUsuario={dadosUsuario}/> </Verificacao>}/>
         <Route path="/avaliacoes" element={<Verificacao logado={logado} carregando={carregando}> <Inicial info="avaliacoes" tituloSessao="Avaliações" objetoUsuario={dadosUsuario}/> </Verificacao>}/>
         <Route path="/eventos" element={<Verificacao logado={logado} carregando={carregando}> <Inicial info="eventos" tituloSessao="Eventos" objetoUsuario={dadosUsuario}/> </Verificacao>}/>

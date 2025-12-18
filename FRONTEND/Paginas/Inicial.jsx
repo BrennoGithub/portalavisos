@@ -60,14 +60,13 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
         };
 
         BuscaInformativo(info);
-        intervalId = setInterval(BuscaInformativo(info), 30000); // 30 segundo
 
-    }, [info]);
+    }, [info, objetoUsuario]);
     
 
     return (
         <>
-            <BarraLateral liderTurma={objetoUsuario["liderTurma"]} nomeUsuario={objetoUsuario["nomeUsuario"]} tipoUsuario={objetoUsuario["tipoUsuario"]}/>
+            <BarraLateral dadosUsuario={objetoUsuario}/>
             <Cabecalho/>
             <Corpo titulo={tituloSessao}>
                 {informativos.map((info, index) => (<Card objetoInfo={info} exibiEdit={true} key={index}/>))}

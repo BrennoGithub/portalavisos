@@ -55,13 +55,14 @@ function Form({dadosUsuario}){
         const assunto = document.getElementById("assunto").value;
         const Formulario = dadosForm(assunto);
         const RespostaServ = await POST("http://localhost:5000/POST/informativos", Formulario);
-        RespostaServ["informativoCriado"] && "informativoCriado" in RespostaServ ? navigate("http://localhost:5173/") : 
+        RespostaServ["informativoCriado"] && "informativoCriado" in RespostaServ ? navigate("/") : 
             ("mensagemServidor" in RespostaServ ? alert(RespostaServ["mensagemServidor"]) : alert("Erro na criação de informativo"))
+
     }
 
 
     return (<>
-        <BarraLateral liderTurma={dadosUsuario["liderTurma"]} nomeUsuario={dadosUsuario["nomeUsuario"]} tipoUsuario={dadosUsuario["tipoUsuario"]}/>
+        <BarraLateral dadosUsuario={dadosUsuario}/>
         <Cabecalho/>
         <Corpo titulo={"Formulario"}>
             <form className="formAviso" onSubmit={async (event) => {CriarInfo(event)}}>

@@ -33,32 +33,35 @@ def GET_informartivos(ID_turma):
         match info.assunto:
             case "Avaliação":
                 dadosAdicionais = Dados_avaliacoes.query.filter_by(informativo=info.ID_informativo).first() #Retorna apenas a primeira ocorrencia
-                objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
-                objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
-                
-                #Analisar como conveter um objeto Python de tempo para string com datatime e strftime
-                dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
-                objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
-                objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
-                
-                materia = Materias.query.get_or_404(dadosAdicionais.materia)
-                objetoInformativo["materia"] = materia.nomeMateria
+                if dadosAdicionais or dadosAdicionais is not None:
+                    objetoInformativo["tipoAvaliacao"] = dadosAdicionais.tipoAvaliacao
+                    objetoInformativo["assuntoAvaliacao"] = dadosAdicionais.assuntoAvaliacao
+                    
+                    #Analisar como conveter um objeto Python de tempo para string com datatime e strftime
+                    dataAvaliacao_Fragmentada = str(dadosAdicionais.dataAvaliacao).split(" ")
+                    objetoInformativo["dataAvaliacao"] = dataAvaliacao_Fragmentada[0]
+                    objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
+                    
+                    materia = Materias.query.get_or_404(dadosAdicionais.materia)
+                    objetoInformativo["materia"] = materia.nomeMateria
 
             case "Evento":
                 dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
-                objetoInformativo["nomeEvento"] = dadosAdicionais.nomeEvento 
-                objetoInformativo["data_InicioEvento"] = str(dadosAdicionais.data_InicioEvento)
-                objetoInformativo["data_FinalEvento"] = str(dadosAdicionais.data_FinalEvento)
-                objetoInformativo["hora_InicioEvento"] = str(dadosAdicionais.hora_InicioEvento)
-                objetoInformativo["hora_FinalEvento"] = str(dadosAdicionais.hora_FinalEvento)
+                if dadosAdicionais or dadosAdicionais is not None:
+                    objetoInformativo["nomeEvento"] = dadosAdicionais.nomeEvento 
+                    objetoInformativo["data_InicioEvento"] = str(dadosAdicionais.data_InicioEvento)
+                    objetoInformativo["data_FinalEvento"] = str(dadosAdicionais.data_FinalEvento)
+                    objetoInformativo["hora_InicioEvento"] = str(dadosAdicionais.hora_InicioEvento)
+                    objetoInformativo["hora_FinalEvento"] = str(dadosAdicionais.hora_FinalEvento)
                 
             case "Material Didatico":
                 dadosAdicionais = Dados_materiais.query.filter_by(informativo=info.ID_informativo).first()
-                materia = Materias.query.get_or_404(dadosAdicionais.materia)
+                if dadosAdicionais or dadosAdicionais is not None:
+                    materia = Materias.query.get_or_404(dadosAdicionais.materia)
 
-                objetoInformativo["materia"] = materia.nomeMateria
-                objetoInformativo["assuntoMaterial"] = dadosAdicionais.assuntoMaterial
-                
+                    objetoInformativo["materia"] = materia.nomeMateria
+                    objetoInformativo["assuntoMaterial"] = dadosAdicionais.assuntoMaterial
+                    
         lista_informativos.append(objetoInformativo)
 
     return lista_informativos

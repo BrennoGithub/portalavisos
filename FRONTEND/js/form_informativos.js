@@ -14,26 +14,27 @@ export function dadosForm(assuntoForm){
             dadosForm["materia"] = document.getElementById("materia").value
             dadosForm["assuntoAvaliacao"] = document.getElementById("assuntoAvaliacao").value
 
-            const dataAvaliacao = formataDataForm("data", new Date(document.getElementById("dataAvaliacao").value));
+            const dataAvaliacao = formataDataForm("data", document.getElementById("dataAvaliacao").value);
             dadosForm["dataAvaliacao"] = dataAvaliacao
 
-            const horaAvaliacao = formataDataForm("hora", new Date(document.getElementById("horaAvaliacao").value));
+            const horaAvaliacao = formataDataForm("hora", document.getElementById("horaAvaliacao").value);
+            alert(horaAvaliacao)
             dadosForm["horaAvaliacao"] = horaAvaliacao
             break;
 
         case "Evento":
             dadosForm["nomeEvento"] = document.getElementById("nomeEvento").value
 
-            const dataInicial_Evento = formataDataForm("data", new Date(document.getElementById("dataInicial_Evento").value));
+            const dataInicial_Evento = formataDataForm("data", document.getElementById("dataInicial_Evento").value);
             dadosForm["data_InicioEvento"] = dataInicial_Evento
             
-            const dataFinal_Evento = formataDataForm("data", new Date(document.getElementById("dataFinal_Evento").value));
+            const dataFinal_Evento = formataDataForm("data", document.getElementById("dataFinal_Evento").value);
             dadosForm["data_FinalEvento"] = dataFinal_Evento
             
-            const horaInicial_Evento = formataDataForm("hora", new Date(document.getElementById("horaInicial_Evento").value));
+            const horaInicial_Evento = formataDataForm("hora", document.getElementById("horaInicial_Evento").value);
             dadosForm["hora_InicioEvento"] = horaInicial_Evento
 
-            const horaFinal_Evento = formataDataForm("hora", new Date(document.getElementById("horaFinal_Evento").value));
+            const horaFinal_Evento = formataDataForm("hora", document.getElementById("horaFinal_Evento").value);
             dadosForm["hora_FinalEvento"] = horaFinal_Evento
             break;
 

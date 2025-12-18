@@ -75,7 +75,7 @@ function Card({objetoInfo, exibiEdit}){
                 <br/>
                 {exibiEdit ? 
                 <div className="blocoFinal">
-                    <div class="botoesEdit">
+                    <div className="botoesEdit">
                         <img src={Delete} alt="Icone Delete" className="icone_delete" onClick={() => {DeleteInfo(objetoInfo["ID_informativo"])}}/>
                         <img src={Edit} alt="Icone Edit" className="icone_delete" 
                             onClick={() => {navigate(`/informativos/${objetoInfo["ID_informativo"]}`)}}/>

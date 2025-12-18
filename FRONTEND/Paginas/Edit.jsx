@@ -99,7 +99,7 @@ function Edit({dadosUsuario}){
 
     return (
         <>
-            <BarraLateral liderTurma={dadosUsuario["liderTurma"]} nomeUsuario={dadosUsuario["nomeUsuario"]} tipoUsuario={dadosUsuario["tipoUsuario"]}/>
+            <BarraLateral dadosUsuario={dadosUsuario}/>
             <Cabecalho/>
             <Corpo titulo={"Edição de informativo"}>
                 <form className="formAviso" onSubmit={async (event) => {SubmitForm(event, assuntoForm)}}>

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import {useEffect, useState} from "react"
 import { closeNav, clickFecha } from "../js/barra_lateral.js"
 import {POST} from "../js/requisicaoHTTP.js"
 import "../css/estilo_barraLateral.css"
@@ -43,8 +44,18 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
 }
 
 
-function BarraLateral({nomeUsuario, tipoUsuario="", liderTurma="False"}){
+function BarraLateral({dadosUsuario}){
+    const [nomeUsuario, setNome] = useState("")
+    const [liderTurma, setLider] = useState("False")
+    const [tipoUsuario, setTipo] = useState("")
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setNome(dadosUsuario["nomeUsuario"])
+        setTipo(dadosUsuario["tipoUsuario"])
+        "liderTurma" in dadosUsuario ? setLider("True") : null
+    }, [])
+    
     return (
         <nav id="mySidebar" className="sidebar">
             <a href="javascript:void(0)" className="closebtn" onClick={() => {closeNav()}}>

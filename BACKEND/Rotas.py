@@ -49,14 +49,12 @@ def valida_login():
             session["ID_turma"]  = usuario["turma"]
             session["tipoUsuario"] = usuario["tipoUsuario"]
         
-        print(session)
         print("MENSAGEM SERVIDOR: Sessão inicializada")
         return jsonify({"login": True})
 
 @app.route("/logout", methods=["POST"])
 def logout():
     funcaoLogout = request.json
-    print(funcaoLogout)
     Logout = funcaoLogout["logout"]
     if Logout:
         session.clear()
@@ -168,6 +166,7 @@ def CREATE_informativo():
         return jsonify({"mensagemServidor":"Erro na criação de informativo"})
     
     dadosPOST = request.json
+    print(dadosPOST)
     dadosPOST["ID_turma"] = session["ID_turma"]
     if dadosPOST is None:
         print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
