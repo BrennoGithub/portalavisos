@@ -4,10 +4,21 @@ import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
 import Card from "../Compornentes/Card.jsx"
+import Carregando from "../Compornentes/Carregando.jsx"
 
 
 function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
     const [informativos, setInformativos] = useState([])
+    const [carregando, setCarregando] = useState(true)
+
+    function CarregandoInfo({carregando, children}){
+        if (carregando){
+            return <Carregando/>
+        } else{
+            return children
+        }
+
+    }
 
     function FormataData(lista, tipoData){
         lista.map(info => {
@@ -21,7 +32,6 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
 
     useEffect(() => {
         let listaInformativos
-        let intervalId;
         async function BuscaInformativo(tipoInfo){
             switch (info){
                 case "avaliacoes":
@@ -57,11 +67,12 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
                     setInformativos(listaInformativos);
                     break;
             }
+            setCarregando(false)
         };
 
         BuscaInformativo(info);
 
-    }, [info, objetoUsuario]);
+    }, [info, objetoUsuario, carregando]);
     
 
     return (
@@ -69,7 +80,9 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
             <BarraLateral dadosUsuario={objetoUsuario}/>
             <Cabecalho/>
             <Corpo titulo={tituloSessao}>
-                {informativos.map((info, index) => (<Card objetoInfo={info} exibiEdit={true} key={index}/>))}
+                <CarregandoInfo carregando={carregando}>
+                    {informativos.map((info, index) => (<Card objetoInfo={info} exibiEdit={true} key={index}/>))}
+                </CarregandoInfo>
             </Corpo>
         </>
     )
