@@ -15,7 +15,7 @@ export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerhold
             </legend>
             {obrigatorio ? 
             <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} required/> : 
-            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} />}
+            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder}/>}
         </fieldset>
     )
 }
@@ -90,7 +90,7 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
 }
 
 export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacerholder, valoresCampos=["", ""]}){
-    useEffect(() =>{
+    useEffect(() => {
         document.getElementById(id_campos[0]).value = valoresCampos[0];
         document.getElementById(id_campos[1]).value = valoresCampos[1];
     }, []);
@@ -113,7 +113,7 @@ export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacer
 }
 
 export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder, valorCampo=""}){
-    useEffect(() =>{
+    useEffect(() => {
         document.getElementById(id_campo).value = valorCampo;
     }, []);
     

@@ -110,6 +110,7 @@ def returnTodosInformativos():
         print("MENSAGEM SERVIDOR: Informativos não encontrados")
         return jsonify({"mensagemServidor": "Informativos não encontrados"})
     else:
+        listaInformativo = sorted(listaInformativo, key=lambda x: (x["dataCriacao"], x["horaCriacao"]), reverse=True) # <-- Organza a lista por dataCriacao
         return jsonify(listaInformativo)
 
 @app.route("/informativos/<string:assunto>")
@@ -142,9 +143,13 @@ def returnInformativos_assunto(assunto):
         return "MENSAGEM SERVIDOR: Informativos não encontrados"
     else:
         if assunto == "avaliacoes":
-            lista_assunto = sorted(lista_assunto, key=lambda x: x["dataAvaliacao"]) # <-- Organza a lista por dataAvaliacao
+            lista_assunto = sorted(lista_assunto, key=lambda x: (x.get("dataAvaliacao", ""), x.get("horaAvaliacao", ""))) # <-- Organza a lista por dataAvaliacao
         elif assunto == "eventos":
-            lista_assunto = sorted(lista_assunto, key=lambda x: x["data_InicioEvento"]) # <-- Organza a lista por data_InicioEvento
+            lista_assunto = sorted(lista_assunto, key=lambda x: (x.get("data_InicioEvento", ""), x.get("hora_InicioEvento", ""))) # <-- Organza a lista por data_InicioEvento
+        elif assunto == "materiais":
+            lista_assunto = sorted(lista_assunto, key=lambda x: x.get("materia", "").lower()) # <-- Organza a lista por materia
+        else:
+            lista_assunto = sorted(lista_assunto, key=lambda x: (x["dataCriacao"], x["horaCriacao"]), reverse=True) # <-- Organza a lista por dataCriacao
         return jsonify(lista_assunto)
     
 @app.route("/informativos/<int:ID_informativo>")

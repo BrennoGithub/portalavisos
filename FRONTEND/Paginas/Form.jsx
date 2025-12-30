@@ -30,9 +30,9 @@ function Form({dadosUsuario}){
                 setDadosAdicionais(<>
                     <Campo nomeCampo="Nome do Evento" id_campo="nomeEvento" 
                         mensagemPlacerholder="Nome do evento" obrigatorio={true}/>
-                    <IntervaloTempo tipoInput="date" nomeCampo="Dias do Evento" id_campos={["dataInicial_Evento", "dataFinal_Evento"]}
+                    <IntervaloTempo tipoInput="date" nomeCampo="Dias do Evento" id_campos={["data_InicioEvento", "data_FinalEvento"]}
                         mensagensPlacerholder={["Inicio:", "Fim:"]}/>
-                    <IntervaloTempo tipoInput="time" nomeCampo="Horario do Evento" id_campos={["horaInicial_Evento", "horaFinal_Evento"]}
+                    <IntervaloTempo tipoInput="time" nomeCampo="Horario do Evento" id_campos={["hora_InicioEvento", "hora_FinalEvento"]}
                         mensagensPlacerholder={["Inicio:", "Fim:"]}/>
                 </>)
                 break;

@@ -12,8 +12,8 @@ lista_informativos = [
      "anexo": "ARQUIVO", "dataCriacao": "2025-12-07 HH:MM:SS"},
 
     {"ID_turma": 1, "ID_informativo": 3, "assunto":"Evento",
-     "nomeEvento": "festa da uva", "dataInicial_Evento": "2025-12-07", "dataFinal_Evento": "2025-12-07", 
-     "horaInicial_Evento": "HH:MM:SS", "horaFinal_Evento": "HH:MM:SS",
+     "nomeEvento": "festa da uva", "data_InicioEvento": "2025-12-07", "data_FinalEvento": "2025-12-07", 
+     "hora_InicioEvento": "HH:MM:SS", "hora_FinalEvento": "HH:MM:SS",
      "mensagem": "texto", "anexo": "ARQUIVO", "dataCriacao": "2025-12-07 HH:MM:SS"},
 
     {"ID_turma": 1, "ID_informativo": 4, "assunto":"Material Didatico", "materia": "matematica", "assuntoMaterial": "matematica",

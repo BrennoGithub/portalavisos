@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react"
 import {GET} from "../js/requisicaoHTTP.js"
+import {FormataData} from "../js/datas_informativos.js"
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
@@ -19,16 +20,6 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
         }
 
     }
-
-    function FormataData(lista, tipoData){
-        lista.map(info => {
-            let data = info[tipoData];
-            data = data.split("-");
-            let dia = data[2];
-            let mes = data[1];
-            let ano = data[0];
-            info[tipoData] = `${dia}/${mes}/${ano}`})
-    };
 
     useEffect(() => {
         let listaInformativos

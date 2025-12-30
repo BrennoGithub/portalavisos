@@ -37,8 +37,8 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
     return (
         <a href="" className={Deslogar ? "deslogar" : "sessao"} onClick={async (event) => {Navegacao(event)}}>
             <img src={icone} alt={descricaoIcone} className="icone"/>
-            <span className={Deslogar ? "textoDeslogar" : "textoSessao"}
-                onClick={(event) => {Deslogar(event)}}>{nomeSessao}</span>
+            {Deslogar ? <span className="textoDeslogar" onClick={(event) => {Deslogar(event)}}>{nomeSessao}</span>
+                : <span className="textoSessao">{nomeSessao}</span>}
         </a>
     )
 }

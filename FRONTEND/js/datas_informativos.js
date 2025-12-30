@@ -1,28 +1,37 @@
 // Organizar informativos em ordem cronologica
+export function FormataData(lista, tipoData) {
+    lista.map(info => {
+        let data = info[tipoData];
+        data = data.split("-");
+        let dia = data[2];
+        let mes = data[1];
+        let ano = data[0];
+        info[tipoData] = `${dia}/${mes}/${ano}`
+    })
+};
 
 ///formata as datas dos formularios
-export function formataDataForm(tipo, dataOriginal){
+export function formataDataForm(tipo, dataOriginal) {
     let formatacao = ``;
-    switch (tipo){
+    switch (tipo) {
         case "data":
             const data = new Date(dataOriginal)
 
             let dia = Number(data.getDate()) + 1;
-            if(Number(dia) < 10){ dia = "0"+dia; }
+            if (Number(dia) < 10) { dia = "0" + dia; }
 
             let mes = Number(data.getMonth()) + 1;
-            if(Number(mes) < 10){ mes = "0"+mes; }
+            if (Number(mes) < 10) { mes = "0" + mes; }
 
             const ano = data.getFullYear();
 
             formatacao = `${ano}-${mes}-${dia}`;
             break;
         case "hora":
-            horaOriginal = dataOriginal.split(":")
-            const hora = Number(horaOriginal[0]) < 10 ? `0${horaOriginal[0]}` : horaOriginal[0]
-            const minuto = Number(horaOriginal[1]) < 10 ? `0${horaOriginal[1]}` : horaOriginal[1]
+            const horaOriginal = dataOriginal.split(":");
+            const hora = horaOriginal[0]
+            const minuto = horaOriginal[1]
             formatacao = horaOriginal.length === 2 ? `${hora}:${minuto}:00` : dataOriginal
-            alert(formatacao)
             break;
         default:
             formatacao = dataOriginal;
