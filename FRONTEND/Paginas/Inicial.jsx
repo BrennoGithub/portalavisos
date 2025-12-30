@@ -1,23 +1,25 @@
 import {useState, useEffect} from "react"
 import {GET} from "../js/requisicaoHTTP.js"
+import {FormataData} from "../js/datas_informativos.js"
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
 import Card from "../Compornentes/Card.jsx"
+import Carregando from "../Compornentes/Carregando.jsx"
 
 
 function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
     const [informativos, setInformativos] = useState([])
+    const [carregando, setCarregando] = useState(true)
 
-    function FormataData(lista, tipoData){
-        lista.map(info => {
-            let data = info[tipoData];
-            data = data.split("-");
-            let dia = data[2];
-            let mes = data[1];
-            let ano = data[0];
-            info[tipoData] = `${dia}/${mes}/${ano}`})
-    };
+    function CarregandoInfo({carregando, children}){
+        if (carregando){
+            return <Carregando/>
+        } else{
+            return children
+        }
+
+    }
 
     useEffect(() => {
         let listaInformativos
@@ -56,19 +58,22 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
                     setInformativos(listaInformativos);
                     break;
             }
+            setCarregando(false)
         };
 
         BuscaInformativo(info);
 
-    }, [info]);
+    }, [info, objetoUsuario, carregando]);
     
 
     return (
         <>
-            <BarraLateral liderTurma={objetoUsuario["liderTurma"]} nomeUsuario={objetoUsuario["nomeUsuario"]} tipoUsuario={objetoUsuario["tipoUsuario"]}/>
+            <BarraLateral dadosUsuario={objetoUsuario}/>
             <Cabecalho/>
             <Corpo titulo={tituloSessao}>
-                {informativos.map((info, index) => (<Card objetoInfo={info} exibiEdit={true} key={index}/>))}
+                <CarregandoInfo carregando={carregando}>
+                    {informativos.map((info, index) => (<Card objetoInfo={info} exibiEdit={true} key={index}/>))}
+                </CarregandoInfo>
             </Corpo>
         </>
     )

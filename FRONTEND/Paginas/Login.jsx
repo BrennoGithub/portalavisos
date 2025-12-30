@@ -6,9 +6,10 @@ import "../css/estilo_global.css";
 import "../css/estilo_login.css";
 
 
-function Login(){
+function Login({setLogado}){
     const [mensagemServidor, setMensagem] = useState(null);
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+
     async function SubmitLogin(event){
         event.preventDefault()
         const UsuarioMatricula = document.getElementById("matricula").value;
@@ -18,7 +19,12 @@ function Login(){
             "senha": SenhaUsuario
         }
         const RespostaLogin = await POST("http://localhost:5000/login", dadosLogin)
-        RespostaLogin["login"] ? navigate("/") : setMensagem("Matricula ou senha incorreta.")
+        if (RespostaLogin["login"]){
+            setLogado(true)
+            navigate("/")
+        }else{
+            setMensagem("Matricula ou senha incorreta.")
+        }
     }
 
     return (

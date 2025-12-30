@@ -3,7 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 
 app = Flask(__name__)
+
+#CRIAR FUNCIONALIDADE QUE USE OUTRA PORTA QUANDO UMA ESTIVER SENDO USADA.
 CORS(app, supports_credentials=True, origins="http://localhost:5173")
+
 app.secret_key = "b48297f927dbf1a7c8e0e927927dbf1db48297f4a7c8e0e927dbf1d3e9b56c1abf1d3e9b56c1a" 
 
 configuracao = {

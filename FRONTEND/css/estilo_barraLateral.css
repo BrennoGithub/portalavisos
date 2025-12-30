@@ -84,13 +84,21 @@
 }
 
 .sessao {
-    display: flex;
-    align-items: center; /* Alinha o ícone e o texto verticalmente */
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-template-rows: 50px;
     gap: 20px; /* Adiciona um espaço de 8px entre o ícone e o texto */
 }
 
 .sessao:hover {
     background: rgb(237, 237, 237);
+}
+
+.textoSessao{
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 6px;
+    font-size: 19px;
 }
 
 .deslogar{
@@ -109,6 +117,7 @@
     color: #EA3323;
     display: inline-block;
     vertical-align: middle;
+    margin-left: 6px;
 }
 
 .icone{
@@ -117,7 +126,3 @@
     vertical-align: middle;
 }
 
-.textoSessao{
-    display: inline-block;
-    vertical-align: middle;
-}

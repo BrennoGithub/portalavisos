@@ -15,12 +15,12 @@ export function Campo({nomeCampo, tipoInput="text", id_campo, mensagemPlacerhold
             </legend>
             {obrigatorio ? 
             <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} required/> : 
-            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} />}
+            <input type={tipoInput} id={id_campo} name={id_campo} placeholder={mensagemPlacerholder}/>}
         </fieldset>
     )
 }
 
-export function DoisCampos({tiposInput=["text", "text"], nomesCampos, id_campos, mensagensPlacerholder, valoresCampos=["", ""]}){
+export function DoisCampos({tiposInput=["text", "text"], nomesCampos, id_campos, mensagensPlacerholder=["", ""], valoresCampos=["", ""]}){
     useEffect(() =>{
         document.getElementById(id_campos[0]).value = valoresCampos[0];
         document.getElementById(id_campos[1]).value = valoresCampos[1];
@@ -62,13 +62,18 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
         setExibiOpcoes(!exibiOpcoes);
     }
 
-    function SelecionaTexto(event, ID_campo, Opcao){
+    function SelecionaTexto(event, Opcao){
         event.preventDefault();
         setAssuntoInfo(Opcao)
-        document.getElementById(ID_campo).value = assuntoInfo;
-        funcaoSelecao ? funcaoSelecao(Opcao) : null
-        ExibiOpcoes();
+        ExibiOpcoes()
+        
     }
+
+    useEffect(() => {
+        document.getElementById(id_campo).value = assuntoInfo;
+        funcaoSelecao ? funcaoSelecao(assuntoInfo) : null
+
+    }, [assuntoInfo])
 
     return (
         <fieldset className="area_campo_assunto">
@@ -76,16 +81,16 @@ export function TextoSelecao({listaOpcoes, nomeCampo, mensagemPlacerholder, id_c
                 <label htmlFor={id_campo}>{nomeCampo}</label>
             </legend>
             <input type="text" id={id_campo} name={id_campo} placeholder={mensagemPlacerholder} 
-                autoComplete="off" onFocus={() => {ExibiOpcoes()}} onChange={() => {funcaoSelecao("")}}/>
+                autoComplete="off" onFocus={() => {ExibiOpcoes()}} onChange={() => {setAssuntoInfo("")}} />
             {exibiOpcoes ? <div className="areaOpcoes">
-                {listaOpcoes.map((opcao, index) => (<a href="" className="opcaoInformativo" value={opcao[0]} key={index} id={index} onClick={(event) => {SelecionaTexto(event, id_campo, opcao[1])}}>{opcao[1]}</a>))}
+                {listaOpcoes.map((opcao, index) => (<a href="" className="opcaoInformativo" value={opcao[1]} key={index} id={opcao[0]} onClick={(event) => {SelecionaTexto(event, opcao[1])}}>{opcao[1]}</a>))}
             </div> : null}
         </fieldset>
     )
 }
 
 export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacerholder, valoresCampos=["", ""]}){
-    useEffect(() =>{
+    useEffect(() => {
         document.getElementById(id_campos[0]).value = valoresCampos[0];
         document.getElementById(id_campos[1]).value = valoresCampos[1];
     }, []);
@@ -108,7 +113,7 @@ export function IntervaloTempo({tipoInput, nomeCampo, id_campos, mensagensPlacer
 }
 
 export function CampoAnexo({nomeCampo, id_campo, mensagemPlacerholder, valorCampo=""}){
-    useEffect(() =>{
+    useEffect(() => {
         document.getElementById(id_campo).value = valorCampo;
     }, []);
     

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import {useEffect, useState} from "react"
 import { closeNav, clickFecha } from "../js/barra_lateral.js"
 import {POST} from "../js/requisicaoHTTP.js"
 import "../css/estilo_barraLateral.css"
@@ -18,8 +19,14 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
     async function Navegacao(event){
         event.preventDefault()
         if(Deslogar){
-            sessaoLimpa = await POST("http://localhost:5000/logout", {"logout": true});
-            sessaoLimpa["deslogado"] && "deslogado" in sessaoLimpa ? navigate("http://localhost:5173/") : alert("Erro no desloge")
+            try{
+                await POST("http://localhost:5000/logout", {"logout": true});
+                
+            } catch (error){
+                alert(`Erro no deslogar na sessão: ${error}`)
+            }
+            navigate("/login")
+            
         } else{
             navigate(rotaAPI);
             clickFecha();
@@ -30,15 +37,25 @@ function SessaoBarra({icone, descricaoIcone, nomeSessao, rotaAPI, Deslogar=false
     return (
         <a href="" className={Deslogar ? "deslogar" : "sessao"} onClick={async (event) => {Navegacao(event)}}>
             <img src={icone} alt={descricaoIcone} className="icone"/>
-            <span className={Deslogar ? "textoDeslogar" : "textoSessao"}
-                onClick={(event) => {Deslogar(event)}}>{nomeSessao}</span>
+            {Deslogar ? <span className="textoDeslogar" onClick={(event) => {Deslogar(event)}}>{nomeSessao}</span>
+                : <span className="textoSessao">{nomeSessao}</span>}
         </a>
     )
 }
 
 
-function BarraLateral({nomeUsuario, tipoUsuario="", liderTurma="False"}){
+function BarraLateral({dadosUsuario}){
+    const [nomeUsuario, setNome] = useState("")
+    const [liderTurma, setLider] = useState("False")
+    const [tipoUsuario, setTipo] = useState("")
     const navigate = useNavigate()
+
+    useEffect(() => {
+        setNome(dadosUsuario["nomeUsuario"])
+        setTipo(dadosUsuario["tipoUsuario"])
+        "liderTurma" in dadosUsuario ? setLider("True") : null
+    }, [])
+    
     return (
         <nav id="mySidebar" className="sidebar">
             <a href="javascript:void(0)" className="closebtn" onClick={() => {closeNav()}}>
