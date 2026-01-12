@@ -1,4 +1,4 @@
-import menu from "../icones/Menu_branco.svg"
+import menu from "../icones/Menu_preto.svg"
 import {openNav} from "../js/barra_lateral.js"
 import "../css/estilo_Informativos.css"
 

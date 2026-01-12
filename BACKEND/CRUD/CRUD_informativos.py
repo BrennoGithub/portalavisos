@@ -1,9 +1,8 @@
 from Modelos.Informativos import *
 from Modelos.Materias import Materias
-from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos
+from CRUD.CRUD_arquivos import GET_arquivos, POST_arquivos, PUT_arquivos, DELETE_arquivos
 from App import db
 from datetime import datetime
-#ADICIONAR O REGISTRO DE ARQUIVOS QUE ESTÃO ANEXADOS COM OS INFORMATIVOS
 
 #Função GET
 def GET_informartivos(ID_turma):
@@ -43,7 +42,8 @@ def GET_informartivos(ID_turma):
                     objetoInformativo["horaAvaliacao"] = dataAvaliacao_Fragmentada[1]
                     
                     materia = Materias.query.get_or_404(dadosAdicionais.materia)
-                    objetoInformativo["materia"] = materia.nomeMateria
+                    objetoInformativo["nomeMateria"] = materia.nomeMateria
+                    objetoInformativo["ID_materia"] = materia.ID_materia
 
             case "Evento":
                 dadosAdicionais = Dados_eventos.query.filter_by(informativo=info.ID_informativo).first()
@@ -59,7 +59,8 @@ def GET_informartivos(ID_turma):
                 if dadosAdicionais or dadosAdicionais is not None:
                     materia = Materias.query.get_or_404(dadosAdicionais.materia)
 
-                    objetoInformativo["materia"] = materia.nomeMateria
+                    objetoInformativo["nomeMateria"] = materia.nomeMateria
+                    objetoInformativo["ID_materia"] = materia.ID_materia
                     objetoInformativo["assuntoMaterial"] = dadosAdicionais.assuntoMaterial
                     
         lista_informativos.append(objetoInformativo)
@@ -88,7 +89,10 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
     db.session.add(relacionamento)
     db.session.commit()
 
-    #POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
+    if "anexo" in objetoInformativo:
+        arquivoAnexado = POST_arquivos(novo_informativo.ID_informativo, objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
+        if arquivoAnexado != True:
+            print("MENSAGEM SERVIDOR: Erro no anexo de arquivo no informativo.")
 
     novos_dadosAdicionais = None
     match assuntoInformativo:
@@ -127,11 +131,18 @@ def POST_informativo(assuntoInformativo, objetoInformativo):
 def PUT_informativo(ID_informativo, assuntoInformativo, objetoInformativo):
     informativo = Informativos.query.get(ID_informativo)
     if informativo == None:
-        print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor": "Informativo não encontrado"}
+        print("MENSAGEM SERVIDOR: Informativo não encontrado.")
+        return {"mensagemServidor": "Informativo não encontrado."}
    
     if informativo.mensagem != objetoInformativo["mensagem"]:
         informativo.mensagem = objetoInformativo["mensagem"]
+
+    if "anexo" in objetoInformativo:
+        anexoEditado = PUT_arquivos(objetoInformativo["ID_arquivo"], objetoInformativo["tipoAnexo"], objetoInformativo["anexo"])
+        if anexoEditado != True:
+            print("MENSAGEM SERVIDOR: Erro na edição de arquivos anexados.")
+        else:
+            print("MENSAGEM SERVIDOR: Arquivo anexado atualizado com sucesso.")
     
     match assuntoInformativo:
         case "Avaliação":
@@ -191,8 +202,8 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
 
     informativo = Informativos.query.get(ID_informativo)
     if informativo is None:
-        print("MENSAGEM SERVIDOR: Informativo não encontrado")
-        return {"mensagemServidor": "Informativo não encontrado"}
+        print("MENSAGEM SERVIDOR: Informativo não encontrado.")
+        return {"mensagemServidor": "Informativo não encontrado."}
 
     if relacionamento is not None:
         db.session.delete(relacionamento)
@@ -201,6 +212,14 @@ def DELETE_informativo(ID_informativo, assuntoInformativo):
     if dadosAdicionais is not None:
         db.session.delete(dadosAdicionais)
         db.session.commit()
+
+    listaAnexos = GET_arquivos(ID_informativo)
+    for item in listaAnexos:
+        anexoDeletado = DELETE_arquivos(ID_informativo)
+        if anexoDeletado != True:
+            print("MENSAGEM SERVIDOR: Erro na exclusão de arquivo anexado ao informativo.")
+            break
+    print("MENSAGEM SERVIDOR: Arquivo anexado deletado com sucesso.")
     
     db.session.delete(informativo)
     db.session.commit()

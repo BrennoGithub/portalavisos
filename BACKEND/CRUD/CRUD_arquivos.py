@@ -41,14 +41,46 @@ def POST_arquivos(ID_informativo, tipoArquivo, arquivo): # Registro de apenas 1 
     db.session.commit()
 
     print("MENSAGEM SERVIDOR: Arquivo anexado ao informativo com sucesso")
-    #return {"mensagemServidor": "Arquivo anexado ao informativo com sucesso"}
+    return True
 
 #Função POST
-def PUT_arquivos(ID_arquivos, tipoArquivo, arquivo):
-    print("MENSAGEM SERVIDOR: ")
-    return {"mensagemServidor": ""}
+def PUT_arquivos(ID_arquivo, tipoArquivo, arquivoEditado):
+    arquivo= Arquivos.query.get(ID_arquivo)
+    if arquivo == None:
+        print("MENSAGEM SERVIDOR: Arquivo anexado não encontrado ou não existe.")
+        return {"mensagemServidor": "Arquivo anexado não encontrado ou não existe."}
+    
+    if tipoArquivo != arquivo.tipoArquivo:
+        arquivo.tipoArquivo = tipoArquivo
+
+    if arquivoEditado != arquivo.arquivo:
+        arquivo.arquivo = arquivoEditado
+
+    db.session.commit()
+
+    return True
 
 #Função POST
-def DELETE_arquivos(ID_informativo, ID_arquivos):
-    print("MENSAGEM SERVIDOR: ")
-    return {"mensagemServidor": ""}
+def DELETE_arquivos(ID_informativo):
+    relacionamento = Informativo_arquivo.query.filter_by(informativo=ID_informativo).first()
+    ID_arquivo = None
+
+    if relacionamento is None:
+        print("MENSAGEM SERVIDOR: Relacionamento de arquivo anexado não encontrado ou não existe.")
+        return {"mensagemServidor": "Relacionamento de arquivo não encontrado ou não existe."}
+    
+    elif relacionamento is not None:
+        ID_arquivo = relacionamento.arquivo
+        db.session.delete(relacionamento)
+        db.session.commit()
+
+    arquivo = Arquivos.query.get(ID_arquivo)
+    if arquivo is None:
+        print("MENSAGEM SERVIDOR: Arquivo anexado não encontrado ou não existe.")
+        return {"mensagemServidor": "Arquivo anexado não encontrado ou não existe."}
+    
+    elif arquivo is not None:
+        db.session.delete(arquivo)
+        db.session.commit()
+
+    return True
