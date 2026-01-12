@@ -5,7 +5,9 @@ from CRUD.CRUD_turmas import GET_turma
 from CRUD.CRUD_usuarios import GET_usuario, GET_usuarios
 from CRUD.CRUD_informativos import GET_informartivos, POST_informativo, PUT_informativo, DELETE_informativo
 from CRUD.CRUD_materias import GET_materias
+from CRUD.CRUD_arquivos import GET_arquivos
 
+# Rotas de Login e Logout
 @app.route("/")
 def PaginaPrincipal():
     dadosSessao = {}
@@ -64,6 +66,7 @@ def logout():
         print("MENSAGEM SERVIDOR: Erro na finalização da sessão")
         return jsonify({"deslogado": False})
 
+#Rotas CRUD de usuários
 @app.route("/turmas/<int:ID_turma>")
 def returnTurma(ID_turma):
     if "ID_turma" not in session or session["ID_turma"] != ID_turma:
@@ -88,6 +91,7 @@ def returnUSUARIO(tipoUsuario, matricula):
     
     return jsonify(usuario)
 
+#Rotas CRUD materias
 @app.route("/materias/")
 def returnMaterias():
     if not 'ID_turma' in session:
@@ -98,6 +102,21 @@ def returnMaterias():
 
     return jsonify(lista_materias)
 
+@app.route("/materias/<int:ID_materia>")
+def return_materiaEspecifica(ID_materia):
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    lista_materias = GET_materias(session["ID_turma"])
+
+    for mat in lista_materias:
+        if mat["ID_materia"] == ID_materia:
+            return jsonify(mat)
+        else:
+            return jsonify({"mensagemServidor": "Materia não encontrada."})
+
+#Rotas CRUD de informativos
 @app.route("/informativos/")
 def returnTodosInformativos():
     if not 'ID_turma' in session:
@@ -107,8 +126,8 @@ def returnTodosInformativos():
     listaInformativo = GET_informartivos(session["ID_turma"])
 
     if len(listaInformativo) == 0 or listaInformativo == None:
-        print("MENSAGEM SERVIDOR: Informativos não encontrados")
-        return jsonify({"mensagemServidor": "Informativos não encontrados"})
+        print("MENSAGEM SERVIDOR: Informativos não encontrados.")
+        return jsonify({"mensagemServidor": "Informativos não encontrados."})
     else:
         listaInformativo = sorted(listaInformativo, key=lambda x: (x["dataCriacao"], x["horaCriacao"]), reverse=True) # <-- Organza a lista por dataCriacao
         return jsonify(listaInformativo)
@@ -139,15 +158,15 @@ def returnInformativos_assunto(assunto):
 
 
     if len(lista_assunto) == 0:
-        print("MENSAGEM SERVIDOR: Informativos não encontrados")
-        return "MENSAGEM SERVIDOR: Informativos não encontrados"
+        print("MENSAGEM SERVIDOR: Informativos não encontrados.")
+        return "MENSAGEM SERVIDOR: Informativos não encontrados."
     else:
         if assunto == "avaliacoes":
             lista_assunto = sorted(lista_assunto, key=lambda x: (x.get("dataAvaliacao", ""), x.get("horaAvaliacao", ""))) # <-- Organza a lista por dataAvaliacao
         elif assunto == "eventos":
             lista_assunto = sorted(lista_assunto, key=lambda x: (x.get("data_InicioEvento", ""), x.get("hora_InicioEvento", ""))) # <-- Organza a lista por data_InicioEvento
         elif assunto == "materiais":
-            lista_assunto = sorted(lista_assunto, key=lambda x: x.get("materia", "").lower()) # <-- Organza a lista por materia
+            lista_assunto = sorted(lista_assunto, key=lambda x: x.get("nomeMateria", "").lower()) # <-- Organza a lista por materia
         else:
             lista_assunto = sorted(lista_assunto, key=lambda x: (x["dataCriacao"], x["horaCriacao"]), reverse=True) # <-- Organza a lista por dataCriacao
         return jsonify(lista_assunto)
@@ -167,46 +186,43 @@ def returnInformativo_ID(ID_informativo):
 @app.route("/POST/informativos", methods=["POST"])
 def CREATE_informativo():
     if not "ID_turma" in session:
-        print("MENSAGEM SERVIDOR: Erro na criação de informativo")
-        return jsonify({"mensagemServidor":"Erro na criação de informativo"})
+        print("MENSAGEM SERVIDOR: Erro na criação de informativo.")
+        return jsonify({"mensagemServidor":"Erro na criação de informativo."})
     
     dadosPOST = request.json
-    print(dadosPOST)
     dadosPOST["ID_turma"] = session["ID_turma"]
     if dadosPOST is None:
-        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
-        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição.")
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição."})
     else:
         assuntoInformativo =  dadosPOST["assunto"]
         Resposta = POST_informativo(assuntoInformativo, dadosPOST)
         if Resposta:
-            print("MENSAGEM SERVIDOR: Informativo criado com sucesso")
+            print("MENSAGEM SERVIDOR: Informativo criado com sucesso.")
             return jsonify({"informativoCriado": True})
 
 @app.route("/PUT/informativos/<int:ID_informativo>", methods=["PUT"])
 def UPDATE_informativo(ID_informativo):
     if not "ID_turma" in session:
-        print("MENSAGEM SERVIDOR: Erro na atualização de informativo")
-        return jsonify({"mensagemServidor":"Erro na atualização de informativo"})
+        print("MENSAGEM SERVIDOR: Erro na atualização de informativo.")
+        return jsonify({"mensagemServidor":"Erro na atualização de informativo."})
     
     dadosEdit = request.json
     if dadosEdit is None:
-        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição")
-        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição"})
+        print("MENSAGEM SERVIDOR: Nenhum dado foi encontrado na requisição.")
+        return jsonify({"mensagemServidor":"Nenhum dado foi enviado na requisição."})
     else:
         assuntoInformativo =  dadosEdit["assunto"]
         Resposta = PUT_informativo(ID_informativo, assuntoInformativo, dadosEdit)
         if Resposta:
-            print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso")
+            print("MENSAGEM SERVIDOR: Informativo atualizado com sucesso.")
             return jsonify({"informativoEditado": True})
-    
     
 @app.route("/DELETE/informativos/<int:ID_informativo>", methods=["DELETE"])
 def DELETE_info(ID_informativo):
-    print(session)
     if not "ID_turma" in session:
-        print("MENSAGEM SERVIDOR: Erro na exclusão de informativo")
-        return jsonify({"mensagemServidor":"Erro na exclusão de informativo"})
+        print("MENSAGEM SERVIDOR: Erro na exclusão de informativo.")
+        return jsonify({"mensagemServidor":"Erro na exclusão de informativo."})
     
     
     assuntoInfo = ""
@@ -219,8 +235,37 @@ def DELETE_info(ID_informativo):
     
     Resposta = DELETE_informativo(ID_informativo, assuntoInfo)
     if Resposta:
-        print("MENSAGEM SERVIDOR: Informativo deletado com sucesso")
+        print("MENSAGEM SERVIDOR: Informativo deletado com sucesso.")
         return jsonify({"informativoDeletado": True})
     
+#Rotas CRUD de anexos de informativo
+@app.route("/informativos/<int:ID_informativo>/anexos/")
+def returnArquivos(ID_informativo):
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    listaAnexos = GET_arquivos(ID_informativo)
+
+    if len(listaAnexos) == 0:
+        return jsonify({"mensagemServidor": "Arquivos anexados não encontrados ou não existem."})
+    else:
+        return jsonify(listaAnexos)
+
+@app.route("/informativos/<int:ID_informativo>/anexos/<int:ID_arquivo>")
+def return_ArquivoEspesifico(ID_informativo, ID_arquivo):
+    if not 'ID_turma' in session:
+        print("MENSAGEM SERVIDOR: Sessão expirada ou não autorizado. Faça login novamente.")
+        return jsonify({"mensagemServidor": "Sessão expirada ou não autorizado. Faça login novamente."})
+    
+    listaAnexos = GET_arquivos(ID_informativo)
+
+    if len(listaAnexos) == 0:
+        return jsonify({"mensagemServidor": "Arquivos anexados não encontrados ou não existem."})
+
+    for anexo in listaAnexos:
+        if anexo["ID_arquivo"] == ID_arquivo:
+            return jsonify(anexo)
+
 if __name__ == '__main__':
     app.run(debug=True)
