@@ -1,4 +1,4 @@
-import { CampoAnexo, CampoTexto, Campo, DoisCampos, IntervaloTempo } from "../Compornentes/Campos.jsx";
+import { CampoAnexo, CampoTexto, Campo, DoisCampos, IntervaloTempo, SelecaoMateria} from "../Compornentes/Campos.jsx";
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
@@ -6,7 +6,7 @@ import Carregando from "../Compornentes/Carregando.jsx"
 import { useState, useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { GET, PUT } from "../js/requisicaoHTTP.js"
-import { dadosForm } from "../js/form_informativos.js"
+import { Busca_ListaMaterias, dadosForm } from "../js/form_informativos.js"
 import "../css/estilo_login.css";
 import "../css/estilo_global.css";
 import "../css/estilo_formInformativos.css"
@@ -23,6 +23,7 @@ function CarregandoForm({ carregando, children }) {
 function Edit({ dadosUsuario }) {
     const [informativo, setInformativo] = useState({})
     const [assuntoForm, setAssunto] = useState("");
+    const [anexo, setAnexo] = useState("");
     const [carregando, setCarregando] = useState(true);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -37,8 +38,10 @@ function Edit({ dadosUsuario }) {
                 } else {
                     setInformativo(info);
                     setAssunto(info["assunto"]);
+                    if("anexos" in info && info["anexos"].length != 0){
+                        setAnexo(info["anexos"][0]);
+                    }
                     setCarregando(false);
-                    
                 }
                 
             } catch (error) {
@@ -82,8 +85,8 @@ function Edit({ dadosUsuario }) {
                         {assuntoForm === "Avaliação" ? (<>
                             <Campo nomeCampo="Tipo Avaliação" id_campo="tipoAvaliacao"
                                 mensagemPlacerholder="Ex.: Prova, seminario, lista de exercisios, etc." valorCampo={informativo["tipoAvaliacao"]} obrigatorio={true} />
-                            <DoisCampos nomesCampos={["Materia", "Assunto da Avaliação"]} id_campos={["materia", "assuntoAvaliacao"]}
-                                mensagensPlacerholder={["Materia da avaliação", "Assunto da avaliação"]} valoresCampos={[informativo["materia"], informativo["assuntoAvaliacao"]]} />
+                            <SelecaoMateria valorCampo={informativo["nomeMateria"]} ID_materia={informativo["ID_materia"]}/>
+                            <Campo nomeCampo={"Assunto da Avaliação"} id_campo={"assuntoAvaliacao"} mensagemPlacerholder={"Assunto da avaliação"} obrigatorio={true} valorCampo={informativo["assuntoAvaliacao"]}/>
                             <DoisCampos tiposInput={["date", "time"]} id_campos={["dataAvaliacao", "horaAvaliacao"]}
                                 nomesCampos={["Dia da Avaliação", "Hora da Avaliação"]} valoresCampos={[informativo["dataAvaliacao"], informativo["horaAvaliacao"]]} />
                         </>) : null}
@@ -98,8 +101,8 @@ function Edit({ dadosUsuario }) {
                         </>) : null}
 
                         {assuntoForm === "Material Didatico" ? (<>
-                            <DoisCampos nomesCampos={["Materia", "Assunto do Material"]} id_campos={["materia", "assuntoMaterial"]}
-                                mensagensPlacerholder={["Materia", "Assunto do Material Didatico"]} valoresCampos={[informativo["materia"], informativo["assuntoMaterial"]]} />
+                            <SelecaoMateria valorCampo={informativo["nomeMateria"]} ID_materia={informativo["ID_materia"]}/>
+                            <Campo nomeCampo={"Assunto da Material"} id_campo={"assuntoMaterial"} mensagemPlacerholder={"Assunto do material"} valorCampo={informativo["assuntoMaterial"]} obrigatorio={true}/>
                         </>) : null}
 
                         {!["Avaliação", "Evento", "Material Didatico"].includes(assuntoForm) ? (<>
@@ -108,7 +111,8 @@ function Edit({ dadosUsuario }) {
                                 obrigatorio={true} valorCampo={assuntoForm} />
                         </>) : null}
 
-                        <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" />
+                        <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link" valorCampo={anexo["arquivo"]} tipoAnexo={anexo["tipoArquivo"]}/>
+                        <input type="hidden" name="ID_arquivo" id="ID_arquivo" value={anexo["ID_arquivo"]}/>
                         <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true} valorCampo={informativo["mensagem"]} />
                         <button type="submit" id="criaAviso" className="botao_campo_form">Editar</button>
                     </form>

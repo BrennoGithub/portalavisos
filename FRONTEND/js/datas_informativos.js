@@ -1,12 +1,25 @@
 // Organizar informativos em ordem cronologica
-export function FormataData(lista, tipoData) {
+export function FormataData(lista, tipoData, tipo) {
     lista.map(info => {
-        let data = info[tipoData];
-        data = data.split("-");
-        let dia = data[2];
-        let mes = data[1];
-        let ano = data[0];
-        info[tipoData] = `${dia}/${mes}/${ano}`
+        if(tipoData in info){
+            switch (tipo){
+                case "Data":
+                    let data = info[tipoData];
+                    data = data.split("-");
+                    let dia = data[2];
+                    let mes = data[1];
+                    let ano = data[0];
+                    info[tipoData] = `${dia}/${mes}/${ano}`
+                    break;
+                case "Hora":
+                    let horario = info[tipoData];
+                    horario = horario.split(":");
+                    let horas = horario[0];
+                    let minutos = horario[1];
+                    info[tipoData] = `${horas}:${minutos}`
+                    break;
+            }
+        }
     })
 };
 

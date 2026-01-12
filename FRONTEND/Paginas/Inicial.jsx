@@ -27,34 +27,48 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
             switch (info){
                 case "avaliacoes":
                     listaInformativos = await GET(`http://localhost:5000/informativos/${tipoInfo}`);
-                    FormataData(listaInformativos, "dataCriacao");
-                    FormataData(listaInformativos, "dataAvaliacao");
+                    FormataData(listaInformativos, "dataCriacao", "Data");
+                    FormataData(listaInformativos, "horaCriacao", "Hora");
+                    FormataData(listaInformativos, "dataAvaliacao", "Data");
+                    FormataData(listaInformativos, "horaAvaliacao", "Hora");
                     setInformativos(listaInformativos);
                     break;
     
                 case "eventos":
                     listaInformativos = await GET(`http://localhost:5000/informativos/${tipoInfo}`);
-                    FormataData(listaInformativos, "dataCriacao");
-                    FormataData(listaInformativos, "data_FinalEvento");
-                    FormataData(listaInformativos, "data_InicioEvento");
+                    FormataData(listaInformativos, "dataCriacao", "Data");
+                    FormataData(listaInformativos, "horaCriacao", "Hora");
+                    FormataData(listaInformativos, "data_FinalEvento", "Data");
+                    FormataData(listaInformativos, "data_InicioEvento", "Data");
+                    FormataData(listaInformativos, "hora_FinalEvento", "Hora");
+                    FormataData(listaInformativos, "hora_InicioEvento", "Hora");
                     setInformativos(listaInformativos);
                     break;
     
                 case "materiais":
                     listaInformativos = await GET(`http://localhost:5000/informativos/${tipoInfo}`);
-                    FormataData(listaInformativos, "dataCriacao");
+                    FormataData(listaInformativos, "dataCriacao", "Data");
+                    FormataData(listaInformativos, "horaCriacao", "Hora");
                     setInformativos(listaInformativos);
                     break;
     
                 case "avisos":
                     listaInformativos = await GET(`http://localhost:5000/informativos/${tipoInfo}`);
-                    FormataData(listaInformativos, "dataCriacao");
+                    FormataData(listaInformativos, "dataCriacao", "Data");
+                    FormataData(listaInformativos, "horaCriacao", "Hora");
                     setInformativos(listaInformativos);
                     break;
     
                 default:
                     listaInformativos = await GET(`http://localhost:5000/informativos/${tipoInfo}`);
-                    FormataData(listaInformativos, "dataCriacao");
+                    FormataData(listaInformativos, "dataCriacao", "Data");
+                    FormataData(listaInformativos, "horaCriacao", "Hora");
+                    FormataData(listaInformativos, "dataAvaliacao", "Data");
+                    FormataData(listaInformativos, "horaAvaliacao", "Hora");
+                    FormataData(listaInformativos, "data_InicioEvento", "Data");
+                    FormataData(listaInformativos, "data_FinalEvento", "Data");
+                    FormataData(listaInformativos, "hora_FinalEvento", "Hora");
+                    FormataData(listaInformativos, "hora_InicioEvento", "Hora");
                     setInformativos(listaInformativos);
                     break;
             }
@@ -68,7 +82,7 @@ function Inicial({info="", tituloSessao="Mural", objetoUsuario}){
 
     return (
         <>
-            <BarraLateral dadosUsuario={objetoUsuario}/>
+            <BarraLateral dadosUsuario={objetoUsuario} nomePagina={tituloSessao}/>
             <Cabecalho/>
             <Corpo titulo={tituloSessao}>
                 <CarregandoInfo carregando={carregando}>

@@ -12,7 +12,7 @@ export async function GET(rota){
         }
 
     } catch (erro) {
-        console.error("Erro na busca de dados", erro)
+        console.error(`Erro na busca de dados: ${erro.message || erro}`);
         return {"mensagemServidor": `Erro na busca de dados: ${erro.message || erro}`};
     }
 };
@@ -31,7 +31,7 @@ export async function POST(rota, objeto) {
         return resposta
     }
     catch {
-        console.error("Erro no envio de dados", erro)
+        console.error(`Erro no envio de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro no envio de dados: ${erro.message || erro}`}
     }
 };
@@ -50,7 +50,7 @@ export async function PUT(rotaEspecifica, objeto) {
         return resposta
     }
     catch{
-        console.error("Erro na atualização de dados", erro)
+        console.error(`Erro na atualização de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro na atualização de dados: ${erro.message || erro}`};
     }
 };
@@ -67,7 +67,7 @@ export async function DELETE(rotaEspecifica) {
         return resposta
     }
     catch{
-        console.error("Erro na excluição de dados", erro)
+        console.error(`Erro na excluição de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro na excluição de dados: ${erro.message || erro}`};
     }
 };

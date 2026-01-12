@@ -34,9 +34,8 @@
 .openbtn {
     font-size: 20px;
     cursor: pointer;
-    background-color: #789DBC;
     color: white;
-    padding: 8px 10px;
+    padding: 8px;
     border: none;
 }
 
@@ -78,9 +77,13 @@
 }
 
 .icon_menu{
-    width: 20px;
-    height: 25px;
+    width: 25px;
+    height: 28px;
     border-radius: 5px;
+}
+
+.icon_menu:hover{
+    background-color: #88b2d4;
 }
 
 .sessao {

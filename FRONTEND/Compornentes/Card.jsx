@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import { DELETE } from "../js/requisicaoHTTP"
 import "../css/estilo_Informativos.css"
 import Delete from "../icones/Delete.svg"
 import Edit from "../icones/Edit.svg"
 
 function Card({ objetoInfo, exibiEdit }) {
+    const [exibiEdit_Mouse, setExibi] = useState(false);
     const navigate = useNavigate();
     let estiloTitulo
     let estiloCorpo
@@ -14,10 +16,10 @@ function Card({ objetoInfo, exibiEdit }) {
         case "Avaliação":
             estiloTitulo = "verde_1"
             estiloCorpo = "verde_2"
-            Titulo = objetoInfo["tipoAvaliacao"]
+            Titulo = `${objetoInfo["tipoAvaliacao"]} de ${objetoInfo["nomeMateria"]}`
             Texto = (<>
                 <div>
-                    <strong>Assunto:</strong> {objetoInfo["assuntoAvaliacao"]}
+                    <strong>Assunto:</strong> {objetoInfo["assuntoAvaliacao"]} 
                 </div>
                 <div>
                     <strong>Horario:</strong> <em>{objetoInfo["dataAvaliacao"]} - {objetoInfo["horaAvaliacao"]}</em>
@@ -51,7 +53,7 @@ function Card({ objetoInfo, exibiEdit }) {
         case "Material Didatico":
             estiloTitulo = "laranja_1"
             estiloCorpo = "laranja_2"
-            Titulo = objetoInfo["materia"]
+            Titulo = `Material de ${objetoInfo["nomeMateria"]}`
             Texto = (<>
                 <div>
                     <strong>Assunto:</strong> {objetoInfo['assuntoMaterial']}
@@ -71,13 +73,15 @@ function Card({ objetoInfo, exibiEdit }) {
 
     async function DeleteInfo(ID) {
         try {
-            const RespostaServ = await DELETE(`http://localhost:5000/DELETE/informativos/${ID}`);
-            if ("mensagemServidor" in RespostaServ) {
-                alert(RespostaServ["mensagemServidor"])
-
-            } else if (RespostaServ["informativoDeletado"] && "informativoDeletado" in RespostaServ) {
-                alert("Informativo deletado com sucesso")
-                window.location.reload();
+            const exercutaExclusao = confirm("Deseja prosseguir com a ação de exclusão do informativo?")
+            if(exercutaExclusao){
+                const RespostaServ = await DELETE(`http://localhost:5000/DELETE/informativos/${ID}`);
+                if ("mensagemServidor" in RespostaServ) {
+                    alert(RespostaServ["mensagemServidor"])
+    
+                } else if (RespostaServ["informativoDeletado"] && "informativoDeletado" in RespostaServ) {
+                    window.location.reload();
+                }
             }
 
         } catch (error) {
@@ -85,23 +89,33 @@ function Card({ objetoInfo, exibiEdit }) {
         }
     }
 
+    const horario = new Date();
+    const dia = horario.getDate() < 10 ? `0${horario.getDate()}` : horario.getDate();
+    const mes = horario.getMonth() + 1 < 10 ? `0${horario.getMonth() + 1}` : horario.getMonth() + 1;
+    const ano = horario.getFullYear();
+    const dataAtual = `${dia}/${mes}/${ano}`;
+
     return (
-        <div className="estilo_aviso">
+        <div className="estilo_aviso" onMouseEnter={() => setExibi(!exibiEdit_Mouse)} onMouseLeave={() => setExibi(!exibiEdit_Mouse)}>
             <div className={`segunda_area  ${estiloTitulo}`}>{Titulo}</div>
             <div className={`terceira_area  ${estiloCorpo}`}>
                 {Texto}
-                <br />
-                {exibiEdit ?
-                    <div className="blocoFinal">
+
+                {"anexos" in objetoInfo && objetoInfo["anexos"].length != 0 ?
+                    <div className="areaAnexos">{objetoInfo["anexos"].map((anex, index) => (<a key={index}>{anex["arquivo"]}</a>))}</div>
+                    : null}
+
+                {exibiEdit && exibiEdit_Mouse ?
+                    <div className="blocoFinal" >
                         <div className="botoesEdit">
                             <img src={Delete} alt="Icone Delete" className="icone_delete" onClick={() => { DeleteInfo(objetoInfo["ID_informativo"]) }} />
                             <img src={Edit} alt="Icone Edit" className="icone_delete"
                                 onClick={() => { navigate(`/informativos/${objetoInfo["ID_informativo"]}`) }} />
                         </div>
-                        <div className="dataCriacao">{objetoInfo["dataCriacao"]}</div>
+                        <div className="dataCriacao">{objetoInfo["dataCriacao"] === dataAtual ? objetoInfo["horaCriacao"] : objetoInfo["dataCriacao"]}</div>
                     </div> :
                     <div className="blocoFinal">
-                        <div className="dataCriacao">{objetoInfo["dataCriacao"]}</div>
+                        <div className="dataCriacao">{objetoInfo["dataCriacao"] === dataAtual ? objetoInfo["horaCriacao"] : objetoInfo["dataCriacao"]}</div>
                     </div>}
             </div>
         </div>

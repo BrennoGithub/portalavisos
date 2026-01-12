@@ -1,18 +1,30 @@
 import {formataDataForm} from "./datas_informativos.js";
+import {GET} from "./requisicaoHTTP.js"
 
-//ALTERAR AS CHAVES DAS DATAS DOS EVENTOS
+export async function Busca_ListaMaterias(){
+    const materias = await GET("http://localhost:5000/materias/");
+    let listaMaterias = [];
+    materias.forEach(element => {
+        listaMaterias.push([element["ID_materia"], element["nomeMateria"]]);
+    });
+    return listaMaterias;
+}
+
 export function dadosForm(assuntoForm){
     let dadosForm = {};
     dadosForm["assunto"] = assuntoForm === '' ? "Sem assunto" : assuntoForm;
     dadosForm["mensagem"] = document.getElementById("mensagem").value;
-    //dadosForm["anexo"] = document.getElementById("anexo").value;
-    //dadosForm["tipoAnexo"] = document.getElementById("tipoAnexo").value;
+
+    if(document.getElementById("anexo").value != "" && document.getElementById("tipoAnexo").value != ""){
+        dadosForm["anexo"] = document.getElementById("anexo").value;
+        dadosForm["tipoAnexo"] = document.getElementById("tipoAnexo").value;
+        document.getElementById("ID_arquivo") ? dadosForm["ID_arquivo"] = document.getElementById("ID_arquivo").value : null
+    }
     
     switch (assuntoForm){
         case "Avaliação":
             dadosForm["tipoAvaliacao"] = document.getElementById("tipoAvaliacao").value;
-            //dadosForm["materia"] = document.getElementById("materia").value
-            dadosForm["materia"] = 1;
+            document.getElementById("ID_materia").value != "" ? dadosForm["materia"] = Number(document.getElementById("ID_materia").value) : null
             dadosForm["assuntoAvaliacao"] = document.getElementById("assuntoAvaliacao").value;
 
             const dataAvaliacao = formataDataForm("data", document.getElementById("dataAvaliacao").value);
@@ -39,8 +51,7 @@ export function dadosForm(assuntoForm){
             break;
 
         case "Material Didatico":
-            //dadosForm["materia"] = document.getElementById("materia").value
-            dadosForm["materia"] = 1;
+            document.getElementById("ID_materia").value != "" ? dadosForm["materia"] = Number(document.getElementById("ID_materia").value) : null
             dadosForm["assuntoMaterial"] = document.getElementById("assuntoMaterial").value;
             break;
     }

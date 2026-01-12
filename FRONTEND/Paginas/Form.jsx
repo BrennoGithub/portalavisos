@@ -1,4 +1,4 @@
-import {CampoAnexo, CampoTexto, TextoSelecao, Campo, DoisCampos, IntervaloTempo} from "../Compornentes/Campos.jsx";
+import {CampoAnexo, CampoTexto, SelecaoAssunto, Campo, DoisCampos, IntervaloTempo, SelecaoMateria} from "../Compornentes/Campos.jsx";
 import BarraLateral from "../Compornentes/BarraLateral.jsx"
 import Cabecalho from "../Compornentes/Cabecalho.jsx"
 import Corpo from "../Compornentes/Corpo.jsx"
@@ -14,14 +14,14 @@ function Form({dadosUsuario}){
     const [dadosAdicionais, setDadosAdicionais] = useState(null)
     const navigate = useNavigate();
 
-    function TipoForm(tipo){
+    async function TipoForm(tipo){
         switch (tipo){
             case "Avaliação":
                 setDadosAdicionais(<>
                     <Campo nomeCampo="Tipo Avaliação" id_campo="tipoAvaliacao" 
                         mensagemPlacerholder="Ex.: Prova, seminario, lista de exercisios, etc." obrigatorio={true}/>
-                    <DoisCampos  nomesCampos={["Materia", "Assunto da Avaliação"]}  id_campos={["materia", "assuntoAvaliacao"]}
-                        mensagensPlacerholder={["Materia da avaliação", "Assunto da avaliação"]}/>
+                    <SelecaoMateria/>
+                    <Campo nomeCampo={"Assunto da Avaliação"} id_campo={"assuntoAvaliacao"} mensagemPlacerholder={"Assunto da avaliação"} obrigatorio={true}/>
                     <DoisCampos tiposInput={["date", "time"]} id_campos={["dataAvaliacao", "horaAvaliacao"]} nomesCampos={["Dia da Avaliação", "Hora da Avaliação"]}/>
                 </>)
                 break;
@@ -39,8 +39,8 @@ function Form({dadosUsuario}){
 
             case "Material Didatico":
                 setDadosAdicionais(<>
-                    <DoisCampos nomesCampos={["Materia", "Assunto do Material"]} id_campos={["materia", "assuntoMaterial"]}
-                        mensagensPlacerholder={["Materia", "Assunto do Material Didatico"]}/>
+                    <SelecaoMateria/>
+                    <Campo nomeCampo={"Assunto da Material"} id_campo={"assuntoMaterial"} mensagemPlacerholder={"Assunto do material"} obrigatorio={true}/>
                 </>)
                 break;
 
@@ -66,7 +66,7 @@ function Form({dadosUsuario}){
         <Cabecalho/>
         <Corpo titulo={"Formulario"}>
             <form className="formAviso" onSubmit={async (event) => {CriarInfo(event)}}>
-                <TextoSelecao listaOpcoes={[[1,"Avaliação"],[2,"Evento"],[3,"Material Didatico"]]} nomeCampo="Assunto" mensagemPlacerholder="Digite o assunto do informativo" id_campo="assunto" funcaoSelecao={TipoForm}/>
+                <SelecaoAssunto funcaoSelecao={TipoForm}/>
                 {dadosAdicionais}
                 <CampoAnexo nomeCampo="Anexo" id_campo="anexo" mensagemPlacerholder="Anexe um arquivo ou link"/>
                 <CampoTexto nomeCampo={"Mensagem"} id_campo="mensagem" mensagemPlacerholder={"Digite sua mensagem"} obrigatorio={true}/>
