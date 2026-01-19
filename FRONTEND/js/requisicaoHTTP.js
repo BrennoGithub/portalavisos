@@ -30,7 +30,7 @@ export async function POST(rota, objeto) {
         resposta = await resposta.json();
         return resposta
     }
-    catch {
+    catch (erro) {
         console.error(`Erro no envio de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro no envio de dados: ${erro.message || erro}`}
     }
@@ -49,7 +49,7 @@ export async function PUT(rotaEspecifica, objeto) {
         resposta = await resposta.json();
         return resposta
     }
-    catch{
+    catch (erro) {
         console.error(`Erro na atualização de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro na atualização de dados: ${erro.message || erro}`};
     }
@@ -66,7 +66,7 @@ export async function DELETE(rotaEspecifica) {
         resposta = await resposta.json();
         return resposta
     }
-    catch{
+    catch (erro) {
         console.error(`Erro na excluição de dados: ${erro.message || erro}`)
         return {"mensagemServidor": `Erro na excluição de dados: ${erro.message || erro}`};
     }
