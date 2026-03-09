@@ -36,6 +36,8 @@ export function clickFecha(){
     const larguraJanela = window.innerWidth;
     if(larguraJanela < 1000){
         document.getElementById("mySidebar").style.width = "0";
+        document.getElementById("mySidebar").style.borderRight = "none";
+        document.getElementById("mySidebar").style.boxShadow = "none";
     }
 }
 
